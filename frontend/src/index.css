@@ -1,0 +1,218 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Central Theme Variables - Default values */
+  --color-primary-amber: #f59e0b;
+  --color-primary-gold: #fbbf24;
+  --color-primary-brand-yellow: #dfb722;
+  --color-primary-dark-amber: #d97706;
+  --color-primary-deep-amber: #b45309;
+  --color-primary-light: #fffbeb;
+  --color-primary-soft-yellow: #fef3c7;
+  --color-primary-icon-gloss: #f3f0ed;
+
+  --color-dark-hero-navy: #0b1220;
+  --color-dark-hero-navy-mid: #111c33;
+  --color-dark-midnight: #020617;
+  --color-dark-footer-bg: #0b1220;
+  --color-dark-card-dark: #1e293b;
+
+  --color-surface-page-bg: #f8fafc;
+  --color-surface-card-bg: #ffffff;
+  --color-surface-light-gray: #f1f5f9;
+
+  --color-text-heading: #0f172a;
+  --color-text-subheading: #1e293b;
+  --color-text-body: #334155;
+  --color-text-muted: #64748b;
+  --color-text-caption: #94a3b8;
+  --color-text-light: #ffffff;
+  --color-text-light-muted: #cbd5e1;
+
+  --color-border-card: #e2e8f0;
+  --color-border-subtle: #f1f5f9;
+  --color-border-gold-glow: rgba(245, 158, 11, 0.2);
+
+  --color-utility-whatsapp: #16a34a;
+  --color-utility-whatsapp-light: #25D366;
+  --color-utility-whatsapp-mid: #1ea952;
+  --color-utility-whatsapp-dark: #128c7e;
+  --color-utility-danger: #ef4444;
+  --color-utility-facebook: #1877F2;
+}
+
+@layer utilities {
+  .bg-theme-heading {
+    background-color: var(--color-text-heading, #0f172a) !important;
+  }
+  .bg-theme-heroNavy {
+    background-color: var(--color-dark-hero-navy, #0b1220) !important;
+  }
+  .bg-theme-footerBg {
+    background-color: var(--color-dark-footer-bg, #0b1220) !important;
+  }
+  .bg-theme-pageBg {
+    background-color: var(--color-surface-page-bg, #f8fafc) !important;
+  }
+  .bg-whatsapp-3d {
+    background: linear-gradient(135deg, var(--color-utility-whatsapp-light, #25d366), var(--color-utility-whatsapp-mid, #1ea952), var(--color-utility-whatsapp-dark, #128c7e));
+  }
+  .title-accent-bar {
+    background-color: var(--color-primary-gold, #fbbf24) !important;
+  }
+  .title-accent-dot {
+    background-color: var(--color-primary-amber, #f59e0b) !important;
+    box-shadow: 0 0 6px var(--color-primary-amber, #f59e0b) !important;
+  }
+}
+
+@layer base {
+  body {
+    @apply font-sans text-gray-700 bg-[#f8fafc] antialiased;
+    top: 0px !important;
+    position: static !important;
+  }
+
+  @media (max-width: 639px) {
+    h2:not(.text-xs):not(.text-sm):not(.text-base):not(.text-\[14px\]):not(.text-\[15px\]):not(.text-\[16px\]):not(.text-\[17px\]):not(.text-\[18px\]) {
+      font-size: 23px !important;
+      line-height: 1.28 !important;
+    }
+  }
+}
+
+/* Hide Google Translate top banner & toolbar */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-banner-frame,
+iframe.goog-te-banner-frame,
+.goog-te-balloon-frame {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+#goog-gt-tt,
+.goog-tooltip,
+.goog-tooltip:hover {
+  display: none !important;
+}
+
+.goog-text-highlight {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body > .skiptranslate {
+  display: none !important;
+}
+
+/* Vertical Infinite Marquee Animations for Testimonials */
+@keyframes marquee-vertical {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes marquee-vertical-reverse {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.animate-marquee-vertical {
+  animation: marquee-vertical 25s linear infinite;
+}
+
+.animate-marquee-vertical-reverse {
+  animation: marquee-vertical-reverse 25s linear infinite;
+}
+
+/* Badge Shimmer Light Beam Sweep Animation */
+@keyframes badge-shimmer {
+  0% {
+    transform: translateX(-150%) skewX(-25deg);
+  }
+  40%, 100% {
+    transform: translateX(250%) skewX(-25deg);
+  }
+}
+
+.animate-badge-shimmer {
+  animation: badge-shimmer 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Sleek Dark Custom Scrollbar for Dropdown Menus */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #facc15;
+}
+
+/* Peek-a-boo 3D Waving Hand Animation behind WhatsApp button */
+@keyframes peek-hand-wave {
+  0%, 10% {
+    transform: translate(0, 0) scale(0.3) rotate(-30deg);
+    opacity: 0;
+  }
+  18% {
+    transform: translate(-15px, -20px) scale(1.25) rotate(-18deg);
+    opacity: 1;
+  }
+  23% {
+    transform: translate(-15px, -20px) scale(1.25) rotate(18deg);
+    opacity: 1;
+  }
+  28% {
+    transform: translate(-15px, -20px) scale(1.25) rotate(-18deg);
+    opacity: 1;
+  }
+  33% {
+    transform: translate(-15px, -20px) scale(1.25) rotate(18deg);
+    opacity: 1;
+  }
+  38% {
+    transform: translate(-15px, -20px) scale(1.25) rotate(-18deg);
+    opacity: 1;
+  }
+  43% {
+    transform: translate(-15px, -20px) scale(1.25) rotate(18deg);
+    opacity: 1;
+  }
+  48% {
+    transform: translate(-15px, -20px) scale(1.25) rotate(-15deg);
+    opacity: 1;
+  }
+  53% {
+    transform: translate(-15px, -20px) scale(1.25) rotate(0deg);
+    opacity: 1;
+  }
+  63%, 100% {
+    transform: translate(0, 0) scale(0.3) rotate(-30deg);
+    opacity: 0;
+  }
+}
+
+.animate-peek-hand {
+  animation: peek-hand-wave 5s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+  transform-origin: bottom right;
+}
+
