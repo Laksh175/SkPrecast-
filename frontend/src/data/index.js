@@ -10,3 +10,4 @@ export * from './sitemapData';
 export * from './cataloguesData';
 export * from './navigationData';
 export * from './contactUsData';
+export * from './testimonialsData';

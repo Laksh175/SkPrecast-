@@ -329,7 +329,7 @@ const CurrentJobsPage = () => {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     className="py-12 px-6 text-center"
-                  >
+              >
                     <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4 shadow-md">
                       <CheckCircle size={36} />
                     </div>

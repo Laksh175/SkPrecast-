@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Header, Footer } from './components';
-import { Home, About, ProductsPage, ProductDetailPage, CataloguesPage, ContactUsPage, BlogPage, BlogDetailPage, GalleryPage, ManufacturingUnitPage, SitemapPage, CurrentJobsPage } from './pages';
+import { Home, About, ProductsPage, ProductDetailPage, CataloguesPage, ContactUsPage, BlogPage, BlogDetailPage, GalleryPage, ManufacturingUnitPage, SitemapPage, CurrentJobsPage, TestimonialsPage } from './pages';
 import { getProductBySlug } from './data/productsData';
 import { getBlogPostBySlug } from './data/blogData';
 
@@ -33,6 +33,9 @@ const getInitialRoute = () => {
   } else if (hash.includes('contact')) {
     window.history.replaceState({}, '', '/contact-us');
     return { name: 'contact' };
+  } else if (hash.includes('testimonial')) {
+    window.history.replaceState({}, '', '/testimonials.htm');
+    return { name: 'testimonials' };
   } else if (hash.includes('current-job') || hash.includes('jobs')) {
     window.history.replaceState({}, '', '/current-jobs.htm');
     return { name: 'current-jobs' };
@@ -57,6 +60,15 @@ const getInitialRoute = () => {
   } else if (hash === '#/' || hash === '#home') {
     window.history.replaceState({}, '', '/');
     return { name: 'home' };
+  }
+
+  if (
+    path.includes('/testimonials') || 
+    path.includes('/testimonial') || 
+    path === '/testimonials.htm' ||
+    path === '/testimonial.htm'
+  ) {
+    return { name: 'testimonials' };
   }
 
   if (
@@ -171,6 +183,14 @@ function App() {
       }
 
       if (
+        path.includes('/testimonials') || 
+        path.includes('/testimonial') || 
+        path === '/testimonials.htm' ||
+        path === '/testimonial.htm' ||
+        hash.includes('testimonial')
+      ) {
+        setCurrentRoute({ name: 'testimonials' });
+      } else if (
         path.includes('/current-jobs') || 
         path === '/current-jobs.htm' ||
         path === '/current-job' ||
@@ -265,6 +285,8 @@ function App() {
           <ProductDetailPage slug={currentRoute.slug} />
         ) : currentRoute.name === 'blog-detail' ? (
           <BlogDetailPage slug={currentRoute.slug} />
+        ) : currentRoute.name === 'testimonials' ? (
+          <TestimonialsPage />
         ) : currentRoute.name === 'current-jobs' ? (
           <CurrentJobsPage />
         ) : currentRoute.name === 'sitemap' ? (

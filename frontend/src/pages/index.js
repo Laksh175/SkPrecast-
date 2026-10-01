@@ -10,3 +10,5 @@ export { default as GalleryPage } from './GalleryPage';
 export { default as ManufacturingUnitPage } from './ManufacturingUnitPage';
 export { default as SitemapPage } from './SitemapPage';
 export { default as CurrentJobsPage } from './CurrentJobsPage';
+export { default as TestimonialsPage } from './TestimonialsPage';
+

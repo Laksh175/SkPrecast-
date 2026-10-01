@@ -239,7 +239,11 @@ const Footer = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#testimonials" className="text-[0.835rem] text-slate-300 font-medium hover:text-amber-400 hover:translate-x-1 transition-all inline-flex items-center gap-1.5 group">
+                  <a 
+                    href="/testimonials.htm" 
+                    onClick={(e) => navigateTo('/testimonials.htm', e)} 
+                    className="text-[0.835rem] text-slate-300 font-medium hover:text-amber-400 hover:translate-x-1 transition-all inline-flex items-center gap-1.5 group cursor-pointer"
+                  >
                     <span className="w-1 h-1 rounded-full bg-amber-400/0 group-hover:bg-amber-400 transition-colors shrink-0" />
                     <span>Testimonials</span>
                   </a>
@@ -593,7 +597,11 @@ const Footer = () => {
                       </a>
                     </li>
                     <li>
-                      <a href="#testimonials" className="text-[0.825rem] sm:text-[0.835rem] text-slate-300 font-medium hover:text-amber-400 hover:translate-x-1 transition-all inline-flex items-center gap-1.5 group">
+                      <a 
+                        href="/testimonials.htm" 
+                        onClick={(e) => navigateTo('/testimonials.htm', e)} 
+                        className="text-[0.825rem] sm:text-[0.835rem] text-slate-300 font-medium hover:text-amber-400 hover:translate-x-1 transition-all inline-flex items-center gap-1.5 group cursor-pointer"
+                      >
                         <span className="w-1 h-1 rounded-full bg-amber-400/0 group-hover:bg-amber-400 transition-colors shrink-0" />
                         <span>Testimonials</span>
                       </a>

@@ -19,6 +19,6 @@ export const sitemapGeneralLinks = [
   { name: 'Catalogues', path: '/catalogues.htm' },
   { name: 'Gallery', path: '/gallery.htm' },
   { name: 'Wall Manufacturing Unit', path: '/wall-manufacturing-unit.htm' },
-  { name: 'Testimonials', path: '/#testimonials' },
+  { name: 'Testimonials', path: '/testimonials.htm' },
   { name: 'Contact Us', path: '/contact-us.htm' }
 ];
