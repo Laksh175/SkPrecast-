@@ -4,6 +4,7 @@ import { navigateTo } from '../utils/navigation';
 import { ArrowRight, Building2, Shield, Landmark, PlusCircle, Sparkles, Layers, Box, Factory, Home, Plus, Minus, X, Download, FileText, Eye, MapPin, Phone, Mail } from 'lucide-react';
 import { Button } from '../common';
 import { dropdownCategoriesData, standaloneProductsData, aboutCompanyData } from '../data/aboutUsData';
+import { catalogueBrochuresData, cataloguesHeroData } from '../data/cataloguesData';
 
 // Icon Map for dynamic icon lookup
 const iconComponentMap = { Building2, Shield, Landmark, PlusCircle, Sparkles, Layers, Box, Factory, Home };
@@ -141,98 +142,52 @@ const CataloguesPage = () => {
 
               {/* 2 PDF Catalogue Cards Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 flex-1">
-                
-                {/* Card 1: Hindi Catalogue */}
-                <div className="bg-white rounded-[15px] border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-amber-400 transition-all duration-300 p-4 sm:p-5 flex flex-col justify-between group">
-                  {/* Image Container with 10px border radius and white background frame */}
-                  <div 
-                    onClick={() => setActivePdfModal({ title: 'Hindi Catalogue (SK Precast Industries)', url: '/assets/Pdf/catalog-Hindi.pdf', downloadName: 'SK_Precast_Hindi_Catalogue.pdf' })}
-                    className="relative w-full aspect-[4/3] rounded-[10px] overflow-hidden bg-slate-100 border border-slate-200/80 shadow-xs mb-4 cursor-pointer">
-                    <img 
-                      src="/assets/images/example-image.jpg" 
-                      alt="Hindi Catalogue - SK Precast Industries" 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-[6px] bg-slate-900/80 backdrop-blur-md text-white font-bold text-[11px] border border-white/20 shadow-sm flex items-center gap-1.5">
-                      <FileText size={13} className="text-amber-400" />
-                      <span>Hindi Edition</span>
+                {catalogueBrochuresData.map((item) => (
+                  <div key={item.id} className="bg-white rounded-[15px] border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-amber-400 transition-all duration-300 p-4 sm:p-5 flex flex-col justify-between group">
+                    {/* Image Container with 10px border radius and white background frame */}
+                    <div 
+                      onClick={() => setActivePdfModal({ title: item.title, url: item.url, downloadName: item.downloadName })}
+                      className="relative w-full aspect-[4/3] rounded-[10px] overflow-hidden bg-slate-100 border border-slate-200/80 shadow-xs mb-4 cursor-pointer"
+                    >
+                      <img 
+                        src={item.image} 
+                        alt={`${item.name} - SK Precast Industries`} 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-[6px] bg-slate-900/80 backdrop-blur-md text-white font-bold text-[11px] border border-white/20 shadow-sm flex items-center gap-1.5">
+                        <FileText size={13} className="text-amber-400" />
+                        <span>{item.edition}</span>
+                      </div>
+                    </div>
+
+                    {/* Content & Action */}
+                    <div className="text-left flex-1 flex flex-col justify-between">
+                      <div className="mb-4">
+                        <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-amber-600 transition-colors">
+                          {item.name}
+                        </h3>
+                        <p className="text-xs text-slate-500 mt-0.5">
+                          {item.description}
+                        </p>
+                      </div>
+
+                      {/* Action Button */}
+                      <div className="pt-3 border-t border-slate-100">
+                        <Button 
+                          variant="dark-to-gold"
+                          size="md"
+                          fullWidth
+                          onClick={() => setActivePdfModal({ title: item.title, url: item.url, downloadName: item.downloadName })}
+                          icon={<Eye size={15} className="text-yellow-400 group-hover/btn:text-slate-950 transition-colors" />}
+                          iconPosition="left"
+                          className="rounded-full normal-case text-xs sm:text-sm font-bold shadow-md"
+                        >
+                          View PDF
+                        </Button>
+                      </div>
                     </div>
                   </div>
-
-                  {/* Content & Action */}
-                  <div className="text-left flex-1 flex flex-col justify-between">
-                    <div className="mb-4">
-                      <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-amber-600 transition-colors">
-                        Hindi Catalogue
-                      </h3>
-                      <p className="text-xs text-slate-500 mt-0.5">
-                        Complete Precast Wall Specifications (PDF)
-                      </p>
-                    </div>
-
-                    {/* Action Button */}
-                    <div className="pt-3 border-t border-slate-100">
-                      <Button 
-                        variant="dark-to-gold"
-                        size="md"
-                        fullWidth
-                        onClick={() => setActivePdfModal({ title: 'Hindi Catalogue (SK Precast Industries)', url: '/assets/Pdf/catalog-Hindi.pdf', downloadName: 'SK_Precast_Hindi_Catalogue.pdf' })}
-                        icon={<Eye size={15} className="text-yellow-400 group-hover/btn:text-slate-950 transition-colors" />}
-                        iconPosition="left"
-                        className="rounded-full normal-case text-xs sm:text-sm font-bold shadow-md"
-                      >
-                        View PDF
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Card 2: English Catalogue */}
-                <div className="bg-white rounded-[15px] border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-amber-400 transition-all duration-300 p-4 sm:p-5 flex flex-col justify-between group">
-                  {/* Image Container with 10px border radius and white background frame */}
-                  <div 
-                    onClick={() => setActivePdfModal({ title: 'English Catalogue (SK Precast Industries)', url: '/assets/Pdf/catalog-english.pdf', downloadName: 'SK_Precast_English_Catalogue.pdf' })}
-                    className="relative w-full aspect-[4/3] rounded-[10px] overflow-hidden bg-slate-100 border border-slate-200/80 shadow-xs mb-4 cursor-pointer"
-                  >
-                    <img 
-                      src="/assets/images/example-image.jpg" 
-                      alt="English Catalogue - SK Precast Industries" 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-[6px] bg-slate-900/80 backdrop-blur-md text-white font-bold text-[11px] border border-white/20 shadow-sm flex items-center gap-1.5">
-                      <FileText size={13} className="text-amber-400" />
-                      <span>English Edition</span>
-                    </div>
-                  </div>
-
-                  {/* Content & Action */}
-                  <div className="text-left flex-1 flex flex-col justify-between">
-                    <div className="mb-4">
-                      <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-amber-600 transition-colors">
-                        English Catalogue
-                      </h3>
-                      <p className="text-xs text-slate-500 mt-0.5">
-                        Complete Precast Wall Specifications (PDF)
-                      </p>
-                    </div>
-
-                    {/* Action Button */}
-                    <div className="pt-3 border-t border-slate-100">
-                      <Button 
-                        variant="dark-to-gold"
-                        size="md"
-                        fullWidth
-                        onClick={() => setActivePdfModal({ title: 'English Catalogue (SK Precast Industries)', url: '/assets/Pdf/catalog-english.pdf', downloadName: 'SK_Precast_English_Catalogue.pdf' })}
-                        icon={<Eye size={15} className="text-yellow-400 group-hover/btn:text-slate-950 transition-colors" />}
-                        iconPosition="left"
-                        className="rounded-full normal-case text-xs sm:text-sm font-bold shadow-md"
-                      >
-                        View PDF
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-
+                ))}
               </div>
             </div>
 

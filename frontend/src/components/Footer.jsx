@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FaWhatsapp, FaPhone, FaEnvelope, FaLocationDot, FaRss, FaChevronUp, FaChevronDown } from 'react-icons/fa6';
 import { GB, FR, DE, IN } from 'country-flag-icons/react/3x2';
 import { navigateTo } from '../utils/navigation';
+import { allLanguages } from '../data/navigationData';
 
 const Footer = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -78,50 +79,6 @@ const Footer = () => {
       behavior: 'smooth',
     });
   };
-
-  // Comprehensive list of all world & Indian languages
-  const allLanguages = [
-    { code: 'en', name: 'English' },
-    { code: 'hi', name: 'Hindi (हिन्दी)' },
-    { code: 'gu', name: 'Gujarati (ગુજરાતી)' },
-    { code: 'mr', name: 'Marathi (मराठी)' },
-    { code: 'pa', name: 'Punjabi (ਪੰਜਾਬੀ)' },
-    { code: 'bn', name: 'Bengali (বাংলা)' },
-    { code: 'ta', name: 'Tamil (தமிழ்)' },
-    { code: 'te', name: 'Telugu (తెలుగు)' },
-    { code: 'kn', name: 'Kannada (ಕನ್ನಡ)' },
-    { code: 'ml', name: 'Malayalam (മലയാളം)' },
-    { code: 'ur', name: 'Urdu (اردو)' },
-    { code: 'ar', name: 'Arabic (العربية)' },
-    { code: 'fr', name: 'French (Français)' },
-    { code: 'de', name: 'German (Deutsch)' },
-    { code: 'es', name: 'Spanish (Español)' },
-    { code: 'pt', name: 'Portuguese (Português)' },
-    { code: 'ru', name: 'Russian (Русский)' },
-    { code: 'zh', name: 'Chinese (中文)' },
-    { code: 'ja', name: 'Japanese (日本語)' },
-    { code: 'ko', name: 'Korean (한국어)' },
-    { code: 'it', name: 'Italian (Italiano)' },
-    { code: 'nl', name: 'Dutch (Nederlands)' },
-    { code: 'tr', name: 'Turkish (Türkçe)' },
-    { code: 'vi', name: 'Vietnamese (Tiếng Việt)' },
-    { code: 'th', name: 'Thai (ไทย)' },
-    { code: 'id', name: 'Indonesian (Bahasa Indonesia)' },
-    { code: 'ms', name: 'Malay (Bahasa Melayu)' },
-    { code: 'fa', name: 'Persian (فارسی)' },
-    { code: 'pl', name: 'Polish (Polski)' },
-    { code: 'uk', name: 'Ukrainian (Українська)' },
-    { code: 'el', name: 'Greek (Ελληνικά)' },
-    { code: 'sv', name: 'Swedish (Svenska)' },
-    { code: 'da', name: 'Danish (Dansk)' },
-    { code: 'fi', name: 'Finnish (Suomi)' },
-    { code: 'no', name: 'Norwegian (Norsk)' },
-    { code: 'cs', name: 'Czech (Čeština)' },
-    { code: 'ro', name: 'Romanian (Română)' },
-    { code: 'hu', name: 'Hungarian (Magyar)' },
-    { code: 'he', name: 'Hebrew (עברית)' },
-    { code: 'fil', name: 'Filipino (Tagalog)' }
-  ];
 
   return (
     <footer className="relative mt-auto bg-theme-heroNavy text-slate-300 font-sans border-t border-amber-500/30 overflow-hidden shadow-2xl">

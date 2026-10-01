@@ -1,9 +1,8 @@
-import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Send, CheckCircle2, ChevronDown, Search, ShieldCheck, Clock, MapPin, Check, AlertCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Send, CheckCircle2, ShieldCheck, Clock, MapPin, AlertCircle } from 'lucide-react';
 import { allProductsList, countryCodes, countriesList, contactSectionHeaderData } from '../../data/homeData';
-import { useClickOutside } from '../../hooks';
-import { Button } from '../../common';
+import { Button, SearchableSelect, CountryCodePicker } from '../../common';
 
 const getMaxPhoneDigits = (country) => {
   if (!country) return 10;
@@ -28,55 +27,10 @@ const ContactSection = () => {
 
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
-
-  // Dropdown open states
-  const [isProductOpen, setIsProductOpen] = useState(false);
-  const [isCountryOpen, setIsCountryOpen] = useState(false);
-  const [isCountryCodeOpen, setIsCountryCodeOpen] = useState(false);
-
-  // Search filter states inside the dropdown menus
-  const [productSearch, setProductSearch] = useState('');
-  const [countrySearch, setCountrySearch] = useState('');
-  const [countryCodeSearch, setCountryCodeSearch] = useState('');
-
   const [charCount, setCharCount] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // Refs for click outside
-  const productRef = useRef(null);
-  const countryRef = useRef(null);
-  const countryCodeRef = useRef(null);
-
-  useClickOutside(productRef, () => {
-    setIsProductOpen(false);
-    setProductSearch('');
-  }, isProductOpen);
-
-  useClickOutside(countryRef, () => {
-    setIsCountryOpen(false);
-    setCountrySearch('');
-  }, isCountryOpen);
-
-  useClickOutside(countryCodeRef, () => {
-    setIsCountryCodeOpen(false);
-    setCountryCodeSearch('');
-  }, isCountryCodeOpen);
-
-  // Filtered lists based on search inside the popup (or all items if empty search)
-  const filteredProducts = allProductsList.filter(item =>
-    item.toLowerCase().includes(productSearch.toLowerCase())
-  );
-
-  const filteredCountries = countriesList.filter(item =>
-    item.toLowerCase().includes(countrySearch.toLowerCase())
-  );
-
-  const filteredCountryCodes = countryCodes.filter(c =>
-    c.name.toLowerCase().includes(countryCodeSearch.toLowerCase()) ||
-    c.dialCode.includes(countryCodeSearch) ||
-    c.code.toLowerCase().includes(countryCodeSearch.toLowerCase())
-  );
 
   // Input Sanitization & Validation Rules
   const validateField = (name, value, currentFormData = formData) => {
@@ -320,95 +274,19 @@ const ContactSection = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
                 {/* Product / Service Looking for */}
-                <div className="relative" ref={productRef}>
+                <div>
                   <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                     Product / Service Looking for
                   </label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      name="product"
-                      value={formData.product}
-                      onChange={handleChange}
-                      onClick={() => {
-                        setIsProductOpen(true);
-                        setIsCountryOpen(false);
-                        setIsCountryCodeOpen(false);
-                      }}
-                      onFocus={() => {
-                        setIsProductOpen(true);
-                        setIsCountryOpen(false);
-                        setIsCountryCodeOpen(false);
-                      }}
-                      placeholder="Type or select product..."
-                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-300 rounded-xl px-4 py-3 pr-10 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400/30 transition-all shadow-2xs cursor-pointer"
-                    />
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setIsProductOpen(!isProductOpen);
-                        setIsCountryOpen(false);
-                        setIsCountryCodeOpen(false);
-                      }}
-                      className="absolute right-0 top-0 bottom-0 px-3 flex items-center justify-center text-slate-400 hover:text-amber-600 transition-colors cursor-pointer"
-                    >
-                      <ChevronDown size={16} className={`transition-transform ${isProductOpen ? 'rotate-180 text-amber-600' : ''}`} />
-                    </button>
-                  </div>
-
-                  {/* Dropdown Popover with Search & Complete 35 Products List */}
-                  <AnimatePresence>
-                    {isProductOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 5 }}
-                        transition={{ duration: 0.15 }}
-                        className="absolute top-full left-0 right-0 mt-1.5 bg-white border border-slate-200 rounded-xl shadow-2xl z-[100] overflow-hidden"
-                      >
-                        {/* Search Input inside Popover */}
-                        <div className="p-2.5 border-b border-slate-200 bg-slate-50 flex items-center gap-2">
-                          <Search size={14} className="text-slate-400 ml-1.5" />
-                          <input
-                            type="text"
-                            placeholder="Filter 35+ products..."
-                            value={productSearch}
-                            onChange={(e) => setProductSearch(e.target.value)}
-                            className="bg-transparent text-xs text-slate-900 placeholder:text-slate-400 outline-none w-full py-0.5"
-                            autoFocus
-                          />
-                        </div>
-
-                        {/* Complete Scrollable List of all 35 products */}
-                        <div className="max-h-56 overflow-y-auto divide-y divide-slate-100 custom-scrollbar">
-                          {filteredProducts.length > 0 ? (
-                            filteredProducts.map((item, idx) => (
-                              <button
-                                key={idx}
-                                type="button"
-                                onClick={() => {
-                                  setFormData(prev => ({ ...prev, product: item }));
-                                  setIsProductOpen(false);
-                                  setProductSearch('');
-                                }}
-                                className={`w-full text-left px-3.5 py-2.5 text-xs hover:bg-yellow-50 hover:text-amber-900 transition-colors flex items-center justify-between ${
-                                  formData.product === item ? 'bg-yellow-100/70 text-amber-950 font-bold' : 'text-slate-700'
-                                }`}
-                              >
-                                <span className="truncate">{item}</span>
-                                {formData.product === item && <Check size={14} className="text-amber-600 shrink-0 ml-2" />}
-                              </button>
-                            ))
-                          ) : (
-                            <div className="p-3 text-left text-xs text-slate-500">
-                              Use custom: "<span className="text-amber-700 font-semibold">{formData.product}</span>"
-                            </div>
-                          )}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  <SearchableSelect
+                    name="product"
+                    value={formData.product}
+                    onChange={handleChange}
+                    options={allProductsList}
+                    placeholder="Type or select product..."
+                    searchPlaceholder="Filter 35+ products..."
+                    isTypeable={true}
+                  />
                 </div>
 
                 {/* Your Name (With Real-Time Validation) */}
@@ -472,95 +350,19 @@ const ContactSection = () => {
                 </div>
 
                 {/* Country (Typeable Input + Complete 240+ Countries Browsable List) */}
-                <div className="relative" ref={countryRef}>
+                <div>
                   <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                     Country
                   </label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      name="country"
-                      value={formData.country}
-                      onChange={handleChange}
-                      onClick={() => {
-                        setIsCountryOpen(true);
-                        setIsProductOpen(false);
-                        setIsCountryCodeOpen(false);
-                      }}
-                      onFocus={() => {
-                        setIsCountryOpen(true);
-                        setIsProductOpen(false);
-                        setIsCountryCodeOpen(false);
-                      }}
-                      placeholder="Type or select country..."
-                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-300 rounded-xl px-4 py-3 pr-10 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400/30 transition-all shadow-2xs cursor-pointer"
-                    />
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setIsCountryOpen(!isCountryOpen);
-                        setIsProductOpen(false);
-                        setIsCountryCodeOpen(false);
-                      }}
-                      className="absolute right-0 top-0 bottom-0 px-3 flex items-center justify-center text-slate-400 hover:text-amber-600 transition-colors cursor-pointer"
-                    >
-                      <ChevronDown size={16} className={`transition-transform ${isCountryOpen ? 'rotate-180 text-amber-600' : ''}`} />
-                    </button>
-                  </div>
-
-                  {/* Complete 240+ Countries Scrollable Dropdown Menu with Search */}
-                  <AnimatePresence>
-                    {isCountryOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 5 }}
-                        transition={{ duration: 0.15 }}
-                        className="absolute top-full left-0 right-0 mt-1.5 bg-white border border-slate-200 rounded-xl shadow-2xl z-[100] overflow-hidden"
-                      >
-                        {/* Search Input inside Popover */}
-                        <div className="p-2.5 border-b border-slate-200 bg-slate-50 flex items-center gap-2">
-                          <Search size={14} className="text-slate-400 ml-1.5" />
-                          <input
-                            type="text"
-                            placeholder="Filter 240+ countries..."
-                            value={countrySearch}
-                            onChange={(e) => setCountrySearch(e.target.value)}
-                            className="bg-transparent text-xs text-slate-900 placeholder:text-slate-400 outline-none w-full py-0.5"
-                            autoFocus
-                          />
-                        </div>
-
-                        {/* Complete List of all 240+ countries */}
-                        <div className="max-h-56 overflow-y-auto divide-y divide-slate-100 custom-scrollbar">
-                          {filteredCountries.length > 0 ? (
-                            filteredCountries.map((item, idx) => (
-                              <button
-                                key={idx}
-                                type="button"
-                                onClick={() => {
-                                  setFormData(prev => ({ ...prev, country: item }));
-                                  setIsCountryOpen(false);
-                                  setCountrySearch('');
-                                }}
-                                className={`w-full text-left px-3.5 py-2.5 text-xs hover:bg-yellow-50 hover:text-amber-900 transition-colors flex items-center justify-between ${
-                                  formData.country === item ? 'bg-yellow-100/70 text-amber-950 font-bold' : 'text-slate-700'
-                                }`}
-                              >
-                                <span className="truncate">{item}</span>
-                                {formData.country === item && <Check size={14} className="text-amber-600 shrink-0 ml-2" />}
-                              </button>
-                            ))
-                          ) : (
-                            <div className="p-3 text-left text-xs text-slate-500">
-                              Use custom: "<span className="text-amber-700 font-semibold">{formData.country}</span>"
-                            </div>
-                          )}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  <SearchableSelect
+                    name="country"
+                    value={formData.country}
+                    onChange={handleChange}
+                    options={countriesList}
+                    placeholder="Type or select country..."
+                    searchPlaceholder="Filter 240+ countries..."
+                    isTypeable={true}
+                  />
                 </div>
 
               </div>
@@ -573,86 +375,24 @@ const ContactSection = () => {
                 <div className="flex gap-2">
                   
                   {/* Country Code Picker Dropdown */}
-                  <div className="relative" ref={countryCodeRef}>
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setIsCountryCodeOpen(!isCountryCodeOpen);
-                        setIsProductOpen(false);
-                        setIsCountryOpen(false);
-                      }}
-                      className="bg-slate-50 hover:bg-white border border-slate-300 rounded-xl px-3 py-3 text-sm font-bold text-slate-900 flex items-center gap-1.5 justify-center shrink-0 min-w-[95px] hover:border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400/30 transition-all cursor-pointer shadow-2xs"
-                    >
-                      <span>{formData.selectedCountry.flag}</span>
-                      <span>{formData.selectedCountry.dialCode}</span>
-                      <ChevronDown size={14} className={`text-slate-500 transition-transform ${isCountryCodeOpen ? 'rotate-180 text-amber-600' : ''}`} />
-                    </button>
-
-                    {/* Country Code Dropdown Popover */}
-                    <AnimatePresence>
-                      {isCountryCodeOpen && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 5 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 5 }}
-                          transition={{ duration: 0.15 }}
-                          className="absolute top-full left-0 w-72 mt-1.5 bg-white border border-slate-200 rounded-xl shadow-2xl z-[100] overflow-hidden"
-                        >
-                          {/* Search Input */}
-                          <div className="p-2.5 border-b border-slate-200 bg-slate-50 flex items-center gap-2">
-                            <Search size={14} className="text-slate-400 ml-1.5" />
-                            <input
-                              type="text"
-                              placeholder="Search country or code..."
-                              value={countryCodeSearch}
-                              onChange={(e) => setCountryCodeSearch(e.target.value)}
-                              className="bg-transparent text-xs text-slate-900 placeholder:text-slate-400 outline-none w-full py-0.5"
-                              autoFocus
-                            />
-                          </div>
-
-                          {/* Country Codes List */}
-                          <div className="max-h-56 overflow-y-auto divide-y divide-slate-100 custom-scrollbar">
-                            {filteredCountryCodes.map((item, idx) => (
-                              <button
-                                key={idx}
-                                type="button"
-                                onClick={() => {
-                                  const newMaxDigits = getMaxPhoneDigits(item);
-                                  const adjustedPhone = formData.phone.slice(0, newMaxDigits);
-                                  setFormData(prev => ({ 
-                                    ...prev, 
-                                    selectedCountry: item,
-                                    phone: adjustedPhone 
-                                  }));
-                                  setIsCountryCodeOpen(false);
-                                  setCountryCodeSearch('');
-                                  if (touched.phone) {
-                                    setErrors(prev => ({ 
-                                      ...prev, 
-                                      phone: validateField('phone', adjustedPhone, { ...formData, selectedCountry: item }) 
-                                    }));
-                                  }
-                                }}
-                                className={`w-full text-left px-3 py-2 text-xs hover:bg-yellow-50 hover:text-amber-900 transition-colors flex items-center justify-between ${
-                                  formData.selectedCountry.code === item.code ? 'bg-yellow-100/70 text-amber-950 font-bold' : 'text-slate-700'
-                                }`}
-                              >
-                                <span className="flex items-center gap-2 truncate">
-                                  <span>{item.flag}</span>
-                                  <span className="truncate">{item.name}</span>
-                                </span>
-                                <span className="font-mono text-slate-500 text-[11px] ml-2 shrink-0">
-                                  {item.dialCode}
-                                </span>
-                              </button>
-                            ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
+                  <CountryCodePicker
+                    selectedCountry={formData.selectedCountry}
+                    onChange={(item) => {
+                      const newMaxDigits = getMaxPhoneDigits(item);
+                      const adjustedPhone = formData.phone.slice(0, newMaxDigits);
+                      setFormData(prev => ({ 
+                        ...prev, 
+                        selectedCountry: item,
+                        phone: adjustedPhone 
+                      }));
+                      if (touched.phone) {
+                        setErrors(prev => ({ 
+                          ...prev, 
+                          phone: validateField('phone', adjustedPhone, { ...formData, selectedCountry: item }) 
+                        }));
+                      }
+                    }}
+                  />
 
                   {/* Phone Input (Strict Numeric & Strict Max Length) */}
                   <div className="w-full">

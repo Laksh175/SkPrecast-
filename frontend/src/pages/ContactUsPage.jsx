@@ -4,10 +4,10 @@ import {
   Phone, Mail, MapPin, CheckCircle2, ChevronDown, 
   Search, ExternalLink, User, Monitor, Globe, Building2
 } from 'lucide-react';
-import { Button } from '../common';
+import { Button, SearchableSelect, CountryCodePicker } from '../common';
 import { navigateTo } from '../utils/navigation';
 import { allProductsList, countryCodes } from '../data/homeData';
-import { useClickOutside } from '../hooks';
+import { contactUsHeroData, companyContactDetails, mapSectionData } from '../data/contactUsData';
 
 const getMaxPhoneDigits = (country) => {
   if (!country) return 10;
@@ -36,40 +36,8 @@ const ContactUsPage = () => {
 
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
-
-  // Dropdown open states
-  const [isProductOpen, setIsProductOpen] = useState(false);
-  const [isCountryCodeOpen, setIsCountryCodeOpen] = useState(false);
-
-  // Search filter states inside dropdowns
-  const [productSearch, setProductSearch] = useState('');
-  const [countryCodeSearch, setCountryCodeSearch] = useState('');
-
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  // Refs for click outside
-  const productRef = useRef(null);
-  const countryCodeRef = useRef(null);
-
-  useClickOutside(productRef, () => {
-    setIsProductOpen(false);
-  });
-
-  useClickOutside(countryCodeRef, () => {
-    setIsCountryCodeOpen(false);
-  });
-
-  // Filtered lists
-  const filteredProducts = allProductsList.filter(item =>
-    item.toLowerCase().includes(productSearch.toLowerCase())
-  );
-
-  const filteredCountryCodes = countryCodes.filter(c =>
-    c.name.toLowerCase().includes(countryCodeSearch.toLowerCase()) ||
-    c.dialCode.includes(countryCodeSearch) ||
-    c.code.toLowerCase().includes(countryCodeSearch.toLowerCase())
-  );
 
   // Validation
   const validateField = (name, value, currentFormData = formData) => {
@@ -247,7 +215,7 @@ const ContactUsPage = () => {
               Home
             </a>
             <span className="text-slate-500 font-normal">/</span>
-            <span className="text-amber-400 font-bold">Contact Us</span>
+            <span className="text-amber-400 font-bold">{contactUsHeroData.breadcrumb}</span>
           </motion.div>
 
           {/* Main Heading */}
@@ -258,7 +226,7 @@ const ContactUsPage = () => {
             className="text-[30px] font-extrabold tracking-tight leading-tight mb-4"
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-200 to-yellow-400 drop-shadow-sm">
-              Contact SK Precast Industries
+              {contactUsHeroData.title}
             </span>
           </motion.h1>
 
@@ -281,7 +249,7 @@ const ContactUsPage = () => {
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.25 }}
             className="max-w-3xl mx-auto text-slate-300 text-[15px] leading-[26px]"
           >
-            Get in touch directly with India’s leading precast concrete wall manufacturer for custom quotations, technical inquiries, and project site consultations.
+            {contactUsHeroData.subtitle}
           </motion.p>
         </div>
       </section>
@@ -300,7 +268,7 @@ const ContactUsPage = () => {
                 <div className="mb-6 text-left">
                   <h2 className="text-[23px] sm:text-2xl lg:text-[28px] font-black tracking-tight leading-tight text-slate-900">
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-[#d97706] via-amber-500 to-yellow-500 drop-shadow-sm">
-                      SK Precast Industries
+                      {companyContactDetails.companyName}
                     </span>
                   </h2>
                   <div className="flex items-center gap-2 mt-2.5 mb-2">
@@ -319,7 +287,7 @@ const ContactUsPage = () => {
                     </div>
                     <div className="min-w-0 flex-1">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Contact Person</span>
-                      <p className="text-[14px] text-slate-800 font-bold">Mr. Vivek Koladiya</p>
+                      <p className="text-[14px] text-slate-800 font-bold">{companyContactDetails.contactPerson}</p>
                     </div>
                   </div>
 
@@ -331,7 +299,7 @@ const ContactUsPage = () => {
                     <div className="min-w-0 flex-1">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Address</span>
                       <p className="text-[13.5px] sm:text-[14px] text-slate-700 font-medium leading-relaxed">
-                        Opp. Adani CNG Pump, Delhi-Mathura Road Near Hanuman Mandir,, Palwal, Haryana, India - 121102
+                        {companyContactDetails.address}
                       </p>
                     </div>
                   </div>
@@ -344,13 +312,14 @@ const ContactUsPage = () => {
                     <div className="min-w-0 flex-1">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Mobile</span>
                       <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[14px] text-slate-800 font-semibold">
-                        <a href="tel:+918238902687" className="hover:text-amber-600 transition-colors">
-                          +91-8238902687
-                        </a>
-                        <span>,</span>
-                        <a href="tel:+919896908099" className="hover:text-amber-600 transition-colors">
-                          +91-9896908099
-                        </a>
+                        {companyContactDetails.phones.map((ph, idx) => (
+                          <React.Fragment key={ph}>
+                            <a href={`tel:${ph.replace(/[^0-9+]/g, '')}`} className="hover:text-amber-600 transition-colors">
+                              {ph}
+                            </a>
+                            {idx < companyContactDetails.phones.length - 1 && <span>,</span>}
+                          </React.Fragment>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -362,8 +331,8 @@ const ContactUsPage = () => {
                     </div>
                     <div className="min-w-0 flex-1 overflow-hidden">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">E-Mail</span>
-                      <a href="mailto:info@skprecast-industries.com" className="text-[14px] text-slate-800 hover:text-amber-600 transition-colors font-semibold truncate block">
-                        info@skprecast-industries.com
+                      <a href={`mailto:${companyContactDetails.email}`} className="text-[14px] text-slate-800 hover:text-amber-600 transition-colors font-semibold truncate block">
+                        {companyContactDetails.email}
                       </a>
                     </div>
                   </div>
@@ -375,8 +344,8 @@ const ContactUsPage = () => {
                     </div>
                     <div className="min-w-0 flex-1 overflow-hidden">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Alt. E-Mail</span>
-                      <a href="mailto:skprecastindustries@gmail.com" className="text-[14px] text-slate-800 hover:text-amber-600 transition-colors font-semibold truncate block">
-                        skprecastindustries@gmail.com
+                      <a href={`mailto:${companyContactDetails.altEmail}`} className="text-[14px] text-slate-800 hover:text-amber-600 transition-colors font-semibold truncate block">
+                        {companyContactDetails.altEmail}
                       </a>
                     </div>
                   </div>
@@ -389,12 +358,12 @@ const ContactUsPage = () => {
                     <div className="min-w-0 flex-1 overflow-hidden">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Web Address</span>
                       <a 
-                        href="https://www.skprecast-industries.com" 
+                        href={companyContactDetails.website} 
                         target="_blank" 
                         rel="noreferrer" 
                         className="text-[14px] text-slate-800 hover:text-amber-600 transition-colors font-semibold truncate block"
                       >
-                        https://www.skprecast-industries.com
+                        {companyContactDetails.website}
                       </a>
                     </div>
                   </div>
@@ -407,22 +376,17 @@ const ContactUsPage = () => {
                     <div className="min-w-0 flex-1">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Web Page</span>
                       <div className="flex flex-col gap-1.5">
-                        <a 
-                          href="https://www.exportersindia.com/sk-precast-industries/" 
-                          target="_blank" 
-                          rel="noreferrer"
-                          className="text-[13.5px] text-slate-800 hover:text-amber-600 transition-colors font-semibold break-all block"
-                        >
-                          https://www.exportersindia.com/sk-precast-industries/
-                        </a>
-                        <a 
-                          href="https://www.indianyellowpages.com/palwal/sk-precast-industries-agra-chowk-palwal-9434574/" 
-                          target="_blank" 
-                          rel="noreferrer"
-                          className="text-[13.5px] text-slate-800 hover:text-amber-600 transition-colors font-semibold break-all block"
-                        >
-                          https://www.indianyellowpages.com/palwal/sk-precast-industries-agra-chowk-palwal-9434574/
-                        </a>
+                        {companyContactDetails.directoryLinks.map((dir) => (
+                          <a 
+                            key={dir.url}
+                            href={dir.url} 
+                            target="_blank" 
+                            rel="noreferrer" 
+                            className="text-[13.5px] text-slate-800 hover:text-amber-600 transition-colors font-semibold break-all block"
+                          >
+                            {dir.url}
+                          </a>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -452,73 +416,22 @@ const ContactUsPage = () => {
                 )}
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-left">
-                  
-                  {/* Field 1: Product / Service Looking for * */}
-                  <div className="relative" ref={productRef}>
+                         {/* Field 1: Product / Service Looking for * */}
+                  <div>
                     <label className="block text-sm font-semibold text-slate-800 mb-1.5">
                       Product / Service Looking for <span className="text-red-500 font-bold">*</span>
                     </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        name="product"
-                        placeholder="Product / Service Looking for"
-                        value={formData.product}
-                        onChange={handleChange}
-                        onFocus={() => setIsProductOpen(true)}
-                        onBlur={() => handleBlur('product')}
-                        className={`w-full bg-slate-50/80 border ${errors.product && touched.product ? 'border-red-500 ring-2 ring-red-200' : 'border-slate-300 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-500/15'} rounded-lg px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-all pr-10 font-medium`}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setIsProductOpen(!isProductOpen)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-600 p-1 cursor-pointer"
-                      >
-                        <ChevronDown size={16} className={`transition-transform duration-200 ${isProductOpen ? 'rotate-180 text-amber-600' : ''}`} />
-                      </button>
-                    </div>
-
-                    {/* Product Dropdown Popover */}
-                    {isProductOpen && (
-                      <div className="absolute top-full mt-1.5 left-0 right-0 bg-white rounded-xl shadow-2xl border border-slate-200 z-50 overflow-hidden p-2">
-                        <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 mb-2">
-                          <Search size={15} className="text-slate-400 shrink-0" />
-                          <input 
-                            type="text" 
-                            placeholder="Search 35+ products..." 
-                            value={productSearch}
-                            onChange={(e) => setProductSearch(e.target.value)}
-                            className="bg-transparent border-none outline-none text-xs sm:text-sm w-full text-slate-800 placeholder:text-slate-400"
-                            autoFocus
-                          />
-                        </div>
-                        <div className="max-h-56 overflow-y-auto custom-scrollbar flex flex-col">
-                          {filteredProducts.length > 0 ? (
-                            filteredProducts.map((p, idx) => (
-                              <button
-                                key={idx}
-                                type="button"
-                                onClick={() => {
-                                  setFormData(prev => ({ ...prev, product: p }));
-                                  setIsProductOpen(false);
-                                  setProductSearch('');
-                                  if (touched.product) {
-                                    setErrors(prev => ({ ...prev, product: '' }));
-                                  }
-                                }}
-                                className="w-full text-left px-3 py-2 text-xs sm:text-sm text-slate-700 hover:bg-amber-50 hover:text-amber-900 rounded-md transition-colors cursor-pointer border-b border-slate-100 last:border-b-0 font-medium"
-                              >
-                                {p}
-                              </button>
-                            ))
-                          ) : (
-                            <div className="p-3 text-center text-xs text-slate-400">
-                              No products found matching "{productSearch}"
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )}
+                    <SearchableSelect
+                      name="product"
+                      placeholder="Product / Service Looking for"
+                      searchPlaceholder="Search 35+ products..."
+                      isTypeable={true}
+                      value={formData.product}
+                      options={allProductsList}
+                      onChange={handleChange}
+                      onBlur={() => handleBlur('product')}
+                      error={errors.product && touched.product}
+                    />
                     {errors.product && touched.product && (
                       <span className="text-xs text-red-500 font-semibold mt-1 block">{errors.product}</span>
                     )}
@@ -568,48 +481,25 @@ const ContactUsPage = () => {
                       Mobile <span className="text-red-500 font-bold">*</span>
                     </label>
                     <div className="flex items-center gap-2">
-                      {/* Country Dial Code Dropdown */}
-                      <div className="relative shrink-0" ref={countryCodeRef}>
-                        <button
-                          type="button"
-                          onClick={() => setIsCountryCodeOpen(!isCountryCodeOpen)}
-                          className="bg-slate-50 border border-slate-300 hover:border-amber-400 rounded-lg px-3 py-3 text-sm font-semibold text-slate-800 flex items-center gap-1.5 cursor-pointer transition-colors shadow-xs"
-                        >
-                          <span>{formData.selectedCountry.dialCode}</span>
-                          <ChevronDown size={14} className="text-slate-500" />
-                        </button>
-
-                        {/* Country Code Selector Popover */}
-                        {isCountryCodeOpen && (
-                          <div className="absolute top-full mt-1 left-0 w-64 bg-white rounded-xl shadow-2xl border border-slate-200 z-50 p-2 overflow-hidden">
-                            <input 
-                              type="text" 
-                              placeholder="Search country..." 
-                              value={countryCodeSearch}
-                              onChange={(e) => setCountryCodeSearch(e.target.value)}
-                              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 placeholder:text-slate-400 mb-2 outline-none"
-                              autoFocus
-                            />
-                            <div className="max-h-48 overflow-y-auto custom-scrollbar flex flex-col">
-                              {filteredCountryCodes.map((c, idx) => (
-                                <button
-                                  key={idx}
-                                  type="button"
-                                  onClick={() => {
-                                    setFormData(prev => ({ ...prev, selectedCountry: c }));
-                                    setIsCountryCodeOpen(false);
-                                    setCountryCodeSearch('');
-                                  }}
-                                  className="w-full text-left px-2.5 py-1.5 text-xs text-slate-700 hover:bg-amber-50 hover:text-amber-950 rounded flex items-center justify-between font-medium"
-                                >
-                                  <span className="truncate">{c.name} ({c.code})</span>
-                                  <span className="font-bold text-amber-700 ml-2">{c.dialCode}</span>
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </div>
+                      {/* Standardized Common Country Dial Code Dropdown */}
+                      <CountryCodePicker
+                        selectedCountry={formData.selectedCountry}
+                        onChange={(item) => {
+                          const newMaxDigits = getMaxPhoneDigits(item);
+                          const adjustedPhone = formData.phone.slice(0, newMaxDigits);
+                          setFormData(prev => ({
+                            ...prev,
+                            selectedCountry: item,
+                            phone: adjustedPhone
+                          }));
+                          if (touched.phone) {
+                            setErrors(prev => ({
+                              ...prev,
+                              phone: validateField('phone', adjustedPhone, { ...formData, selectedCountry: item })
+                            }));
+                          }
+                        }}
+                      />
 
                       {/* Phone Input */}
                       <div className="w-full">
@@ -694,7 +584,7 @@ const ContactUsPage = () => {
               <span className="h-[2px] w-16 sm:w-24 rounded-full title-accent-bar" />
             </div>
             <p className="text-slate-600 text-[15px] sm:text-[17px] leading-[24px] sm:leading-[28px] max-w-xl mx-auto px-2">
-              Visit our automated precast yard in Palwal, Haryana to inspect product samples, mold quality, and batch testing live.
+              {mapSectionData.subtitle}
             </p>
           </div>
 
@@ -702,7 +592,7 @@ const ContactUsPage = () => {
           <div className="relative rounded-2xl overflow-hidden border border-slate-200/90 shadow-xl bg-slate-100 h-[320px] sm:h-[400px] md:h-[460px] w-full">
             <iframe 
               title="SK Precast Industries Palwal Haryana Location Map"
-              src="https://maps.google.com/maps?q=SK+Precast+Industries,+Opposite+Adani+CNG+Pump,+Delhi-Mathura+Road,+Palwal,+Haryana+121102&t=&z=14&ie=UTF8&iwloc=&output=embed" 
+              src={mapSectionData.embedUrl} 
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 
@@ -716,13 +606,13 @@ const ContactUsPage = () => {
             <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 rounded-xl p-4 text-white shadow-2xl max-w-xs hidden sm:block z-10">
               <div className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
                 <Building2 size={14} />
-                <span>SK Precast Plant</span>
+                <span>{mapSectionData.plantName}</span>
               </div>
               <p className="text-xs text-slate-300 leading-snug mb-3">
-                Opp. Adani CNG Pump, Delhi-Mathura Road Near Hanuman Mandir, Palwal, Haryana, India - 121102
+                {mapSectionData.address}
               </p>
               <a 
-                href="https://www.google.com/maps/search/?api=1&query=SK+Precast+Industries+Opposite+Adani+CNG+Pump+Delhi+Mathura+Road+Palwal+Haryana" 
+                href={mapSectionData.directionsUrl} 
                 target="_blank" 
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition-colors shadow-sm cursor-pointer"
@@ -740,14 +630,14 @@ const ContactUsPage = () => {
                 <MapPin size={16} />
               </div>
               <div className="min-w-0 flex-1">
-                <span className="text-xs font-bold text-slate-900 block">SK Precast Industries Plant</span>
+                <span className="text-xs font-bold text-slate-900 block">{mapSectionData.plantName}</span>
                 <p className="text-[12px] text-slate-600 leading-snug mt-0.5">
-                  Opp. Adani CNG Pump, Delhi-Mathura Rd, Palwal, Haryana 121102
+                  {mapSectionData.address}
                 </p>
               </div>
             </div>
             <a 
-              href="https://www.google.com/maps/search/?api=1&query=SK+Precast+Industries+Opposite+Adani+CNG+Pump+Delhi+Mathura+Road+Palwal+Haryana" 
+              href={mapSectionData.directionsUrl} 
               target="_blank" 
               rel="noreferrer"
               className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-md transition-all cursor-pointer"

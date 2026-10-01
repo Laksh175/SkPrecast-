@@ -1,67 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Building2, 
-  MapPin, 
-  Phone, 
-  Mail, 
-  ArrowRight, 
-  Sparkles, 
-  Layers, 
-  Box, 
-  Factory, 
-  Home, 
-  Globe, 
-  Warehouse, 
-  ShieldCheck, 
-  Tag, 
-  FileCheck, 
-  Award, 
-  Eye, 
-  Target, 
-  Landmark, 
-  PlusCircle, 
-  Plus, 
-  Minus, 
-  X, 
-  Shield,
-  Briefcase,
-  Upload,
-  CheckCircle,
-  AlertCircle,
-  FileText,
-  User,
-  Clock,
-  Search,
-  ChevronDown,
-  Check
-} from 'lucide-react';
-import { Button } from '../common';
+import { Building2, MapPin, Phone, Mail, ArrowRight, Sparkles, Layers, Box, Factory, Home, Globe, Warehouse, ShieldCheck, Tag, FileCheck, Award, Eye, Target, Landmark, PlusCircle, Plus, Minus, X, Shield, Briefcase, Upload, CheckCircle, AlertCircle, FileText, User, Clock, Search, ChevronDown, Check } from 'lucide-react';
+import { Button, SearchableSelect, CountryCodePicker } from '../common';
 import { navigateTo } from '../utils/navigation';
 import { aboutCompanyData, dropdownCategoriesData, standaloneProductsData } from '../data/aboutUsData';
 import { countriesList, countryCodes } from '../data/homeData';
-import { useClickOutside } from '../hooks';
+import { qualificationsGrouped, functionalAreasList, noticePeriodsList, salaryThousandsList, currentJobsHeroData } from '../data/currentJobsData';
 
 // Dynamic Icon Map for explore products section
-const iconComponentMap = { 
-  Building2, 
-  Shield, 
-  Landmark, 
-  PlusCircle, 
-  Sparkles, 
-  Layers, 
-  Box, 
-  Factory, 
-  Home, 
-  Globe, 
-  Warehouse, 
-  ShieldCheck, 
-  Tag, 
-  FileCheck, 
-  Award, 
-  Eye, 
-  Target 
-};
+const iconComponentMap = { Building2, Shield, Landmark, PlusCircle, Sparkles, Layers, Box, Factory, Home, Globe, Warehouse, ShieldCheck, Tag, FileCheck, Award, Eye, Target };
 
 const getMaxPhoneDigits = (country) => {
   if (!country) return 10;
@@ -72,136 +19,6 @@ const getMaxPhoneDigits = (country) => {
   if (['DE', 'RU', 'ZA'].includes(country.code)) return 11;
   return 12;
 };
-
-const qualificationsGrouped = [
-  {
-    group: '--Basic/UG Qualification--',
-    options: [
-      'Higher Secondary',
-      'Secondary School',
-      'Vocational Course',
-      'Diploma',
-      'Advanced/Higher Diploma',
-      'Professional Degree',
-      'B.A',
-      'B.Arch',
-      'B.C.A',
-      'B.B.A',
-      'B.Com',
-      'B.Ed',
-      'BDS',
-      'BAMS',
-      'BHM',
-      'B.Pharma',
-      'B.Sc',
-      'B.Tech/B.E',
-      'LLB',
-      'MBBS',
-      'BVSC',
-      'Other Bachelor Degree'
-    ]
-  },
-  {
-    group: '--PG Qualification--',
-    options: [
-      'Post Graduate Diploma',
-      'M.A',
-      'M.Arch',
-      'M.C.A',
-      'M.B.A/PGDM',
-      'M.Com',
-      'M.Ed',
-      'MS/Master of Surgery',
-      'M.Pharma',
-      'M.Sc',
-      'M.Tech',
-      'MSW',
-      'LLM',
-      'MVSC',
-      'CA',
-      'CS',
-      'DNB',
-      'ICWA',
-      'Integrated PG',
-      'MD/Medicinae Doctor',
-      'M.C.H.',
-      'M.D.S.'
-    ]
-  },
-  {
-    group: '--Doctorate Qualification--',
-    options: [
-      'Some Tertiary Coursework',
-      'Ph.D/Doctorate',
-      'MPHIL',
-      'Other Doctorate Degree',
-      'DM/Doctorate of Medicine'
-    ]
-  }
-];
-
-const functionalAreasList = [
-  'Accounting/Auditing/Taxation',
-  'Analytic and Business Intelligence',
-  'Architecture / Interior Design',
-  'Beauty / Fitness / Spa Services',
-  'Cargo / Freight / Transportation / Packaging / Shipping/Logistic',
-  'Content Writing/Journalism/Editing',
-  'Corporate Planning & Strategy / Management Consulting',
-  'CSR / Sustainability',
-  'Defence Forces / Security Forces',
-  'Education / Teaching / Training / Counselling / Academic',
-  'Engineering/ Engineering Design / R&D / Quality',
-  'Export/Import/Merchandising',
-  'Fashion Designing & Merchandising',
-  'Financial Services / Banking, Investments / Insurance / stock market / Loan',
-  'Fresher / Trainee',
-  'Front Office / Reception/Computer Operator/Assistant',
-  'Guards / Security Services',
-  'Health Care / Pharmaceuticals / Medical',
-  'Hotel / Restaurants /Travel / Airlines',
-  'HR / Recruitment / Administration / IR / Training & Development / Operations',
-  'IT Hardware / Technical Support / Telecom Engineering',
-  'IT Hardware - Networking',
-  'IT Hardware - Security / Operating Systems',
-  'IT Software - Application Programming / Maintenance',
-  'IT Software - Client Server',
-  'IT Software - DataBase / Datawarehousing',
-  'IT Software - Ecommerce / Internet Technologies',
-  'IT Software - Mainframe',
-  'IT Software - Middleware',
-  'IT Software - Mobile Technologies',
-  'IT Software - Network Administration, Security',
-  'IT Software - Others',
-  'IT Software - QA / Testing / Documentation',
-  'IT Software - System Programming',
-  'IT Software - Telecom',
-  'IT Software- ERP / CRM / EDP / MIS',
-  'ITES / BPO / KPO / LPO / Customer Service',
-  'Legal / Law Services / Judiciary',
-  'Manufacturing / Production / Quality',
-  'Marketing / Advertising / PR / Media Planning',
-  'Media / Entertainment / TV / Films / Production / Broadcasting',
-  'Oil / Gas / Petroleum',
-  'Pharma / R&D / Biotech',
-  'Public Relation (PR) / Advertising / Events',
-  'Real Estate / Construction',
-  'Sales & Marketing / Business Development/telecaller',
-  'Self Employed / Entrepreneur / Consultants / Freelancers',
-  'Supply Chain / Purchase / Procurement'
-];
-
-const noticePeriodsList = [
-  '15 Days or Less',
-  '1 Month',
-  '2 Months',
-  '3 Months',
-  'More than 3 Months'
-];
-
-const salaryThousandsList = [
-  '5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95'
-];
 
 const CurrentJobsPage = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -215,46 +32,29 @@ const CurrentJobsPage = () => {
     locality: '',
     mobile: '',
     qualification: '',
+    otherQualification: '',
     functionalArea: '',
+    otherFunctionalArea: '',
     expYears: '',
+    otherExpYears: '',
     expMonths: '',
     salaryLakhs: '',
     salaryThousands: '',
+    otherSalary: '',
     noticePeriod: '',
+    otherNoticePeriod: '',
     keySkills: '',
     resumeFile: null
   });
 
-  const [isCountryOpen, setIsCountryOpen] = useState(false);
-  const [countrySearch, setCountrySearch] = useState('');
-  const countryRef = useRef(null);
-
-  const [isCountryCodeOpen, setIsCountryCodeOpen] = useState(false);
-  const [countryCodeSearch, setCountryCodeSearch] = useState('');
-  const countryCodeRef = useRef(null);
-
-  useClickOutside(countryRef, () => {
-    setIsCountryOpen(false);
-    setCountrySearch('');
-  }, isCountryOpen);
-
-  useClickOutside(countryCodeRef, () => {
-    setIsCountryCodeOpen(false);
-    setCountryCodeSearch('');
-  }, isCountryCodeOpen);
-
-  const filteredCountries = countriesList.filter(item =>
-    item.toLowerCase().includes(countrySearch.toLowerCase())
-  );
-
-  const filteredCountryCodes = countryCodes.filter(c =>
-    c.name.toLowerCase().includes(countryCodeSearch.toLowerCase()) ||
-    c.dialCode.includes(countryCodeSearch) ||
-    c.code.toLowerCase().includes(countryCodeSearch.toLowerCase())
-  );
-
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [fileName, setFileName] = useState('');
+
+  const isOtherOption = (val) => {
+    if (!val) return false;
+    const lower = String(val).toLowerCase();
+    return lower.includes('other');
+  };
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -291,9 +91,9 @@ const CurrentJobsPage = () => {
         return;
       }
       
-      // 2 MB limit (2 * 1024 * 1024 bytes)
-      if (file.size > 2 * 1024 * 1024) {
-        alert('File size exceeds 2 MB limit. Please upload a document smaller than 2 MB.');
+      // 5 MB limit (5 * 1024 * 1024 bytes)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('File size exceeds 5 MB limit. Please upload a document smaller than 5 MB.');
         e.target.value = '';
         return;
       }
@@ -314,26 +114,47 @@ const CurrentJobsPage = () => {
       locality: '',
       mobile: '',
       qualification: '',
+      otherQualification: '',
       functionalArea: '',
+      otherFunctionalArea: '',
       expYears: '',
+      otherExpYears: '',
       expMonths: '',
       salaryLakhs: '',
       salaryThousands: '',
+      otherSalary: '',
       noticePeriod: '',
+      otherNoticePeriod: '',
       keySkills: '',
       resumeFile: null
     });
     setFileName('');
-    setIsCountryOpen(false);
-    setCountrySearch('');
-    setIsCountryCodeOpen(false);
-    setCountryCodeSearch('');
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.mobile || !formData.city || !formData.qualification || !formData.functionalArea || !formData.expYears || !formData.salaryLakhs || !formData.noticePeriod || !formData.keySkills) {
       alert('Please fill all mandatory fields (*)');
+      return;
+    }
+    if (isOtherOption(formData.qualification) && !formData.otherQualification.trim()) {
+      alert('Please specify your custom qualification in the text field.');
+      return;
+    }
+    if (isOtherOption(formData.functionalArea) && !formData.otherFunctionalArea.trim()) {
+      alert('Please specify your custom functional area in the text field.');
+      return;
+    }
+    if (isOtherOption(formData.expYears) && !formData.otherExpYears.trim()) {
+      alert('Please specify your total work experience in the text field.');
+      return;
+    }
+    if ((isOtherOption(formData.salaryLakhs) || isOtherOption(formData.salaryThousands)) && !formData.otherSalary.trim()) {
+      alert('Please specify your current annual salary in the text field.');
+      return;
+    }
+    if (isOtherOption(formData.noticePeriod) && !formData.otherNoticePeriod.trim()) {
+      alert('Please specify your custom notice period in the text field.');
       return;
     }
     if (!formData.resumeFile) {
@@ -429,24 +250,60 @@ const CurrentJobsPage = () => {
             {/* LEFT COLUMN: Wider Column with Post Your Resume Form (lg:col-span-7 xl:col-span-8) */}
             <div className="lg:col-span-7 xl:col-span-8 flex flex-col gap-6 text-left">
               
-              {/* Highlighted Status Card Banner */}
-              <div className="relative rounded-[20px] p-6 sm:p-7 bg-gradient-to-br from-amber-500/10 via-[#fefbf6] to-amber-500/15 border-2 border-amber-400/80 shadow-[0_10px_30px_rgba(245,158,11,0.12)] overflow-hidden text-center group">
+              {/* Highlighted Status Card Banner with Modern Mirror-Sheen Infinite Glow Animation */}
+              <div className="relative rounded-[22px] p-[1.5px] overflow-hidden group shadow-lg shadow-amber-500/10">
                 
-                {/* Decorative Amber Glow Circles */}
-                <div className="absolute -top-12 -right-12 w-36 h-36 bg-amber-400/20 rounded-full blur-2xl pointer-events-none" />
-                <div className="absolute -bottom-12 -left-12 w-36 h-36 bg-amber-500/15 rounded-full blur-2xl pointer-events-none" />
+                {/* 1. Infinite Ambient Glowing Pulsing Border Aura */}
+                <motion.div 
+                  animate={{
+                    backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                    opacity: [0.65, 1, 0.65]
+                  }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 4.5,
+                    ease: 'linear'
+                  }}
+                  className="absolute inset-0 bg-gradient-to-r from-amber-400 via-yellow-300 via-amber-500 to-amber-400 bg-[length:200%_auto] rounded-[22px]"
+                />
 
-                {/* Main Highlight Title */}
-                <h3 className="text-xl sm:text-2xl font-black text-slate-950 tracking-tight flex items-center justify-center gap-2">
-                  <Sparkles size={20} className="text-amber-600 shrink-0" />
-                  <span>— No Active Opening Right Now —</span>
-                  <Sparkles size={20} className="text-amber-600 shrink-0" />
-                </h3>
+                {/* 2. Inner Main Glass Card Surface */}
+                <div className="relative rounded-[21px] p-6 sm:p-7 bg-gradient-to-b from-white via-[#fffdf9] to-[#fff9ee] backdrop-blur-md overflow-hidden text-center z-10">
+                  
+                  {/* 3. Sweeping Infinite Mirror Sheen / Glowing Light Beam */}
+                  <motion.div
+                    animate={{
+                      x: ['-160%', '260%']
+                    }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 3,
+                      ease: 'easeInOut',
+                      repeatDelay: 0.6
+                    }}
+                    className="absolute inset-0 w-1/3 -skew-x-25 bg-gradient-to-r from-transparent via-white/80 to-transparent pointer-events-none z-20 shadow-[0_0_25px_rgba(255,255,255,0.9)]"
+                  />
 
-                {/* Descriptive Text */}
-                <p className="text-[14px] sm:text-[15px] text-slate-700 max-w-2xl mx-auto mt-2.5 leading-relaxed font-medium">
-                  We are continually expanding our precast manufacturing and engineering teams! <strong className="text-slate-900">Post your resume below</strong> to get fast-tracked for immediate upcoming project vacancies.
-                </p>
+                  {/* 4. Subtle Ambient Background Glows */}
+                  <div className="absolute -top-10 -right-10 w-32 h-32 bg-amber-400/15 rounded-full blur-2xl pointer-events-none" />
+                  <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-yellow-400/15 rounded-full blur-2xl pointer-events-none" />
+
+                  {/* Content Container */}
+                  <div className="relative z-10">
+                    {/* Main Highlight Title */}
+                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center justify-center gap-2">
+                      <Sparkles size={18} className="text-amber-500 shrink-0" />
+                      <span>No Active Openings Right Now</span>
+                      <Sparkles size={18} className="text-amber-500 shrink-0" />
+                    </h3>
+
+                    {/* Descriptive Text */}
+                    <p className="text-[14px] sm:text-[15px] text-slate-600 max-w-2xl mx-auto mt-2 leading-relaxed font-medium">
+                      We are continually expanding our precast manufacturing and engineering teams! <strong className="text-slate-900 font-bold">Post your resume below</strong> to get fast-tracked for immediate upcoming project vacancies.
+                    </p>
+                  </div>
+
+                </div>
               </div>
 
               {/* Form Container Card */}
@@ -563,6 +420,17 @@ const CurrentJobsPage = () => {
                           />
                           <span>Female</span>
                         </label>
+                        <label className="inline-flex items-center gap-2 cursor-pointer text-sm font-semibold text-slate-800">
+                          <input
+                            type="radio"
+                            name="gender"
+                            value="Other"
+                            checked={formData.gender === 'Other'}
+                            onChange={handleInputChange}
+                            className="accent-amber-600 w-4 h-4 cursor-pointer"
+                          />
+                          <span>Other</span>
+                        </label>
                       </div>
                     </div>
 
@@ -584,87 +452,22 @@ const CurrentJobsPage = () => {
                       </div>
                     </div>
 
-                    {/* 4. Country (Searchable Dropdown with all 240+ Countries) */}
+                    {/* 4. Country (Standardized Searchable Combobox with all 240+ Countries) */}
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-center">
                       <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right">
                         <span className="text-red-500 font-bold mr-1">*</span>Country :
                       </label>
-                      <div className="sm:col-span-8 relative" ref={countryRef}>
-                        <div className="relative">
-                          <input
-                            type="text"
-                            name="country"
-                            value={formData.country}
-                            onChange={handleInputChange}
-                            onClick={() => setIsCountryOpen(true)}
-                            onFocus={() => setIsCountryOpen(true)}
-                            placeholder="Type or select country..."
-                            className="w-full px-3.5 py-2.5 pr-10 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white cursor-pointer"
-                          />
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setIsCountryOpen(!isCountryOpen);
-                            }}
-                            className="absolute right-0 top-0 bottom-0 px-3 flex items-center justify-center text-slate-400 hover:text-amber-600 transition-colors cursor-pointer"
-                          >
-                            <ChevronDown size={16} className={`transition-transform ${isCountryOpen ? 'rotate-180 text-amber-600' : ''}`} />
-                          </button>
-                        </div>
-
-                        {/* Complete 240+ Countries Scrollable Dropdown Menu with Search */}
-                        <AnimatePresence>
-                          {isCountryOpen && (
-                            <motion.div
-                              initial={{ opacity: 0, y: 5 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: 5 }}
-                              transition={{ duration: 0.15 }}
-                              className="absolute top-full left-0 right-0 mt-1.5 bg-white border border-slate-200 rounded-xl shadow-2xl z-[100] overflow-hidden"
-                            >
-                              {/* Search Input inside Popover */}
-                              <div className="p-2.5 border-b border-slate-200 bg-slate-50 flex items-center gap-2">
-                                <Search size={14} className="text-slate-400 ml-1.5" />
-                                <input
-                                  type="text"
-                                  placeholder="Filter 240+ countries..."
-                                  value={countrySearch}
-                                  onChange={(e) => setCountrySearch(e.target.value)}
-                                  className="bg-transparent text-xs text-slate-900 placeholder:text-slate-400 outline-none w-full py-0.5"
-                                  autoFocus
-                                />
-                              </div>
-
-                              {/* Complete List of all 240+ countries */}
-                              <div className="max-h-56 overflow-y-auto divide-y divide-slate-100 custom-scrollbar">
-                                {filteredCountries.length > 0 ? (
-                                  filteredCountries.map((item, idx) => (
-                                    <button
-                                      key={idx}
-                                      type="button"
-                                      onClick={() => {
-                                        setFormData(prev => ({ ...prev, country: item }));
-                                        setIsCountryOpen(false);
-                                        setCountrySearch('');
-                                      }}
-                                      className={`w-full text-left px-3.5 py-2.5 text-xs hover:bg-yellow-50 hover:text-amber-900 transition-colors flex items-center justify-between cursor-pointer ${
-                                        formData.country === item ? 'bg-yellow-100/70 text-amber-950 font-bold' : 'text-slate-700'
-                                      }`}
-                                    >
-                                      <span className="truncate">{item}</span>
-                                      {formData.country === item && <Check size={14} className="text-amber-600 shrink-0 ml-2" />}
-                                    </button>
-                                  ))
-                                ) : (
-                                  <div className="p-3 text-left text-xs text-slate-500">
-                                    Use custom: "<span className="text-amber-700 font-semibold">{formData.country}</span>"
-                                  </div>
-                                )}
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
+                      <div className="sm:col-span-8">
+                        <SearchableSelect
+                          name="country"
+                          value={formData.country}
+                          options={countriesList}
+                          isTypeable={true}
+                          placeholder="Type or select country..."
+                          searchPlaceholder="Filter 240+ countries..."
+                          onChange={handleInputChange}
+                          required
+                        />
                       </div>
                     </div>
 
@@ -703,87 +506,25 @@ const CurrentJobsPage = () => {
                       </div>
                     </div>
 
-                    {/* 7. Mobile with Country Dial Code Picker */}
+                    {/* 7. Mobile with Standardized Common Country Code Picker */}
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-center">
                       <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right">
                         <span className="text-red-500 font-bold mr-1">*</span>Mobile :
                       </label>
                       <div className="sm:col-span-8 flex gap-2">
-                        
-                        {/* Country Code Picker Dropdown */}
-                        <div className="relative" ref={countryCodeRef}>
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setIsCountryCodeOpen(!isCountryCodeOpen);
-                              setIsCountryOpen(false);
-                            }}
-                            className="bg-slate-50 hover:bg-white border border-slate-300 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-900 flex items-center gap-1.5 justify-center shrink-0 min-w-[95px] hover:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-400/30 transition-all cursor-pointer shadow-xs"
-                          >
-                            <span>{formData.selectedCountry?.flag || '🇮🇳'}</span>
-                            <span>{formData.selectedCountry?.dialCode || '+91'}</span>
-                            <ChevronDown size={14} className={`text-slate-500 transition-transform ${isCountryCodeOpen ? 'rotate-180 text-amber-600' : ''}`} />
-                          </button>
-
-                          {/* Country Code Dropdown Popover */}
-                          <AnimatePresence>
-                            {isCountryCodeOpen && (
-                              <motion.div
-                                initial={{ opacity: 0, y: 5 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: 5 }}
-                                transition={{ duration: 0.15 }}
-                                className="absolute top-full left-0 w-72 mt-1.5 bg-white border border-slate-200 rounded-xl shadow-2xl z-[100] overflow-hidden"
-                              >
-                                {/* Search Input */}
-                                <div className="p-2.5 border-b border-slate-200 bg-slate-50 flex items-center gap-2">
-                                  <Search size={14} className="text-slate-400 ml-1.5" />
-                                  <input
-                                    type="text"
-                                    placeholder="Search country or code..."
-                                    value={countryCodeSearch}
-                                    onChange={(e) => setCountryCodeSearch(e.target.value)}
-                                    className="bg-transparent text-xs text-slate-900 placeholder:text-slate-400 outline-none w-full py-0.5"
-                                    autoFocus
-                                  />
-                                </div>
-
-                                {/* Country Codes List */}
-                                <div className="max-h-56 overflow-y-auto divide-y divide-slate-100 custom-scrollbar">
-                                  {filteredCountryCodes.map((item, idx) => (
-                                    <button
-                                      key={idx}
-                                      type="button"
-                                      onClick={() => {
-                                        const newMaxDigits = getMaxPhoneDigits(item);
-                                        const adjustedPhone = formData.mobile.slice(0, newMaxDigits);
-                                        setFormData(prev => ({ 
-                                          ...prev, 
-                                          selectedCountry: item,
-                                          mobile: adjustedPhone 
-                                        }));
-                                        setIsCountryCodeOpen(false);
-                                        setCountryCodeSearch('');
-                                      }}
-                                      className={`w-full text-left px-3 py-2 text-xs hover:bg-yellow-50 hover:text-amber-900 transition-colors flex items-center justify-between cursor-pointer ${
-                                        formData.selectedCountry?.code === item.code ? 'bg-yellow-100/70 text-amber-950 font-bold' : 'text-slate-700'
-                                      }`}
-                                    >
-                                      <span className="flex items-center gap-2 truncate">
-                                        <span>{item.flag}</span>
-                                        <span className="truncate">{item.name}</span>
-                                      </span>
-                                      <span className="font-mono text-slate-500 text-[11px] ml-2 shrink-0">
-                                        {item.dialCode}
-                                      </span>
-                                    </button>
-                                  ))}
-                                </div>
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </div>
+                        {/* Standardized Common Country Code Picker */}
+                        <CountryCodePicker
+                          selectedCountry={formData.selectedCountry}
+                          onChange={(item) => {
+                            const newMaxDigits = getMaxPhoneDigits(item);
+                            const adjustedPhone = formData.mobile.slice(0, newMaxDigits);
+                            setFormData(prev => ({ 
+                              ...prev, 
+                              selectedCountry: item,
+                              mobile: adjustedPhone 
+                            }));
+                          }}
+                        />
 
                         {/* Phone Input */}
                         <input
@@ -801,142 +542,228 @@ const CurrentJobsPage = () => {
                       </div>
                     </div>
 
-                    {/* 8. Qualification */}
-                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-center">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right">
+                    {/* 8. Qualification (Grouped Searchable Dropdown) */}
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start">
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right pt-2.5">
                         <span className="text-red-500 font-bold mr-1">*</span>Qualification :
                       </label>
                       <div className="sm:col-span-8">
-                        <select
+                        <SearchableSelect
                           name="qualification"
                           value={formData.qualification}
+                          options={qualificationsGrouped}
+                          placeholder="--Select Qualification--"
+                          searchPlaceholder="Search qualification..."
                           onChange={handleInputChange}
                           required
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white cursor-pointer"
-                        >
-                          <option value="">--Select Qualification--</option>
-                          {qualificationsGrouped.map((grp, idx) => (
-                            <optgroup key={idx} label={grp.group} className="font-bold text-slate-900 bg-slate-100">
-                              {grp.options.map((opt) => (
-                                <option key={opt} value={opt} className="font-normal text-slate-800 bg-white">
-                                  {opt}
-                                </option>
-                              ))}
-                            </optgroup>
-                          ))}
-                        </select>
+                        />
+
+                        {/* If Other Qualification is selected, show manual text input */}
+                        {isOtherOption(formData.qualification) && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -6 }}
+                            transition={{ duration: 0.2 }}
+                            className="mt-2.5"
+                          >
+                            <input
+                              type="text"
+                              name="otherQualification"
+                              value={formData.otherQualification}
+                              onChange={handleInputChange}
+                              required
+                              placeholder="Please enter your specific qualification (e.g., B.Des, ITI, B.F.Tech, etc.)..."
+                              className="w-full px-3.5 py-2.5 rounded-xl border border-amber-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-amber-50/40 focus:bg-white placeholder:text-slate-400"
+                            />
+                          </motion.div>
+                        )}
                       </div>
                     </div>
 
-                    {/* 9. Functional Area */}
-                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-center">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right">
+                    {/* 9. Functional Area (Searchable Dropdown) */}
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start">
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right pt-2.5">
                         <span className="text-red-500 font-bold mr-1">*</span>Functional Area :
                       </label>
                       <div className="sm:col-span-8">
-                        <select
+                        <SearchableSelect
                           name="functionalArea"
                           value={formData.functionalArea}
+                          options={functionalAreasList}
+                          placeholder="--Select Functional Area--"
+                          searchPlaceholder="Search functional area..."
                           onChange={handleInputChange}
                           required
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white cursor-pointer"
-                        >
-                          <option value="">--Select Functional Area--</option>
-                          {functionalAreasList.map((fa) => (
-                            <option key={fa} value={fa}>{fa}</option>
-                          ))}
-                        </select>
+                        />
+
+                        {/* If Other Functional Area is selected, show manual text input */}
+                        {isOtherOption(formData.functionalArea) && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -6 }}
+                            transition={{ duration: 0.2 }}
+                            className="mt-2.5"
+                          >
+                            <input
+                              type="text"
+                              name="otherFunctionalArea"
+                              value={formData.otherFunctionalArea}
+                              onChange={handleInputChange}
+                              required
+                              placeholder="Please enter your specific functional area / department..."
+                              className="w-full px-3.5 py-2.5 rounded-xl border border-amber-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-amber-50/40 focus:bg-white placeholder:text-slate-400"
+                            />
+                          </motion.div>
+                        )}
                       </div>
                     </div>
 
-                    {/* 10. Total Work Experience */}
-                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-center">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right">
+                    {/* 10. Total Work Experience (Searchable Dropdowns for Years & Months) */}
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start">
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right pt-2.5">
                         <span className="text-red-500 font-bold mr-1">*</span>Total Work Experience :
                       </label>
-                      <div className="sm:col-span-8 grid grid-cols-2 gap-3">
-                        <select
-                          name="expYears"
-                          value={formData.expYears}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-3 py-2.5 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white cursor-pointer"
-                        >
-                          <option value="">--Select Year--</option>
-                          <option value="Fresher">Fresher</option>
-                          {[...Array(30)].map((_, i) => (
-                            <option key={i + 1} value={`${i + 1} Years`}>{i + 1} Years</option>
-                          ))}
-                        </select>
+                      <div className="sm:col-span-8">
+                        <div className="grid grid-cols-2 gap-3">
+                          <SearchableSelect
+                            name="expYears"
+                            value={formData.expYears}
+                            options={['Fresher', ...Array.from({ length: 30 }, (_, i) => `${i + 1} Years`), 'Other (Please Specify)']}
+                            placeholder="--Select Year--"
+                            searchPlaceholder="Filter years..."
+                            onChange={handleInputChange}
+                            required
+                          />
 
-                        <select
-                          name="expMonths"
-                          value={formData.expMonths}
-                          onChange={handleInputChange}
-                          disabled={formData.expYears === 'Fresher'}
-                          className={`w-full px-3 py-2.5 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white cursor-pointer ${
-                            formData.expYears === 'Fresher' ? 'opacity-50 cursor-not-allowed bg-slate-100' : ''
-                          }`}
-                        >
-                          <option value="0">--Select Months--</option>
-                          {[...Array(12)].map((_, i) => (
-                            <option key={i + 1} value={`${i + 1} Months`}>{i + 1} Months</option>
-                          ))}
-                        </select>
+                          <SearchableSelect
+                            name="expMonths"
+                            value={formData.expMonths}
+                            options={['0 Months', ...Array.from({ length: 12 }, (_, i) => `${i + 1} Months`)]}
+                            placeholder="--Select Months--"
+                            searchPlaceholder="Filter months..."
+                            disabled={formData.expYears === 'Fresher' || isOtherOption(formData.expYears)}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+
+                        {/* If Other Experience is selected, show manual text input */}
+                        {isOtherOption(formData.expYears) && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -6 }}
+                            transition={{ duration: 0.2 }}
+                            className="mt-2.5"
+                          >
+                            <input
+                              type="text"
+                              name="otherExpYears"
+                              value={formData.otherExpYears}
+                              onChange={handleInputChange}
+                              required
+                              placeholder="Please specify your total work experience (e.g., 32 Years, 15+ Years Freelance, etc.)..."
+                              className="w-full px-3.5 py-2.5 rounded-xl border border-amber-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-amber-50/40 focus:bg-white placeholder:text-slate-400"
+                            />
+                          </motion.div>
+                        )}
                       </div>
                     </div>
 
-                    {/* 11. Current Annual Salary */}
-                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-center">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right">
+                    {/* 11. Current Annual Salary (Searchable Dropdowns for Lakhs & Thousands) */}
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start">
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right pt-2.5">
                         <span className="text-red-500 font-bold mr-1">*</span>Current Annual Salary :
                       </label>
-                      <div className="sm:col-span-8 grid grid-cols-2 gap-3">
-                        <select
-                          name="salaryLakhs"
-                          value={formData.salaryLakhs}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-3 py-2.5 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white cursor-pointer"
-                        >
-                          <option value="">Lakhs</option>
-                          {[...Array(50)].map((_, i) => (
-                            <option key={i + 1} value={i + 1}>{i + 1}</option>
-                          ))}
-                        </select>
+                      <div className="sm:col-span-8">
+                        <div className="grid grid-cols-2 gap-3">
+                          <SearchableSelect
+                            name="salaryLakhs"
+                            value={formData.salaryLakhs}
+                            options={[
+                              ...Array.from({ length: 50 }, (_, i) => ({ label: `${i + 1} Lakhs`, value: `${i + 1}` })),
+                              { label: 'Other (Please Specify)', value: 'Other' }
+                            ]}
+                            placeholder="Lakhs"
+                            searchPlaceholder="Filter lakhs..."
+                            onChange={handleInputChange}
+                            required
+                          />
 
-                        <select
-                          name="salaryThousands"
-                          value={formData.salaryThousands}
-                          onChange={handleInputChange}
-                          className="w-full px-3 py-2.5 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white cursor-pointer"
-                        >
-                          <option value="">Thousands</option>
-                          {salaryThousandsList.map((val) => (
-                            <option key={val} value={val}>{val}</option>
-                          ))}
-                        </select>
+                          <SearchableSelect
+                            name="salaryThousands"
+                            value={formData.salaryThousands}
+                            options={salaryThousandsList.map(val => ({ 
+                              label: `${val} Thousand`, 
+                              value: val 
+                            }))}
+                            placeholder="Thousands"
+                            searchPlaceholder="Filter thousands..."
+                            disabled={isOtherOption(formData.salaryLakhs)}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+
+                        {/* If Other Salary is selected in Lakhs, show full annual salary text input */}
+                        {isOtherOption(formData.salaryLakhs) && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -6 }}
+                            transition={{ duration: 0.2 }}
+                            className="mt-2.5"
+                          >
+                            <input
+                              type="text"
+                              name="otherSalary"
+                              value={formData.otherSalary}
+                              onChange={handleInputChange}
+                              required
+                              placeholder="Please specify your current annual salary (e.g., 55 Lakhs / Annum, Negotiable, Per Project)..."
+                              className="w-full px-3.5 py-2.5 rounded-xl border border-amber-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-amber-50/40 focus:bg-white placeholder:text-slate-400"
+                            />
+                          </motion.div>
+                        )}
                       </div>
                     </div>
 
-                    {/* 12. Duration of Notice Period */}
-                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-center">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right">
+                    {/* 12. Duration of Notice Period (Searchable Dropdown) */}
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start">
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right pt-2.5">
                         <span className="text-red-500 font-bold mr-1">*</span>Duration of Notice Period :
                       </label>
                       <div className="sm:col-span-8">
-                        <select
+                        <SearchableSelect
                           name="noticePeriod"
                           value={formData.noticePeriod}
+                          options={noticePeriodsList}
+                          placeholder="Select"
+                          searchPlaceholder="Search notice period..."
                           onChange={handleInputChange}
                           required
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white cursor-pointer"
-                        >
-                          <option value="">Select</option>
-                          {noticePeriodsList.map((np) => (
-                            <option key={np} value={np}>{np}</option>
-                          ))}
-                        </select>
+                        />
+
+                        {/* If Other Notice Period is selected, show manual text input */}
+                        {isOtherOption(formData.noticePeriod) && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -6 }}
+                            transition={{ duration: 0.2 }}
+                            className="mt-2.5"
+                          >
+                            <input
+                              type="text"
+                              name="otherNoticePeriod"
+                              value={formData.otherNoticePeriod}
+                              onChange={handleInputChange}
+                              required
+                              placeholder="Please enter your notice period duration (e.g., 45 Days, Serving Notice, etc.)..."
+                              className="w-full px-3.5 py-2.5 rounded-xl border border-amber-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-amber-50/40 focus:bg-white placeholder:text-slate-400"
+                            />
+                          </motion.div>
+                        )}
                       </div>
                     </div>
 
@@ -958,7 +785,7 @@ const CurrentJobsPage = () => {
                       </div>
                     </div>
 
-                    {/* 14. Attach Resume with Complete File Support & 2MB Validation */}
+                    {/* 14. Attach Resume with Complete File Support & 5MB Validation */}
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start">
                       <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right pt-2">
                         <span className="text-red-500 font-bold mr-1">*</span>Attach Resume :
@@ -1005,7 +832,7 @@ const CurrentJobsPage = () => {
                           </div>
 
                           <p className="text-[12px] font-bold text-amber-600">
-                            Allowed File Type : .doc, .docx, .rtf, .pdf (Upto 2 MB)
+                            Allowed File Type : .doc, .docx, .rtf, .pdf (Upto 5 MB)
                           </p>
                         </div>
                       </div>

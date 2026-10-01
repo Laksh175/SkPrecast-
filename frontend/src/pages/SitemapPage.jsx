@@ -37,6 +37,7 @@ import { FaDiamond } from 'react-icons/fa6';
 import { Button } from '../common';
 import { navigateTo } from '../utils/navigation';
 import { aboutCompanyData, dropdownCategoriesData, standaloneProductsData } from '../data/aboutUsData';
+import { sitemapGeneralLinks, sitemapHeroData } from '../data/sitemapData';
 
 // Dynamic Icon Map for explore products section
 const iconComponentMap = { 
@@ -72,19 +73,7 @@ const SitemapPage = () => {
   };
 
   const activeDropdownData = dropdownCategoriesData.find(d => d.id === openDropdown);
-
-  const generalLinks = [
-    { name: 'Home', path: '/', isHome: true },
-    { name: 'Blog', path: '/blog' },
-    { name: 'About Us', path: '/about-us' },
-    { name: 'Products', path: '/products' },
-    { name: 'Current Jobs', path: '/current-jobs.htm' },
-    { name: 'Catalogues', path: '/catalogues.htm' },
-    { name: 'Gallery', path: '/gallery.htm' },
-    { name: 'Wall Manufacturing Unit', path: '/wall-manufacturing-unit.htm' },
-    { name: 'Testimonials', path: '/#testimonials' },
-    { name: 'Contact Us', path: '/contact-us.htm' }
-  ];
+  const generalLinks = sitemapGeneralLinks;
 
   return (
     <div className="w-full bg-[#f8fafc] text-slate-900 font-sans min-h-screen">

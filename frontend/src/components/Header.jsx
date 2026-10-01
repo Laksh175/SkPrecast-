@@ -2,48 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Mail, Search, ChevronDown, Menu, X, ArrowRight } from 'lucide-react';
 import { navigateTo } from '../utils/navigation';
 import { allProductsList } from '../data/homeData';
-
-const getProductUrl = (productName) => {
-  const map = {
-    "Cement Boundary Wall": "/cement-boundary-wall.htm",
-    "Concrete Boundary Wall": "/concrete-boundary-wall.htm",
-    "Concrete Folding Compound Wall": "/concrete-folding-compound-wall.htm",
-    "Concrete Precast Single Panel Wall": "/concrete-precast-single-panel-wall.htm",
-    "Concrete Prestressed Boundary Walls": "/concrete-prestressed-boundary-walls.htm",
-    "Factory Boundary Wall": "/factory-boundary-wall.htm",
-    "Farm House Boundary Wall": "/farm-house-boundary-wal.htm",
-    "Farm House Boundary Wal": "/farm-house-boundary-wal.htm",
-    "Heavy Readymade Boundary Wall": "/heavy-readymade-boundary-wall.htm",
-    "Industrial Boundary Wall": "/industrial-boundary-wall.htm",
-    "Industrial Compound Wall": "/industrial-compound-wall.htm",
-    "Panel Build RCC Compound Wall": "/compound-wall.htm",
-    "Panel Build RCC Precast Compound Wall": "/compound-wall.htm",
-    "Pre Fabricated Cement Wall": "/pre-fabricated-cement-wall.htm",
-    "Precast Boundary Wall": "/precast-boundary-wall.htm",
-    "Precast Compound Walls": "/compound-wall.htm",
-    "Precast Concrete Wall": "/precast-concerete-wall.htm",
-    "Precast Heavy Duty Boundary Wall": "/boundary-wall.htm",
-    "Precast Heavy Duty Compound Wall": "/compound-wall.htm",
-    "Precast Wall": "/precast-wall.htm",
-    "Precast Wall Panels": "/precast-wall-panels.htm",
-    "Prefab RCC Readymade Precast Compound Wall": "/compound-wall.htm",
-    "RCC Boundary Wall": "/rcc-boundary-wall.htm",
-    "RCC Cement Wall": "/rcc-cement-wall.htm",
-    "RCC Compound Wall": "/compound-wall.htm",
-    "RCC Folding Compound Wall": "/compound-wall.htm",
-    "RCC Folding Wall": "/rcc-folding-wall.htm",
-    "RCC Industrial One Piece Compound Wall": "/compound-wall.htm",
-    "RCC Precast Columns": "/rcc-precast-columns.htm",
-    "RCC Readymade Compound Wall": "/compound-wall.htm",
-    "RCC Wall": "/rcc-wall.htm",
-    "Readymade Boundary Wall": "/readymade-boundary-wall.htm",
-    "Readymade Compound Wall": "/compound-wall.htm",
-    "Readymade Walls": "/readymade-walls.htm",
-    "Single Mould RCC Precast Compound Wall": "/compound-wall.htm",
-    "Solar Plant Boundary Wall": "/solar-plant-boundary-wall.htm"
-  };
-  return map[productName] || `/products.htm`;
-};
+import { getProductUrl } from '../data/navigationData';
 
 const Header = ({ currentRoute = 'home' }) => {
   const [isProductsOpen, setIsProductsOpen] = useState(false);

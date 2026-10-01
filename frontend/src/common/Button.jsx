@@ -111,8 +111,7 @@ export const Button = ({
         target={target}
         rel={target === '_blank' ? (rel || 'noreferrer noopener') : rel}
         title={title}
-        {...props}
-      >
+        {...props}>
         {content}
       </a>
     );
@@ -125,8 +124,7 @@ export const Button = ({
       disabled={disabled}
       className={combinedClasses}
       title={title}
-      {...props}
-    >
+      {...props}>
       {content}
     </button>
   );

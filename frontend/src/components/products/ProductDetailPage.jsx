@@ -12,7 +12,7 @@ import { useInfiniteSlider, useClickOutside } from '../../hooks';
 import ImageZoomMagnifier from './ImageZoomMagnifier';
 import QuickQuoteModal from '../QuickQuoteModal';
 import { navigateTo } from '../../utils/navigation';
-import { Button } from '../../common';
+import { Button, CountryCodePicker } from '../../common';
 
 const getMaxPhoneDigits = (country) => {
   if (!country) return 10;
@@ -57,19 +57,6 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
 
   // Country Code Dropdown State
   const [selectedCountry, setSelectedCountry] = useState(countryCodes[0]); // India +91
-  const [isCountryCodeOpen, setIsCountryCodeOpen] = useState(false);
-  const [countryCodeSearch, setCountryCodeSearch] = useState('');
-  const countryCodeRef = useRef(null);
-
-  useClickOutside(countryCodeRef, () => {
-    setIsCountryCodeOpen(false);
-  });
-
-  const filteredCountryCodes = countryCodes.filter(c => 
-    c.name.toLowerCase().includes(countryCodeSearch.toLowerCase()) ||
-    c.dialCode.includes(countryCodeSearch) ||
-    c.code.toLowerCase().includes(countryCodeSearch.toLowerCase())
-  );
 
   // Inline Enquiry Form State
   const [inlineFormState, setInlineFormState] = useState({
@@ -602,82 +589,22 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   
-                  {/* PHONE / MOBILE WITH INTERACTIVE SEARCHABLE COUNTRY CODE PICKER */}
+                  {/* PHONE / MOBILE WITH STANDARDIZED COUNTRY CODE PICKER */}
                   <div>
                     <label className="block text-[11px] sm:text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                       Phone / Mobile <span className="text-amber-600 font-bold">*</span>
                     </label>
                     <div className="flex gap-2">
-                      {/* Country Code Picker Dropdown */}
-                      <div className="relative" ref={countryCodeRef}>
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setIsCountryCodeOpen(!isCountryCodeOpen);
-                          }}
-                          className="bg-slate-50/80 hover:bg-white border border-slate-300 rounded-xl px-3 py-3 text-sm font-bold text-slate-900 flex items-center gap-1.5 justify-center shrink-0 min-w-[95px] hover:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-400/30 transition-all cursor-pointer shadow-2xs"
-                        >
-                          <span className="text-base leading-none">{selectedCountry.flag}</span>
-                          <span>{selectedCountry.dialCode}</span>
-                          <ChevronDown size={14} className={`text-slate-500 transition-transform ${isCountryCodeOpen ? 'rotate-180 text-amber-600' : ''}`} />
-                        </button>
-
-                        {/* Country Code Dropdown Popover */}
-                        <AnimatePresence>
-                          {isCountryCodeOpen && (
-                            <motion.div
-                              initial={{ opacity: 0, y: 5 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: 5 }}
-                              transition={{ duration: 0.15 }}
-                              className="absolute top-full left-0 w-72 mt-1.5 bg-white border border-slate-200 rounded-xl shadow-2xl z-[100] overflow-hidden text-left"
-                            >
-                              {/* Search Input */}
-                              <div className="p-2.5 border-b border-slate-200 bg-slate-50 flex items-center gap-2">
-                                <Search size={14} className="text-slate-400 ml-1.5" />
-                                <input
-                                  type="text"
-                                  placeholder="Search country or code..."
-                                  value={countryCodeSearch}
-                                  onChange={(e) => setCountryCodeSearch(e.target.value)}
-                                  className="bg-transparent text-xs text-slate-900 placeholder:text-slate-400 outline-none w-full py-0.5"
-                                  autoFocus
-                                />
-                              </div>
-
-                              {/* Country Codes List */}
-                              <div className="max-h-56 overflow-y-auto divide-y divide-slate-100 custom-scrollbar">
-                                {filteredCountryCodes.map((item, idx) => (
-                                  <button
-                                    key={idx}
-                                    type="button"
-                                    onClick={() => {
-                                      const newMaxDigits = getMaxPhoneDigits(item);
-                                      const adjustedPhone = inlineFormState.mobile.slice(0, newMaxDigits);
-                                      setSelectedCountry(item);
-                                      setInlineFormState((prev) => ({ ...prev, mobile: adjustedPhone }));
-                                      setIsCountryCodeOpen(false);
-                                      setCountryCodeSearch('');
-                                    }}
-                                    className={`w-full text-left px-3 py-2.5 text-xs hover:bg-amber-50 hover:text-amber-900 transition-colors flex items-center justify-between ${
-                                      selectedCountry.code === item.code ? 'bg-amber-100/70 text-amber-950 font-bold' : 'text-slate-700'
-                                    }`}
-                                  >
-                                    <span className="flex items-center gap-2 truncate">
-                                      <span className="text-base">{item.flag}</span>
-                                      <span className="truncate">{item.name}</span>
-                                    </span>
-                                    <span className="font-mono text-slate-500 text-[11px] shrink-0 font-bold ml-2">
-                                      {item.dialCode}
-                                    </span>
-                                  </button>
-                                ))}
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
+                      {/* Standardized Common Country Code Picker */}
+                      <CountryCodePicker
+                        selectedCountry={selectedCountry}
+                        onChange={(item) => {
+                          const newMaxDigits = getMaxPhoneDigits(item);
+                          const adjustedPhone = inlineFormState.mobile.slice(0, newMaxDigits);
+                          setSelectedCountry(item);
+                          setInlineFormState((prev) => ({ ...prev, mobile: adjustedPhone }));
+                        }}
+                      />
 
                       {/* Phone Input */}
                       <div className="flex-1 relative">
