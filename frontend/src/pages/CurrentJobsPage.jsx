@@ -298,7 +298,7 @@ const CurrentJobsPage = () => {
                     </h3>
 
                     {/* Descriptive Text */}
-                    <p className="text-[14px] sm:text-[15px] text-slate-600 max-w-2xl mx-auto mt-2 leading-relaxed font-medium">
+                    <p className="caption-text text-[16px] leading-[26px] text-slate-600 max-w-2xl mx-auto mt-2 font-medium">
                       We are continually expanding our precast manufacturing and engineering teams! <strong className="text-slate-900 font-bold">Post your resume below</strong> to get fast-tracked for immediate upcoming project vacancies.
                     </p>
                   </div>

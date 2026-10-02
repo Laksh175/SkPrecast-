@@ -284,13 +284,16 @@ const TestimonialsPage = () => {
                   <div className="w-full relative rounded-[15px] p-5 sm:p-6 bg-theme-pageBg border border-slate-200 shadow-xl shadow-slate-200/50 hover:border-slate-300 hover:shadow-2xl hover:shadow-slate-300/40 transition-all duration-300">
                     <div className="grid grid-cols-3 gap-2.5 sm:gap-3.5">
                       
-                      {/* Metric 1: Response */}
-                      <div className="relative rounded-2xl p-[1.5px] overflow-hidden group shadow-xs hover:shadow-md transition-all">
-                        {/* Infinite Rotating Laser Border Glow */}
-                        <div className="absolute -inset-[100%] bg-[conic-gradient(from_0deg,transparent_0_300deg,#f59e0b_330deg,#fbbf24_360deg)] animate-[spin_3s_linear_infinite]" />
+                      {/* Metric 1: Response (Full 360° Border with Color Shade Scrolling) */}
+                      <div className="relative rounded-2xl p-[2px] overflow-hidden group shadow-xs hover:shadow-md transition-all">
+                        {/* Infinite Full-Perimeter Color Shade Scrolling Border */}
+                        <div 
+                          className="absolute -inset-[100%] bg-[conic-gradient(from_0deg,#f59e0b_0deg,#fde047_70deg,#f97316_140deg,#d97706_210deg,#fde047_280deg,#f59e0b_360deg)] animate-[spin_4s_linear_infinite]"
+                          style={{ animationDelay: '0s' }}
+                        />
                         
                         {/* Inner Card */}
-                        <div className="relative z-10 w-full h-full bg-white rounded-[14.5px] py-4 px-2 flex flex-col items-center justify-center text-center">
+                        <div className="relative z-10 w-full h-full bg-white rounded-[14px] py-4 px-2 flex flex-col items-center justify-center text-center">
                           <span className="text-[18px] sm:text-[20px] font-black text-amber-600 tracking-tight mb-1">
                             100%
                           </span>
@@ -300,13 +303,16 @@ const TestimonialsPage = () => {
                         </div>
                       </div>
 
-                      {/* Metric 2: Quality */}
-                      <div className="relative rounded-2xl p-[1.5px] overflow-hidden group shadow-xs hover:shadow-md transition-all">
-                        {/* Infinite Rotating Laser Border Glow */}
-                        <div className="absolute -inset-[100%] bg-[conic-gradient(from_0deg,transparent_0_300deg,#f59e0b_330deg,#fbbf24_360deg)] animate-[spin_3s_linear_infinite]" />
+                      {/* Metric 2: Quality (Full 360° Border with Color Shade Scrolling) */}
+                      <div className="relative rounded-2xl p-[2px] overflow-hidden group shadow-xs hover:shadow-md transition-all">
+                        {/* Infinite Full-Perimeter Color Shade Scrolling Border */}
+                        <div 
+                          className="absolute -inset-[100%] bg-[conic-gradient(from_120deg,#f59e0b_0deg,#fde047_70deg,#f97316_140deg,#d97706_210deg,#fde047_280deg,#f59e0b_360deg)] animate-[spin_4s_linear_infinite]"
+                          style={{ animationDelay: '-1.33s' }}
+                        />
                         
                         {/* Inner Card */}
-                        <div className="relative z-10 w-full h-full bg-white rounded-[14.5px] py-4 px-2 flex flex-col items-center justify-center text-center">
+                        <div className="relative z-10 w-full h-full bg-white rounded-[14px] py-4 px-2 flex flex-col items-center justify-center text-center">
                           <span className="text-[18px] sm:text-[20px] font-black text-amber-600 tracking-tight mb-1">
                             100%
                           </span>
@@ -316,13 +322,16 @@ const TestimonialsPage = () => {
                         </div>
                       </div>
 
-                      {/* Metric 3: Delivery */}
-                      <div className="relative rounded-2xl p-[1.5px] overflow-hidden group shadow-xs hover:shadow-md transition-all">
-                        {/* Infinite Rotating Laser Border Glow */}
-                        <div className="absolute -inset-[100%] bg-[conic-gradient(from_0deg,transparent_0_300deg,#f59e0b_330deg,#fbbf24_360deg)] animate-[spin_3s_linear_infinite]" />
+                      {/* Metric 3: Delivery (Full 360° Border with Color Shade Scrolling) */}
+                      <div className="relative rounded-2xl p-[2px] overflow-hidden group shadow-xs hover:shadow-md transition-all">
+                        {/* Infinite Full-Perimeter Color Shade Scrolling Border */}
+                        <div 
+                          className="absolute -inset-[100%] bg-[conic-gradient(from_240deg,#f59e0b_0deg,#fde047_70deg,#f97316_140deg,#d97706_210deg,#fde047_280deg,#f59e0b_360deg)] animate-[spin_4s_linear_infinite]"
+                          style={{ animationDelay: '-2.66s' }}
+                        />
                         
                         {/* Inner Card */}
-                        <div className="relative z-10 w-full h-full bg-white rounded-[14.5px] py-4 px-2 flex flex-col items-center justify-center text-center">
+                        <div className="relative z-10 w-full h-full bg-white rounded-[14px] py-4 px-2 flex flex-col items-center justify-center text-center">
                           <span className="text-[18px] sm:text-[20px] font-black text-amber-600 tracking-tight mb-1">
                             100%
                           </span>
