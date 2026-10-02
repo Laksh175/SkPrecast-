@@ -293,7 +293,7 @@ const Product = () => {
         >
           <div className="flex flex-wrap lg:flex-nowrap items-center justify-between gap-2.5 sm:gap-3 bg-white p-2.5 sm:p-3 rounded-[15px] border border-slate-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all">
 
-            {/* 1. Category Tabs (radius 25px, compact on mobile, auto-centered on click) */}
+            {/* 1. Category Tabs (radius 25px, compact on mobile, auto-centered on click, with smooth sliding pill animation) */}
             <div 
               ref={tabsContainerRef}
               className="flex items-center gap-1.5 sm:gap-2.5 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-0.5 w-full lg:w-auto scroll-smooth"
@@ -302,9 +302,11 @@ const Product = () => {
                 const isActive = selectedCategory === cat.id;
                 const count = categoryCounts[cat.id] || 0;
                 return (
-                  <button
+                  <motion.button
                     key={cat.id}
                     data-category={cat.id}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
                     onClick={(e) => {
                       handleCategoryChange(cat.id);
                       e.currentTarget.scrollIntoView({
@@ -313,17 +315,27 @@ const Product = () => {
                         inline: 'center'
                       });
                     }}
-                    className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 sm:px-4 sm:py-2.5 rounded-[20px] sm:rounded-[25px] text-[12.5px] sm:text-[14px] font-bold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${isActive
-                        ? 'bg-gradient-to-r from-[#fef08a] via-[#fde047] to-[#facc15] text-slate-950 shadow-[0_3px_10px_rgba(234,179,8,0.32)] border border-yellow-400 scale-[1.02]'
+                    className={`relative inline-flex items-center gap-1.5 px-2.5 py-1.5 sm:px-4 sm:py-2.5 rounded-[20px] sm:rounded-[25px] text-[12.5px] sm:text-[14px] font-bold whitespace-nowrap transition-colors duration-200 cursor-pointer shrink-0 select-none ${
+                      isActive
+                        ? 'text-slate-950 font-black'
                         : 'bg-slate-50 hover:bg-slate-100 text-slate-700 hover:text-slate-950 border border-slate-200/90 shadow-xs'
-                      }`}
+                    }`}
                   >
-                    <span>{cat.name}</span>
-                    <span className={`px-1.5 py-0.2 sm:px-2 sm:py-0.5 rounded-full text-[10px] sm:text-[11px] font-extrabold ${isActive ? 'bg-slate-950 text-yellow-400' : 'bg-slate-200/80 text-slate-700'
-                      }`}>
+                    {/* Animated Sliding Active Pill Background */}
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeCategoryPill"
+                        className="absolute inset-0 bg-gradient-to-r from-[#fef08a] via-[#fde047] to-[#facc15] rounded-[20px] sm:rounded-[25px] border border-yellow-400 shadow-[0_3px_12px_rgba(234,179,8,0.35)] -z-0"
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative z-10">{cat.name}</span>
+                    <span className={`relative z-10 px-1.5 py-0.2 sm:px-2 sm:py-0.5 rounded-full text-[10px] sm:text-[11px] font-extrabold transition-all ${
+                      isActive ? 'bg-slate-950 text-yellow-400 scale-105' : 'bg-slate-200/80 text-slate-700'
+                    }`}>
                       {count}
                     </span>
-                  </button>
+                  </motion.button>
                 );
               })}
             </div>
@@ -508,9 +520,12 @@ const Product = () => {
                               <button
                                 type="button"
                                 onClick={() => handleCategoryChange(cat.id)}
-                                className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-[12px] bg-white hover:bg-slate-50 text-slate-900 shadow-sm border border-slate-200/90 hover:border-amber-400 transition-all cursor-pointer group text-left shrink-0"
+                                className="inline-flex items-center gap-2.5 px-3.5 sm:px-4 py-2 rounded-[12px] bg-white hover:bg-slate-50 text-slate-900 shadow-sm border border-slate-200/90 hover:border-amber-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group text-left shrink-0"
                               >
-                                <span className="w-2.5 h-2.5 rounded-full bg-amber-500 shadow-[0_0_8px_#f59e0b] group-hover:scale-125 transition-transform shrink-0" />
+                                <span className="relative flex h-2.5 w-2.5 shrink-0">
+                                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500 shadow-[0_0_8px_#f59e0b]"></span>
+                                </span>
                                 <span className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-900 group-hover:text-amber-600 transition-colors">
                                   {cat.name}
                                 </span>

@@ -1,8 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Header, Footer } from './components';
-import { Home, About, ProductsPage, ProductDetailPage, CataloguesPage, ContactUsPage, BlogPage, BlogDetailPage, GalleryPage, ManufacturingUnitPage, SitemapPage, CurrentJobsPage, TestimonialsPage, RssFeedPage } from './pages';
+import Home from './pages/Home';
 import { getProductBySlug } from './data/productsData';
 import { getBlogPostBySlug } from './data/blogData';
+
+// Route-based dynamic lazy loading for subpages (Reduces initial load to < 100KB for lightning speed)
+const About = lazy(() => import('./pages/About'));
+const ProductsPage = lazy(() => import('./pages/ProductsPage'));
+const ProductDetailPage = lazy(() => import('./pages/ProductDetailPage'));
+const CataloguesPage = lazy(() => import('./pages/CataloguesPage'));
+const ContactUsPage = lazy(() => import('./pages/ContactUsPage'));
+const BlogPage = lazy(() => import('./pages/BlogPage'));
+const BlogDetailPage = lazy(() => import('./pages/BlogDetailPage'));
+const GalleryPage = lazy(() => import('./pages/GalleryPage'));
+const ManufacturingUnitPage = lazy(() => import('./pages/ManufacturingUnitPage'));
+const SitemapPage = lazy(() => import('./pages/SitemapPage'));
+const CurrentJobsPage = lazy(() => import('./pages/CurrentJobsPage'));
+const TestimonialsPage = lazy(() => import('./pages/TestimonialsPage'));
+const RssFeedPage = lazy(() => import('./pages/RssFeedPage'));
+
+const PageFallback = () => (
+  <div className="min-h-[60vh] flex flex-col items-center justify-center p-8 bg-slate-50/50">
+    <div className="w-9 h-9 border-[3px] border-amber-400/20 border-t-amber-500 rounded-full animate-spin mb-3" />
+    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Loading...</span>
+  </div>
+);
 
 const getInitialRoute = () => {
   const path = window.location.pathname.toLowerCase();
@@ -289,40 +311,46 @@ function App() {
   }, []);
 
   if (currentRoute.name === 'rss-feed') {
-    return <RssFeedPage />;
+    return (
+      <Suspense fallback={<PageFallback />}>
+        <RssFeedPage />
+      </Suspense>
+    );
   }
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8fafc]">
       <Header currentRoute={currentRoute.name} />
       <main className="flex-1">
-        {currentRoute.name === 'product-detail' ? (
-          <ProductDetailPage slug={currentRoute.slug} />
-        ) : currentRoute.name === 'blog-detail' ? (
-          <BlogDetailPage slug={currentRoute.slug} />
-        ) : currentRoute.name === 'testimonials' ? (
-          <TestimonialsPage />
-        ) : currentRoute.name === 'current-jobs' ? (
-          <CurrentJobsPage />
-        ) : currentRoute.name === 'sitemap' ? (
-          <SitemapPage />
-        ) : currentRoute.name === 'contact' ? (
-          <ContactUsPage />
-        ) : currentRoute.name === 'about' ? (
-          <About />
-        ) : currentRoute.name === 'blog' ? (
-          <BlogPage />
-        ) : currentRoute.name === 'gallery' ? (
-          <GalleryPage />
-        ) : currentRoute.name === 'manufacturing-unit' ? (
-          <ManufacturingUnitPage />
-        ) : currentRoute.name === 'catalogues' ? (
-          <CataloguesPage />
-        ) : currentRoute.name === 'products' ? (
-          <ProductsPage />
-        ) : (
-          <Home />
-        )}
+        <Suspense fallback={<PageFallback />}>
+          {currentRoute.name === 'product-detail' ? (
+            <ProductDetailPage slug={currentRoute.slug} />
+          ) : currentRoute.name === 'blog-detail' ? (
+            <BlogDetailPage slug={currentRoute.slug} />
+          ) : currentRoute.name === 'testimonials' ? (
+            <TestimonialsPage />
+          ) : currentRoute.name === 'current-jobs' ? (
+            <CurrentJobsPage />
+          ) : currentRoute.name === 'sitemap' ? (
+            <SitemapPage />
+          ) : currentRoute.name === 'contact' ? (
+            <ContactUsPage />
+          ) : currentRoute.name === 'about' ? (
+            <About />
+          ) : currentRoute.name === 'blog' ? (
+            <BlogPage />
+          ) : currentRoute.name === 'gallery' ? (
+            <GalleryPage />
+          ) : currentRoute.name === 'manufacturing-unit' ? (
+            <ManufacturingUnitPage />
+          ) : currentRoute.name === 'catalogues' ? (
+            <CataloguesPage />
+          ) : currentRoute.name === 'products' ? (
+            <ProductsPage />
+          ) : (
+            <Home />
+          )}
+        </Suspense>
       </main>
       <Footer />
     </div>

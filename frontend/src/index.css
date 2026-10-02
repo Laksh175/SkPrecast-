@@ -70,15 +70,51 @@
 
 @layer base {
   body {
-    @apply font-sans text-gray-700 bg-[#f8fafc] antialiased;
+    @apply font-sans text-gray-700 bg-[#f8fafc] antialiased text-[15px] sm:text-[16px];
     top: 0px !important;
     position: static !important;
+    line-height: 1.65;
+  }
+
+  /* SEO-Optimized Headings Hierarchy */
+  h1 {
+    line-height: 1.18;
+    letter-spacing: -0.025em;
+    font-weight: 800;
+  }
+
+  h2 {
+    line-height: 1.24;
+    letter-spacing: -0.02em;
+    font-weight: 800;
+  }
+
+  h3 {
+    line-height: 1.32;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+  }
+
+  /* SEO & UX Sub-content: Minimum 16px on tablet & laptop, highly readable line-height */
+  @media (min-width: 640px) {
+    p:not(.caption-text):not(.tag-text):not(.badge-text) {
+      font-size: 16px;
+      line-height: 1.65;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    p:not(.caption-text):not(.tag-text):not(.badge-text) {
+      font-size: 17px;
+      line-height: 1.68;
+    }
   }
 
   @media (max-width: 639px) {
     h2:not(.text-xs):not(.text-sm):not(.text-base):not(.text-\[14px\]):not(.text-\[15px\]):not(.text-\[16px\]):not(.text-\[17px\]):not(.text-\[18px\]) {
-      font-size: 23px !important;
-      line-height: 1.28 !important;
+      font-size: 24px !important;
+      line-height: 1.24 !important;
+      letter-spacing: -0.02em !important;
     }
   }
 }

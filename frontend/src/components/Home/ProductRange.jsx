@@ -79,25 +79,29 @@ const ProductRange = () => {
             <motion.div
               key={product.id}
               variants={cardVariants}
-              whileHover={{ y: -6, transition: { duration: 0.25, ease: 'easeOut' } }}
-              className="group flex flex-col bg-white rounded-[15px] overflow-hidden border border-slate-200 hover:border-yellow-400 hover:shadow-[0px_1px_14px_2px_rgba(250,204,21,0.45)] transition-all duration-300"
+              whileHover={{ y: -7, transition: { duration: 0.28, ease: [0.33, 1, 0.68, 1] } }}
+              className="group flex flex-col bg-gradient-to-b from-white to-slate-50/90 rounded-[16px] overflow-hidden border border-slate-200/90 hover:border-yellow-400 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_36px_rgba(234,179,8,0.22),0_4px_12px_rgba(0,0,0,0.06)] transition-all duration-300"
             >
-              {/* Product Image Header with 5px Spacing & Rounded Corners */}
-              <div className="p-[5px]">
+              {/* Product Image Header with Light Sweep Shimmer on Hover */}
+              <div className="p-[6px]">
                 <a 
                   href={`/products#${product.id}`}
                   onClick={(e) => {
                     navigateTo('/products', e);
                     window.location.hash = product.id;
                   }}
-                  className="block relative h-56 w-full overflow-hidden rounded-[12px] bg-slate-100 cursor-pointer shadow-sm"
+                  className="block relative h-56 w-full overflow-hidden rounded-[12px] bg-slate-100 cursor-pointer shadow-xs"
                   title={`View ${product.title}`}
                 >
                   <img
                     src={product.image}
                     alt={product.title}
-                    className="w-full h-full object-cover rounded-[12px] group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover rounded-[12px] group-hover:scale-108 group-hover:brightness-[1.03] transition-all duration-700 ease-out"
+                    loading="lazy"
                   />
+
+                  {/* Light Sweep Shimmer Bar on Hover */}
+                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
                 </a>
               </div>
 

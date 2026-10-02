@@ -76,7 +76,7 @@ const ProductDetailModal = ({ isOpen, onClose, product, onOpenQuoteModal }) => {
                             : 'border-slate-200 hover:border-amber-400 opacity-75 hover:opacity-100'
                         }`}
                       >
-                        <img src={imgSrc} alt="" className="w-full h-full object-cover" />
+                        <img src={imgSrc} alt={`${product.name} thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
                       </button>
                     ))}
                   </div>

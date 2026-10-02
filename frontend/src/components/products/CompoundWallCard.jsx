@@ -150,8 +150,29 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
       : (product.description || `SK Precast Industries is a leading manufacturer and supplier of ${product.name} and high-durability Precast RCC Compound & Boundary Walls based in Palwal (Haryana), delivering durable, high-quality, and robust boundary solutions across residential, commercial, industrial, and solar construction projects across Delhi NCR.`)
   );
 
+  const cardVariants = {
+    hidden: { opacity: 0, y: 25 },
+    visible: (i = 0) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.45,
+        delay: (i % 5) * 0.07,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    })
+  };
+
   return (
-    <div className="relative w-full bg-white rounded-[15px] border border-slate-200/90 shadow-sm hover:shadow-md hover:border-amber-400/40 transition-all duration-300 p-6 sm:p-7 md:p-8 lg:p-8 flex flex-col md:flex-row gap-6 sm:gap-8 lg:gap-10 items-start mb-6">
+    <motion.div
+      variants={cardVariants}
+      custom={index}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-40px' }}
+      whileHover={{ y: -4, transition: { duration: 0.25, ease: 'easeOut' } }}
+      className="relative w-full bg-white rounded-[16px] border border-slate-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_36px_rgba(234,179,8,0.18),0_4px_12px_rgba(0,0,0,0.05)] hover:border-amber-400/60 transition-all duration-300 p-6 sm:p-7 md:p-8 lg:p-8 flex flex-col md:flex-row gap-6 sm:gap-8 lg:gap-10 items-start mb-6"
+    >
 
       {/* 1. Left: Product Image with Zoom Lens & Gallery Thumbnails */}
       <div className="relative w-full md:w-[340px] lg:w-[400px] xl:w-[420px] shrink-0">
@@ -416,7 +437,7 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
 
       </div>
 
-    </div>
+    </motion.div>
   );
 };
 

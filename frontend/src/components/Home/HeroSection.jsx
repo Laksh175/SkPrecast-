@@ -62,7 +62,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="relative inline-flex items-center gap-2 px-3.5 sm:px-6 py-1.5 sm:py-[5px] rounded-[10px] sm:rounded-[12px] bg-white text-slate-900 shadow-[0_10px_30px_rgba(0,0,0,0.22)] border border-amber-300/80 mb-3 sm:mb-5 overflow-hidden group cursor-default max-w-[95%] sm:max-w-none"
+            className="relative inline-flex items-center gap-2 px-3.5 sm:px-6 py-1.5 sm:py-[5px] rounded-[10px] sm:rounded-[12px] bg-white text-slate-900 shadow-[0_10px_30px_rgba(0,0,0,0.22)] border border-amber-300/80 mb-3 sm:mb-4 overflow-hidden group cursor-default max-w-[95%] sm:max-w-none"
           >
             {/* Animated Light Beam Shimmer Sweep */}
             <div className="absolute inset-0 -top-1 -bottom-1 pointer-events-none overflow-hidden">
@@ -80,22 +80,33 @@ const HeroSection = () => {
             </span>
           </motion.div>
 
-          {/* SEO-Optimized Primary H1 Heading */}
+          {/* SEO-Optimized Primary H1 Heading: 3 Symmetrical, Compact Lines with Tight Line-Height */}
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
-            className="text-[30px] sm:text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold text-white leading-[1.2] sm:leading-[1.18] tracking-tight mb-3 sm:mb-4 max-w-4xl drop-shadow-[0_3px_12px_rgba(0,0,0,0.85)]"
+            style={{ lineHeight: 1.08, letterSpacing: '-0.025em' }}
+            className="text-[25px] xs:text-[29px] sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-[3.65rem] font-extrabold text-white leading-[1.08] tracking-tight mb-4 max-w-5xl xl:max-w-6xl drop-shadow-[0_3px_12px_rgba(0,0,0,0.85)] text-center flex flex-col gap-0.5 sm:gap-1"
           >
-            {heading.prefix} <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500">{heading.highlight}</span> {heading.suffix}
+            <span className="block" style={{ lineHeight: 1.08 }}>
+              {heading.line1}
+            </span>
+            <span className="block" style={{ lineHeight: 1.08 }}>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500">
+                {heading.line2}
+              </span>
+            </span>
+            <span className="block text-white/95" style={{ lineHeight: 1.08 }}>
+              {heading.line3}
+            </span>
           </motion.h1>
 
-          {/* Clean Continuous 3-Line Paragraph */}
+          {/* Clean Continuous Paragraph (Strictly Min 16px on Tablet/Laptop/Desktop, 1.65 line-height) */}
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
-            className="text-slate-100 text-[14px] sm:text-base md:text-[1.05rem] leading-relaxed mb-4 sm:mb-6 max-w-3xl font-normal drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] px-1 sm:px-0"
+            className="text-slate-100 text-[15px] sm:text-base md:text-[16.5px] lg:text-[17.5px] xl:text-[18px] leading-relaxed md:leading-[1.65] mb-4 sm:mb-6 max-w-3xl font-normal drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] px-1 sm:px-0 text-center"
           >
             {description}
           </motion.p>
@@ -115,9 +126,9 @@ const HeroSection = () => {
               title="Chat with us on WhatsApp"
             >
               {/* Left Circular Icon Container */}
-              <div className="flex items-center justify-center pl-1 sm:pl-1.5 pr-2 sm:pr-3 py-1 bg-white rounded-l-full">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#183a2d] group-hover:bg-theme-whatsappLight flex items-center justify-center text-white shadow-inner group-hover:scale-105 transition-all duration-300">
-                  <FaWhatsapp size={17} className="translate-x-[0.5px] sm:scale-115" />
+              <div className="flex items-center justify-center pl-1 sm:pl-1.5 pr-2 sm:pr-2.5 py-1 bg-white rounded-l-full">
+                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#183a2d] group-hover:bg-theme-whatsappLight flex items-center justify-center text-white shadow-inner group-hover:scale-105 transition-all duration-300">
+                  <FaWhatsapp size={23} className="text-white drop-shadow-sm sm:scale-110" />
                 </div>
               </div>
 

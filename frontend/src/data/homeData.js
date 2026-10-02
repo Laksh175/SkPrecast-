@@ -8,9 +8,9 @@
 export const heroSectionData = {
   badge: "India's Trusted Precast Concrete Manufacturer",
   heading: {
-    prefix: "Engineered",
-    highlight: "Precast Concrete",
-    suffix: "Compound & Boundary Walls"
+    line1: "Low Cost, High Strength",
+    line2: "Precast Walls —",
+    line3: "Get The Best Quality Today!"
   },
   description: "High-strength, weather-resistant precast compound & boundary walls built for industrial, commercial, and residential boundaries. Our fast modular on-site installation saves up to 60% construction time and delivers certified ISO-grade high-tensile RCC durability with zero maintenance.",
   whatsappButton: {
@@ -112,12 +112,12 @@ export const manufacturingSliderHeaderData = {
 };
 
 export const manufacturingSliderData = [
-  { id: 1, image: '/assets/images/slider-wall-1.jpg', alt: 'Precast Wall Manufacturing Unit 1' },
-  { id: 2, image: '/assets/images/slider-wall-2.jpg', alt: 'Precast Wall Manufacturing Unit 2' },
-  { id: 3, image: '/assets/images/slider-wall-3.jpg', alt: 'Precast Wall Manufacturing Unit 3' },
-  { id: 4, image: '/assets/images/slider-wall-4.jpg', alt: 'Precast Wall Manufacturing Unit 4' },
-  { id: 5, image: '/assets/images/slider-wall-5.jpg', alt: 'Precast Wall Manufacturing Unit 5' },
-  { id: 6, image: '/assets/images/slider-wall-6.jpg', alt: 'Precast Wall Manufacturing Unit 6' },
+  { id: 1, image: '/assets/images/manufacturing/mfg-1.jpg', alt: 'Precast Wall Manufacturing & Casting Yard Palwal' },
+  { id: 2, image: '/assets/images/manufacturing/mfg-2.jpg', alt: 'Automated Casting & Slab Production Line Palwal' },
+  { id: 3, image: '/assets/images/manufacturing/mfg-3.jpg', alt: 'Precast Material Dispatch & Logistics Truck' },
+  { id: 4, image: '/assets/images/manufacturing/mfg-4.jpg', alt: 'Heavy-Duty Casting Beds & Concrete Compaction' },
+  { id: 5, image: '/assets/images/manufacturing/mfg-5.jpg', alt: 'Steel Casting Beds & Column Molds Facility' },
+  { id: 6, image: '/assets/images/manufacturing/mfg-6.jpg', alt: 'Cured Precast Panels & Palletized Yard Storage' },
 ];
 
 // ----------------------------------------------------------------------------
