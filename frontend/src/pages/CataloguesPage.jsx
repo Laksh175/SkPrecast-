@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { navigateTo } from '../utils/navigation';
-import { ArrowRight, Building2, Shield, Landmark, PlusCircle, Sparkles, Layers, Box, Factory, Home, Plus, Minus, X, Download, FileText, Eye, MapPin, Phone, Mail } from 'lucide-react';
+import { ArrowRight, Building2, Shield, Landmark, PlusCircle, Sparkles, Layers, Box, Factory, Home, Plus, Minus, X, Download, FileText, Eye } from 'lucide-react';
 import { Button, ContactInfoCard } from '../common';
 import { dropdownCategoriesData, standaloneProductsData, aboutCompanyData } from '../data/aboutUsData';
 import { catalogueBrochuresData, cataloguesHeroData } from '../data/cataloguesData';
@@ -191,9 +191,9 @@ const CataloguesPage = () => {
               </div>
             </div>
 
-            {/* Right Column: Contact Us Card (Matching About Us) */}
-            <div className="lg:col-span-5 relative flex justify-center lg:justify-end w-full h-full">
-              <ContactInfoCard className="w-full h-full flex flex-col justify-between" />
+            {/* Right Column: Contact Details Card (Common Reusable Component) */}
+            <div className="lg:col-span-5 relative flex justify-center lg:justify-end w-full">
+              <ContactInfoCard className="w-full" />
             </div>
 
           </div>
