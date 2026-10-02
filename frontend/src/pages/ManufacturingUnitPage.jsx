@@ -222,7 +222,7 @@ const ManufacturingUnitPage = () => {
                       </div>
                       <div className="text-left">
                         <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Address</span>
-                        <p className="text-[13.5px] sm:text-[14px] text-slate-700 leading-relaxed font-medium">
+                        <p className="caption-text text-[13.5px] sm:text-[14px] text-slate-700 leading-relaxed font-medium">
                           {aboutCompanyData?.contactCard?.address || 'Opp. Adani CNG Pump, Delhi-Mathura Road Near Hanuman Mandir, Palwal, Haryana - 121102, India'}
                         </p>
                       </div>
@@ -241,7 +241,7 @@ const ManufacturingUnitPage = () => {
                               {idx > 0 && <span className="text-slate-300 font-bold">•</span>}
                               <a 
                                 href={`tel:${phone.replace(/[^0-9+]/g, '')}`} 
-                                className="text-[14px] font-medium text-slate-900 hover:text-amber-600 transition-colors"
+                                className="caption-text text-[13.5px] sm:text-[14px] font-medium text-slate-800 hover:text-amber-600 transition-colors"
                               >
                                 {phone}
                               </a>
@@ -260,7 +260,7 @@ const ManufacturingUnitPage = () => {
                         <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">E-mail</span>
                         <a 
                           href={`mailto:${aboutCompanyData?.contactCard?.email || 'info@skprecast-industries.com'}`} 
-                          className="text-[14px] font-medium text-slate-900 hover:text-amber-600 transition-colors truncate block"
+                          className="caption-text text-[13.5px] sm:text-[14px] font-medium text-slate-800 hover:text-amber-600 transition-colors truncate block"
                         >
                           {aboutCompanyData?.contactCard?.email || 'info@skprecast-industries.com'}
                         </a>

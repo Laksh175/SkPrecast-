@@ -44,13 +44,6 @@ const AboutContentSection = () => {
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="lg:col-span-7 text-left pt-1">
-            {/* Small Square Badge Title */}
-            <div className="mb-3.5">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[5px] text-[11px] font-extrabold uppercase tracking-wider bg-amber-50 text-amber-900 border border-amber-300/80 shadow-xs">
-                <Building2 size={13} className="text-amber-600" />
-                {aboutCompanyData.badge}
-              </span>
-            </div>
 
             {/* Paragraph 1 */}
             <p className="text-slate-600 text-[14px] sm:text-[16px] lg:text-[17px] leading-relaxed sm:leading-[28px] mb-4">
@@ -115,7 +108,7 @@ const AboutContentSection = () => {
                   </div>
                   <div className="text-left">
                     <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Address</span>
-                    <p className="text-[13.5px] sm:text-[14px] text-slate-700 leading-relaxed font-medium">
+                    <p className="caption-text text-[13.5px] sm:text-[14px] text-slate-700 leading-relaxed font-medium">
                       {aboutCompanyData.contactCard.address}
                     </p>
                   </div>
@@ -134,7 +127,7 @@ const AboutContentSection = () => {
                           {idx > 0 && <span className="text-slate-300 font-bold">•</span>}
                           <a 
                             href={`tel:${phone.replace(/[^0-9+]/g, '')}`} 
-                            className="text-[14px] font-medium text-slate-900 hover:text-amber-600 transition-colors">
+                            className="caption-text text-[13.5px] sm:text-[14px] font-medium text-slate-800 hover:text-amber-600 transition-colors">
                             {phone}
                           </a>
                         </React.Fragment>
@@ -152,7 +145,7 @@ const AboutContentSection = () => {
                     <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">E-mail</span>
                     <a 
                       href={`mailto:${aboutCompanyData.contactCard.email}`} 
-                      className="text-[14px] font-medium text-slate-900 hover:text-amber-600 transition-colors truncate block">
+                      className="caption-text text-[13.5px] sm:text-[14px] font-medium text-slate-800 hover:text-amber-600 transition-colors truncate block">
                       {aboutCompanyData.contactCard.email}
                     </a>
                   </div>
@@ -433,7 +426,7 @@ const AboutContentSection = () => {
                     </h2>
 
                     {/* Subtitle */}
-                    <p className="text-[11px] sm:text-xs md:text-[11.5px] lg:text-[13.5px] leading-relaxed text-slate-600 max-w-[190px] sm:max-w-[210px] md:max-w-[185px] lg:max-w-[230px] font-normal">
+                    <p className="caption-text text-[11px] sm:text-[11.5px] md:text-[11px] lg:text-[12.5px] leading-snug sm:leading-relaxed text-slate-600 max-w-[190px] sm:max-w-[210px] md:max-w-[185px] lg:max-w-[230px] font-normal">
                       We have a vast list of happy clients who believe our company due to the following factors:
                     </p>
                   </div>

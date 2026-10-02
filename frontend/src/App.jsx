@@ -3,6 +3,7 @@ import { Header, Footer } from './components';
 import Home from './pages/Home';
 import { getProductBySlug } from './data/productsData';
 import { getBlogPostBySlug } from './data/blogData';
+import { TopProgressBar, BrandPreloader } from './common';
 
 // Route-based dynamic lazy loading for subpages (Reduces initial load to < 100KB for lightning speed)
 const About = lazy(() => import('./pages/About'));
@@ -20,9 +21,21 @@ const TestimonialsPage = lazy(() => import('./pages/TestimonialsPage'));
 const RssFeedPage = lazy(() => import('./pages/RssFeedPage'));
 
 const PageFallback = () => (
-  <div className="min-h-[60vh] flex flex-col items-center justify-center p-8 bg-slate-50/50">
-    <div className="w-9 h-9 border-[3px] border-amber-400/20 border-t-amber-500 rounded-full animate-spin mb-3" />
-    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Loading...</span>
+  <div className="min-h-[65vh] w-full flex flex-col items-center justify-center p-8 bg-slate-50/50 select-none">
+    <div className="relative flex items-center justify-center mb-4">
+      {/* Outer Glow Halo */}
+      <div className="absolute w-20 h-20 rounded-full bg-amber-400/20 blur-xl pointer-events-none" />
+      
+      {/* Prominent Rotating Orange/Amber Circular Spinner */}
+      <div className="w-14 h-14 rounded-full border-4 border-orange-100/80 border-t-orange-500 border-r-amber-400 animate-spin shadow-[0_0_15px_rgba(249,115,22,0.25)]" />
+      
+      {/* Center Orange Core Dot */}
+      <div className="absolute w-2.5 h-2.5 rounded-full bg-orange-500 shadow-[0_0_10px_#f97316]" />
+    </div>
+    
+    <p className="caption-text text-xs font-bold text-slate-600 uppercase tracking-[0.2em] animate-pulse">
+      Loading...
+    </p>
   </div>
 );
 
@@ -320,6 +333,12 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8fafc]">
+      {/* 1. Initial Luxury Brand Splash Preloader */}
+      <BrandPreloader />
+
+      {/* 2. Top Glowing Golden Laser Progress Bar (Triggers on every route change) */}
+      <TopProgressBar />
+
       <Header currentRoute={currentRoute.name} />
       <main className="flex-1">
         <Suspense fallback={<PageFallback />}>
