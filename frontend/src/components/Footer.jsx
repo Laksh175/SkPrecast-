@@ -827,7 +827,7 @@ const Footer = () => {
         {/* 3. COPYRIGHT (All screen sizes) */}
         {/* ========================================================================= */}
         <div className="mt-6 sm:mt-7 pt-4 border-t border-slate-800/80 text-center">
-          <p className="text-xs text-slate-400 leading-relaxed">
+          <p className="caption-text text-[11.5px] sm:text-[12.5px] md:text-[13px] text-slate-400 leading-relaxed font-normal tracking-wide">
             © {new Date().getFullYear()} <strong className="text-slate-200 font-semibold">SK Precast Industries</strong>. All Rights Reserved. Developed & Managed By <a href="https://kurminfotech.in/" target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:text-amber-300 font-semibold transition-colors">Kurm Infotech</a>
           </p>
         </div>

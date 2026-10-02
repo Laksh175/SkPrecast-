@@ -77,11 +77,11 @@ const PopularProducts = () => {
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
-                whileHover={{ y: -7, transition: { duration: 0.28, ease: [0.33, 1, 0.68, 1] } }}
+                whileHover={{ y: -8, transition: { duration: 0.3, ease: 'easeOut' } }}
                 onClick={(e) => {
                   navigateTo(`/${product.slug}.htm`, e);
                 }}
-                className="group relative flex flex-col bg-gradient-to-b from-white to-slate-50/90 rounded-[16px] overflow-hidden border border-slate-200/90 hover:border-yellow-400 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_36px_rgba(234,179,8,0.22),0_4px_12px_rgba(0,0,0,0.06)] transition-all duration-300 cursor-pointer"
+                className="group relative flex flex-col bg-gradient-to-b from-white to-slate-50/80 rounded-[15px] overflow-hidden border border-slate-200/90 hover:border-yellow-400 shadow-[0_8px_25px_rgba(0,0,0,0.05)] hover:shadow-[0px_1px_16px_2px_rgba(250,204,21,0.5)] transition-all duration-300 cursor-pointer"
               >
                 {/* 1. Image Header with Light Sweep Shimmer on Hover */}
                 <div className="p-[6px]">
@@ -173,6 +173,9 @@ const PopularProducts = () => {
                     </Button>
                   </div>
                 </div>
+
+                {/* 4. Bottom Hover Glow Accent Line Animation */}
+                <div className="h-[3.5px] w-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left" />
               </motion.div>
             ))}
           </AnimatePresence>

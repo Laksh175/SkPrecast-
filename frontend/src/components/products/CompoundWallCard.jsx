@@ -170,8 +170,8 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-40px' }}
-      whileHover={{ y: -4, transition: { duration: 0.25, ease: 'easeOut' } }}
-      className="relative w-full bg-white rounded-[16px] border border-slate-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_36px_rgba(234,179,8,0.18),0_4px_12px_rgba(0,0,0,0.05)] hover:border-amber-400/60 transition-all duration-300 p-6 sm:p-7 md:p-8 lg:p-8 flex flex-col md:flex-row gap-6 sm:gap-8 lg:gap-10 items-start mb-6"
+      whileHover={{ y: -5, transition: { duration: 0.28, ease: 'easeOut' } }}
+      className="relative w-full bg-white rounded-[15px] border border-slate-200/90 shadow-[0_8px_25px_rgba(0,0,0,0.05)] hover:border-yellow-400 hover:shadow-[0px_1px_14px_2px_rgba(250,204,21,0.45)] transition-all duration-300 p-6 sm:p-7 md:p-8 lg:p-8 flex flex-col md:flex-row gap-6 sm:gap-8 lg:gap-10 items-start mb-6"
     >
 
       {/* 1. Left: Product Image with Zoom Lens & Gallery Thumbnails */}

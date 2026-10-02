@@ -38,11 +38,11 @@ const ProductCard = ({ product, index = 0, onOpenQuoteModal, onViewDetails }) =>
       whileInView="visible"
       viewport={{ once: true, margin: '-40px' }}
       whileHover={{ 
-        y: -7, 
-        transition: { duration: 0.28, ease: [0.33, 1, 0.68, 1] } 
+        y: -8, 
+        transition: { duration: 0.3, ease: 'easeOut' } 
       }}
       onClick={handleCardClick}
-      className="group relative flex flex-col bg-gradient-to-b from-white to-slate-50/90 rounded-[16px] overflow-hidden border border-slate-200/90 hover:border-yellow-400 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_36px_rgba(234,179,8,0.22),0_4px_12px_rgba(0,0,0,0.06)] transition-all duration-300 cursor-pointer"
+      className="group relative flex flex-col bg-gradient-to-b from-white to-slate-50/80 rounded-[15px] overflow-hidden border border-slate-200/90 hover:border-yellow-400 shadow-[0_8px_25px_rgba(0,0,0,0.05)] hover:shadow-[0px_1px_16px_2px_rgba(250,204,21,0.5)] transition-all duration-300 cursor-pointer"
     >
       {/* 1. Image Header with Light Sweep Shimmer on Hover */}
       <div className="p-[6px]">
