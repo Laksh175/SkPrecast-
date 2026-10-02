@@ -845,8 +845,6 @@ const CurrentJobsPage = () => {
                           variant="view-more"
                           size="md"
                           type="submit"
-                          icon={<ArrowRight size={15} />}
-                          iconPosition="right"
                         >
                           Submit
                         </Button>
@@ -946,8 +944,6 @@ const CurrentJobsPage = () => {
                       variant="dark-to-gold"
                       size="md"
                       href="/contact-us.htm"
-                      icon={<ArrowRight size={14} />}
-                      iconPosition="right"
                       className="w-full"
                     >
                       Contact Us

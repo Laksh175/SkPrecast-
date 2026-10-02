@@ -177,7 +177,7 @@ const TestimonialsPage = () => {
                         <h3 className="text-[13.5px] font-bold text-slate-900 group-hover:text-amber-700 transition-colors leading-tight">
                           {item.name}
                         </h3>
-                        <p className="text-[11.5px] text-slate-500 mt-0.5 font-medium flex items-center gap-1.5">
+                        <p className="caption-text text-[12px] text-slate-500 mt-0.5 font-medium flex flex-wrap items-center gap-1.5">
                           <span>{item.role}</span>
                           {item.relativeTime && (
                             <>
@@ -273,131 +273,65 @@ const TestimonialsPage = () => {
                   </div>
                 </div>
 
-                {/* 2. STANDALONE SEPARATE USER SATISFACTION CARD */}
-                <div className="w-full relative rounded-[15px] p-6 sm:p-7 bg-theme-pageBg border border-slate-200 shadow-xl shadow-slate-200/50 hover:border-slate-300 hover:shadow-2xl hover:shadow-slate-300/40 transition-all duration-300 group">
-                  <h3 className="text-left text-[27px] leading-tight font-black text-theme-heading tracking-tight mb-5">
+                {/* 2. USER SATISFACTION SECTION (Title above the box + 3 lighting border cards) */}
+                <div className="w-full text-left">
+                  {/* Title Above Box (Font-size 21px) */}
+                  <h3 className="text-[21px] font-bold text-slate-900 tracking-tight mb-2.5 px-0.5">
                     User Satisfaction
                   </h3>
 
-                  <div className="grid grid-cols-3 gap-2.5 sm:gap-3.5">
-                    {/* Metric 1: Response */}
-                    <div className="flex flex-col items-center text-center p-3 rounded-2xl bg-white border border-slate-200/80 hover:border-amber-400 hover:shadow-md transition-all duration-200 shadow-2xs group/item">
-                      <div className="relative w-14 h-14 sm:w-[60px] sm:h-[60px] flex items-center justify-center mb-2">
-                        {/* Rotating Shaded Gradient Ring */}
-                        <svg className="w-full h-full animate-[spin_5s_linear_infinite]" viewBox="0 0 44 44">
-                          <defs>
-                            <linearGradient id="rot-grad-resp" x1="0%" y1="0%" x2="100%" y2="100%">
-                              <stop offset="0%" stopColor="#f59e0b" />
-                              <stop offset="35%" stopColor="#fde047" />
-                              <stop offset="70%" stopColor="#ea580c" />
-                              <stop offset="100%" stopColor="#d97706" />
-                            </linearGradient>
-                          </defs>
-                          <circle
-                            cx="22"
-                            cy="22"
-                            r="17.5"
-                            className="text-amber-100/70"
-                            strokeWidth="3.5"
-                            stroke="currentColor"
-                            fill="none"
-                          />
-                          <circle
-                            cx="22"
-                            cy="22"
-                            r="17.5"
-                            stroke="url(#rot-grad-resp)"
-                            strokeWidth="3.8"
-                            strokeDasharray="92 20"
-                            strokeLinecap="round"
-                            fill="none"
-                          />
-                        </svg>
-                        <span className="absolute text-[13px] sm:text-[13.5px] font-black text-slate-900 group-hover/item:text-amber-600 transition-colors">
-                          100%
-                        </span>
+                  {/* White Container Box */}
+                  <div className="w-full relative rounded-[15px] p-5 sm:p-6 bg-theme-pageBg border border-slate-200 shadow-xl shadow-slate-200/50 hover:border-slate-300 hover:shadow-2xl hover:shadow-slate-300/40 transition-all duration-300">
+                    <div className="grid grid-cols-3 gap-2.5 sm:gap-3.5">
+                      
+                      {/* Metric 1: Response */}
+                      <div className="relative rounded-2xl p-[1.5px] overflow-hidden group shadow-xs hover:shadow-md transition-all">
+                        {/* Infinite Rotating Laser Border Glow */}
+                        <div className="absolute -inset-[100%] bg-[conic-gradient(from_0deg,transparent_0_300deg,#f59e0b_330deg,#fbbf24_360deg)] animate-[spin_3s_linear_infinite]" />
+                        
+                        {/* Inner Card */}
+                        <div className="relative z-10 w-full h-full bg-white rounded-[14.5px] py-4 px-2 flex flex-col items-center justify-center text-center">
+                          <span className="text-[18px] sm:text-[20px] font-black text-amber-600 tracking-tight mb-1">
+                            100%
+                          </span>
+                          <span className="text-[12.5px] sm:text-[13px] font-bold text-slate-700 leading-tight">
+                            Response
+                          </span>
+                        </div>
                       </div>
-                      <span className="text-[15px] font-bold text-slate-700 leading-tight">Response</span>
-                    </div>
 
-                    {/* Metric 2: Quality */}
-                    <div className="flex flex-col items-center text-center p-3 rounded-2xl bg-white border border-slate-200/80 hover:border-amber-400 hover:shadow-md transition-all duration-200 shadow-2xs group/item">
-                      <div className="relative w-14 h-14 sm:w-[60px] sm:h-[60px] flex items-center justify-center mb-2">
-                        {/* Rotating Shaded Gradient Ring */}
-                        <svg className="w-full h-full animate-[spin_5s_linear_infinite]" viewBox="0 0 44 44">
-                          <defs>
-                            <linearGradient id="rot-grad-qual" x1="0%" y1="0%" x2="100%" y2="100%">
-                              <stop offset="0%" stopColor="#fbbf24" />
-                              <stop offset="35%" stopColor="#f59e0b" />
-                              <stop offset="70%" stopColor="#f97316" />
-                              <stop offset="100%" stopColor="#ea580c" />
-                            </linearGradient>
-                          </defs>
-                          <circle
-                            cx="22"
-                            cy="22"
-                            r="17.5"
-                            className="text-amber-100/70"
-                            strokeWidth="3.5"
-                            stroke="currentColor"
-                            fill="none"
-                          />
-                          <circle
-                            cx="22"
-                            cy="22"
-                            r="17.5"
-                            stroke="url(#rot-grad-qual)"
-                            strokeWidth="3.8"
-                            strokeDasharray="92 20"
-                            strokeLinecap="round"
-                            fill="none"
-                          />
-                        </svg>
-                        <span className="absolute text-[13px] sm:text-[13.5px] font-black text-slate-900 group-hover/item:text-amber-600 transition-colors">
-                          100%
-                        </span>
+                      {/* Metric 2: Quality */}
+                      <div className="relative rounded-2xl p-[1.5px] overflow-hidden group shadow-xs hover:shadow-md transition-all">
+                        {/* Infinite Rotating Laser Border Glow */}
+                        <div className="absolute -inset-[100%] bg-[conic-gradient(from_0deg,transparent_0_300deg,#f59e0b_330deg,#fbbf24_360deg)] animate-[spin_3s_linear_infinite]" />
+                        
+                        {/* Inner Card */}
+                        <div className="relative z-10 w-full h-full bg-white rounded-[14.5px] py-4 px-2 flex flex-col items-center justify-center text-center">
+                          <span className="text-[18px] sm:text-[20px] font-black text-amber-600 tracking-tight mb-1">
+                            100%
+                          </span>
+                          <span className="text-[12.5px] sm:text-[13px] font-bold text-slate-700 leading-tight">
+                            Quality
+                          </span>
+                        </div>
                       </div>
-                      <span className="text-[15px] font-bold text-slate-700 leading-tight">Quality</span>
-                    </div>
 
-                    {/* Metric 3: Delivery */}
-                    <div className="flex flex-col items-center text-center p-3 rounded-2xl bg-white border border-slate-200/80 hover:border-amber-400 hover:shadow-md transition-all duration-200 shadow-2xs group/item">
-                      <div className="relative w-14 h-14 sm:w-[60px] sm:h-[60px] flex items-center justify-center mb-2">
-                        {/* Rotating Shaded Gradient Ring */}
-                        <svg className="w-full h-full animate-[spin_5s_linear_infinite]" viewBox="0 0 44 44">
-                          <defs>
-                            <linearGradient id="rot-grad-delv" x1="0%" y1="0%" x2="100%" y2="100%">
-                              <stop offset="0%" stopColor="#f59e0b" />
-                              <stop offset="35%" stopColor="#fde047" />
-                              <stop offset="70%" stopColor="#f97316" />
-                              <stop offset="100%" stopColor="#d97706" />
-                            </linearGradient>
-                          </defs>
-                          <circle
-                            cx="22"
-                            cy="22"
-                            r="17.5"
-                            className="text-amber-100/70"
-                            strokeWidth="3.5"
-                            stroke="currentColor"
-                            fill="none"
-                          />
-                          <circle
-                            cx="22"
-                            cy="22"
-                            r="17.5"
-                            stroke="url(#rot-grad-delv)"
-                            strokeWidth="3.8"
-                            strokeDasharray="92 20"
-                            strokeLinecap="round"
-                            fill="none"
-                          />
-                        </svg>
-                        <span className="absolute text-[13px] sm:text-[13.5px] font-black text-slate-900 group-hover/item:text-amber-600 transition-colors">
-                          100%
-                        </span>
+                      {/* Metric 3: Delivery */}
+                      <div className="relative rounded-2xl p-[1.5px] overflow-hidden group shadow-xs hover:shadow-md transition-all">
+                        {/* Infinite Rotating Laser Border Glow */}
+                        <div className="absolute -inset-[100%] bg-[conic-gradient(from_0deg,transparent_0_300deg,#f59e0b_330deg,#fbbf24_360deg)] animate-[spin_3s_linear_infinite]" />
+                        
+                        {/* Inner Card */}
+                        <div className="relative z-10 w-full h-full bg-white rounded-[14.5px] py-4 px-2 flex flex-col items-center justify-center text-center">
+                          <span className="text-[18px] sm:text-[20px] font-black text-amber-600 tracking-tight mb-1">
+                            100%
+                          </span>
+                          <span className="text-[12.5px] sm:text-[13px] font-bold text-slate-700 leading-tight">
+                            Delivery
+                          </span>
+                        </div>
                       </div>
-                      <span className="text-[15px] font-bold text-slate-700 leading-tight">Delivery</span>
+
                     </div>
                   </div>
                 </div>

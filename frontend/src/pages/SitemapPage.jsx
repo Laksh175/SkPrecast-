@@ -284,8 +284,6 @@ const SitemapPage = () => {
                     variant="dark-to-gold"
                     size="md"
                     href="/contact-us.htm"
-                    icon={<ArrowRight size={14} />}
-                    iconPosition="right"
                     className="w-full"
                   >
                     Contact Us
