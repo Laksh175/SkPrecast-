@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Header, Footer } from './components';
-import { Home, About, ProductsPage, ProductDetailPage, CataloguesPage, ContactUsPage, BlogPage, BlogDetailPage, GalleryPage, ManufacturingUnitPage, SitemapPage, CurrentJobsPage, TestimonialsPage } from './pages';
+import { Home, About, ProductsPage, ProductDetailPage, CataloguesPage, ContactUsPage, BlogPage, BlogDetailPage, GalleryPage, ManufacturingUnitPage, SitemapPage, CurrentJobsPage, TestimonialsPage, RssFeedPage } from './pages';
 import { getProductBySlug } from './data/productsData';
 import { getBlogPostBySlug } from './data/blogData';
 
 const getInitialRoute = () => {
   const path = window.location.pathname.toLowerCase();
   const hash = window.location.hash.toLowerCase();
+
+  // 0. Check for RSS feed
+  if (path.includes('products.rss') || path === '/products.rss' || hash.includes('products.rss') || hash === '#rss') {
+    return { name: 'rss-feed' };
+  }
 
   // 1. Check if URL matches ANY of our blog posts dynamically
   if (
@@ -160,6 +165,12 @@ function App() {
       const path = window.location.pathname.toLowerCase();
       const hash = window.location.hash.toLowerCase();
 
+      // 0. Check for RSS feed
+      if (path.includes('products.rss') || path === '/products.rss' || hash.includes('products.rss') || hash === '#rss') {
+        setCurrentRoute({ name: 'rss-feed' });
+        return;
+      }
+
       // 1. Dynamic Match for Blog Detail Posts
       if (
         (path.startsWith('/blog/') && path !== '/blog/' && path !== '/blog') ||
@@ -276,6 +287,10 @@ function App() {
       window.removeEventListener('app-navigate', handleRouteChange);
     };
   }, []);
+
+  if (currentRoute.name === 'rss-feed') {
+    return <RssFeedPage />;
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8fafc]">

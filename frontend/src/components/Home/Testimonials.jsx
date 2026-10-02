@@ -7,15 +7,14 @@ const TestimonialCard = ({ item }) => {
   return (
     <div className="bg-slate-50 hover:bg-white border border-slate-200/90 hover:border-yellow-400 rounded-[15px] p-5 sm:p-6 shadow-[0_6px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_30px_rgba(250,204,21,0.2)] transition-all duration-300 select-none group h-full flex flex-col justify-between">
       <div>
-        {/* Top Rating */}
+        {/* Top 5 Stars Rating */}
         <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-1.5">
-            <FaStar className="text-yellow-500 text-sm drop-shadow-sm" />
-            <span className="text-amber-800 font-extrabold text-sm tracking-wide">
-              {item.rating}
-            </span>
+          <div className="flex items-center gap-1 text-amber-400">
+            {[...Array(5)].map((_, i) => (
+              <FaStar key={i} className="text-yellow-400 text-xs sm:text-[13px] drop-shadow-sm" />
+            ))}
           </div>
-          <FaQuoteLeft className="text-slate-300 group-hover:text-yellow-500/50 text-lg transition-colors" />
+          <FaQuoteLeft className="text-slate-300 group-hover:text-yellow-500/50 text-base transition-colors" />
         </div>
 
         {/* Review Content */}

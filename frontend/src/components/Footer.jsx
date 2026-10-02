@@ -204,6 +204,18 @@ const Footer = () => {
                     <span>Site Map</span>
                   </a>
                 </li>
+                <li className="pt-1.5 flex items-center gap-1.5">
+                  <span className="w-1 h-1 rounded-full bg-amber-400/0 shrink-0" />
+                  <a 
+                    href="/products.rss" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 bg-gradient-to-r from-[#f97316] to-[#ea580c] hover:from-[#ea580c] hover:to-[#c2410c] text-white text-[0.7rem] font-bold px-2 py-0.5 rounded shadow-sm hover:scale-105 transition-all"
+                    title="RSS Feed"
+                  >
+                    <FaRss size={10} /> RSS
+                  </a>
+                </li>
               </ul>
 
               {/* Sub-column 2 */}
@@ -256,15 +268,6 @@ const Footer = () => {
                   >
                     <span className="w-1 h-1 rounded-full bg-amber-400/0 group-hover:bg-amber-400 transition-colors shrink-0" />
                     <span>Contact Us</span>
-                  </a>
-                </li>
-                <li className="pt-0.5">
-                  <a 
-                    href="#rss" 
-                    className="inline-flex items-center gap-1 bg-gradient-to-r from-[#f97316] to-[#ea580c] hover:from-[#ea580c] hover:to-[#c2410c] text-white text-[0.7rem] font-bold px-2 py-0.5 rounded shadow-sm hover:scale-105 transition-all"
-                    title="RSS Feed"
-                  >
-                    <FaRss size={10} /> RSS
                   </a>
                 </li>
               </ul>
@@ -562,6 +565,18 @@ const Footer = () => {
                         <span>Site Map</span>
                       </a>
                     </li>
+                    <li className="pt-1.5 flex items-center gap-1.5">
+                      <span className="w-1 h-1 rounded-full bg-amber-400/0 shrink-0" />
+                      <a 
+                        href="/products.rss" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 bg-gradient-to-r from-[#f97316] to-[#ea580c] hover:from-[#ea580c] hover:to-[#c2410c] text-white text-[0.7rem] font-bold px-2 py-0.5 rounded shadow-sm hover:scale-105 transition-all"
+                        title="RSS Feed"
+                      >
+                        <FaRss size={10} /> RSS
+                      </a>
+                    </li>
                   </ul>
 
                   {/* Sub-column 2 */}
@@ -614,15 +629,6 @@ const Footer = () => {
                       >
                         <span className="w-1 h-1 rounded-full bg-amber-400/0 group-hover:bg-amber-400 transition-colors shrink-0" />
                         <span>Contact Us</span>
-                      </a>
-                    </li>
-                    <li className="pt-0.5">
-                      <a 
-                        href="#rss" 
-                        className="inline-flex items-center gap-1 bg-gradient-to-r from-[#f97316] to-[#ea580c] hover:from-[#ea580c] hover:to-[#c2410c] text-white text-[0.7rem] font-bold px-2 py-0.5 rounded shadow-sm hover:scale-105 transition-all"
-                        title="RSS Feed"
-                      >
-                        <FaRss size={10} /> RSS
                       </a>
                     </li>
                   </ul>

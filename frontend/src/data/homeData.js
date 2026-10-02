@@ -501,86 +501,96 @@ export const testimonialsHeaderData = {
 export const testimonialsCol1 = [
   {
     id: 1,
-    name: 'Arjun Kharol',
-    initials: 'AK',
-    role: 'Client, Delhi NCR',
+    name: 'Manish kumar sharma',
+    initials: 'MS',
+    role: 'Commercial Project Head',
     rating: '5.0',
-    content: 'The owner of SK Precast, Vivek Patel, is exceptional in his dealings–polite, professional, and always ready with the right response. We had compound wall installation done smoothly.'
+    relativeTime: '4 months ago',
+    content: 'We had a great experience working with SK Precast Walls. The quality of the precast wall materials supplied was excellent, and deliveries were made as committed. What truly sets them apart is their after-sales support. Even after completion of the supply, their team extended full cooperation for rework requirements and provided prompt assistance whenever needed. Their personal involvement, responsiveness, and commitment to customer satisfaction are highly appreciated. A reliable vendor with quality products and exceptional service. Highly recommended for anyone looking for precast wall solutions.'
   },
   {
     id: 2,
-    name: 'Dishant',
-    initials: 'DS',
-    role: 'Plot Owner, Palwal',
-    rating: '4.9',
-    content: "I ordered a precast wall for my residential plot in Palwal from SK Precast Industries, and I'm very satisfied. The RCC panels are solid, well-finished and delivered on time."
+    name: 'Chandubhai Makwana',
+    initials: 'CM',
+    role: 'Contractor & Builder',
+    rating: '5.0',
+    relativeTime: '2 years ago',
+    content: 'Great job done by Mr. Vivek Patel he was very professional & soft spoken. Quality of material is best as far as I know SK Precast is best in Compound Wall manufacturing.'
   },
   {
     id: 3,
-    name: 'R Patel',
-    initials: 'RP',
-    role: 'Farmhouse Owner, Palwal',
+    name: 'Rahul Boricha',
+    initials: 'RB',
+    role: 'Project Head',
     rating: '5.0',
-    content: 'We ordered a Precast Readymade Boundary Wall for our farmhouse near Palwal. The material reached the site the same day, and the installation team finished the work flawlessly.'
+    relativeTime: 'a year ago',
+    content: 'SK Precast Industries truly offers premium quality timely service, ensuring secure and durable precast boundary walls that exceed customer expectations !'
   },
   {
     id: 4,
-    name: 'Mr. Bhupendra',
-    initials: 'MB',
-    role: 'Industrial Client, Haryana',
-    rating: '4.8',
-    content: 'Good quality and good service and team work.'
+    name: 'Adesh Chaudhary',
+    initials: 'AC',
+    role: 'Residential Plot Owner, Palwal',
+    rating: '5.0',
+    relativeTime: '11 months ago',
+    content: 'I had a Precast RCC Readymade Wall installed for my residential plot by SK Precast Industries Palwal, and I am very satisfied. The panels are reinforced with steel, giving the wall incredible strength. Installation was smooth, quick, and professional. Unlike brick walls, which can be messy and time-consuming, this solution was fast and reliable. I also love the clean, uniform finish. I strongly recommend SK Precast Industries for anyone looking for a durable, stylish, and affordable precast compound wall.'
   },
   {
     id: 5,
-    name: 'Nasit Parth',
-    initials: 'NP',
-    role: 'Commercial Project Developer',
+    name: 'ghanshyam kavani',
+    initials: 'GK',
+    role: 'Commercial Client',
     rating: '5.0',
-    content: 'Vivek Patel recommends high quality walls for their exceptional craftsmanship and ability to enhance property value.'
+    relativeTime: 'a year ago',
+    content: 'Excellent quality and service! The precast boundary walls are durable, well-made, and installed with precision. Highly professional team and timely delivery. Very satisfied with SK Precast Industries'
   }
 ];
 
 export const testimonialsCol2 = [
   {
     id: 6,
-    name: 'Chandubhai Makwana',
-    initials: 'CM',
-    role: 'Contractor & Builder',
+    name: 'Pura lal Chouhan',
+    initials: 'PC',
+    role: '15-Acre Project Owner, Palwal',
     rating: '5.0',
-    content: 'Great job done by Mr. Vivek Patel he was very professional & soft spoken. Quality of material is best as far as I know SK Precast is best in Compound Wall industry.'
+    relativeTime: 'a month ago',
+    content: 'We got our 15-acre project in Palwal completed by SK Precast Industries. The quality of the precast material, finishing, and installation work was excellent. The team was professional, responsive, and completed the work properly.\n\nHighly recommended for Precast Boundary Walls in Palwal. Great quality and reliable service! 👍'
   },
   {
     id: 7,
-    name: 'Rahul Boricha',
-    initials: 'RB',
-    role: 'Project Head',
-    rating: '4.9',
-    content: 'SK Precast Industries truly offers premium quality timely service, ensuring secure and durable precast boundary walls that exceed customer expectation.'
+    name: 'Balram Gehalod',
+    initials: 'BG',
+    role: 'Client, Palwal',
+    rating: '5.0',
+    relativeTime: '6 months ago',
+    content: 'I needed a precast compound wall, and SK Precast completed the entire work in just 3 days. Their team is highly responsible and technically sound.'
   },
   {
     id: 8,
-    name: 'Jaydip Chauhan',
-    initials: 'JC',
-    role: 'Infrastructure Partner',
+    name: 'Bharat Gour',
+    initials: 'BG',
+    role: 'Farmhouse Owner, Faridabad',
     rating: '5.0',
-    content: 'SK PRECAST INDUSTRIES delivered goods exactly as per their performa invoice without any discrepancy. Great manufacturer of RCC walls in Delhi NCR!'
+    relativeTime: '7 months ago',
+    content: 'We had a Precast Concrete Wall made for our farmhouse near Faridabad. The concrete quality is excellent, surface smooth, and alignment perfect. The entire project was completed before the promised date. Honest and hardworking team — totally satisfied!'
   },
   {
     id: 9,
-    name: 'Neeraj Satasiya',
-    initials: 'NS',
-    role: 'Site Owner, Noida',
-    rating: '4.8',
-    content: 'I call him regarding boundary wall and he visited site. Gave some suggestions and finally completed the wall. Nice service in noida for Precast wall.'
+    name: 'Arun Arun parihar',
+    initials: 'AP',
+    role: 'Farmhouse & Plot Owner, Haryana',
+    rating: '5.0',
+    relativeTime: '8 months ago',
+    content: 'I got my farmhouse boundary wall done by SK Precast Industries Palwal, and I am extremely happy with their work. The precast RCC wall panels are smooth, uniform, and weather-resistant. Their engineers supervised everything carefully. It’s not only strong but also gives a very neat look to the property. Compared to brickwork, precast walls from SK Precast save time, money, and maintenance costs. Highly recommended for farmhouse and plot fencing anywhere in Haryana.'
   },
   {
     id: 10,
-    name: 'Geeta Bhaliya',
-    initials: 'GB',
-    role: 'Real Estate Developer',
+    name: 'Rinay Nasit',
+    initials: 'RN',
+    role: 'Satisfied Customer',
     rating: '5.0',
-    content: 'SK Precast has set the standard for quality in the industry. Their innovative approach and ability to deliver custom solutions have made a significant positive impact on our project.'
+    relativeTime: 'a year ago',
+    content: 'SK Precast Industries is one of the best for precast compound walls. Their quality is excellent, and they complete the work on time. Their behavior is very good—they take care of the customer and are very cooperative. I am very satisfied with their work. Definitely recommend!'
   }
 ];
 

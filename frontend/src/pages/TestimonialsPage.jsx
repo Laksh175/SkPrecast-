@@ -1,42 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Building2, 
-  ArrowRight, 
-  Sparkles, 
-  Layers, 
-  Box, 
-  Factory, 
-  Home, 
-  Globe, 
-  Warehouse, 
-  ShieldCheck, 
-  Tag, 
-  FileCheck, 
-  Award, 
-  Eye, 
-  Target, 
-  Landmark, 
-  PlusCircle, 
-  Plus, 
-  Minus, 
-  Shield, 
-  MessageSquareText,
-  X
-} from 'lucide-react';
+import { Building2, MapPin, Phone, Mail, ArrowRight, Sparkles, Layers, Box, Factory, Home, Globe, Warehouse, ShieldCheck, Tag, FileCheck, Award, Eye, Target, Landmark, PlusCircle, Plus, Minus, Shield, X, PenLine } from 'lucide-react';
 import { FaStar, FaQuoteLeft } from 'react-icons/fa6';
 import { navigateTo } from '../utils/navigation';
-import { dropdownCategoriesData, standaloneProductsData } from '../data/aboutUsData';
+import { dropdownCategoriesData, standaloneProductsData, aboutCompanyData } from '../data/aboutUsData';
 import { testimonialsCol1, testimonialsCol2 } from '../data/homeData';
+import { WriteReviewModal } from '../components/WriteReviewModal';
 
 // Dynamic Icon Map for explore products section
 const iconComponentMap = { Building2, Shield, Landmark, PlusCircle, Sparkles, Layers, Box, Factory, Home, Globe, Warehouse, ShieldCheck, Tag, FileCheck, Award, Eye, Target };
 
+// Combine top 10 verified customer testimonials from Google
+const allVerifiedTestimonials = [
+  ...testimonialsCol1,
+  ...testimonialsCol2
+].map((item, idx) => ({
+  id: item.id || `testi-${idx + 1}`,
+  name: item.name,
+  initials: item.initials || item.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase(),
+  role: item.role || 'Verified Customer',
+  rating: parseFloat(item.rating) || 5.0,
+  content: item.content,
+  relativeTime: item.relativeTime || null,
+  profilePhoto: item.profilePhoto || null,
+  isGoogleVerified: true
+}));
+
 const TestimonialsPage = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
-
-  // Exact 10 testimonials from homeData.js
-  const allTestimonials = [...testimonialsCol1, ...testimonialsCol2];
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -53,7 +45,7 @@ const TestimonialsPage = () => {
     <div className="w-full bg-theme-pageBg text-theme-heading font-sans min-h-screen">
       
       {/* ========================================================================= */}
-      {/* 1. HERO BANNER SECTION (Clean Dark Navy & Gold without top line or stats) */}
+      {/* 1. HERO BANNER SECTION (Clean Dark Navy & Gold)                           */}
       {/* ========================================================================= */}
       <section className="relative bg-theme-heroNavy text-white pt-14 pb-14 lg:pt-18 lg:pb-18 overflow-hidden border-b border-amber-500/20 shadow-xl">
         {/* Architectural Dot Grid Overlay */}
@@ -88,7 +80,7 @@ const TestimonialsPage = () => {
             <span className="text-amber-400 font-bold">Testimonials</span>
           </motion.div>
 
-          {/* Main Heading with Site-Standard Gradient Text */}
+          {/* Main Heading */}
           <motion.h1 
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -113,108 +105,313 @@ const TestimonialsPage = () => {
       </section>
 
       {/* ========================================================================= */}
-      {/* 2. PUBLIC CHEERS SECTION (Twitter/X Style Masonry with Dynamic Height)    */}
+      {/* 2. MAIN SECTION: 2-COLUMN TESTIMONIALS (LEFT) + CONTACT CARD (RIGHT)      */}
       {/* ========================================================================= */}
-      <section className="relative py-14 sm:py-18 lg:py-20 overflow-hidden bg-gradient-to-b from-[#faf5f0] via-[#fdfbf7] to-[#f8fafc]">
+      <section className="relative pt-8 pb-14 sm:pt-10 sm:pb-18 lg:pt-12 lg:pb-20 bg-gradient-to-b from-[#faf5f0] via-[#fdfbf7] to-[#f8fafc]">
         
-        {/* Soft Ambient Glows */}
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[650px] h-[320px] bg-gradient-to-tr from-rose-200/30 via-amber-200/30 to-orange-100/20 blur-[130px] pointer-events-none rounded-full" />
-        <div className="absolute top-1/3 left-10 w-80 h-80 bg-amber-200/20 blur-[140px] pointer-events-none rounded-full" />
-        <div className="absolute top-2/3 right-10 w-80 h-80 bg-teal-200/20 blur-[140px] pointer-events-none rounded-full" />
+        {/* Soft Ambient Glows (Contained safely so parent section does not break sticky) */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[650px] h-[320px] bg-gradient-to-tr from-rose-200/30 via-amber-200/30 to-orange-100/20 blur-[130px] rounded-full" />
+          <div className="absolute top-1/3 left-10 w-80 h-80 bg-amber-200/20 blur-[140px] rounded-full" />
+          <div className="absolute top-2/3 right-10 w-80 h-80 bg-teal-200/20 blur-[140px] rounded-full" />
+        </div>
 
-        <div className="max-w-[1260px] mx-auto px-4 sm:px-6 relative z-10">
+        <div className="max-w-[1260px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
-          {/* Header Section styled identically to site-wide headings */}
-          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          {/* ========================================================================= */}
+          {/* 2 Columns of Testimonials (Left) + Sticky Contact Card (Right)             */}
+          {/* ========================================================================= */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-start">
             
-            {/* Heading with Standard Common Color & Gradient */}
-            <motion.h2 
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-[24px] sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight mb-2"
-            >
-              Real Stories of <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-[#d97706] via-amber-500 to-yellow-500">Trust &amp; Precast Excellence</span>
-            </motion.h2>
+            {/* LEFT SIDE: 2 Columns of Testimonials (1 line me 2 comments) */}
+            <div className="lg:col-span-8">
+              <div className="columns-1 sm:columns-2 gap-5 space-y-5 [column-fill:_balance]">
+                {allVerifiedTestimonials.map((item, index) => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-30px' }}
+                    transition={{ duration: 0.45, delay: (index % 2) * 0.08 }}
+                    className="break-inside-avoid inline-block w-full h-fit bg-white/95 backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-slate-200/90 hover:border-amber-400/80 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_30px_-8px_rgba(245,158,11,0.16)] transition-all duration-300 hover:-translate-y-1.5 group relative"
+                  >
+                    {/* Top Subtle Amber Bar Accent on Hover */}
+                    <div className="absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl" />
 
-            {/* Standard Title Accent Bar */}
-            <div className="flex items-center justify-center gap-2 mt-2 mb-3.5 mx-auto">
-              <span className="h-[2px] w-20 sm:w-28 rounded-full title-accent-bar" />
-              <span className="h-2 w-2 rounded-full title-accent-dot shrink-0" />
-              <span className="h-[2px] w-20 sm:w-28 rounded-full title-accent-bar" />
+                    {/* Card Header: 5 Stars Rating + Quote Icon */}
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-1 text-amber-400">
+                        {[...Array(5)].map((_, i) => (
+                          <FaStar key={i} className="text-yellow-400 text-xs sm:text-[13px] drop-shadow-sm" />
+                        ))}
+                      </div>
+                      
+                      <div className="flex items-center gap-2">
+                        <FaQuoteLeft className="text-amber-500/70 text-sm" />
+                      </div>
+                    </div>
+
+                    {/* Testimonial Content (Dynamic Natural Height) */}
+                    <div className="text-slate-700 text-[13.5px] sm:text-[14px] leading-relaxed font-normal mb-4">
+                      "{item.content}"
+                    </div>
+
+                    {/* Divider */}
+                    <div className="h-[1px] w-full bg-slate-100 mb-3" />
+
+                    {/* User Details with Avatar */}
+                    <div className="flex items-center gap-3">
+                      {item.profilePhoto ? (
+                        <img 
+                          src={item.profilePhoto} 
+                          alt={item.name} 
+                          className="w-9 h-9 rounded-full object-cover shrink-0 ring-2 ring-amber-300/60"
+                        />
+                      ) : (
+                        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#fde047] via-[#facc15] to-[#eab308] text-slate-950 font-extrabold flex items-center justify-center text-xs shadow-[0_2px_8px_rgba(250,204,21,0.3)] shrink-0 border border-yellow-300/80 group-hover:scale-105 transition-transform">
+                          {item.initials}
+                        </div>
+                      )}
+                      
+                      <div className="overflow-hidden text-left">
+                        <h3 className="text-[13.5px] font-bold text-slate-900 group-hover:text-amber-700 transition-colors leading-tight">
+                          {item.name}
+                        </h3>
+                        <p className="text-[11.5px] text-slate-500 mt-0.5 font-medium flex items-center gap-1.5">
+                          <span>{item.role}</span>
+                          {item.relativeTime && (
+                            <>
+                              <span className="text-slate-300">•</span>
+                              <span className="text-slate-400">{item.relativeTime}</span>
+                            </>
+                          )}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
 
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed"
-            >
-              Discover why industrial developers, farmhouse owners, and infrastructure contractors across Delhi NCR &amp; Haryana trust SK Precast Industries for their perimeter boundary walls.
-            </motion.p>
-          </div>
+            {/* RIGHT SIDE: Sticky Column containing Write a Review Button + Contact Card + User Satisfaction Card */}
+            <div className="lg:col-span-4 relative h-full">
+              <div className="sticky top-[120px] sm:top-[130px] lg:top-[140px] z-20 space-y-4 sm:space-y-5">
+                
+                {/* 0. WRITE A REVIEW BUTTON (Opens Review Modal) */}
+                <button
+                  type="button"
+                  onClick={() => setIsReviewModalOpen(true)}
+                  className="w-full flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-[14px] bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-400 hover:from-amber-600 hover:via-amber-500 hover:to-yellow-500 text-slate-950 font-black text-[15px] sm:text-[16px] tracking-wide shadow-[0_6px_20px_rgba(245,158,11,0.3)] hover:shadow-[0_10px_28px_rgba(245,158,11,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 group border border-amber-300/80 cursor-pointer"
+                >
+                  <PenLine size={18} className="stroke-[2.5] text-slate-950 group-hover:rotate-6 transition-transform" />
+                  <span>Write a Review</span>
+                </button>
 
-          {/* ========================================================================= */}
-          {/* Exact 10 Testimonials in Natural Height Masonry Multi-Column Layout       */}
-          {/* ========================================================================= */}
-          <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6 [column-fill:_balance]">
-            {allTestimonials.map((item, index) => (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
-                className="break-inside-avoid inline-block w-full h-fit bg-white/95 backdrop-blur-md rounded-2xl p-6 sm:p-7 border border-slate-200/90 hover:border-amber-400/80 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_32px_-8px_rgba(245,158,11,0.18)] transition-all duration-300 hover:-translate-y-1.5 group relative"
-              >
-                {/* Top Subtle Amber Bar Accent on Hover */}
-                <div className="absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl" />
-
-                {/* Card Header: Rating + Quote Icon */}
-                <div className="flex items-center justify-between mb-3.5">
-                  <div className="flex items-center gap-1.5 bg-amber-50/80 border border-amber-200/60 px-2.5 py-1 rounded-full">
-                    <FaStar className="text-yellow-500 text-xs drop-shadow-sm" />
-                    <span className="text-amber-900 font-extrabold text-xs tracking-wide">
-                      {item.rating}
+                {/* 1. STANDALONE CONTACT DETAILS CARD (Exact matching About Us Page) */}
+                <div className="w-full relative rounded-[15px] p-6 sm:p-7 bg-theme-pageBg border border-slate-200 shadow-xl shadow-slate-200/50 hover:border-slate-300 hover:shadow-2xl hover:shadow-slate-300/40 transition-all duration-300 group">
+                  {/* Top Header */}
+                  <div className="mb-5 pb-4 border-b border-slate-200">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-[5px] text-[11px] font-extrabold uppercase tracking-wider bg-slate-200/80 text-slate-700 mb-1 border border-slate-300/60">
+                      {aboutCompanyData.contactCard.badge}
                     </span>
+                    <h2 className="text-[26px] leading-tight font-black text-theme-heading tracking-tight">
+                      {aboutCompanyData.contactCard.companyName}
+                    </h2>
                   </div>
-                  <FaQuoteLeft className="text-slate-300 group-hover:text-amber-500/60 text-base transition-colors" />
+
+                  {/* Info List */}
+                  <div className="flex flex-col gap-3.5">
+                    {/* Address */}
+                    <div className="flex items-start gap-3.5 p-3.5 sm:p-4 rounded-[14px] bg-white border border-slate-200/80 hover:border-amber-300 hover:shadow-md transition-all duration-200 shadow-xs">
+                      <div className="w-11 h-11 rounded-[12px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_6px_14px_rgba(217,119,6,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.6),inset_0_-2px_3px_rgba(0,0,0,0.2)] ring-1 ring-amber-300/50">
+                        <MapPin size={20} className="text-white drop-shadow-xs" />
+                      </div>
+                      <div className="text-left">
+                        <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Address</span>
+                        <p className="text-[13.5px] sm:text-[14px] text-slate-700 leading-relaxed font-medium">
+                          {aboutCompanyData.contactCard.address}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Mobile */}
+                    <div className="flex items-start gap-3.5 p-3.5 sm:p-4 rounded-[14px] bg-white border border-slate-200/80 hover:border-amber-300 hover:shadow-md transition-all duration-200 shadow-xs">
+                      <div className="w-11 h-11 rounded-[12px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_6px_14px_rgba(217,119,6,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.6),inset_0_-2px_3px_rgba(0,0,0,0.2)] ring-1 ring-amber-300/50">
+                        <Phone size={20} className="text-white drop-shadow-xs" />
+                      </div>
+                      <div className="text-left">
+                        <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Mobile</span>
+                        <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+                          {aboutCompanyData.contactCard.phones.map((phone, idx) => (
+                            <React.Fragment key={phone}>
+                              {idx > 0 && <span className="text-slate-300 font-bold">•</span>}
+                              <a 
+                                href={`tel:${phone.replace(/[^0-9+]/g, '')}`} 
+                                className="text-[14px] font-medium text-slate-900 hover:text-amber-600 transition-colors">
+                                {phone}
+                              </a>
+                            </React.Fragment>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* E-mail */}
+                    <div className="flex items-start gap-3.5 p-3.5 sm:p-4 rounded-[14px] bg-white border border-slate-200/80 hover:border-amber-300 hover:shadow-md transition-all duration-200 shadow-xs">
+                      <div className="w-11 h-11 rounded-[12px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_6px_14px_rgba(217,119,6,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.6),inset_0_-2px_3px_rgba(0,0,0,0.2)] ring-1 ring-amber-300/50">
+                        <Mail size={20} className="text-white drop-shadow-xs" />
+                      </div>
+                      <div className="text-left overflow-hidden">
+                        <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">E-mail</span>
+                        <a 
+                          href={`mailto:${aboutCompanyData.contactCard.email}`} 
+                          className="text-[14px] font-medium text-slate-900 hover:text-amber-600 transition-colors truncate block">
+                          {aboutCompanyData.contactCard.email}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Testimonial Content (Dynamic Height: Takes exact text size) */}
-                <div className="text-slate-700 text-[14px] sm:text-[14.5px] leading-relaxed font-normal mb-4">
-                  "{item.content}"
+                {/* 2. STANDALONE SEPARATE USER SATISFACTION CARD */}
+                <div className="w-full relative rounded-[15px] p-6 sm:p-7 bg-theme-pageBg border border-slate-200 shadow-xl shadow-slate-200/50 hover:border-slate-300 hover:shadow-2xl hover:shadow-slate-300/40 transition-all duration-300 group">
+                  <h3 className="text-left text-[27px] leading-tight font-black text-theme-heading tracking-tight mb-5">
+                    User Satisfaction
+                  </h3>
+
+                  <div className="grid grid-cols-3 gap-2.5 sm:gap-3.5">
+                    {/* Metric 1: Response */}
+                    <div className="flex flex-col items-center text-center p-3 rounded-2xl bg-white border border-slate-200/80 hover:border-amber-400 hover:shadow-md transition-all duration-200 shadow-2xs group/item">
+                      <div className="relative w-14 h-14 sm:w-[60px] sm:h-[60px] flex items-center justify-center mb-2">
+                        {/* Rotating Shaded Gradient Ring */}
+                        <svg className="w-full h-full animate-[spin_5s_linear_infinite]" viewBox="0 0 44 44">
+                          <defs>
+                            <linearGradient id="rot-grad-resp" x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor="#f59e0b" />
+                              <stop offset="35%" stopColor="#fde047" />
+                              <stop offset="70%" stopColor="#ea580c" />
+                              <stop offset="100%" stopColor="#d97706" />
+                            </linearGradient>
+                          </defs>
+                          <circle
+                            cx="22"
+                            cy="22"
+                            r="17.5"
+                            className="text-amber-100/70"
+                            strokeWidth="3.5"
+                            stroke="currentColor"
+                            fill="none"
+                          />
+                          <circle
+                            cx="22"
+                            cy="22"
+                            r="17.5"
+                            stroke="url(#rot-grad-resp)"
+                            strokeWidth="3.8"
+                            strokeDasharray="92 20"
+                            strokeLinecap="round"
+                            fill="none"
+                          />
+                        </svg>
+                        <span className="absolute text-[13px] sm:text-[13.5px] font-black text-slate-900 group-hover/item:text-amber-600 transition-colors">
+                          100%
+                        </span>
+                      </div>
+                      <span className="text-[15px] font-bold text-slate-700 leading-tight">Response</span>
+                    </div>
+
+                    {/* Metric 2: Quality */}
+                    <div className="flex flex-col items-center text-center p-3 rounded-2xl bg-white border border-slate-200/80 hover:border-amber-400 hover:shadow-md transition-all duration-200 shadow-2xs group/item">
+                      <div className="relative w-14 h-14 sm:w-[60px] sm:h-[60px] flex items-center justify-center mb-2">
+                        {/* Rotating Shaded Gradient Ring */}
+                        <svg className="w-full h-full animate-[spin_5s_linear_infinite]" viewBox="0 0 44 44">
+                          <defs>
+                            <linearGradient id="rot-grad-qual" x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor="#fbbf24" />
+                              <stop offset="35%" stopColor="#f59e0b" />
+                              <stop offset="70%" stopColor="#f97316" />
+                              <stop offset="100%" stopColor="#ea580c" />
+                            </linearGradient>
+                          </defs>
+                          <circle
+                            cx="22"
+                            cy="22"
+                            r="17.5"
+                            className="text-amber-100/70"
+                            strokeWidth="3.5"
+                            stroke="currentColor"
+                            fill="none"
+                          />
+                          <circle
+                            cx="22"
+                            cy="22"
+                            r="17.5"
+                            stroke="url(#rot-grad-qual)"
+                            strokeWidth="3.8"
+                            strokeDasharray="92 20"
+                            strokeLinecap="round"
+                            fill="none"
+                          />
+                        </svg>
+                        <span className="absolute text-[13px] sm:text-[13.5px] font-black text-slate-900 group-hover/item:text-amber-600 transition-colors">
+                          100%
+                        </span>
+                      </div>
+                      <span className="text-[15px] font-bold text-slate-700 leading-tight">Quality</span>
+                    </div>
+
+                    {/* Metric 3: Delivery */}
+                    <div className="flex flex-col items-center text-center p-3 rounded-2xl bg-white border border-slate-200/80 hover:border-amber-400 hover:shadow-md transition-all duration-200 shadow-2xs group/item">
+                      <div className="relative w-14 h-14 sm:w-[60px] sm:h-[60px] flex items-center justify-center mb-2">
+                        {/* Rotating Shaded Gradient Ring */}
+                        <svg className="w-full h-full animate-[spin_5s_linear_infinite]" viewBox="0 0 44 44">
+                          <defs>
+                            <linearGradient id="rot-grad-delv" x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor="#f59e0b" />
+                              <stop offset="35%" stopColor="#fde047" />
+                              <stop offset="70%" stopColor="#f97316" />
+                              <stop offset="100%" stopColor="#d97706" />
+                            </linearGradient>
+                          </defs>
+                          <circle
+                            cx="22"
+                            cy="22"
+                            r="17.5"
+                            className="text-amber-100/70"
+                            strokeWidth="3.5"
+                            stroke="currentColor"
+                            fill="none"
+                          />
+                          <circle
+                            cx="22"
+                            cy="22"
+                            r="17.5"
+                            stroke="url(#rot-grad-delv)"
+                            strokeWidth="3.8"
+                            strokeDasharray="92 20"
+                            strokeLinecap="round"
+                            fill="none"
+                          />
+                        </svg>
+                        <span className="absolute text-[13px] sm:text-[13.5px] font-black text-slate-900 group-hover/item:text-amber-600 transition-colors">
+                          100%
+                        </span>
+                      </div>
+                      <span className="text-[15px] font-bold text-slate-700 leading-tight">Delivery</span>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Divider */}
-                <div className="h-[1px] w-full bg-slate-100 mb-3.5" />
+              </div>
+            </div>
 
-                {/* User Details with Gold Gradient Initials Avatar */}
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#fde047] via-[#facc15] to-[#eab308] text-slate-950 font-extrabold flex items-center justify-center text-xs sm:text-sm shadow-[0_2px_10px_rgba(250,204,21,0.35)] shrink-0 border border-yellow-300/80 group-hover:scale-105 transition-transform">
-                    {item.initials}
-                  </div>
-                  <div className="overflow-hidden text-left">
-                    <h3 className="text-sm font-bold text-slate-900 group-hover:text-amber-700 transition-colors leading-tight">
-                      {item.name}
-                    </h3>
-                    <p className="text-xs text-slate-500 mt-0.5 font-medium">
-                      {item.role}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
           </div>
 
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* 3. EXPLORE OUR PRODUCTS (Exact section matching About page & image 3)     */}
+      {/* 3. EXPLORE OUR PRODUCTS (Exact section matching About page)                */}
       {/* ========================================================================= */}
       <section className="py-14 sm:py-18 bg-white border-t border-slate-200">
         <div className="max-w-[1260px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -368,6 +565,12 @@ const TestimonialsPage = () => {
 
         </div>
       </section>
+      
+      {/* 4. WRITE A REVIEW POPUP MODAL (Blur Background) */}
+      <WriteReviewModal 
+        isOpen={isReviewModalOpen} 
+        onClose={() => setIsReviewModalOpen(false)} 
+      />
 
     </div>
   );
