@@ -1,26 +1,17 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { navigateTo } from '../../utils/navigation';
-import { Button } from '../../common';
+import { Button, ContactInfoCard, ManufacturingUnitSlider } from '../../common';
 import { ArrowRight, ShieldCheck, Award, CheckCircle2, Globe, Warehouse, Building2, Tag, FileCheck, MapPin, Phone, Mail, Eye, Target, Layers, Factory, Shield, Home, Sparkles, PlusCircle, Box, Landmark, Plus, Minus, X } from 'lucide-react';
-import { aboutCompanyData, missionVisionData, dropdownCategoriesData, standaloneProductsData, exploreRangeProductsData, whyChooseUsFactorsData } from '../../data/aboutUsData';
-import { useInfiniteSlider } from '../../hooks';
+import { aboutCompanyData, missionVisionData, dropdownCategoriesData, standaloneProductsData, whyChooseUsFactorsData } from '../../data/aboutUsData';
 
 // Icon Map for dynamic icon lookup
 const iconComponentMap = { Building2, Shield, Landmark, PlusCircle, Sparkles, Layers, Box, Factory, Home, Globe, Warehouse, ShieldCheck, Tag, FileCheck, Award, Eye, Target };
 
 const AboutContentSection = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
-  const { sliderRef, isDragging, containerHandlers, sliderHandlers } = useInfiniteSlider({ speed: 0.85 });
 
   const activeDropdownData = dropdownCategoriesData.find(d => d.id === openDropdown);
-
-  // Triple items for seamless continuous infinite looping
-  const displayRangeProducts = [
-    ...exploreRangeProductsData, 
-    ...exploreRangeProductsData, 
-    ...exploreRangeProductsData
-  ];
 
   const toggleDropdown = (id) => {
     setOpenDropdown(prev => prev === id ? null : id);
@@ -85,75 +76,9 @@ const AboutContentSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="lg:col-span-5 relative flex justify-end">
-            <div className="w-full lg:w-[88%] lg:ml-[25%] relative rounded-[15px] p-6 sm:p-7 bg-theme-pageBg border border-slate-200 shadow-xl shadow-slate-200/50 hover:border-slate-300 hover:shadow-2xl hover:shadow-slate-300/40 transition-all duration-300 group">
-              
-              {/* Top Header */}
-              <div className="mb-5 pb-4 border-b border-slate-200">
-                <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-[5px] text-[11px] font-extrabold uppercase tracking-wider bg-slate-200/80 text-slate-700 mb-1 border border-slate-300/60">
-                  {aboutCompanyData.contactCard.badge}
-                </span>
-                <h2 className="text-[26px] leading-tight font-black text-theme-heading tracking-tight">
-                  {aboutCompanyData.contactCard.companyName}
-                </h2>
-              </div>
-
-              {/* Info List */}
-              <div className="flex flex-col gap-3.5">
-                
-                {/* Address */}
-                <div className="flex items-start gap-3.5 p-3.5 sm:p-4 rounded-[14px] bg-white border border-slate-200/80 hover:border-amber-300 hover:shadow-md transition-all duration-200 shadow-xs">
-                  <div className="w-11 h-11 rounded-[12px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_6px_14px_rgba(217,119,6,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.6),inset_0_-2px_3px_rgba(0,0,0,0.2)] ring-1 ring-amber-300/50">
-                    <MapPin size={20} className="text-white drop-shadow-xs" />
-                  </div>
-                  <div className="text-left">
-                    <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Address</span>
-                    <p className="caption-text text-[13.5px] sm:text-[14px] text-slate-700 leading-relaxed font-medium">
-                      {aboutCompanyData.contactCard.address}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Mobile */}
-                <div className="flex items-start gap-3.5 p-3.5 sm:p-4 rounded-[14px] bg-white border border-slate-200/80 hover:border-amber-300 hover:shadow-md transition-all duration-200 shadow-xs">
-                  <div className="w-11 h-11 rounded-[12px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_6px_14px_rgba(217,119,6,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.6),inset_0_-2px_3px_rgba(0,0,0,0.2)] ring-1 ring-amber-300/50">
-                    <Phone size={20} className="text-white drop-shadow-xs" />
-                  </div>
-                  <div className="text-left">
-                    <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Mobile</span>
-                    <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
-                      {aboutCompanyData.contactCard.phones.map((phone, idx) => (
-                        <React.Fragment key={phone}>
-                          {idx > 0 && <span className="text-slate-300 font-bold">•</span>}
-                          <a 
-                            href={`tel:${phone.replace(/[^0-9+]/g, '')}`} 
-                            className="caption-text text-[13.5px] sm:text-[14px] font-medium text-slate-800 hover:text-amber-600 transition-colors">
-                            {phone}
-                          </a>
-                        </React.Fragment>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* E-mail */}
-                <div className="flex items-start gap-3.5 p-3.5 sm:p-4 rounded-[14px] bg-white border border-slate-200/80 hover:border-amber-300 hover:shadow-md transition-all duration-200 shadow-xs">
-                  <div className="w-11 h-11 rounded-[12px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_6px_14px_rgba(217,119,6,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.6),inset_0_-2px_3px_rgba(0,0,0,0.2)] ring-1 ring-amber-300/50">
-                    <Mail size={20} className="text-white drop-shadow-xs" />
-                  </div>
-                  <div className="text-left overflow-hidden">
-                    <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">E-mail</span>
-                    <a 
-                      href={`mailto:${aboutCompanyData.contactCard.email}`} 
-                      className="caption-text text-[13.5px] sm:text-[14px] font-medium text-slate-800 hover:text-amber-600 transition-colors truncate block">
-                      {aboutCompanyData.contactCard.email}
-                    </a>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
+            className="lg:col-span-5 relative flex justify-end"
+          >
+            <ContactInfoCard className="w-full lg:w-[88%] lg:ml-[25%]" />
           </motion.div>
 
         </div>
@@ -518,59 +443,8 @@ const AboutContentSection = () => {
           </div>
         </div>
 
-        {/* Full-Width Edge-To-Edge Auto-Scrolling Track (100% Screen Width) */}
-        <div 
-          className="relative w-full overflow-hidden select-none"
-          {...containerHandlers}>
-          <div
-            ref={sliderRef}
-            {...sliderHandlers}
-            className={`flex items-center gap-3.5 sm:gap-6 overflow-x-auto no-scrollbar px-3 sm:px-8 lg:px-12 py-2 sm:py-4 ${
-              isDragging ? 'cursor-grabbing' : 'cursor-grab'
-            }`}
-            style={{ 
-              scrollbarWidth: 'none', 
-              msOverflowStyle: 'none',
-              WebkitOverflowScrolling: 'touch' 
-            }}>
-            {displayRangeProducts.map((item, index) => (
-              <div
-                key={`${item.id}-${index}`}
-                className="w-[220px] sm:w-[300px] md:w-[350px] lg:w-[370px] shrink-0">
-                <a
-                  href={item.link}
-                  onClick={(e) => navigateTo(item.link, e)}
-                  className="group relative block w-full h-[280px] sm:h-[360px] lg:h-[390px] rounded-[15px] overflow-hidden bg-slate-900 border border-slate-200/90 shadow-[0_8px_25px_rgba(0,0,0,0.08)] hover:shadow-[0_16px_35px_rgba(250,204,21,0.25)] hover:border-yellow-400 hover:-translate-y-1.5 transition-all duration-500 cursor-pointer"
-                  draggable={false}>
-                  {/* Image (Clean full opacity) */}
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out pointer-events-none"
-                    draggable={false}
-                    loading="lazy"/>
-
-                  {/* Top-Left Name Text with White Text-Shadow */}
-                  <div className="absolute top-4 left-4 right-12 z-10 text-left">
-                    <h3 
-                      className="text-white font-extrabold text-[15px] sm:text-[16px] md:text-[17px] leading-snug tracking-tight line-clamp-2"
-                      style={{ textShadow: 'black 1px 3px 7px' }}>
-                      {item.title}
-                    </h3>
-                  </div>
-
-                  {/* Bottom-Right Arrow Circle Button */}
-                  <div className="absolute bottom-4 right-4 z-10">
-                    <div className="w-9 h-9 rounded-full bg-white/95 backdrop-blur-xs flex items-center justify-center text-slate-900 group-hover:bg-gradient-to-br group-hover:from-amber-400 group-hover:to-amber-600 group-hover:text-white transition-all shadow-[0_4px_14px_rgba(0,0,0,0.3)] group-hover:translate-x-0.5">
-                      <ArrowRight size={16} />
-                    </div>
-                  </div>
-
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Common Reusable Manufacturing Unit Images Scroller Track */}
+        <ManufacturingUnitSlider showHeader={false} className="pt-2 pb-0" />
       </div>
 
     </section>

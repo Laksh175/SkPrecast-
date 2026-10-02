@@ -287,7 +287,9 @@ const ContactUsPage = () => {
                     </div>
                     <div className="min-w-0 flex-1">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Contact Person</span>
-                      <p className="text-[14px] text-slate-800 font-bold">{companyContactDetails.contactPerson}</p>
+                      <p className="caption-text text-[13.5px] sm:text-[14px] text-slate-800 font-bold leading-snug">
+                        {companyContactDetails.contactPerson}
+                      </p>
                     </div>
                   </div>
 
@@ -298,7 +300,7 @@ const ContactUsPage = () => {
                     </div>
                     <div className="min-w-0 flex-1">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Address</span>
-                      <p className="text-[13.5px] sm:text-[14px] text-slate-700 font-medium leading-relaxed">
+                      <p className="caption-text text-[13.5px] sm:text-[14px] text-slate-700 font-medium leading-relaxed">
                         {companyContactDetails.address}
                       </p>
                     </div>
@@ -311,13 +313,13 @@ const ContactUsPage = () => {
                     </div>
                     <div className="min-w-0 flex-1">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Mobile</span>
-                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[14px] text-slate-800 font-semibold">
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                         {companyContactDetails.phones.map((ph, idx) => (
                           <React.Fragment key={ph}>
-                            <a href={`tel:${ph.replace(/[^0-9+]/g, '')}`} className="hover:text-amber-600 transition-colors">
+                            <a href={`tel:${ph.replace(/[^0-9+]/g, '')}`} className="caption-text text-[13.5px] sm:text-[14px] text-slate-800 hover:text-amber-600 transition-colors font-medium">
                               {ph}
                             </a>
-                            {idx < companyContactDetails.phones.length - 1 && <span>,</span>}
+                            {idx < companyContactDetails.phones.length - 1 && <span className="text-slate-300 font-bold">•</span>}
                           </React.Fragment>
                         ))}
                       </div>
@@ -331,7 +333,7 @@ const ContactUsPage = () => {
                     </div>
                     <div className="min-w-0 flex-1 overflow-hidden">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">E-Mail</span>
-                      <a href={`mailto:${companyContactDetails.email}`} className="text-[14px] text-slate-800 hover:text-amber-600 transition-colors font-semibold truncate block">
+                      <a href={`mailto:${companyContactDetails.email}`} className="caption-text text-[13.5px] sm:text-[14px] text-slate-800 hover:text-amber-600 transition-colors font-medium truncate block">
                         {companyContactDetails.email}
                       </a>
                     </div>
@@ -344,7 +346,7 @@ const ContactUsPage = () => {
                     </div>
                     <div className="min-w-0 flex-1 overflow-hidden">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Alt. E-Mail</span>
-                      <a href={`mailto:${companyContactDetails.altEmail}`} className="text-[14px] text-slate-800 hover:text-amber-600 transition-colors font-semibold truncate block">
+                      <a href={`mailto:${companyContactDetails.altEmail}`} className="caption-text text-[13.5px] sm:text-[14px] text-slate-800 hover:text-amber-600 transition-colors font-medium truncate block">
                         {companyContactDetails.altEmail}
                       </a>
                     </div>
@@ -361,7 +363,7 @@ const ContactUsPage = () => {
                         href={companyContactDetails.website} 
                         target="_blank" 
                         rel="noreferrer" 
-                        className="text-[14px] text-slate-800 hover:text-amber-600 transition-colors font-semibold truncate block"
+                        className="caption-text text-[13.5px] sm:text-[14px] text-slate-800 hover:text-amber-600 transition-colors font-medium truncate block"
                       >
                         {companyContactDetails.website}
                       </a>
@@ -382,7 +384,7 @@ const ContactUsPage = () => {
                             href={dir.url} 
                             target="_blank" 
                             rel="noreferrer" 
-                            className="text-[13.5px] text-slate-800 hover:text-amber-600 transition-colors font-semibold break-all block"
+                            className="caption-text text-[13.5px] text-slate-800 hover:text-amber-600 transition-colors font-medium break-all block"
                           >
                             {dir.url}
                           </a>
@@ -583,7 +585,7 @@ const ContactUsPage = () => {
               <span className="h-2 w-2 rounded-full title-accent-dot shrink-0" />
               <span className="h-[2px] w-16 sm:w-24 rounded-full title-accent-bar" />
             </div>
-            <p className="text-slate-600 text-[15px] sm:text-[17px] leading-[24px] sm:leading-[28px] max-w-xl mx-auto px-2">
+            <p className="caption-text text-slate-600 text-[14px] sm:text-[15px] leading-[22px] sm:leading-[24px] max-w-xl mx-auto px-2">
               {mapSectionData.subtitle}
             </p>
           </div>
@@ -601,52 +603,7 @@ const ContactUsPage = () => {
               referrerPolicy="no-referrer-when-downgrade"
               className="w-full h-full block"
             />
-            
-            {/* Floating Navigation Card Over Map (Desktop & Tablet) */}
-            <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 rounded-xl p-4 text-white shadow-2xl max-w-xs hidden sm:block z-10">
-              <div className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                <Building2 size={14} />
-                <span>{mapSectionData.plantName}</span>
-              </div>
-              <p className="text-xs text-slate-300 leading-snug mb-3">
-                {mapSectionData.address}
-              </p>
-              <a 
-                href={mapSectionData.directionsUrl} 
-                target="_blank" 
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition-colors shadow-sm cursor-pointer"
-              >
-                <span>Open in Google Maps</span>
-                <ExternalLink size={12} />
-              </a>
-            </div>
           </div>
-
-          {/* Mobile Direct Navigation Card */}
-          <div className="mt-3.5 sm:hidden flex flex-col gap-2.5 bg-slate-50 p-4 rounded-xl border border-slate-200/90 text-left shadow-xs">
-            <div className="flex items-start gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-900 flex items-center justify-center shrink-0 mt-0.5">
-                <MapPin size={16} />
-              </div>
-              <div className="min-w-0 flex-1">
-                <span className="text-xs font-bold text-slate-900 block">{mapSectionData.plantName}</span>
-                <p className="text-[12px] text-slate-600 leading-snug mt-0.5">
-                  {mapSectionData.address}
-                </p>
-              </div>
-            </div>
-            <a 
-              href={mapSectionData.directionsUrl} 
-              target="_blank" 
-              rel="noreferrer"
-              className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-md transition-all cursor-pointer"
-            >
-              <ExternalLink size={13} className="text-amber-400" />
-              <span>Open in Google Maps / Directions</span>
-            </a>
-          </div>
-
         </div>
       </section>
 

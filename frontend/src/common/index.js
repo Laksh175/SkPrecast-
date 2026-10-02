@@ -3,3 +3,5 @@ export { default as SearchableSelect } from './SearchableSelect';
 export { default as CountryCodePicker } from './CountryCodePicker';
 export { default as TopProgressBar } from './TopProgressBar';
 export { default as BrandPreloader } from './BrandPreloader';
+export { default as ManufacturingUnitSlider } from './ManufacturingUnitSlider';
+export { default as ContactInfoCard } from './ContactInfoCard';

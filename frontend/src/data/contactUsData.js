@@ -13,7 +13,7 @@ export const contactUsHeroData = {
 export const companyContactDetails = {
   companyName: 'SK Precast Industries',
   contactPerson: 'Mr. Vivek Koladiya',
-  address: 'Opp. Adani CNG Pump, Delhi-Mathura Road Near Hanuman Mandir,, Palwal, Haryana, India - 121102',
+  address: 'Opp. Adani CNG Pump, Delhi-Mathura Road Near Hanuman Mandir, Palwal, Haryana, India - 121102',
   phones: ['+91-8238902687', '+91-9896908099'],
   email: 'info@skprecast-industries.com',
   altEmail: 'skprecastindustries@gmail.com',
