@@ -791,10 +791,10 @@ const CurrentJobsPage = () => {
                         <span className="text-red-500 font-bold mr-1">*</span>Attach Resume :
                       </label>
                       <div className="sm:col-span-8">
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-1.5">
                           <div className="flex flex-wrap items-center gap-2.5">
-                            <label className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-50 hover:bg-amber-500 text-amber-950 hover:text-white border border-amber-300 hover:border-amber-500 font-bold text-xs cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md">
-                              <Upload size={15} className="text-amber-600 group-hover:text-white transition-colors" />
+                            <label className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-50 hover:bg-amber-500 text-amber-950 hover:text-white border border-amber-300 hover:border-amber-500 font-bold text-[12px] cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md">
+                              <Upload size={14} className="text-amber-600 group-hover:text-white transition-colors" />
                               <span>Choose file</span>
                               <input
                                 type="file"
@@ -804,11 +804,11 @@ const CurrentJobsPage = () => {
                               />
                             </label>
 
-                            <div className="flex items-center gap-2 px-3 py-2 bg-slate-100 rounded-xl border border-slate-200 flex-1 min-w-[200px] max-w-full">
+                            <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-xl border border-slate-200 flex-1 min-w-[180px] max-w-full">
                               {fileName ? (
                                 <div className="flex items-center justify-between w-full gap-2">
-                                  <span className="text-xs text-emerald-800 font-bold flex items-center gap-1.5 truncate">
-                                    <CheckCircle size={14} className="text-emerald-600 shrink-0" />
+                                  <span className="text-[12px] text-emerald-800 font-bold flex items-center gap-1.5 truncate">
+                                    <CheckCircle size={13} className="text-emerald-600 shrink-0" />
                                     <span className="truncate">{fileName}</span>
                                   </span>
                                   <button
@@ -820,18 +820,18 @@ const CurrentJobsPage = () => {
                                     className="p-0.5 text-slate-400 hover:text-red-600 transition-colors shrink-0 cursor-pointer"
                                     title="Remove attached file"
                                   >
-                                    <X size={15} />
+                                    <X size={14} />
                                   </button>
                                 </div>
                               ) : (
-                                <span className="text-xs text-slate-500 font-medium">
+                                <span className="text-[12px] text-slate-500 font-medium">
                                   No file chosen
                                 </span>
                               )}
                             </div>
                           </div>
 
-                          <p className="text-[12px] font-bold text-amber-600">
+                          <p className="caption-text text-[11.5px] font-semibold text-amber-700 tracking-normal mt-0.5">
                             Allowed File Type : .doc, .docx, .rtf, .pdf (Upto 5 MB)
                           </p>
                         </div>
