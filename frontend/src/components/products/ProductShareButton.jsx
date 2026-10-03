@@ -18,6 +18,47 @@ const ProductShareButton = ({ product, className = '' }) => {
   const productName = product?.name || 'Precast Product';
   const productImage = product?.image || '';
 
+  // Robust copy to clipboard supporting iOS Safari, Android Chrome, and WebViews
+  const copyToClipboard = async (text) => {
+    let success = false;
+    if (typeof navigator !== 'undefined' && navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text);
+        success = true;
+      } catch (err) {
+        console.warn('navigator.clipboard failed, switching to fallback', err);
+      }
+    }
+
+    if (!success && typeof document !== 'undefined') {
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.top = '0';
+        textArea.style.left = '0';
+        textArea.style.width = '2em';
+        textArea.style.height = '2em';
+        textArea.style.padding = '0';
+        textArea.style.border = 'none';
+        textArea.style.outline = 'none';
+        textArea.style.boxShadow = 'none';
+        textArea.style.background = 'transparent';
+        textArea.setAttribute('readonly', '');
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        textArea.setSelectionRange(0, 99999);
+        success = document.execCommand('copy');
+        document.body.removeChild(textArea);
+      } catch (err) {
+        console.error('execCommand copy fallback failed', err);
+      }
+    }
+
+    return success;
+  };
+
   // Close dropdown on click outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -28,11 +69,11 @@ const ProductShareButton = ({ product, className = '' }) => {
 
     if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside);
-      document.addEventListener('touchstart', handleClickOutside);
+      document.addEventListener('touchend', handleClickOutside);
     }
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('touchstart', handleClickOutside);
+      document.removeEventListener('touchend', handleClickOutside);
     };
   }, [isOpen]);
 
@@ -49,8 +90,10 @@ const ProductShareButton = ({ product, className = '' }) => {
     return `https://www.skprecast-industries.com/${slug}.htm`;
   };
 
-  const handleShare = (platform, e) => {
-    e.stopPropagation();
+  const handleShare = async (platform, e) => {
+    if (e) {
+      e.stopPropagation();
+    }
     const url = getShareUrl();
     const isLocalhost = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
     const domainBase = isLocalhost ? 'https://www.skprecast-industries.com' : (typeof window !== 'undefined' ? window.location.origin : 'https://www.skprecast-industries.com');
@@ -69,33 +112,11 @@ const ProductShareButton = ({ product, className = '' }) => {
         break;
 
       case 'instagram': {
-        const shareData = {
-          title: `${productName} - SK Precast Industries`,
-          text: `Check out ${productName} by SK Precast Industries - Palwal, Haryana: ${url}`,
-          url: url,
-        };
-
-        // If on mobile device with Web Share API support, trigger native share (opens Instagram Direct/Stories with people list)
-        if (typeof navigator !== 'undefined' && navigator.share && navigator.canShare && navigator.canShare(shareData)) {
-          navigator.share(shareData).catch((err) => {
-            if (err.name !== 'AbortError') {
-              if (navigator.clipboard) {
-                navigator.clipboard.writeText(url);
-                setIsCopied(true);
-                setTimeout(() => setIsCopied(false), 2500);
-              }
-              window.open('https://www.instagram.com/direct/inbox/', '_blank', 'noopener,noreferrer');
-            }
-          });
-        } else {
-          // Desktop Browser: Copy link to clipboard & open Instagram Direct Messages directly
-          if (typeof navigator !== 'undefined' && navigator.clipboard) {
-            navigator.clipboard.writeText(url);
-            setIsCopied(true);
-            setTimeout(() => setIsCopied(false), 2500);
-          }
-          window.open('https://www.instagram.com/direct/inbox/', '_blank', 'noopener,noreferrer');
-        }
+        // Copy link to clipboard and open Instagram Direct
+        await copyToClipboard(url);
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 3000);
+        window.open('https://www.instagram.com/direct/inbox/', '_blank', 'noopener,noreferrer');
         break;
       }
 
@@ -135,13 +156,12 @@ const ProductShareButton = ({ product, className = '' }) => {
         );
         break;
 
-      case 'copy':
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(url);
-          setIsCopied(true);
-          setTimeout(() => setIsCopied(false), 2500);
-        }
+      case 'copy': {
+        await copyToClipboard(url);
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 3000);
         break;
+      }
 
       default:
         break;
