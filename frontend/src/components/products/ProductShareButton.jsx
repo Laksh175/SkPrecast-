@@ -68,19 +68,41 @@ const ProductShareButton = ({ product, className = '' }) => {
         );
         break;
 
-      case 'instagram':
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(url);
-          setIsCopied(true);
-          setTimeout(() => setIsCopied(false), 2500);
+      case 'instagram': {
+        const shareData = {
+          title: `${productName} - SK Precast Industries`,
+          text: `Check out ${productName} by SK Precast Industries - Palwal, Haryana: ${url}`,
+          url: url,
+        };
+
+        // If on mobile device with Web Share API support, trigger native share (opens Instagram Direct/Stories with people list)
+        if (typeof navigator !== 'undefined' && navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+          navigator.share(shareData).catch((err) => {
+            if (err.name !== 'AbortError') {
+              if (navigator.clipboard) {
+                navigator.clipboard.writeText(url);
+                setIsCopied(true);
+                setTimeout(() => setIsCopied(false), 2500);
+              }
+              window.open('https://www.instagram.com/direct/inbox/', '_blank', 'noopener,noreferrer');
+            }
+          });
+        } else {
+          // Desktop Browser: Copy link to clipboard & open Instagram Direct Messages directly
+          if (typeof navigator !== 'undefined' && navigator.clipboard) {
+            navigator.clipboard.writeText(url);
+            setIsCopied(true);
+            setTimeout(() => setIsCopied(false), 2500);
+          }
+          window.open('https://www.instagram.com/direct/inbox/', '_blank', 'noopener,noreferrer');
         }
-        window.open('https://www.instagram.com/', '_blank', 'noopener,noreferrer');
         break;
+      }
 
       case 'whatsapp': {
-        // WhatsApp automatically creates the rich image preview card when given the clean production URL
+        const wpText = `*${productName}* - SK Precast Industries\nPalwal, Haryana\n\nCheck Product Details:\n${url}`;
         window.open(
-          `https://api.whatsapp.com/send?text=${encodeURIComponent(url)}`,
+          `https://api.whatsapp.com/send?text=${encodeURIComponent(wpText)}`,
           '_blank',
           'noopener,noreferrer'
         );
