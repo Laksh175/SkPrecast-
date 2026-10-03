@@ -86,7 +86,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
             style={{ lineHeight: 1.08, letterSpacing: '-0.025em' }}
-            className="text-[25px] xs:text-[29px] sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-[3.65rem] font-extrabold text-white leading-[1.08] tracking-tight mb-4 max-w-5xl xl:max-w-6xl drop-shadow-[0_3px_12px_rgba(0,0,0,0.85)] text-center flex flex-col gap-0.5 sm:gap-1"
+            className="text-[28px] sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-[3.65rem] font-extrabold text-white leading-[1.08] tracking-tight mb-4 max-w-5xl xl:max-w-6xl drop-shadow-[0_3px_12px_rgba(0,0,0,0.85)] text-center flex flex-col gap-0.5 sm:gap-1"
           >
             <span className="block" style={{ lineHeight: 1.08 }}>
               {heading.line1}

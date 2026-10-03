@@ -430,50 +430,6 @@ const Footer = () => {
             <p className="text-[0.85rem] sm:text-[0.865rem] leading-relaxed text-slate-300/90 max-w-[340px] sm:max-w-[450px] mx-auto">
               India's Trusted Precast Concrete Wall Manufacturer & Infrastructure Supplier.
             </p>
-            
-            {/* Social Media Rounded Buttons */}
-            <div className="flex items-center justify-center gap-3 mt-1">
-              <span className="text-[0.825rem] sm:text-[0.845rem] font-bold text-slate-200">Follow Us :</span>
-              
-              {/* Facebook Button */}
-              <a 
-                href="https://www.facebook.com/share/1Dp6ot4HVL/?mibextid=wwXIfr" 
-                target="_blank" 
-                rel="noreferrer" 
-                className="w-6.5 h-6.5 sm:w-7 sm:h-7 inline-flex items-center justify-center hover:-translate-y-0.5 hover:scale-105 transition-all duration-200 cursor-pointer drop-shadow-md shrink-0" 
-                title="Facebook"
-              >
-                <svg viewBox="0 0 36 36" className="w-6.5 h-6.5 sm:w-7 sm:h-7" fill="none">
-                  <circle cx="18" cy="18" r="18" fill="#1877F2"/>
-                  <path d="M24.5 18h-4.3v13.5h-5.6V18h-2.7v-4.7h2.7v-3.1c0-2.2 1-5.7 5.7-5.7l4.2.02v4.6h-3c-.5 0-1.2.25-1.2 1.3v2.9h4.3l-.4 4.7z" fill="#FFFFFF"/>
-                </svg>
-              </a>
-
-              {/* Instagram Button */}
-              <a 
-                href="https://www.instagram.com/skprecastindustries?igsh=MTQ5ZHdpNHRoYTZneQ%3D%3D&utm_source=qr" 
-                target="_blank" 
-                rel="noreferrer" 
-                className="w-6.5 h-6.5 sm:w-7 sm:h-7 inline-flex items-center justify-center hover:-translate-y-0.5 hover:scale-105 transition-all duration-200 cursor-pointer drop-shadow-md shrink-0" 
-                title="Instagram"
-              >
-                <svg viewBox="0 0 32 32" className="w-6.5 h-6.5 sm:w-7 sm:h-7" fill="none">
-                  <defs>
-                    <linearGradient id="ig-grad-footer-mobile" x1="0%" y1="100%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#f09433"/>
-                      <stop offset="25%" stopColor="#e6683c"/>
-                      <stop offset="50%" stopColor="#dc2743"/>
-                      <stop offset="75%" stopColor="#cc2366"/>
-                      <stop offset="100%" stopColor="#bc1888"/>
-                    </linearGradient>
-                  </defs>
-                  <rect width="32" height="32" rx="9" fill="url(#ig-grad-footer-mobile)"/>
-                  <circle cx="16" cy="16" r="4.3" stroke="#FFFFFF" strokeWidth="2.1"/>
-                  <circle cx="22.5" cy="9.5" r="1.2" fill="#FFFFFF"/>
-                  <rect x="6.5" y="6.5" width="19" height="19" rx="5" stroke="#FFFFFF" strokeWidth="2.1"/>
-                </svg>
-              </a>
-            </div>
           </div>
 
           {/* Centered Accordions: General Links & Products */}
@@ -727,28 +683,39 @@ const Footer = () => {
             </div>
 
             {/* 2. Below: Get In Touch Ribbon centered */}
-            <div className="py-2.5 px-4 sm:px-5 rounded-2xl bg-gradient-to-r from-slate-900/90 via-slate-800/80 to-slate-900/90 border border-slate-700/60 backdrop-blur-md flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs font-medium text-slate-300 shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
-              <div className="font-extrabold text-white text-xs tracking-wider uppercase flex items-center gap-2 shrink-0">
+            <div className="py-3 px-4 sm:px-5 rounded-2xl bg-gradient-to-r from-slate-900/90 via-slate-800/80 to-slate-900/90 border border-slate-700/60 backdrop-blur-md flex flex-col sm:flex-row flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs font-medium text-slate-300 shadow-[0_8px_30px_rgba(0,0,0,0.35)] text-center">
+              {/* Centered "GET IN TOUCH" Badge on Mobile */}
+              <div className="w-full sm:w-auto font-extrabold text-white text-xs tracking-wider uppercase flex items-center justify-center gap-2 shrink-0 mb-0.5 sm:mb-0">
                 <span className="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_8px_#f59e0b] animate-pulse" />
-                Get In Touch
+                <span>Get In Touch</span>
               </div>
-              <a href="tel:+918238902687" className="flex items-center gap-1.5 hover:text-amber-400 transition-colors">
-                <FaPhone size={12} className="text-amber-400 shrink-0" />
-                <span>+91 8238902687</span>
-              </a>
+
+              {/* Both Mobile Numbers in 1 Single Line */}
+              <div className="flex items-center justify-center gap-2 sm:gap-2.5 flex-nowrap shrink-0">
+                <a href="tel:+918238902687" className="flex items-center gap-1.5 hover:text-amber-400 transition-colors whitespace-nowrap">
+                  <FaPhone size={11} className="text-amber-400 shrink-0" />
+                  <span>+91 8238902687</span>
+                </a>
+                <span className="text-slate-500 font-bold">/</span>
+                <a href="tel:+919896908099" className="flex items-center gap-1.5 hover:text-amber-400 transition-colors whitespace-nowrap">
+                  <FaPhone size={11} className="text-amber-400 shrink-0" />
+                  <span>+91 9896908099</span>
+                </a>
+              </div>
+
               <span className="hidden sm:inline text-slate-600">•</span>
-              <a href="tel:+919896908099" className="flex items-center gap-1.5 hover:text-amber-400 transition-colors">
-                <FaPhone size={12} className="text-amber-400 shrink-0" />
-                <span>+91 9896908099</span>
-              </a>
-              <span className="hidden sm:inline text-slate-600">•</span>
-              <a href="mailto:info@skprecast-industries.com" className="flex items-center gap-1.5 hover:text-amber-400 transition-colors">
-                <FaEnvelope size={13} className="text-amber-400 shrink-0" />
+
+              {/* Email */}
+              <a href="mailto:info@skprecast-industries.com" className="flex items-center justify-center gap-1.5 hover:text-amber-400 transition-colors whitespace-nowrap">
+                <FaEnvelope size={12} className="text-amber-400 shrink-0" />
                 <span>info@skprecast-industries.com</span>
               </a>
+
               <span className="hidden sm:inline text-slate-600">•</span>
-              <div className="flex items-center gap-1.5 text-slate-300">
-                <FaLocationDot size={13} className="text-amber-400 shrink-0" />
+
+              {/* Location */}
+              <div className="flex items-center justify-center gap-1.5 text-slate-300 whitespace-nowrap">
+                <FaLocationDot size={12} className="text-amber-400 shrink-0" />
                 <span>Palwal, Haryana</span>
               </div>
             </div>
