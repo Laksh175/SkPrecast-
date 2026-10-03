@@ -4,20 +4,20 @@ import {
   Phone, Mail, MapPin, CheckCircle2, ChevronDown, 
   Search, ExternalLink, User, Monitor, Globe, Building2
 } from 'lucide-react';
-import { Button, SearchableSelect, CountryCodePicker } from '../common';
+import { 
+  Button, 
+  ProductSelectField, 
+  NameField, 
+  EmailField, 
+  PhoneField, 
+  MessageField, 
+  getMaxPhoneDigits 
+} from '../common';
+import { validateField } from '../utils/validation';
 import { navigateTo } from '../utils/navigation';
 import { allProductsList, countryCodes } from '../data/homeData';
 import { contactUsHeroData, companyContactDetails, mapSectionData } from '../data/contactUsData';
 
-const getMaxPhoneDigits = (country) => {
-  if (!country) return 10;
-  if (country.code === 'IN') return 10;
-  if (['AE', 'SA', 'AU', 'FR', 'NZ'].includes(country.code)) return 9;
-  if (['US', 'CA', 'GB', 'MX', 'BR'].includes(country.code)) return 10;
-  if (['SG', 'QA', 'KW', 'OM', 'BH', 'HK'].includes(country.code)) return 8;
-  if (['DE', 'RU', 'ZA'].includes(country.code)) return 11;
-  return 12;
-};
 
 const ContactUsPage = () => {
   useEffect(() => {
@@ -39,65 +39,17 @@ const ContactUsPage = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // Validation
-  const validateField = (name, value, currentFormData = formData) => {
-    let error = '';
-
-    if (name === 'product') {
-      if (!(value || '').trim()) {
-        error = 'Please enter or select a product/service.';
-      }
-    }
-
-    if (name === 'name') {
-      const trimmed = (value || '').trim();
-      if (!trimmed) {
-        error = 'Your name is required.';
-      } else if (trimmed.length < 2) {
-        error = 'Name must be at least 2 characters.';
-      }
-    }
-
-    if (name === 'email') {
-      const trimmed = (value || '').trim().toLowerCase();
-      if (!trimmed) {
-        error = 'Email is required.';
-      } else if (!/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i.test(trimmed)) {
-        error = 'Please enter a valid email address.';
-      }
-    }
-
-    if (name === 'phone') {
-      const cleaned = (value || '').replace(/\D/g, '');
-      const maxDigits = getMaxPhoneDigits(currentFormData.selectedCountry);
-
-      if (!cleaned) {
-        error = 'Mobile number is required.';
-      } else if (currentFormData.selectedCountry?.code === 'IN') {
-        if (cleaned.length !== 10) {
-          error = 'Please enter a valid 10-digit mobile number.';
-        } else if (!/^[6-9]\d{9}$/.test(cleaned)) {
-          error = 'Mobile number must start with 6, 7, 8, or 9.';
-        }
-      } else {
-        if (cleaned.length < (maxDigits > 8 ? 8 : maxDigits)) {
-          error = `Please enter a valid ${maxDigits}-digit mobile number.`;
-        }
-      }
-    }
-
-    if (name === 'message') {
-      if (!(value || '').trim()) {
-        error = 'Please provide enquiry details / your requirement.';
-      }
-    }
-
-    return error;
+  const getFieldError = (name, value, currentFormData = formData) => {
+    return validateField(name, value, {
+      selectedCountry: currentFormData.selectedCountry,
+      required: true,
+      minLength: name === 'message' ? 5 : undefined
+    });
   };
 
   const handleBlur = (field) => {
     setTouched(prev => ({ ...prev, [field]: true }));
-    const error = validateField(field, formData[field]);
+    const error = getFieldError(field, formData[field]);
     setErrors(prev => ({ ...prev, [field]: error }));
   };
 
@@ -112,12 +64,12 @@ const ContactUsPage = () => {
 
       setFormData(prev => ({ ...prev, phone: truncatedPhone }));
       if (touched.phone) {
-        setErrors(prev => ({ ...prev, phone: validateField('phone', truncatedPhone, formData) }));
+        setErrors(prev => ({ ...prev, phone: getFieldError('phone', truncatedPhone, formData) }));
       }
     } else {
       setFormData(prev => ({ ...prev, [name]: sanitizedValue }));
       if (touched[name]) {
-        setErrors(prev => ({ ...prev, [name]: validateField(name, sanitizedValue) }));
+        setErrors(prev => ({ ...prev, [name]: getFieldError(name, sanitizedValue) }));
       }
     }
   };
@@ -133,11 +85,11 @@ const ContactUsPage = () => {
       message: true
     });
 
-    const productError = validateField('product', formData.product);
-    const nameError = validateField('name', formData.name);
-    const emailError = validateField('email', formData.email);
-    const phoneError = validateField('phone', formData.phone);
-    const messageError = validateField('message', formData.message);
+    const productError = getFieldError('product', formData.product);
+    const nameError = getFieldError('name', formData.name);
+    const emailError = getFieldError('email', formData.email);
+    const phoneError = getFieldError('phone', formData.phone);
+    const messageError = getFieldError('message', formData.message);
 
     const newErrors = {
       product: productError,
@@ -261,29 +213,29 @@ const ContactUsPage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
             
             {/* LEFT CARD: Company Contact Details (Wider Card: lg:col-span-7) */}
-            <div className="lg:col-span-7 bg-white rounded-[20px] border border-slate-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-xl hover:border-amber-300 transition-all duration-300 p-6 sm:p-8 lg:p-10 flex flex-col justify-between h-full">
+            <div className="lg:col-span-7 bg-white rounded-[20px] border border-slate-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-lg transition-all duration-300 p-6 sm:p-7 lg:p-8 flex flex-col justify-between h-full">
               
               <div>
                 {/* Header with Signature Gradient Text and Decorative Accent Underline */}
-                <div className="mb-6 text-left">
-                  <h2 className="text-[23px] sm:text-2xl lg:text-[28px] font-black tracking-tight leading-tight text-slate-900">
+                <div className="mb-5 text-left">
+                  <h2 className="text-[22px] sm:text-2xl lg:text-[26px] font-black tracking-tight leading-tight text-slate-900">
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-[#d97706] via-amber-500 to-yellow-500 drop-shadow-sm">
                       {companyContactDetails.companyName}
                     </span>
                   </h2>
-                  <div className="flex items-center gap-2 mt-2.5 mb-2">
+                  <div className="flex items-center gap-2 mt-2 mb-1">
                     <span className="h-[2px] w-14 sm:w-20 rounded-full title-accent-bar" />
                     <span className="h-2 w-2 rounded-full title-accent-dot shrink-0" />
                     <span className="h-[2px] w-14 sm:w-20 rounded-full title-accent-bar" />
                   </div>
                 </div>
 
-                {/* Details List with 3D Glossy Gold Squircle Icons (Matching About Us Page) */}
-                <div className="flex flex-col gap-3 sm:gap-3.5 text-left">
+                {/* Details List with Clean Thin Separator Lines and Compact Spacing */}
+                <div className="divide-y divide-slate-100 text-left">
                   {/* Item 1: Contact Person */}
-                  <div className="flex items-start gap-3.5 p-3.5 sm:p-4 rounded-[14px] bg-white border border-slate-200/80 hover:border-amber-300 hover:shadow-md transition-all duration-200 shadow-xs">
-                    <div className="w-11 h-11 rounded-[12px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_6px_14px_rgba(217,119,6,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.6),inset_0_-2px_3px_rgba(0,0,0,0.2)] ring-1 ring-amber-300/50">
-                      <User size={20} className="text-white drop-shadow-xs" />
+                  <div className="flex items-start gap-3.5 py-3 first:pt-0">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25),inset_0_1px_1.5px_rgba(255,255,255,0.6)] ring-1 ring-amber-300/40">
+                      <User size={18} className="text-white drop-shadow-xs" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Contact Person</span>
@@ -294,9 +246,9 @@ const ContactUsPage = () => {
                   </div>
 
                   {/* Item 2: Address */}
-                  <div className="flex items-start gap-3.5 p-3.5 sm:p-4 rounded-[14px] bg-white border border-slate-200/80 hover:border-amber-300 hover:shadow-md transition-all duration-200 shadow-xs">
-                    <div className="w-11 h-11 rounded-[12px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_6px_14px_rgba(217,119,6,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.6),inset_0_-2px_3px_rgba(0,0,0,0.2)] ring-1 ring-amber-300/50">
-                      <MapPin size={20} className="text-white drop-shadow-xs" />
+                  <div className="flex items-start gap-3.5 py-3">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25),inset_0_1px_1.5px_rgba(255,255,255,0.6)] ring-1 ring-amber-300/40">
+                      <MapPin size={18} className="text-white drop-shadow-xs" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Address</span>
@@ -307,9 +259,9 @@ const ContactUsPage = () => {
                   </div>
 
                   {/* Item 3: Call Us */}
-                  <div className="flex items-start gap-3.5 p-3.5 sm:p-4 rounded-[14px] bg-white border border-slate-200/80 hover:border-amber-300 hover:shadow-md transition-all duration-200 shadow-xs">
-                    <div className="w-11 h-11 rounded-[12px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_6px_14px_rgba(217,119,6,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.6),inset_0_-2px_3px_rgba(0,0,0,0.2)] ring-1 ring-amber-300/50">
-                      <Phone size={20} className="text-white drop-shadow-xs" />
+                  <div className="flex items-start gap-3.5 py-3">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25),inset_0_1px_1.5px_rgba(255,255,255,0.6)] ring-1 ring-amber-300/40">
+                      <Phone size={18} className="text-white drop-shadow-xs" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Mobile</span>
@@ -327,9 +279,9 @@ const ContactUsPage = () => {
                   </div>
 
                   {/* Item 4: Email */}
-                  <div className="flex items-start gap-3.5 p-3.5 sm:p-4 rounded-[14px] bg-white border border-slate-200/80 hover:border-amber-300 hover:shadow-md transition-all duration-200 shadow-xs">
-                    <div className="w-11 h-11 rounded-[12px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_6px_14px_rgba(217,119,6,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.6),inset_0_-2px_3px_rgba(0,0,0,0.2)] ring-1 ring-amber-300/50">
-                      <Mail size={20} className="text-white drop-shadow-xs" />
+                  <div className="flex items-start gap-3.5 py-3">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25),inset_0_1px_1.5px_rgba(255,255,255,0.6)] ring-1 ring-amber-300/40">
+                      <Mail size={18} className="text-white drop-shadow-xs" />
                     </div>
                     <div className="min-w-0 flex-1 overflow-hidden">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">E-Mail</span>
@@ -340,9 +292,9 @@ const ContactUsPage = () => {
                   </div>
 
                   {/* Item 5: Alt. Email */}
-                  <div className="flex items-start gap-3.5 p-3.5 sm:p-4 rounded-[14px] bg-white border border-slate-200/80 hover:border-amber-300 hover:shadow-md transition-all duration-200 shadow-xs">
-                    <div className="w-11 h-11 rounded-[12px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_6px_14px_rgba(217,119,6,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.6),inset_0_-2px_3px_rgba(0,0,0,0.2)] ring-1 ring-amber-300/50">
-                      <Mail size={20} className="text-white drop-shadow-xs" />
+                  <div className="flex items-start gap-3.5 py-3">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25),inset_0_1px_1.5px_rgba(255,255,255,0.6)] ring-1 ring-amber-300/40">
+                      <Mail size={18} className="text-white drop-shadow-xs" />
                     </div>
                     <div className="min-w-0 flex-1 overflow-hidden">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Alt. E-Mail</span>
@@ -353,9 +305,9 @@ const ContactUsPage = () => {
                   </div>
 
                   {/* Item 6: Web Address */}
-                  <div className="flex items-start gap-3.5 p-3.5 sm:p-4 rounded-[14px] bg-white border border-slate-200/80 hover:border-amber-300 hover:shadow-md transition-all duration-200 shadow-xs">
-                    <div className="w-11 h-11 rounded-[12px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_6px_14px_rgba(217,119,6,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.6),inset_0_-2px_3px_rgba(0,0,0,0.2)] ring-1 ring-amber-300/50">
-                      <Monitor size={20} className="text-white drop-shadow-xs" />
+                  <div className="flex items-start gap-3.5 py-3">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25),inset_0_1px_1.5px_rgba(255,255,255,0.6)] ring-1 ring-amber-300/40">
+                      <Monitor size={18} className="text-white drop-shadow-xs" />
                     </div>
                     <div className="min-w-0 flex-1 overflow-hidden">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Web Address</span>
@@ -371,9 +323,9 @@ const ContactUsPage = () => {
                   </div>
 
                   {/* Item 7: Web Page */}
-                  <div className="flex items-start gap-3.5 p-3.5 sm:p-4 rounded-[14px] bg-white border border-slate-200/80 hover:border-amber-300 hover:shadow-md transition-all duration-200 shadow-xs">
-                    <div className="w-11 h-11 rounded-[12px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_6px_14px_rgba(217,119,6,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.6),inset_0_-2px_3px_rgba(0,0,0,0.2)] ring-1 ring-amber-300/50">
-                      <Globe size={20} className="text-white drop-shadow-xs" />
+                  <div className="flex items-start gap-3.5 py-3 last:pb-0">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25),inset_0_1px_1.5px_rgba(255,255,255,0.6)] ring-1 ring-amber-300/40">
+                      <Globe size={18} className="text-white drop-shadow-xs" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Web Page</span>
@@ -384,7 +336,7 @@ const ContactUsPage = () => {
                             href={dir.url} 
                             target="_blank" 
                             rel="noreferrer" 
-                            className="caption-text text-[13.5px] text-slate-800 hover:text-amber-600 transition-colors font-medium break-all block"
+                            className="caption-text text-[13px] sm:text-[13.5px] text-slate-800 hover:text-amber-600 transition-colors font-medium break-all block"
                           >
                             {dir.url}
                           </a>
@@ -398,8 +350,8 @@ const ContactUsPage = () => {
 
             </div>
 
-            {/* RIGHT CARD: Exact Enquiry Form (Compact Card: lg:col-span-5 without header title) */}
-            <div className="lg:col-span-5 bg-white rounded-[20px] border border-slate-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-xl hover:border-amber-300 transition-all duration-300 p-6 sm:p-8 flex flex-col justify-center h-full">
+            {/* RIGHT CARD: Exact Enquiry Form (Matching Equal Height Card: lg:col-span-5) */}
+            <div className="lg:col-span-5 bg-white rounded-[20px] border border-slate-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-lg transition-all duration-300 p-6 sm:p-7 lg:p-8 flex flex-col justify-center h-full">
               
               <div>
                 {/* Success Banner */}
@@ -407,9 +359,9 @@ const ContactUsPage = () => {
                   <motion.div 
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 flex items-start gap-3 text-sm"
+                    className="mb-5 p-3.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 flex items-start gap-3 text-sm"
                   >
-                    <CheckCircle2 size={20} className="text-emerald-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
                     <div>
                       <strong className="font-bold block text-emerald-950">Thank you for contacting SK Precast Industries!</strong>
                       Your requirement has been received. Our team will reach out to you within 30 minutes.
@@ -417,137 +369,77 @@ const ContactUsPage = () => {
                   </motion.div>
                 )}
 
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-left">
-                         {/* Field 1: Product / Service Looking for * */}
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-800 mb-1.5">
-                      Product / Service Looking for <span className="text-red-500 font-bold">*</span>
-                    </label>
-                    <SearchableSelect
-                      name="product"
-                      placeholder="Product / Service Looking for"
-                      searchPlaceholder="Search 35+ products..."
-                      isTypeable={true}
-                      value={formData.product}
-                      options={allProductsList}
-                      onChange={handleChange}
-                      onBlur={() => handleBlur('product')}
-                      error={errors.product && touched.product}
-                    />
-                    {errors.product && touched.product && (
-                      <span className="text-xs text-red-500 font-semibold mt-1 block">{errors.product}</span>
-                    )}
-                  </div>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-3.5 sm:gap-4 text-left">
+                  {/* Field 1: Product / Service Looking for */}
+                  <ProductSelectField
+                    value={formData.product}
+                    onChange={handleChange}
+                    onBlur={() => handleBlur('product')}
+                    error={errors.product}
+                    touched={touched.product}
+                  />
 
-                  {/* Field 2: Your Name * */}
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-800 mb-1.5">
-                      Your Name <span className="text-red-500 font-bold">*</span>
-                    </label>
-                    <input 
-                      type="text" 
-                      name="name" 
-                      placeholder="Your Name" 
-                      value={formData.name}
-                      onChange={handleChange}
-                      onBlur={() => handleBlur('name')}
-                      className={`w-full bg-slate-50/80 border ${errors.name && touched.name ? 'border-red-500 ring-2 ring-red-200' : 'border-slate-300 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-500/15'} rounded-lg px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-all font-medium`}
-                    />
-                    {errors.name && touched.name && (
-                      <span className="text-xs text-red-500 font-semibold mt-1 block">{errors.name}</span>
-                    )}
-                  </div>
+                  {/* Field 2: Your Name */}
+                  <NameField
+                    value={formData.name}
+                    onChange={handleChange}
+                    onBlur={() => handleBlur('name')}
+                    error={errors.name}
+                    touched={touched.name}
+                  />
 
-                  {/* Field 3: Email * */}
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-800 mb-1.5">
-                      Email <span className="text-red-500 font-bold">*</span>
-                    </label>
-                    <input 
-                      type="email" 
-                      name="email" 
-                      placeholder="Email" 
-                      value={formData.email}
-                      onChange={handleChange}
-                      onBlur={() => handleBlur('email')}
-                      className={`w-full bg-slate-50/80 border ${errors.email && touched.email ? 'border-red-500 ring-2 ring-red-200' : 'border-slate-300 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-500/15'} rounded-lg px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-all font-medium`}
-                    />
-                    {errors.email && touched.email && (
-                      <span className="text-xs text-red-500 font-semibold mt-1 block">{errors.email}</span>
-                    )}
-                  </div>
+                  {/* Field 3: Email */}
+                  <EmailField
+                    value={formData.email}
+                    onChange={handleChange}
+                    onBlur={() => handleBlur('email')}
+                    error={errors.email}
+                    touched={touched.email}
+                  />
 
-                  {/* Field 4: Mobile * */}
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-800 mb-1.5">
-                      Mobile <span className="text-red-500 font-bold">*</span>
-                    </label>
-                    <div className="flex items-center gap-2">
-                      {/* Standardized Common Country Dial Code Dropdown */}
-                      <CountryCodePicker
-                        selectedCountry={formData.selectedCountry}
-                        onChange={(item) => {
-                          const newMaxDigits = getMaxPhoneDigits(item);
-                          const adjustedPhone = formData.phone.slice(0, newMaxDigits);
-                          setFormData(prev => ({
-                            ...prev,
-                            selectedCountry: item,
-                            phone: adjustedPhone
-                          }));
-                          if (touched.phone) {
-                            setErrors(prev => ({
-                              ...prev,
-                              phone: validateField('phone', adjustedPhone, { ...formData, selectedCountry: item })
-                            }));
-                          }
-                        }}
-                      />
+                  {/* Field 4: Mobile */}
+                  <PhoneField
+                    value={formData.phone}
+                    selectedCountry={formData.selectedCountry}
+                    onCountryChange={(item) => {
+                      const newMaxDigits = getMaxPhoneDigits(item);
+                      const adjustedPhone = formData.phone.slice(0, newMaxDigits);
+                      setFormData(prev => ({
+                        ...prev,
+                        selectedCountry: item,
+                        phone: adjustedPhone
+                      }));
+                      if (touched.phone) {
+                        setErrors(prev => ({
+                          ...prev,
+                          phone: validateField('phone', adjustedPhone, { ...formData, selectedCountry: item })
+                        }));
+                      }
+                    }}
+                    onChange={handleChange}
+                    onBlur={() => handleBlur('phone')}
+                    error={errors.phone}
+                    touched={touched.phone}
+                  />
 
-                      {/* Phone Input */}
-                      <div className="w-full">
-                        <input 
-                          type="tel" 
-                          name="phone" 
-                          placeholder="Mobile" 
-                          value={formData.phone}
-                          onChange={handleChange}
-                          onBlur={() => handleBlur('phone')}
-                          className={`w-full bg-slate-50/80 border ${errors.phone && touched.phone ? 'border-red-500 ring-2 ring-red-200' : 'border-slate-300 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-500/15'} rounded-lg px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-all font-medium`}
-                        />
-                      </div>
-                    </div>
-                    {errors.phone && touched.phone && (
-                      <span className="text-xs text-red-500 font-semibold mt-1 block">{errors.phone}</span>
-                    )}
-                  </div>
-
-                  {/* Field 5: Enquiry Details * */}
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-800 mb-1.5">
-                      Enquiry Details <span className="text-red-500 font-bold">*</span>
-                    </label>
-                    <textarea 
-                      name="message" 
-                      rows={4} 
-                      placeholder="Your Requirement"
-                      value={formData.message}
-                      onChange={handleChange}
-                      onBlur={() => handleBlur('message')}
-                      className={`w-full bg-slate-50/80 border ${errors.message && touched.message ? 'border-red-500 ring-2 ring-red-200' : 'border-slate-300 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-500/15'} rounded-lg px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-all resize-none font-medium`}
-                    />
-                    {errors.message && touched.message && (
-                      <span className="text-xs text-red-500 font-semibold mt-1 block">{errors.message}</span>
-                    )}
-                  </div>
+                  {/* Field 5: Enquiry Details */}
+                  <MessageField
+                    rows={3}
+                    value={formData.message}
+                    onChange={handleChange}
+                    onBlur={() => handleBlur('message')}
+                    error={errors.message}
+                    touched={touched.message}
+                  />
 
                   {/* Submit Button */}
-                  <div className="pt-2 flex justify-center">
+                  <div className="pt-1 flex justify-center">
                     <Button
                       type="submit"
                       variant="dark-to-gold"
                       size="md"
                       disabled={loading}
-                      className="px-12 sm:px-14 py-3 min-w-[160px] sm:min-w-[180px] rounded-xl"
+                      className="px-10 sm:px-12 py-2.5 sm:py-3 min-w-[150px] rounded-xl"
                     >
                       {loading ? (
                         <span className="inline-flex items-center gap-2">

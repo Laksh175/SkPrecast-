@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Calendar, Clock, User, ArrowRight, Share2, Check, Bookmark, ChevronRight, Phone, Mail, Building2, Pin, Send } from 'lucide-react';
+import { Calendar, Clock, User, ArrowRight, Share2, Check, Bookmark, ChevronRight, Phone, Mail, Building2, Pin, Send, AlertCircle } from 'lucide-react';
 import { Button } from '../common';
 import { getBlogPostBySlug, getExploreMoreBlogs, blogPostsData } from '../data/blogData';
 import { navigateTo } from '../utils/navigation';
+import { validateName, validateEmail, validateMessage } from '../utils/validation';
 
 const BlogDetailPage = ({ slug }) => {
   const [copied, setCopied] = useState(false);
@@ -18,31 +19,62 @@ const BlogDetailPage = ({ slug }) => {
     website: '',
     message: ''
   });
+  const [commentErrors, setCommentErrors] = useState({});
+  const [commentTouched, setCommentTouched] = useState({});
   const [commentSubmitted, setCommentSubmitted] = useState(false);
   const [commentError, setCommentError] = useState('');
+
+  const getFieldError = (name, value) => {
+    if (name === 'name') return validateName(value, true);
+    if (name === 'email') return validateEmail(value, true);
+    if (name === 'message') return validateMessage(value, true, 5);
+    return '';
+  };
+
+  const handleCommentBlur = (field) => {
+    setCommentTouched((prev) => ({ ...prev, [field]: true }));
+    const error = getFieldError(field, commentForm[field]);
+    setCommentErrors((prev) => ({ ...prev, [field]: error }));
+  };
 
   const handleCommentChange = (e) => {
     const { name, value } = e.target;
     setCommentForm((prev) => ({ ...prev, [name]: value }));
+    if (commentTouched[name]) {
+      setCommentErrors((prev) => ({ ...prev, [name]: getFieldError(name, value) }));
+    }
     if (commentError) setCommentError('');
   };
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
-    if (!commentForm.name.trim()) {
-      setCommentError('Please enter your name.');
+
+    setCommentTouched({
+      name: true,
+      email: true,
+      message: true
+    });
+
+    const nameErr = getFieldError('name', commentForm.name);
+    const emailErr = getFieldError('email', commentForm.email);
+    const msgErr = getFieldError('message', commentForm.message);
+
+    const newErrors = {
+      name: nameErr,
+      email: emailErr,
+      message: msgErr
+    };
+
+    setCommentErrors(newErrors);
+
+    if (nameErr || emailErr || msgErr) {
       return;
     }
-    if (!commentForm.email.trim() || !commentForm.email.includes('@')) {
-      setCommentError('Please enter a valid email address.');
-      return;
-    }
-    if (!commentForm.message.trim()) {
-      setCommentError('Please enter your message.');
-      return;
-    }
+
     setCommentSubmitted(true);
     setCommentForm({ name: '', email: '', website: '', message: '' });
+    setCommentErrors({});
+    setCommentTouched({});
     setTimeout(() => setCommentSubmitted(false), 5000);
   };
 
@@ -307,9 +339,20 @@ const BlogDetailPage = ({ slug }) => {
                         name="name"
                         value={commentForm.name}
                         onChange={handleCommentChange}
+                        onBlur={() => handleCommentBlur('name')}
                         placeholder="Your Name"
-                        className="w-full bg-slate-50/70 border border-slate-200 focus:border-amber-500 focus:bg-white focus:outline-none rounded-[5px] px-3.5 py-2 text-[13.5px] text-slate-800 placeholder-slate-400 transition-colors"
+                        className={`w-full bg-slate-50/70 border rounded-[5px] px-3.5 py-2 text-[13.5px] text-slate-800 placeholder-slate-400 focus:outline-none transition-colors ${
+                          commentTouched.name && commentErrors.name
+                            ? 'border-red-500 ring-1 ring-red-300 focus:border-red-500'
+                            : 'border-slate-200 focus:border-amber-500 focus:bg-white'
+                        }`}
                       />
+                      {commentTouched.name && commentErrors.name && (
+                        <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                          <AlertCircle size={15} className="shrink-0 text-red-500" />
+                          <span>{commentErrors.name}</span>
+                        </p>
+                      )}
                     </div>
 
                     {/* Email Field */}
@@ -322,9 +365,20 @@ const BlogDetailPage = ({ slug }) => {
                         name="email"
                         value={commentForm.email}
                         onChange={handleCommentChange}
+                        onBlur={() => handleCommentBlur('email')}
                         placeholder="Your Email"
-                        className="w-full bg-slate-50/70 border border-slate-200 focus:border-amber-500 focus:bg-white focus:outline-none rounded-[5px] px-3.5 py-2 text-[13.5px] text-slate-800 placeholder-slate-400 transition-colors"
+                        className={`w-full bg-slate-50/70 border rounded-[5px] px-3.5 py-2 text-[13.5px] text-slate-800 placeholder-slate-400 focus:outline-none transition-colors ${
+                          commentTouched.email && commentErrors.email
+                            ? 'border-red-500 ring-1 ring-red-300 focus:border-red-500'
+                            : 'border-slate-200 focus:border-amber-500 focus:bg-white'
+                        }`}
                       />
+                      {commentTouched.email && commentErrors.email && (
+                        <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                          <AlertCircle size={15} className="shrink-0 text-red-500" />
+                          <span>{commentErrors.email}</span>
+                        </p>
+                      )}
                     </div>
 
                     {/* Website Field */}
@@ -352,9 +406,20 @@ const BlogDetailPage = ({ slug }) => {
                         rows={3}
                         value={commentForm.message}
                         onChange={handleCommentChange}
+                        onBlur={() => handleCommentBlur('message')}
                         placeholder="Message"
-                        className="w-full bg-slate-50/70 border border-slate-200 focus:border-amber-500 focus:bg-white focus:outline-none rounded-[5px] px-3.5 py-2 text-[13.5px] text-slate-800 placeholder-slate-400 transition-colors resize-none"
+                        className={`w-full bg-slate-50/70 border rounded-[5px] px-3.5 py-2 text-[13.5px] text-slate-800 placeholder-slate-400 focus:outline-none transition-colors resize-none ${
+                          commentTouched.message && commentErrors.message
+                            ? 'border-red-500 ring-1 ring-red-300 focus:border-red-500'
+                            : 'border-slate-200 focus:border-amber-500 focus:bg-white'
+                        }`}
                       />
+                      {commentTouched.message && commentErrors.message && (
+                        <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                          <AlertCircle size={15} className="shrink-0 text-red-500" />
+                          <span>{commentErrors.message}</span>
+                        </p>
+                      )}
                     </div>
 
                     {/* Submit Button with Distinctive Hover Effect */}

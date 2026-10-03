@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Phone, ArrowRight, ShieldCheck, ChevronRight, ChevronLeft,
   Send, Building2, Factory, Award, ArrowLeft, CheckCircle2,
-  Clock, Loader2, Sparkles, ChevronDown, Search
+  Clock, Loader2, Sparkles, ChevronDown, Search, AlertCircle
 } from 'lucide-react';
 import { getProductBySlug } from '../../data/productsData';
 import { exploreRangeProductsData } from '../../data/aboutUsData';
@@ -12,17 +12,15 @@ import { useInfiniteSlider, useClickOutside } from '../../hooks';
 import ImageZoomMagnifier from './ImageZoomMagnifier';
 import QuickQuoteModal from '../QuickQuoteModal';
 import { navigateTo } from '../../utils/navigation';
-import { Button, CountryCodePicker } from '../../common';
+import { 
+  Button, 
+  NameField, 
+  EmailField, 
+  PhoneField, 
+  getMaxPhoneDigits 
+} from '../../common';
+import { validateField } from '../../utils/validation';
 
-const getMaxPhoneDigits = (country) => {
-  if (!country) return 10;
-  if (country.code === 'IN') return 10;
-  if (['AE', 'SA', 'AU', 'FR', 'NZ'].includes(country.code)) return 9;
-  if (['US', 'CA', 'GB', 'MX', 'BR'].includes(country.code)) return 10;
-  if (['SG', 'QA', 'KW', 'OM', 'BH', 'HK'].includes(country.code)) return 8;
-  if (['DE', 'RU', 'ZA'].includes(country.code)) return 11;
-  return 12;
-};
 
 const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => {
   // If slug is passed as prop, use it; otherwise extract from window.location.pathname
@@ -64,12 +62,29 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
     email: '',
     mobile: '',
     quantity: '1000',
+    unit: 'Square Feet',
     purpose: 'Reselling',
     details: ''
   });
+  const [inlineErrors, setInlineErrors] = useState({});
+  const [inlineTouched, setInlineTouched] = useState({});
   const [isInlineSubmitting, setIsInlineSubmitting] = useState(false);
   const [isInlineSubmitted, setIsInlineSubmitted] = useState(false);
   const [inlineError, setInlineError] = useState('');
+
+  const getFieldError = (name, value, currentForm = inlineFormState) => {
+    return validateField(name, value, {
+      selectedCountry,
+      required: true,
+      minLength: name === 'details' ? 5 : undefined
+    });
+  };
+
+  const handleInlineBlur = (field) => {
+    setInlineTouched(prev => ({ ...prev, [field]: true }));
+    const error = getFieldError(field, inlineFormState[field]);
+    setInlineErrors(prev => ({ ...prev, [field]: error }));
+  };
 
   const handleInlineFormChange = (e) => {
     const { name, value } = e.target;
@@ -77,32 +92,45 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
       const maxDigits = getMaxPhoneDigits(selectedCountry);
       const digitsOnly = value.replace(/\D/g, '').slice(0, maxDigits);
       setInlineFormState((prev) => ({ ...prev, mobile: digitsOnly }));
+      if (inlineTouched.mobile) {
+        setInlineErrors(prev => ({ ...prev, mobile: getFieldError('mobile', digitsOnly) }));
+      }
     } else {
       setInlineFormState((prev) => ({ ...prev, [name]: value }));
+      if (inlineTouched[name]) {
+        setInlineErrors(prev => ({ ...prev, [name]: getFieldError(name, value) }));
+      }
     }
   };
 
   const handleInlineSubmit = (e) => {
     e.preventDefault();
-    if (!inlineFormState.name.trim()) {
-      setInlineError('Please enter your name.');
-      return;
-    }
-    if (!inlineFormState.email.trim()) {
-      setInlineError('Please enter your email address.');
-      return;
-    }
-    const minDigits = selectedCountry.code === 'IN' ? 10 : 7;
-    if (!inlineFormState.mobile || inlineFormState.mobile.trim().length < minDigits) {
-      setInlineError(`Please enter a valid ${selectedCountry.name} mobile number.`);
-      return;
-    }
-    if (!inlineFormState.quantity || Number(inlineFormState.quantity) <= 0) {
-      setInlineError('Please enter estimated quantity.');
-      return;
-    }
-    if (!inlineFormState.details.trim()) {
-      setInlineError('Please provide requirement details.');
+
+    setInlineTouched({
+      name: true,
+      email: true,
+      mobile: true,
+      quantity: true,
+      details: true
+    });
+
+    const nameError = getFieldError('name', inlineFormState.name);
+    const emailError = getFieldError('email', inlineFormState.email);
+    const mobileError = getFieldError('mobile', inlineFormState.mobile);
+    const quantityError = getFieldError('quantity', inlineFormState.quantity);
+    const detailsError = getFieldError('details', inlineFormState.details);
+
+    const newErrors = {
+      name: nameError,
+      email: emailError,
+      mobile: mobileError,
+      quantity: quantityError,
+      details: detailsError
+    };
+
+    setInlineErrors(newErrors);
+
+    if (nameError || emailError || mobileError || quantityError || detailsError) {
       return;
     }
     setInlineError('');
@@ -112,7 +140,7 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
       setIsInlineSubmitting(false);
       setIsInlineSubmitted(true);
 
-      const message = `Hello SK Precast Industries,%0A%0A*New Product Enquiry for ${product?.name}*%0A• *Name:* ${inlineFormState.name.trim()}%0A• *Mobile:* ${selectedCountry.dialCode} ${inlineFormState.mobile.trim()}${inlineFormState.email ? `%0A• *Email:* ${inlineFormState.email.trim()}` : ''}%0A• *Quantity:* ${inlineFormState.quantity} Square Feet%0A• *Purpose:* ${inlineFormState.purpose}%0A• *Message:* ${inlineFormState.details}%0A%0APlease share best factory quotation.`;
+      const message = `Hello SK Precast Industries,%0A%0A*New Product Enquiry for ${product?.name}*%0A• *Name:* ${inlineFormState.name.trim()}%0A• *Mobile:* ${selectedCountry.dialCode} ${inlineFormState.mobile.trim()}${inlineFormState.email ? `%0A• *Email:* ${inlineFormState.email.trim()}` : ''}%0A• *Quantity:* ${inlineFormState.quantity} ${inlineFormState.unit || 'Square Feet'}%0A• *Purpose:* ${inlineFormState.purpose}%0A• *Message:* ${inlineFormState.details}%0A%0APlease share best factory quotation.`;
 
       setTimeout(() => {
         window.open(`https://wa.me/918238902687?text=${message}`, '_blank');
@@ -500,13 +528,13 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
                 Let&apos;s Get In Touch.
               </h2>
               
-              <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
+              <p style={{ fontSize: '14px' }} className="text-[14px] text-slate-500 leading-relaxed">
                 Or reach out manually to{' '}
-                <a href="mailto:info@skprecast-industries.com" className="text-amber-600 hover:text-amber-700 font-bold underline transition-colors">
+                <a style={{ fontSize: '14px' }} href="mailto:info@skprecast-industries.com" className="text-[14px] text-amber-600 hover:text-amber-700 font-bold underline transition-colors">
                   info@skprecast-industries.com
                 </a>
                 {' '}/{' '}
-                <a href="tel:+918238902687" className="text-amber-600 hover:text-amber-700 font-bold underline transition-colors">
+                <a style={{ fontSize: '14px' }} href="tel:+918238902687" className="text-[14px] text-amber-600 hover:text-amber-700 font-bold underline transition-colors">
                   +91-8238902687
                 </a>
               </p>
@@ -534,6 +562,7 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
                       email: '',
                       mobile: '',
                       quantity: '1000',
+                      unit: product?.unit || 'Square Feet',
                       purpose: 'Reselling',
                       details: ''
                     });
@@ -552,96 +581,97 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
                 )}
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  
-                  {/* YOUR NAME */}
-                  <div>
-                    <label className="block text-[11px] sm:text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                      Your Name <span className="text-amber-600 font-bold">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={inlineFormState.name}
-                      onChange={handleInlineFormChange}
-                      placeholder="Enter your full name..."
-                      required
-                      className="w-full px-4 py-3 rounded-xl border border-slate-300 bg-slate-50/50 focus:bg-white focus:border-amber-500 focus:ring-3 focus:ring-amber-500/15 text-slate-900 text-sm placeholder:text-slate-400 outline-none transition-all hover:border-slate-400"
-                    />
-                  </div>
+                  <NameField
+                    label="Your Name"
+                    required={true}
+                    name="name"
+                    value={inlineFormState.name}
+                    onChange={handleInlineFormChange}
+                    onBlur={() => handleInlineBlur('name')}
+                    error={inlineErrors.name}
+                    touched={inlineTouched.name}
+                    placeholder="Enter your full name..."
+                  />
 
-                  {/* EMAIL ADDRESS */}
-                  <div>
-                    <label className="block text-[11px] sm:text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                      Email Address <span className="text-amber-600 font-bold">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={inlineFormState.email}
-                      onChange={handleInlineFormChange}
-                      placeholder="Enter your email address..."
-                      required
-                      className="w-full px-4 py-3 rounded-xl border border-slate-300 bg-slate-50/50 focus:bg-white focus:border-amber-500 focus:ring-3 focus:ring-amber-500/15 text-slate-900 text-sm placeholder:text-slate-400 outline-none transition-all hover:border-slate-400"
-                    />
-                  </div>
-
+                  <EmailField
+                    label="Email Address"
+                    required={true}
+                    name="email"
+                    value={inlineFormState.email}
+                    onChange={handleInlineFormChange}
+                    onBlur={() => handleInlineBlur('email')}
+                    error={inlineErrors.email}
+                    touched={inlineTouched.email}
+                    placeholder="Enter your email address..."
+                  />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  
-                  {/* PHONE / MOBILE WITH STANDARDIZED COUNTRY CODE PICKER */}
-                  <div>
-                    <label className="block text-[11px] sm:text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                      Phone / Mobile <span className="text-amber-600 font-bold">*</span>
-                    </label>
-                    <div className="flex gap-2">
-                      {/* Standardized Common Country Code Picker */}
-                      <CountryCodePicker
-                        selectedCountry={selectedCountry}
-                        onChange={(item) => {
-                          const newMaxDigits = getMaxPhoneDigits(item);
-                          const adjustedPhone = inlineFormState.mobile.slice(0, newMaxDigits);
-                          setSelectedCountry(item);
-                          setInlineFormState((prev) => ({ ...prev, mobile: adjustedPhone }));
-                        }}
-                      />
+                  <PhoneField
+                    label="Phone / Mobile"
+                    required={true}
+                    name="mobile"
+                    value={inlineFormState.mobile}
+                    selectedCountry={selectedCountry}
+                    onCountryChange={(item) => {
+                      const newMaxDigits = getMaxPhoneDigits(item);
+                      const adjustedPhone = inlineFormState.mobile.slice(0, newMaxDigits);
+                      setSelectedCountry(item);
+                      setInlineFormState((prev) => ({ ...prev, mobile: adjustedPhone }));
+                      if (inlineTouched.mobile) {
+                        setInlineErrors((prev) => ({
+                          ...prev,
+                          mobile: validateField('mobile', adjustedPhone, { selectedCountry: item, required: true })
+                        }));
+                      }
+                    }}
+                    onChange={handleInlineFormChange}
+                    onBlur={() => handleInlineBlur('mobile')}
+                    error={inlineErrors.mobile}
+                    touched={inlineTouched.mobile}
+                    placeholder={selectedCountry.code === 'IN' ? 'Enter 10-digit mobile number' : `Enter phone number`}
+                  />
 
-                      {/* Phone Input */}
-                      <div className="flex-1 relative">
-                        <input
-                          type="tel"
-                          name="mobile"
-                          maxLength={getMaxPhoneDigits(selectedCountry)}
-                          value={inlineFormState.mobile}
-                          onChange={handleInlineFormChange}
-                          placeholder={selectedCountry.code === 'IN' ? 'Enter 10-digit mobile number' : `Enter phone number`}
-                          required
-                          className="w-full px-4 py-3 rounded-xl border border-slate-300 bg-slate-50/50 focus:bg-white focus:border-amber-500 focus:ring-3 focus:ring-amber-500/15 text-slate-900 text-sm placeholder:text-slate-400 outline-none transition-all hover:border-slate-400 font-medium"
-                        />
-                      </div>
-                    </div>
-                  </div>
 
-                  {/* ESTIMATED QUANTITY */}
+                  {/* ESTIMATED QUANTITY & UNIT */}
                   <div>
                     <label className="block text-[11px] sm:text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                       Estimated Quantity <span className="text-amber-600 font-bold">*</span>
                     </label>
-                    <div className="flex rounded-xl border border-slate-300 overflow-hidden focus-within:border-amber-500 focus-within:ring-3 focus-within:ring-amber-500/15 bg-slate-50/50 focus-within:bg-white hover:border-slate-400 transition-all">
+                    <div className={`flex rounded-xl border overflow-hidden focus-within:ring-3 focus-within:ring-amber-500/15 bg-white transition-all shadow-2xs ${
+                      inlineTouched.quantity && inlineErrors.quantity
+                        ? 'border-red-500 ring-2 ring-red-200'
+                        : 'border-slate-300 focus-within:border-amber-500 hover:border-slate-400'
+                    }`}>
                       <input
                         type="number"
                         name="quantity"
                         min="1"
                         value={inlineFormState.quantity}
                         onChange={handleInlineFormChange}
+                        onBlur={() => handleInlineBlur('quantity')}
                         placeholder="e.g. 1000"
                         required
-                        className="w-full px-3.5 py-3 text-slate-900 text-sm font-bold outline-none bg-transparent"
+                        className="w-full px-3.5 py-2.5 sm:py-3 text-slate-900 text-sm font-bold outline-none bg-transparent"
                       />
-                      <span className="flex items-center px-3.5 py-3 bg-amber-50 border-l border-amber-200 text-amber-800 text-xs font-bold shrink-0 select-none">
-                        Square Feet
-                      </span>
+                      <div className="border-l border-amber-200/90 bg-amber-50/70 hover:bg-amber-100/70 focus-within:bg-amber-50 transition-colors shrink-0 flex items-center">
+                        <input
+                          type="text"
+                          name="unit"
+                          value={inlineFormState.unit}
+                          onChange={handleInlineFormChange}
+                          placeholder="Square Feet"
+                          className="w-28 sm:w-32 px-3 py-2.5 sm:py-3 bg-transparent text-amber-900 text-xs sm:text-sm font-bold outline-none text-center"
+                          aria-label="Measurement Unit"
+                        />
+                      </div>
                     </div>
+                    {inlineTouched.quantity && inlineErrors.quantity && (
+                      <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                        <AlertCircle size={16} className="shrink-0 text-red-500" />
+                        <span>{inlineErrors.quantity}</span>
+                      </p>
+                    )}
                   </div>
 
                 </div>
@@ -718,10 +748,21 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
                     maxLength={300}
                     value={inlineFormState.details}
                     onChange={handleInlineFormChange}
+                    onBlur={() => handleInlineBlur('details')}
                     required
                     placeholder="I am interested. Kindly send the quotation for the same."
-                    className="w-full px-4 py-3 rounded-xl border border-slate-300 bg-slate-50/50 focus:bg-white focus:border-amber-500 focus:ring-3 focus:ring-amber-500/15 text-slate-900 text-sm placeholder:text-slate-400 outline-none resize-none transition-all hover:border-slate-400 min-h-[110px]"
+                    className={`w-full px-4 py-3 rounded-xl border bg-slate-50/50 focus:bg-white focus:ring-3 focus:ring-amber-500/15 text-slate-900 text-sm placeholder:text-slate-400 outline-none resize-none transition-all min-h-[110px] ${
+                      inlineTouched.details && inlineErrors.details
+                        ? 'border-red-500 ring-2 ring-red-200'
+                        : 'border-slate-300 focus:border-amber-500 hover:border-slate-400'
+                    }`}
                   />
+                  {inlineTouched.details && inlineErrors.details && (
+                    <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                      <AlertCircle size={16} className="shrink-0 text-red-500" />
+                      <span>{inlineErrors.details}</span>
+                    </p>
+                  )}
                 </div>
 
                 {/* Submit Action Button */}
@@ -765,23 +806,23 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
             </div>
 
             {/* Bottom Floating Glass Card */}
-            <div className="relative z-10 bg-[#0f172a]/95 backdrop-blur-md border border-white/10 rounded-[15px] p-5 text-white shadow-2xl space-y-3">
-              <div className="flex items-center gap-2 text-amber-300 font-extrabold text-sm sm:text-base">
-                <ShieldCheck size={18} className="text-amber-400 shrink-0" />
-                <span>Direct Manufacturer Pricing</span>
+            <div className="relative z-10 bg-[#0f172a]/95 backdrop-blur-md border border-white/10 rounded-[15px] p-4 sm:p-4.5 text-white shadow-2xl space-y-2">
+              <div className="flex items-center gap-2 text-amber-300 font-bold" style={{ fontSize: '14px' }}>
+                <ShieldCheck size={16} className="text-amber-400 shrink-0" />
+                <span style={{ fontSize: '14px' }} className="text-[14px] font-bold tracking-tight">Direct Manufacturer Pricing</span>
               </div>
               
-              <p className="text-xs text-slate-300 leading-relaxed">
+              <p style={{ fontSize: '13px' }} className="text-[13px] text-slate-300 leading-relaxed font-normal">
                 Get high-density vibrated precast boundary walls delivered directly from our Palwal plant across Delhi NCR & North India.
               </p>
 
-              <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[11px] sm:text-xs text-slate-300 font-semibold flex-wrap gap-2">
-                <span className="flex items-center gap-1.5 text-amber-300">
-                  <Clock size={13} className="shrink-0" />
+              <div className="pt-2 border-t border-white/10 flex items-center justify-between text-slate-300 font-medium flex-wrap gap-2" style={{ fontSize: '11.5px' }}>
+                <span className="flex items-center gap-1.5 text-amber-300 text-[11.5px]">
+                  <Clock size={12} className="shrink-0" />
                   <span>Quick Quote in 30 Mins</span>
                 </span>
-                <span className="flex items-center gap-1.5 text-slate-300">
-                  <Factory size={13} className="shrink-0" />
+                <span className="flex items-center gap-1.5 text-slate-300 text-[11.5px]">
+                  <Factory size={12} className="shrink-0" />
                   <span>Pan-India Supply</span>
                 </span>
               </div>

@@ -93,7 +93,7 @@ const BlogPage = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.25 }}
-            className="max-w-3xl mx-auto text-slate-300 text-[15px] leading-[26px]"
+            className="max-w-3xl mx-auto text-slate-300 text-[13.5px] sm:text-[14px] leading-relaxed"
           >
             Explore technical articles, industry updates, and expert insights on high-strength precast concrete boundary wall engineering.
           </motion.p>
@@ -132,7 +132,7 @@ const BlogPage = () => {
                   className="block text-left"
                 >
                   {/* Padded Image Container with Hover Zoom */}
-                  <div className="relative aspect-[16/10] rounded-[10px] overflow-hidden bg-slate-100 border border-slate-100/80 mb-5">
+                  <div className="relative aspect-[16/10] rounded-[10px] overflow-hidden bg-slate-100 border border-slate-100/80 mb-4">
                     <img 
                       src={post.image} 
                       alt={post.title}
@@ -146,24 +146,24 @@ const BlogPage = () => {
                   </div>
 
                   {/* Text Content */}
-                  <div className="px-1.5 sm:px-2 text-left">
+                  <div className="px-1 text-left">
                     {/* Title */}
-                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 group-hover:text-amber-600 transition-colors leading-snug mb-2.5 line-clamp-2">
+                    <h3 className="text-[16px] sm:text-[17.5px] font-bold text-slate-900 group-hover:text-amber-600 transition-colors leading-snug mb-2 line-clamp-2">
                       {post.title}
                     </h3>
 
                     {/* 2-line Description with '...' */}
-                    <p className="text-slate-600 text-[14.5px] leading-[23px] line-clamp-2 mb-4 font-normal">
+                    <p style={{ fontSize: '14px' }} className="text-[14px] text-slate-600 leading-relaxed line-clamp-2 mb-3.5 font-normal">
                       {post.excerpt}
                     </p>
                   </div>
                 </a>
 
                 {/* Footer Meta Row: Date with React Calendar Icon */}
-                <div className="mx-1.5 sm:mx-2 pt-3.5 border-t border-dashed border-slate-200 flex items-center">
+                <div className="px-1 pt-3 border-t border-dashed border-slate-200 flex items-center">
                   {/* Date with React Icon (Matching Font Color) */}
-                  <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-500">
-                    <Calendar size={15} className="text-slate-500 stroke-[2] shrink-0" />
+                  <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500">
+                    <Calendar size={14} className="text-slate-500 stroke-[2] shrink-0" />
                     <span>{post.date}</span>
                   </div>
                 </div>

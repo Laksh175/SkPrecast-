@@ -1,27 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Building2, MapPin, Phone, Mail, ArrowRight, Sparkles, Layers, Box, Factory, Home, Globe, Warehouse, ShieldCheck, Tag, FileCheck, Award, Eye, Target, Landmark, PlusCircle, Plus, Minus, X, Shield, Briefcase, Upload, CheckCircle, AlertCircle, FileText, User, Clock, Search, ChevronDown, Check } from 'lucide-react';
-import { Button, SearchableSelect, CountryCodePicker, ContactInfoCard } from '../common';
+import { Building2, MapPin, Phone, Mail, ArrowRight, ShieldCheck, FileCheck, Briefcase, Upload, CheckCircle, AlertCircle, FileText, User, Clock, Search, ChevronDown, Check, Sparkles, X } from 'lucide-react';
+import { Button, SearchableSelect, CountryCodePicker, ContactInfoCard, ExploreProductsSection } from '../common';
 import { navigateTo } from '../utils/navigation';
-import { aboutCompanyData, dropdownCategoriesData, standaloneProductsData } from '../data/aboutUsData';
+import { aboutCompanyData } from '../data/aboutUsData';
 import { countriesList, countryCodes } from '../data/homeData';
 import { qualificationsGrouped, functionalAreasList, noticePeriodsList, salaryThousandsList, currentJobsHeroData } from '../data/currentJobsData';
-
-// Dynamic Icon Map for explore products section
-const iconComponentMap = { Building2, Shield, Landmark, PlusCircle, Sparkles, Layers, Box, Factory, Home, Globe, Warehouse, ShieldCheck, Tag, FileCheck, Award, Eye, Target };
-
-const getMaxPhoneDigits = (country) => {
-  if (!country) return 10;
-  if (country.code === 'IN') return 10;
-  if (['AE', 'SA', 'AU', 'FR', 'NZ'].includes(country.code)) return 9;
-  if (['US', 'CA', 'GB', 'MX', 'BR'].includes(country.code)) return 10;
-  if (['SG', 'QA', 'KW', 'OM', 'BH', 'HK'].includes(country.code)) return 8;
-  if (['DE', 'RU', 'ZA'].includes(country.code)) return 11;
-  return 12;
-};
+import { getMaxPhoneDigits, validateName, validateEmail, validatePhone, validateCity, validateField } from '../utils/validation';
 
 const CurrentJobsPage = () => {
-  const [openDropdown, setOpenDropdown] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     gender: 'Male',
@@ -47,6 +34,8 @@ const CurrentJobsPage = () => {
     resumeFile: null
   });
 
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [fileName, setFileName] = useState('');
 
@@ -61,11 +50,68 @@ const CurrentJobsPage = () => {
     document.title = 'Current Jobs & Careers | SK Precast Industries - Palwal, Haryana';
   }, []);
 
-  const toggleDropdown = (id) => {
-    setOpenDropdown(prev => prev === id ? null : id);
+  const getFieldError = (name, value, currentFormData = formData) => {
+    if (name === 'name') return validateName(value, true);
+    if (name === 'email') return validateEmail(value, true);
+    if (name === 'mobile') return validatePhone(value, currentFormData.selectedCountry, true);
+    if (name === 'city') return validateCity(value, true);
+    if (name === 'locality') {
+      if (!(value || '').trim()) return 'Current locality / area is required.';
+      return '';
+    }
+    if (name === 'qualification') {
+      if (!(value || '').trim()) return 'Please select your qualification.';
+      if (isOtherOption(value) && !(currentFormData.otherQualification || '').trim()) {
+        return 'Please specify your qualification.';
+      }
+      return '';
+    }
+    if (name === 'functionalArea') {
+      if (!(value || '').trim()) return 'Please select your functional area.';
+      if (isOtherOption(value) && !(currentFormData.otherFunctionalArea || '').trim()) {
+        return 'Please specify your functional area.';
+      }
+      return '';
+    }
+    if (name === 'expYears') {
+      if (!(value || '').trim()) return 'Please select total work experience.';
+      if (isOtherOption(value) && !(currentFormData.otherExpYears || '').trim()) {
+        return 'Please specify your experience in years.';
+      }
+      return '';
+    }
+    if (name === 'salaryLakhs') {
+      if (!(value || '').trim() && !(currentFormData.salaryThousands || '').trim()) {
+        return 'Please select your current annual salary.';
+      }
+      if ((isOtherOption(value) || isOtherOption(currentFormData.salaryThousands)) && !(currentFormData.otherSalary || '').trim()) {
+        return 'Please specify your salary details.';
+      }
+      return '';
+    }
+    if (name === 'noticePeriod') {
+      if (!(value || '').trim()) return 'Please select notice period.';
+      if (isOtherOption(value) && !(currentFormData.otherNoticePeriod || '').trim()) {
+        return 'Please specify your notice period.';
+      }
+      return '';
+    }
+    if (name === 'keySkills') {
+      if (!(value || '').trim()) return 'Please enter your key skills / areas of expertise.';
+      return '';
+    }
+    if (name === 'resumeFile') {
+      if (!value) return 'Please attach your resume document (.doc, .docx, .rtf, .pdf)';
+      return '';
+    }
+    return '';
   };
 
-  const activeDropdownData = dropdownCategoriesData.find(d => d.id === openDropdown);
+  const handleBlur = (field) => {
+    setTouched(prev => ({ ...prev, [field]: true }));
+    const error = getFieldError(field, formData[field]);
+    setErrors(prev => ({ ...prev, [field]: error }));
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -74,8 +120,14 @@ const CurrentJobsPage = () => {
       const maxDigits = getMaxPhoneDigits(formData.selectedCountry);
       const truncatedPhone = digitsOnly.slice(0, maxDigits);
       setFormData(prev => ({ ...prev, mobile: truncatedPhone }));
+      if (touched.mobile) {
+        setErrors(prev => ({ ...prev, mobile: getFieldError('mobile', truncatedPhone) }));
+      }
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
+      if (touched[name]) {
+        setErrors(prev => ({ ...prev, [name]: getFieldError(name, value) }));
+      }
     }
   };
 
@@ -86,20 +138,21 @@ const CurrentJobsPage = () => {
       const fileExt = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
       
       if (!validTypes.includes(fileExt)) {
-        alert('Invalid file format. Please attach .doc, .docx, .rtf, or .pdf files only.');
+        setErrors(prev => ({ ...prev, resumeFile: 'Invalid file format. Please attach .doc, .docx, .rtf, or .pdf files only.' }));
         e.target.value = '';
         return;
       }
       
       // 5 MB limit (5 * 1024 * 1024 bytes)
       if (file.size > 5 * 1024 * 1024) {
-        alert('File size exceeds 5 MB limit. Please upload a document smaller than 5 MB.');
+        setErrors(prev => ({ ...prev, resumeFile: 'File size exceeds 5 MB limit. Please upload document under 5 MB.' }));
         e.target.value = '';
         return;
       }
 
       setFormData(prev => ({ ...prev, resumeFile: file }));
       setFileName(file.name);
+      setErrors(prev => ({ ...prev, resumeFile: '' }));
     }
   };
 
@@ -128,39 +181,38 @@ const CurrentJobsPage = () => {
       keySkills: '',
       resumeFile: null
     });
+    setErrors({});
+    setTouched({});
     setFileName('');
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.mobile || !formData.city || !formData.qualification || !formData.functionalArea || !formData.expYears || !formData.salaryLakhs || !formData.noticePeriod || !formData.keySkills) {
-      alert('Please fill all mandatory fields (*)');
+
+    const fieldsToValidate = [
+      'name', 'email', 'mobile', 'city', 'locality',
+      'qualification', 'functionalArea', 'expYears',
+      'salaryLakhs', 'noticePeriod', 'keySkills', 'resumeFile'
+    ];
+
+    const newTouched = {};
+    const newErrors = {};
+    let hasError = false;
+
+    fieldsToValidate.forEach(field => {
+      newTouched[field] = true;
+      const error = getFieldError(field, formData[field]);
+      newErrors[field] = error;
+      if (error) hasError = true;
+    });
+
+    setTouched(newTouched);
+    setErrors(newErrors);
+
+    if (hasError) {
       return;
     }
-    if (isOtherOption(formData.qualification) && !formData.otherQualification.trim()) {
-      alert('Please specify your custom qualification in the text field.');
-      return;
-    }
-    if (isOtherOption(formData.functionalArea) && !formData.otherFunctionalArea.trim()) {
-      alert('Please specify your custom functional area in the text field.');
-      return;
-    }
-    if (isOtherOption(formData.expYears) && !formData.otherExpYears.trim()) {
-      alert('Please specify your total work experience in the text field.');
-      return;
-    }
-    if ((isOtherOption(formData.salaryLakhs) || isOtherOption(formData.salaryThousands)) && !formData.otherSalary.trim()) {
-      alert('Please specify your current annual salary in the text field.');
-      return;
-    }
-    if (isOtherOption(formData.noticePeriod) && !formData.otherNoticePeriod.trim()) {
-      alert('Please specify your custom notice period in the text field.');
-      return;
-    }
-    if (!formData.resumeFile) {
-      alert('Please attach your resume document (.doc, .docx, .rtf, .pdf)');
-      return;
-    }
+
     setIsSubmitted(true);
   };
 
@@ -328,8 +380,7 @@ const CurrentJobsPage = () => {
                   <motion.div 
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="py-12 px-6 text-center"
-              >
+                    className="py-12 px-6 text-center">
                     <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4 shadow-md">
                       <CheckCircle size={36} />
                     </div>
@@ -385,10 +436,21 @@ const CurrentJobsPage = () => {
                           name="name"
                           value={formData.name}
                           onChange={handleInputChange}
+                          onBlur={() => handleBlur('name')}
                           required
                           placeholder="Enter your full name"
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white"
+                          className={`w-full px-3.5 py-2.5 rounded-xl border outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white ${
+                            touched.name && errors.name
+                              ? 'border-red-500 ring-2 ring-red-200'
+                              : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                          }`}
                         />
+                        {touched.name && errors.name && (
+                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                            <span>{errors.name}</span>
+                          </p>
+                        )}
                       </div>
                     </div>
 
@@ -445,10 +507,21 @@ const CurrentJobsPage = () => {
                           name="email"
                           value={formData.email}
                           onChange={handleInputChange}
+                          onBlur={() => handleBlur('email')}
                           required
                           placeholder="e.g. name@example.com"
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white"
+                          className={`w-full px-3.5 py-2.5 rounded-xl border outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white ${
+                            touched.email && errors.email
+                              ? 'border-red-500 ring-2 ring-red-200'
+                              : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                          }`}
                         />
+                        {touched.email && errors.email && (
+                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                            <span>{errors.email}</span>
+                          </p>
+                        )}
                       </div>
                     </div>
 
@@ -482,10 +555,21 @@ const CurrentJobsPage = () => {
                           name="city"
                           value={formData.city}
                           onChange={handleInputChange}
+                          onBlur={() => handleBlur('city')}
                           required
                           placeholder="e.g. Palwal, Faridabad, Delhi NCR"
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white"
+                          className={`w-full px-3.5 py-2.5 rounded-xl border outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white ${
+                            touched.city && errors.city
+                              ? 'border-red-500 ring-2 ring-red-200'
+                              : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                          }`}
                         />
+                        {touched.city && errors.city && (
+                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                            <span>{errors.city}</span>
+                          </p>
+                        )}
                       </div>
                     </div>
 
@@ -500,9 +584,20 @@ const CurrentJobsPage = () => {
                           name="locality"
                           value={formData.locality}
                           onChange={handleInputChange}
+                          onBlur={() => handleBlur('locality')}
                           placeholder="Enter your area / locality"
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white"
+                          className={`w-full px-3.5 py-2.5 rounded-xl border outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white ${
+                            touched.locality && errors.locality
+                              ? 'border-red-500 ring-2 ring-red-200'
+                              : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                          }`}
                         />
+                        {touched.locality && errors.locality && (
+                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                            <span>{errors.locality}</span>
+                          </p>
+                        )}
                       </div>
                     </div>
 
@@ -511,34 +606,48 @@ const CurrentJobsPage = () => {
                       <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right">
                         <span className="text-red-500 font-bold mr-1">*</span>Mobile :
                       </label>
-                      <div className="sm:col-span-8 flex gap-2">
-                        {/* Standardized Common Country Code Picker */}
-                        <CountryCodePicker
-                          selectedCountry={formData.selectedCountry}
-                          onChange={(item) => {
-                            const newMaxDigits = getMaxPhoneDigits(item);
-                            const adjustedPhone = formData.mobile.slice(0, newMaxDigits);
-                            setFormData(prev => ({ 
-                              ...prev, 
-                              selectedCountry: item,
-                              mobile: adjustedPhone 
-                            }));
-                          }}
-                        />
+                      <div className="sm:col-span-8">
+                        <div className="flex gap-2">
+                          <CountryCodePicker
+                            selectedCountry={formData.selectedCountry}
+                            onChange={(item) => {
+                              const newMaxDigits = getMaxPhoneDigits(item);
+                              const adjustedPhone = formData.mobile.slice(0, newMaxDigits);
+                              setFormData(prev => ({ 
+                                ...prev, 
+                                selectedCountry: item,
+                                mobile: adjustedPhone 
+                              }));
+                              if (touched.mobile) {
+                                setErrors(prev => ({ ...prev, mobile: validatePhone(adjustedPhone, item, true) }));
+                              }
+                            }}
+                          />
 
-                        {/* Phone Input */}
-                        <input
-                          type="tel"
-                          name="mobile"
-                          inputMode="numeric"
-                          pattern="[0-9]*"
-                          maxLength={getMaxPhoneDigits(formData.selectedCountry)}
-                          value={formData.mobile}
-                          onChange={handleInputChange}
-                          required
-                          placeholder={formData.selectedCountry?.code === 'IN' ? '10-digit mobile number' : `Enter ${getMaxPhoneDigits(formData.selectedCountry)}-digit mobile number`}
-                          className="flex-1 px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white"
-                        />
+                          <input
+                            type="tel"
+                            name="mobile"
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            maxLength={getMaxPhoneDigits(formData.selectedCountry)}
+                            value={formData.mobile}
+                            onChange={handleInputChange}
+                            onBlur={() => handleBlur('mobile')}
+                            required
+                            placeholder={formData.selectedCountry?.code === 'IN' ? '10-digit mobile number' : `Enter ${getMaxPhoneDigits(formData.selectedCountry)}-digit mobile number`}
+                            className={`flex-1 px-3.5 py-2.5 rounded-xl border outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white ${
+                              touched.mobile && errors.mobile
+                                ? 'border-red-500 ring-2 ring-red-200'
+                                : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                            }`}
+                          />
+                        </div>
+                        {touched.mobile && errors.mobile && (
+                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                            <span>{errors.mobile}</span>
+                          </p>
+                        )}
                       </div>
                     </div>
 
@@ -554,7 +663,14 @@ const CurrentJobsPage = () => {
                           options={qualificationsGrouped}
                           placeholder="--Select Qualification--"
                           searchPlaceholder="Search qualification..."
-                          onChange={handleInputChange}
+                          onChange={(e) => {
+                            handleInputChange(e);
+                            if (touched.qualification) {
+                              setErrors(prev => ({ ...prev, qualification: getFieldError('qualification', e.target.value) }));
+                            }
+                          }}
+                          onBlur={() => handleBlur('qualification')}
+                          error={Boolean(touched.qualification && errors.qualification)}
                           required
                         />
 
@@ -572,11 +688,18 @@ const CurrentJobsPage = () => {
                               name="otherQualification"
                               value={formData.otherQualification}
                               onChange={handleInputChange}
+                              onBlur={() => handleBlur('qualification')}
                               required
                               placeholder="Please enter your specific qualification (e.g., B.Des, ITI, B.F.Tech, etc.)..."
                               className="w-full px-3.5 py-2.5 rounded-xl border border-amber-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-amber-50/40 focus:bg-white placeholder:text-slate-400"
                             />
                           </motion.div>
+                        )}
+                        {touched.qualification && errors.qualification && (
+                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                            <span>{errors.qualification}</span>
+                          </p>
                         )}
                       </div>
                     </div>
@@ -593,7 +716,14 @@ const CurrentJobsPage = () => {
                           options={functionalAreasList}
                           placeholder="--Select Functional Area--"
                           searchPlaceholder="Search functional area..."
-                          onChange={handleInputChange}
+                          onChange={(e) => {
+                            handleInputChange(e);
+                            if (touched.functionalArea) {
+                              setErrors(prev => ({ ...prev, functionalArea: getFieldError('functionalArea', e.target.value) }));
+                            }
+                          }}
+                          onBlur={() => handleBlur('functionalArea')}
+                          error={Boolean(touched.functionalArea && errors.functionalArea)}
                           required
                         />
 
@@ -611,11 +741,18 @@ const CurrentJobsPage = () => {
                               name="otherFunctionalArea"
                               value={formData.otherFunctionalArea}
                               onChange={handleInputChange}
+                              onBlur={() => handleBlur('functionalArea')}
                               required
                               placeholder="Please enter your specific functional area / department..."
                               className="w-full px-3.5 py-2.5 rounded-xl border border-amber-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-amber-50/40 focus:bg-white placeholder:text-slate-400"
                             />
                           </motion.div>
+                        )}
+                        {touched.functionalArea && errors.functionalArea && (
+                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                            <span>{errors.functionalArea}</span>
+                          </p>
                         )}
                       </div>
                     </div>
@@ -633,7 +770,14 @@ const CurrentJobsPage = () => {
                             options={['Fresher', ...Array.from({ length: 30 }, (_, i) => `${i + 1} Years`), 'Other (Please Specify)']}
                             placeholder="--Select Year--"
                             searchPlaceholder="Filter years..."
-                            onChange={handleInputChange}
+                            onChange={(e) => {
+                              handleInputChange(e);
+                              if (touched.expYears) {
+                                setErrors(prev => ({ ...prev, expYears: getFieldError('expYears', e.target.value) }));
+                              }
+                            }}
+                            onBlur={() => handleBlur('expYears')}
+                            error={Boolean(touched.expYears && errors.expYears)}
                             required
                           />
 
@@ -662,11 +806,18 @@ const CurrentJobsPage = () => {
                               name="otherExpYears"
                               value={formData.otherExpYears}
                               onChange={handleInputChange}
+                              onBlur={() => handleBlur('expYears')}
                               required
                               placeholder="Please specify your total work experience (e.g., 32 Years, 15+ Years Freelance, etc.)..."
                               className="w-full px-3.5 py-2.5 rounded-xl border border-amber-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-amber-50/40 focus:bg-white placeholder:text-slate-400"
                             />
                           </motion.div>
+                        )}
+                        {touched.expYears && errors.expYears && (
+                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                            <span>{errors.expYears}</span>
+                          </p>
                         )}
                       </div>
                     </div>
@@ -687,7 +838,14 @@ const CurrentJobsPage = () => {
                             ]}
                             placeholder="Lakhs"
                             searchPlaceholder="Filter lakhs..."
-                            onChange={handleInputChange}
+                            onChange={(e) => {
+                              handleInputChange(e);
+                              if (touched.salaryLakhs) {
+                                setErrors(prev => ({ ...prev, salaryLakhs: getFieldError('salaryLakhs', e.target.value) }));
+                              }
+                            }}
+                            onBlur={() => handleBlur('salaryLakhs')}
+                            error={Boolean(touched.salaryLakhs && errors.salaryLakhs)}
                             required
                           />
 
@@ -701,7 +859,12 @@ const CurrentJobsPage = () => {
                             placeholder="Thousands"
                             searchPlaceholder="Filter thousands..."
                             disabled={isOtherOption(formData.salaryLakhs)}
-                            onChange={handleInputChange}
+                            onChange={(e) => {
+                              handleInputChange(e);
+                              if (touched.salaryLakhs) {
+                                setErrors(prev => ({ ...prev, salaryLakhs: getFieldError('salaryLakhs', formData.salaryLakhs) }));
+                              }
+                            }}
                           />
                         </div>
 
@@ -719,11 +882,18 @@ const CurrentJobsPage = () => {
                               name="otherSalary"
                               value={formData.otherSalary}
                               onChange={handleInputChange}
+                              onBlur={() => handleBlur('salaryLakhs')}
                               required
                               placeholder="Please specify your current annual salary (e.g., 55 Lakhs / Annum, Negotiable, Per Project)..."
                               className="w-full px-3.5 py-2.5 rounded-xl border border-amber-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-amber-50/40 focus:bg-white placeholder:text-slate-400"
                             />
                           </motion.div>
+                        )}
+                        {touched.salaryLakhs && errors.salaryLakhs && (
+                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                            <span>{errors.salaryLakhs}</span>
+                          </p>
                         )}
                       </div>
                     </div>
@@ -740,7 +910,14 @@ const CurrentJobsPage = () => {
                           options={noticePeriodsList}
                           placeholder="Select"
                           searchPlaceholder="Search notice period..."
-                          onChange={handleInputChange}
+                          onChange={(e) => {
+                            handleInputChange(e);
+                            if (touched.noticePeriod) {
+                              setErrors(prev => ({ ...prev, noticePeriod: getFieldError('noticePeriod', e.target.value) }));
+                            }
+                          }}
+                          onBlur={() => handleBlur('noticePeriod')}
+                          error={Boolean(touched.noticePeriod && errors.noticePeriod)}
                           required
                         />
 
@@ -758,11 +935,18 @@ const CurrentJobsPage = () => {
                               name="otherNoticePeriod"
                               value={formData.otherNoticePeriod}
                               onChange={handleInputChange}
+                              onBlur={() => handleBlur('noticePeriod')}
                               required
                               placeholder="Please enter your notice period duration (e.g., 45 Days, Serving Notice, etc.)..."
                               className="w-full px-3.5 py-2.5 rounded-xl border border-amber-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-amber-50/40 focus:bg-white placeholder:text-slate-400"
                             />
                           </motion.div>
+                        )}
+                        {touched.noticePeriod && errors.noticePeriod && (
+                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                            <span>{errors.noticePeriod}</span>
+                          </p>
                         )}
                       </div>
                     </div>
@@ -778,10 +962,21 @@ const CurrentJobsPage = () => {
                           rows={4}
                           value={formData.keySkills}
                           onChange={handleInputChange}
+                          onBlur={() => handleBlur('keySkills')}
                           required
                           placeholder="e.g. Precast Casting, RCC Quality Testing, AutoCAD, Boundary Wall Erection, Site Execution, Team Management..."
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white resize-y min-h-[105px]"
+                          className={`w-full px-3.5 py-2.5 rounded-xl border outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white resize-y min-h-[105px] ${
+                            touched.keySkills && errors.keySkills
+                              ? 'border-red-500 ring-2 ring-red-200'
+                              : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                          }`}
                         />
+                        {touched.keySkills && errors.keySkills && (
+                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                            <span>{errors.keySkills}</span>
+                          </p>
+                        )}
                       </div>
                     </div>
 
@@ -804,7 +999,9 @@ const CurrentJobsPage = () => {
                               />
                             </label>
 
-                            <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-xl border border-slate-200 flex-1 min-w-[180px] max-w-full">
+                            <div className={`flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-xl border flex-1 min-w-[180px] max-w-full ${
+                              touched.resumeFile && errors.resumeFile ? 'border-red-500 ring-2 ring-red-200' : 'border-slate-200'
+                            }`}>
                               {fileName ? (
                                 <div className="flex items-center justify-between w-full gap-2">
                                   <span className="text-[12px] text-emerald-800 font-bold flex items-center gap-1.5 truncate">
@@ -816,6 +1013,9 @@ const CurrentJobsPage = () => {
                                     onClick={() => {
                                       setFormData(prev => ({ ...prev, resumeFile: null }));
                                       setFileName('');
+                                      if (touched.resumeFile) {
+                                        setErrors(prev => ({ ...prev, resumeFile: 'Please attach your resume document.' }));
+                                      }
                                     }}
                                     className="p-0.5 text-slate-400 hover:text-red-600 transition-colors shrink-0 cursor-pointer"
                                     title="Remove attached file"
@@ -834,6 +1034,12 @@ const CurrentJobsPage = () => {
                           <p className="caption-text text-[11.5px] font-semibold text-amber-700 tracking-normal mt-0.5">
                             Allowed File Type : .doc, .docx, .rtf, .pdf (Upto 5 MB)
                           </p>
+                          {touched.resumeFile && errors.resumeFile && (
+                            <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1 flex items-center gap-1.5">
+                              <AlertCircle size={15} className="shrink-0 text-red-500" />
+                              <span>{errors.resumeFile}</span>
+                            </p>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -886,172 +1092,8 @@ const CurrentJobsPage = () => {
         </div>
       </section>
 
-      {/* 3. EXPLORE OUR PRODUCTS SECTION */}
-      <section className="py-14 sm:py-18 bg-[#f8fafc] border-t border-slate-200/90 relative overflow-hidden">
-        {/* Background Subtle Gradient Glows */}
-        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-amber-400/8 blur-[120px] pointer-events-none rounded-full" />
-        <div className="absolute bottom-10 right-0 w-96 h-96 bg-slate-200/50 blur-[100px] pointer-events-none rounded-full" />
-
-        <div className="max-w-[1260px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
-          
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.6 }}
-            className="mb-8 pt-0"
-          >
-            {/* Header */}
-            <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
-              <h2 className="text-[23px] sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight">
-                Explore Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-[#d97706] via-amber-500 to-yellow-500">Products</span>
-              </h2>
-              <div className="flex items-center justify-center gap-2 mt-2 mb-2 mx-auto">
-                <span className="h-[2px] w-20 sm:w-28 rounded-full title-accent-bar" />
-                <span className="h-2 w-2 rounded-full title-accent-dot shrink-0" />
-                <span className="h-[2px] w-20 sm:w-28 rounded-full title-accent-bar" />
-              </div>
-            </div>
-
-            {/* LINE 1: 4 Dropdown Categories in One Line */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4 max-w-6xl mx-auto mb-4">
-              {dropdownCategoriesData.map((cat) => {
-                const isOpen = openDropdown === cat.id;
-                const CatIcon = iconComponentMap[cat.iconName] || Building2;
-                return (
-                  <button
-                    key={cat.id}
-                    onClick={() => toggleDropdown(cat.id)}
-                    className={`w-full p-4 rounded-[9px] flex items-center justify-between font-bold text-sm sm:text-[15px] transition-all duration-300 shadow-sm border cursor-pointer group ${
-                      isOpen 
-                        ? 'bg-slate-900 text-white border-slate-900 shadow-lg ring-2 ring-amber-400/50' 
-                        : 'bg-white text-slate-800 border-slate-200 hover:border-amber-400 hover:bg-slate-50 hover:shadow-md hover:-translate-y-0.5'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className={`w-10 h-10 rounded-[12px] flex items-center justify-center shrink-0 transition-all duration-300 ${
-                        isOpen 
-                          ? 'bg-gradient-to-br from-amber-400 to-amber-600 text-white shadow-xs' 
-                          : 'bg-amber-100 text-amber-900 group-hover:bg-gradient-to-br group-hover:from-amber-400 group-hover:to-amber-600 group-hover:text-white group-hover:shadow-xs'
-                      }`}>
-                        <CatIcon size={20} />
-                      </div>
-                      <div className="text-left">
-                        <span className={`block font-bold leading-snug transition-colors ${
-                          isOpen ? 'text-white' : 'text-slate-900 group-hover:text-amber-700'
-                        }`}>
-                          {cat.title}
-                        </span>
-                        <span className={`text-[12px] font-normal transition-colors ${
-                          isOpen ? 'text-amber-200' : 'text-slate-400 group-hover:text-amber-600/80'
-                        }`}>
-                          {cat.count}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    {/* Plus / Minus indicator button */}
-                    <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-all duration-300 ${
-                      isOpen 
-                        ? 'bg-amber-500 text-slate-950' 
-                        : 'bg-slate-100 text-slate-600 group-hover:bg-amber-100 group-hover:text-amber-900'
-                    }`}>
-                      {isOpen ? <Minus size={15} strokeWidth={2.5} /> : <Plus size={15} strokeWidth={2.5} />}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Collapsible Dropdown Product Menu Tray */}
-            <AnimatePresence>
-              {activeDropdownData && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.35, ease: 'easeInOut' }}
-                  className="overflow-hidden max-w-6xl mx-auto mb-6"
-                >
-                  <div className="p-5 sm:p-7 rounded-[9px] bg-white border-2 border-amber-200/90 shadow-xl relative">
-                    
-                    {/* Tray Top Header */}
-                    <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-slate-200">
-                      <div className="flex items-center gap-2.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
-                        <h4 className="text-base sm:text-lg font-bold text-slate-900">
-                          {activeDropdownData.title} <span className="text-slate-400 font-normal text-sm">({activeDropdownData.count})</span>
-                        </h4>
-                      </div>
-                      <button
-                        onClick={() => setOpenDropdown(null)}
-                        className="text-xs font-bold text-slate-500 hover:text-amber-700 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-50 border border-slate-200 hover:border-amber-300 transition-colors cursor-pointer"
-                      >
-                        <X size={13} />
-                        <span>Close</span>
-                      </button>
-                    </div>
-
-                    {/* All Product Links Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3">
-                      {activeDropdownData.products.map((prod) => (
-                        <a
-                          key={prod.id}
-                          href={prod.link}
-                          onClick={(e) => navigateTo(prod.link, e)}
-                          className="p-3 sm:p-3.5 rounded-[12px] bg-[#f8fafc] border border-slate-200/80 hover:border-amber-400 hover:shadow-md hover:bg-amber-50/40 transition-all flex items-center justify-between text-left group cursor-pointer"
-                        >
-                          <span className="text-[13.5px] sm:text-[14px] font-semibold text-slate-800 group-hover:text-amber-700 transition-colors">
-                            {prod.title}
-                          </span>
-                          <ArrowRight size={14} className="text-slate-400 group-hover:text-amber-600 group-hover:translate-x-1 transition-all shrink-0 ml-2" />
-                        </a>
-                      ))}
-                    </div>
-
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* LINE 2: 5 Standalone Product Cards in One Line */}
-            <div className="max-w-6xl mx-auto mt-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-4">
-                {standaloneProductsData.map((prod, idx) => {
-                  const ProdIcon = iconComponentMap[prod.iconName] || Building2;
-                  return (
-                    <motion.div
-                      key={prod.id}
-                      initial={{ opacity: 0, y: 15 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: idx * 0.05 }}
-                      className="h-full"
-                    >
-                      <a
-                        href={prod.link}
-                        onClick={(e) => navigateTo(prod.link, e)}
-                        className="w-full h-full p-4 rounded-[9px] flex items-center gap-3 font-bold text-sm sm:text-[14px] transition-all duration-300 shadow-sm border border-slate-200 bg-white text-slate-800 hover:border-amber-300 hover:bg-slate-50 hover:shadow-md hover:-translate-y-0.5 cursor-pointer group"
-                      >
-                        <div className="w-10 h-10 rounded-[12px] bg-amber-100 text-amber-900 flex items-center justify-center shrink-0 group-hover:bg-gradient-to-br group-hover:from-amber-400 group-hover:to-amber-600 group-hover:text-white transition-all shadow-xs">
-                          <ProdIcon size={20} />
-                        </div>
-                        <div className="text-left min-w-0 flex-1">
-                          <span className="block font-bold leading-snug text-slate-900 group-hover:text-amber-700 transition-colors line-clamp-2">
-                            {prod.title}
-                          </span>
-                        </div>
-                      </a>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </div>
-
-          </motion.div>
-
-        </div>
-      </section>
+      {/* 3. EXPLORE OUR PRODUCTS SECTION (Common Reusable Component) */}
+      <ExploreProductsSection className="py-14 sm:py-18 bg-[#f8fafc] border-t border-slate-200/90" />
 
     </div>
   );

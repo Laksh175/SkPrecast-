@@ -3,17 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle2, ShieldCheck, ArrowRight, Loader2, ChevronDown, Search, AlertCircle } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
 import { countryCodes } from '../data/homeData';
-import { Button, CountryCodePicker } from '../common';
+import { Button, PhoneField, getMaxPhoneDigits } from '../common';
+import { validatePhone, validateQuantity } from '../utils/validation';
 
-const getMaxPhoneDigits = (country) => {
-  if (!country) return 10;
-  if (country.code === 'IN') return 10;
-  if (['AE', 'SA', 'AU', 'FR', 'NZ'].includes(country.code)) return 9;
-  if (['US', 'CA', 'GB', 'MX', 'BR'].includes(country.code)) return 10;
-  if (['SG', 'QA', 'KW', 'OM', 'BH', 'HK'].includes(country.code)) return 8;
-  if (['DE', 'RU', 'ZA'].includes(country.code)) return 11;
-  return 12;
-};
 
 const QuickQuoteModal = ({ isOpen, onClose, product }) => {
   const [quantity, setQuantity] = useState(1000);
@@ -23,7 +15,8 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
   const [location, setLocation] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
 
   // Reset state when product changes or modal opens
   useEffect(() => {
@@ -35,7 +28,8 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
       setLocation('');
       setIsSubmitting(false);
       setIsSubmitted(false);
-      setErrorMessage('');
+      setErrors({});
+      setTouched({});
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -57,12 +51,26 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const minRequired = selectedCountry.code === 'IN' ? 10 : (currentMaxDigits > 8 ? 8 : currentMaxDigits);
-    if (!mobileNumber || mobileNumber.trim().length < minRequired) {
-      setErrorMessage(`Please enter a valid ${minRequired}-digit mobile number.`);
+
+    setTouched({
+      quantity: true,
+      mobile: true
+    });
+
+    const qtyError = validateQuantity(quantity, true);
+    const phoneError = validatePhone(mobileNumber, selectedCountry, true);
+
+    const newErrors = {
+      quantity: qtyError,
+      mobile: phoneError
+    };
+
+    setErrors(newErrors);
+
+    if (qtyError || phoneError) {
       return;
     }
-    setErrorMessage('');
+
     setIsSubmitting(true);
 
     // Simulate fast enquiry dispatch and trigger WhatsApp fallback
@@ -207,17 +215,36 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
                     {/* Quantity Field (Default 1000) */}
                     <div>
                       <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-1.5">
-                        Quantity
+                        Quantity <span className="text-amber-600 font-bold">*</span>
                       </label>
                       <input 
                         type="number"
                         min="1"
                         value={quantity}
-                        onChange={(e) => setQuantity(e.target.value)}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-400/20 bg-white text-slate-900 font-extrabold text-base outline-none transition-all"
+                        onChange={(e) => {
+                          setQuantity(e.target.value);
+                          if (touched.quantity) {
+                            setErrors(prev => ({ ...prev, quantity: validateQuantity(e.target.value, true) }));
+                          }
+                        }}
+                        onBlur={() => {
+                          setTouched(prev => ({ ...prev, quantity: true }));
+                          setErrors(prev => ({ ...prev, quantity: validateQuantity(quantity, true) }));
+                        }}
+                        className={`w-full px-3.5 py-2.5 rounded-xl border bg-white text-slate-900 font-extrabold text-base outline-none transition-all ${
+                          touched.quantity && errors.quantity
+                            ? 'border-red-500 ring-2 ring-red-200'
+                            : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-400/20'
+                        }`}
                         placeholder="1000"
                         required
                       />
+                      {touched.quantity && errors.quantity && (
+                        <p style={{ fontSize: '14px' }} className="text-[14px] text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                          <AlertCircle size={15} className="shrink-0 text-red-500" />
+                          <span>{errors.quantity}</span>
+                        </p>
+                      )}
                     </div>
 
                     {/* Measurement Units Field (Editable Text Box) */}
@@ -236,43 +263,36 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
                   </div>
 
                   {/* Row 2: Mobile Number with Standardized Country Code Picker */}
-                  <div>
-                    <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-1.5">
-                      Mobile No.
-                    </label>
-                    <div className="flex gap-2">
-                      {/* Standardized Common Country Code Picker */}
-                      <CountryCodePicker
-                        selectedCountry={selectedCountry}
-                        onChange={(item) => {
-                          const newMax = getMaxPhoneDigits(item);
-                          setSelectedCountry(item);
-                          setMobileNumber(prev => prev.slice(0, newMax));
-                        }}
-                      />
+                  <PhoneField
+                    label="Mobile No."
+                    required={true}
+                    value={mobileNumber}
+                    selectedCountry={selectedCountry}
+                    onCountryChange={(item) => {
+                      const newMax = getMaxPhoneDigits(item);
+                      setSelectedCountry(item);
+                      const adjusted = mobileNumber.slice(0, newMax);
+                      setMobileNumber(adjusted);
+                      if (touched.mobile) {
+                        setErrors(prev => ({ ...prev, mobile: validatePhone(adjusted, item, true) }));
+                      }
+                    }}
+                    onChange={(e) => {
+                      const digits = e.target.value.replace(/\D/g, '');
+                      setMobileNumber(digits);
+                      if (touched.mobile) {
+                        setErrors(prev => ({ ...prev, mobile: validatePhone(digits, selectedCountry, true) }));
+                      }
+                    }}
+                    onBlur={() => {
+                      setTouched(prev => ({ ...prev, mobile: true }));
+                      setErrors(prev => ({ ...prev, mobile: validatePhone(mobileNumber, selectedCountry, true) }));
+                    }}
+                    placeholder={selectedCountry?.code === 'IN' ? 'Enter 10 digit mobile no.' : `Enter ${currentMaxDigits}-digit mobile no.`}
+                    error={errors.mobile}
+                    touched={touched.mobile}
+                  />
 
-                      {/* Phone Input with strict numeric entry & max digits */}
-                      <div className="w-full">
-                        <input 
-                          type="tel"
-                          inputMode="numeric"
-                          pattern="[0-9]*"
-                          maxLength={currentMaxDigits}
-                          value={mobileNumber}
-                          onChange={(e) => setMobileNumber(e.target.value.replace(/\D/g, ''))}
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-400/20 bg-white text-slate-900 font-semibold text-sm sm:text-base outline-none transition-all shadow-2xs"
-                          placeholder={selectedCountry?.code === 'IN' ? 'Enter 10 digit mobile no.' : `Enter ${currentMaxDigits}-digit mobile no.`}
-                          required
-                        />
-                      </div>
-                    </div>
-                    {errorMessage && (
-                      <p className="text-[11px] text-rose-600 font-medium mt-1 flex items-center gap-1">
-                        <AlertCircle size={12} className="shrink-0" />
-                        <span>{errorMessage}</span>
-                      </p>
-                    )}
-                  </div>
 
                   {/* Row 3: Optional Location / City */}
                   <div>

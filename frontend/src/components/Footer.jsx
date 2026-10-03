@@ -1,26 +1,22 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { FaWhatsapp, FaPhone, FaEnvelope, FaLocationDot, FaRss, FaChevronUp, FaChevronDown } from 'react-icons/fa6';
 import { GB, FR, DE, IN } from 'country-flag-icons/react/3x2';
 import { navigateTo } from '../utils/navigation';
 import { allLanguages } from '../data/navigationData';
+import { SearchableSelect } from '../common';
 
 const Footer = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [selectedLang, setSelectedLang] = useState('en');
   const [isGeneralLinksOpen, setIsGeneralLinksOpen] = useState(true);
   const [isProductsOpen, setIsProductsOpen] = useState(true);
-  const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
-  const langDropdownRef = useRef(null);
 
-  // Close language dropdown on outside click
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (langDropdownRef.current && !langDropdownRef.current.contains(event.target)) {
-        setIsLangDropdownOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+  // Memoized language options formatted for SearchableSelect
+  const languageOptions = useMemo(() => {
+    return allLanguages.map((lang) => ({
+      label: lang.name,
+      value: lang.code
+    }));
   }, []);
 
   // Detect active language from Google Translate cookie on mount
@@ -125,7 +121,7 @@ const Footer = () => {
               
               {/* Facebook Button */}
               <a 
-                href="https://facebook.com" 
+                href="https://www.facebook.com/share/1Dp6ot4HVL/?mibextid=wwXIfr" 
                 target="_blank" 
                 rel="noreferrer" 
                 className="w-7 h-7 inline-flex items-center justify-center hover:-translate-y-0.5 hover:scale-105 transition-all duration-200 cursor-pointer drop-shadow-md shrink-0" 
@@ -139,7 +135,7 @@ const Footer = () => {
 
               {/* Instagram Button */}
               <a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/skprecastindustries?igsh=MTQ5ZHdpNHRoYTZneQ%3D%3D&utm_source=qr" 
                 target="_blank" 
                 rel="noreferrer" 
                 className="w-7 h-7 inline-flex items-center justify-center hover:-translate-y-0.5 hover:scale-105 transition-all duration-200 cursor-pointer drop-shadow-md shrink-0" 
@@ -333,7 +329,7 @@ const Footer = () => {
             </h4>
             
             {/* Flags and Dropdown side by side */}
-            <div className="flex items-center justify-start gap-2 sm:gap-2.5 flex-nowrap relative" ref={langDropdownRef}>
+            <div className="flex items-center justify-start gap-2 sm:gap-2.5 flex-nowrap relative">
               {/* 4 Quick Flag Buttons */}
               <div className="flex items-center gap-1.5 bg-slate-800/90 p-1.5 rounded-lg border border-slate-700/60 shadow-inner shrink-0">
                 <button 
@@ -370,51 +366,19 @@ const Footer = () => {
                 </button>
               </div>
 
-              {/* Custom Language Dropdown Menu */}
-              <div className="relative min-w-[130px] max-w-[160px]">
-                <button
-                  type="button"
-                  onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
-                  className="w-full bg-slate-900/95 text-slate-100 border border-slate-700 hover:border-amber-500/60 focus:border-amber-400 rounded-lg px-2.5 py-1.5 text-xs font-semibold flex items-center justify-between shadow-lg transition-colors cursor-pointer gap-1"
-                  aria-haspopup="listbox"
-                  aria-expanded={isLangDropdownOpen}
-                >
-                  <span className="truncate text-[12.5px]">
-                    {allLanguages.find(l => l.code === selectedLang)?.name || 'English'}
-                  </span>
-                  <FaChevronDown className={`w-3 h-3 text-amber-400 shrink-0 transition-transform duration-200 ${isLangDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
-
-                {/* Dropdown Menu List (Opens Downwards on Desktop) */}
-                {isLangDropdownOpen && (
-                  <div className="absolute top-full mt-2 right-0 w-60 sm:w-64 bg-slate-900/98 backdrop-blur-md border border-slate-700 rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.65),0_0_15px_rgba(245,158,11,0.2)] z-50 overflow-hidden">
-                    <div className="max-h-56 sm:max-h-60 overflow-y-auto py-1.5 custom-scrollbar">
-                      {allLanguages.map((lang) => {
-                        const isSelected = selectedLang === lang.code;
-                        return (
-                          <button
-                            key={lang.code}
-                            type="button"
-                            onClick={() => {
-                              handleLanguageChange(lang.code);
-                              setIsLangDropdownOpen(false);
-                            }}
-                            className={`w-full text-left px-3.5 py-2 text-[13.5px] font-medium transition-all flex items-center justify-between cursor-pointer ${
-                              isSelected
-                                ? 'bg-amber-500/20 text-amber-300 font-semibold border-l-2 border-amber-400'
-                                : 'text-slate-200 hover:bg-slate-800/90 hover:text-amber-400'
-                            }`}
-                          >
-                            <span className="truncate">{lang.name}</span>
-                            {isSelected && (
-                              <span className="text-amber-400 text-xs ml-1.5 font-bold">✓</span>
-                            )}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
+              {/* Custom Searchable Language Dropdown (Matching the site's searchable select) */}
+              <div className="w-36 sm:w-44 shrink-0">
+                <SearchableSelect
+                  options={languageOptions}
+                  value={selectedLang}
+                  onChange={(e) => handleLanguageChange(e.target.value)}
+                  placeholder="Select Language"
+                  searchPlaceholder="Filter languages..."
+                  placement="bottom"
+                  size="sm"
+                  triggerClassName="bg-white hover:bg-slate-50 border-2 border-slate-300 rounded-lg text-slate-800 font-semibold py-1.5 text-xs shadow-xs"
+                  popoverClassName="w-56 -left-10 sm:left-0 shadow-2xl z-[200]"
+                />
               </div>
             </div>
           </div>
@@ -473,7 +437,7 @@ const Footer = () => {
               
               {/* Facebook Button */}
               <a 
-                href="https://facebook.com" 
+                href="https://www.facebook.com/share/1Dp6ot4HVL/?mibextid=wwXIfr" 
                 target="_blank" 
                 rel="noreferrer" 
                 className="w-6.5 h-6.5 sm:w-7 sm:h-7 inline-flex items-center justify-center hover:-translate-y-0.5 hover:scale-105 transition-all duration-200 cursor-pointer drop-shadow-md shrink-0" 
@@ -487,7 +451,7 @@ const Footer = () => {
 
               {/* Instagram Button */}
               <a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/skprecastindustries?igsh=MTQ5ZHdpNHRoYTZneQ%3D%3D&utm_source=qr" 
                 target="_blank" 
                 rel="noreferrer" 
                 className="w-6.5 h-6.5 sm:w-7 sm:h-7 inline-flex items-center justify-center hover:-translate-y-0.5 hover:scale-105 transition-all duration-200 cursor-pointer drop-shadow-md shrink-0" 
@@ -745,51 +709,19 @@ const Footer = () => {
                   </button>
                 </div>
 
-                {/* Custom Language Dropdown Menu */}
-                <div className="relative min-w-[125px] sm:min-w-[135px] max-w-[155px] sm:max-w-[170px]">
-                  <button
-                    type="button"
-                    onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
-                    className="w-full bg-slate-900/95 text-slate-100 border border-slate-700 hover:border-amber-500/60 focus:border-amber-400 rounded-lg px-2.5 py-1.5 text-xs font-semibold flex items-center justify-between shadow-lg transition-colors cursor-pointer gap-1"
-                    aria-haspopup="listbox"
-                    aria-expanded={isLangDropdownOpen}
-                  >
-                    <span className="truncate text-[12.5px]">
-                      {allLanguages.find(l => l.code === selectedLang)?.name || 'English'}
-                    </span>
-                    <FaChevronDown className={`w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-400 shrink-0 transition-transform duration-200 ${isLangDropdownOpen ? 'rotate-180' : ''}`} />
-                  </button>
-
-                  {/* Dropdown Menu List */}
-                  {isLangDropdownOpen && (
-                    <div className="absolute bottom-full mb-1.5 left-1/2 -translate-x-1/2 w-60 sm:w-64 bg-slate-900/98 backdrop-blur-md border border-slate-700 rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.65),0_0_15px_rgba(245,158,11,0.2)] z-50 overflow-hidden">
-                      <div className="max-h-60 overflow-y-auto py-1.5 custom-scrollbar">
-                        {allLanguages.map((lang) => {
-                          const isSelected = selectedLang === lang.code;
-                          return (
-                            <button
-                              key={lang.code}
-                              type="button"
-                              onClick={() => {
-                                handleLanguageChange(lang.code);
-                                setIsLangDropdownOpen(false);
-                              }}
-                              className={`w-full text-left px-3.5 py-2 text-[13.5px] sm:text-[14px] font-medium transition-all flex items-center justify-between cursor-pointer ${
-                                isSelected
-                                  ? 'bg-amber-500/20 text-amber-300 font-semibold border-l-2 border-amber-400'
-                                  : 'text-slate-200 hover:bg-slate-800/90 hover:text-amber-400'
-                              }`}
-                            >
-                              <span className="truncate">{lang.name}</span>
-                              {isSelected && (
-                                <span className="text-amber-400 text-xs ml-1.5 font-bold">✓</span>
-                              )}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  )}
+                {/* Custom Searchable Language Dropdown (Matching the site's searchable select) */}
+                <div className="w-36 sm:w-44 shrink-0">
+                  <SearchableSelect
+                    options={languageOptions}
+                    value={selectedLang}
+                    onChange={(e) => handleLanguageChange(e.target.value)}
+                    placeholder="Select Language"
+                    searchPlaceholder="Filter languages..."
+                    placement="top"
+                    size="sm"
+                    triggerClassName="bg-white hover:bg-slate-50 border-2 border-slate-300 rounded-lg text-slate-800 font-semibold py-1.5 text-xs shadow-xs"
+                    popoverClassName="w-56 -right-2 left-auto sm:left-0 shadow-2xl z-[200]"
+                  />
                 </div>
               </div>
             </div>
@@ -824,12 +756,40 @@ const Footer = () => {
         </div>
 
         {/* ========================================================================= */}
-        {/* 3. COPYRIGHT (All screen sizes) */}
+        {/* 3. COPYRIGHT & MEMBER BADGE (All screen sizes) */}
         {/* ========================================================================= */}
-        <div className="mt-6 sm:mt-7 pt-4 border-t border-slate-800/80 text-center">
-          <p className="caption-text text-[11.5px] sm:text-[12.5px] md:text-[13px] text-slate-400 leading-relaxed font-normal tracking-wide">
-            © {new Date().getFullYear()} <strong className="text-slate-200 font-semibold">SK Precast Industries</strong>. All Rights Reserved. Developed & Managed By <a href="https://kurminfotech.in/" target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:text-amber-300 font-semibold transition-colors">Kurm Infotech</a>
-          </p>
+        <div className="mt-6 sm:mt-8 pt-5 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <div className="caption-text text-xs sm:text-[13px] text-slate-400 leading-relaxed font-normal">
+            <div>
+              All Rights Reserved. <strong className="text-slate-200 font-semibold">SK Precast Industries</strong>
+            </div>
+            <div className="text-slate-400 mt-0.5">
+              Developed & Managed By{' '}
+              <a 
+                href="https://kurminfotech.in/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-amber-400 hover:text-amber-300 font-semibold transition-colors"
+              >
+                Kurm Infotech
+              </a>
+            </div>
+          </div>
+          <div className="shrink-0 flex items-center justify-center sm:justify-end">
+            <a 
+              href="https://www.exportersindia.com/skprecast-industries/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="inline-block transition-transform hover:scale-105"
+              title="Member ExportersIndia"
+            >
+              <img 
+                src="/assets/images/footer-image-member.webp" 
+                alt="Member ExportersIndia" 
+                className="h-8 sm:h-9 w-auto object-contain rounded drop-shadow-md" 
+              />
+            </a>
+          </div>
         </div>
       </div>
 

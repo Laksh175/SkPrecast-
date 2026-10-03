@@ -4,6 +4,7 @@ import { X, ThumbsUp, ThumbsDown, CheckCircle2, AlertCircle, Loader2 } from 'luc
 import { FaStar } from 'react-icons/fa6';
 import { countryCodes, allProductsList } from '../data/homeData';
 import { CountryCodePicker, SearchableSelect } from '../common';
+import { getMaxPhoneDigits, validateName, validateEmail, validatePhone, validateProduct, validateMessage } from '../utils/validation';
 
 export const WriteReviewModal = ({ isOpen, onClose, onReviewSubmitted }) => {
   const [formData, setFormData] = useState({
@@ -22,6 +23,8 @@ export const WriteReviewModal = ({ isOpen, onClose, onReviewSubmitted }) => {
     review: ''
   });
 
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
   const [hoverRating, setHoverRating] = useState(0);
   const [selectedCountry, setSelectedCountry] = useState(countryCodes[0]);
   const [errorMessage, setErrorMessage] = useState('');
@@ -45,6 +48,8 @@ export const WriteReviewModal = ({ isOpen, onClose, onReviewSubmitted }) => {
         },
         review: ''
       });
+      setErrors({});
+      setTouched({});
       setHoverRating(0);
       setSelectedCountry(countryCodes[0]);
       setErrorMessage('');
@@ -67,9 +72,37 @@ export const WriteReviewModal = ({ isOpen, onClose, onReviewSubmitted }) => {
 
   if (!isOpen) return null;
 
+  const getFieldError = (name, value, currentFormData = formData) => {
+    if (name === 'name') return validateName(value, true);
+    if (name === 'email') return validateEmail(value, true);
+    if (name === 'mobile') return validatePhone(value, selectedCountry, true);
+    if (name === 'product') return validateProduct(value, true);
+    if (name === 'review') return validateMessage(value, true, 10);
+    return '';
+  };
+
+  const handleBlur = (field) => {
+    setTouched(prev => ({ ...prev, [field]: true }));
+    const error = getFieldError(field, formData[field]);
+    setErrors(prev => ({ ...prev, [field]: error }));
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    if (name === 'mobile') {
+      const digits = value.replace(/\D/g, '');
+      const maxDigits = getMaxPhoneDigits(selectedCountry);
+      const truncated = digits.slice(0, maxDigits);
+      setFormData(prev => ({ ...prev, mobile: truncated }));
+      if (touched.mobile) {
+        setErrors(prev => ({ ...prev, mobile: getFieldError('mobile', truncated) }));
+      }
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+      if (touched[name]) {
+        setErrors(prev => ({ ...prev, [name]: getFieldError(name, value) }));
+      }
+    }
   };
 
   const handleToggleLike = (category, type) => {
@@ -86,28 +119,22 @@ export const WriteReviewModal = ({ isOpen, onClose, onReviewSubmitted }) => {
     e.preventDefault();
     setErrorMessage('');
 
-    if (!formData.name.trim()) {
-      setErrorMessage('Please enter your name.');
-      return;
-    }
-    if (!formData.email.trim() || !formData.email.includes('@')) {
-      setErrorMessage('Please enter a valid email address.');
-      return;
-    }
-    if (!formData.mobile.trim() || formData.mobile.trim().length < 8) {
-      setErrorMessage('Please enter a valid mobile number.');
-      return;
-    }
-    if (!formData.product.trim()) {
-      setErrorMessage('Please select a Product / Service.');
-      return;
-    }
-    if (!formData.rating || formData.rating < 1) {
-      setErrorMessage('Please select a rating score.');
-      return;
-    }
-    if (!formData.review.trim() || formData.review.trim().length < 10) {
-      setErrorMessage('Please write a review of at least 10 characters.');
+    const fieldsToValidate = ['name', 'email', 'mobile', 'product', 'review'];
+    const newTouched = {};
+    const newErrors = {};
+    let hasError = false;
+
+    fieldsToValidate.forEach(field => {
+      newTouched[field] = true;
+      const error = getFieldError(field, formData[field]);
+      newErrors[field] = error;
+      if (error) hasError = true;
+    });
+
+    setTouched(newTouched);
+    setErrors(newErrors);
+
+    if (hasError) {
       return;
     }
 
@@ -187,9 +214,9 @@ export const WriteReviewModal = ({ isOpen, onClose, onReviewSubmitted }) => {
             <form onSubmit={handleSubmit} className="space-y-0 text-left">
               {/* Error Message */}
               {errorMessage && (
-                <div className="mb-4 p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs sm:text-sm flex items-center gap-2">
+                <div style={{ fontSize: '15px' }} className="mb-4 p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-[15px] flex items-center gap-2">
                   <AlertCircle size={16} className="shrink-0 text-rose-500" />
-                  <span>{errorMessage}</span>
+                  <span style={{ fontSize: '15px' }}>{errorMessage}</span>
                 </div>
               )}
 
@@ -207,10 +234,21 @@ export const WriteReviewModal = ({ isOpen, onClose, onReviewSubmitted }) => {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
+                      onBlur={() => handleBlur('name')}
                       placeholder="Enter your full name"
-                      className="w-full px-3.5 py-2 text-xs sm:text-sm rounded-lg bg-white border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-hidden focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all shadow-2xs"
+                      className={`w-full px-3.5 py-2 text-xs sm:text-sm rounded-lg bg-white border text-slate-900 placeholder-slate-400 focus:outline-hidden transition-all shadow-2xs ${
+                        touched.name && errors.name
+                          ? 'border-red-500 ring-2 ring-red-200'
+                          : 'border-slate-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500'
+                      }`}
                       required
                     />
+                    {touched.name && errors.name && (
+                      <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                        <AlertCircle size={15} className="shrink-0 text-red-500" />
+                        <span>{errors.name}</span>
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -259,10 +297,21 @@ export const WriteReviewModal = ({ isOpen, onClose, onReviewSubmitted }) => {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
+                      onBlur={() => handleBlur('email')}
                       placeholder="name@example.com"
-                      className="w-full px-3.5 py-2 text-xs sm:text-sm rounded-lg bg-white border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-hidden focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all shadow-2xs"
+                      className={`w-full px-3.5 py-2 text-xs sm:text-sm rounded-lg bg-white border text-slate-900 placeholder-slate-400 focus:outline-hidden transition-all shadow-2xs ${
+                        touched.email && errors.email
+                          ? 'border-red-500 ring-2 ring-red-200'
+                          : 'border-slate-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500'
+                      }`}
                       required
                     />
+                    {touched.email && errors.email && (
+                      <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                        <AlertCircle size={15} className="shrink-0 text-red-500" />
+                        <span>{errors.email}</span>
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -271,23 +320,44 @@ export const WriteReviewModal = ({ isOpen, onClose, onReviewSubmitted }) => {
                   <label className="sm:col-span-4 text-xs sm:text-sm font-bold text-slate-800">
                     <span className="text-rose-500 font-bold">*</span> Mobile :
                   </label>
-                  <div className="sm:col-span-8 flex items-center gap-2">
-                    <CountryCodePicker
-                      selectedCountry={selectedCountry}
-                      onChange={setSelectedCountry}
-                      size="sm"
-                      className="shrink-0"
-                    />
-                    <input 
-                      type="tel"
-                      name="mobile"
-                      value={formData.mobile}
-                      onChange={(e) => setFormData(p => ({ ...p, mobile: e.target.value.replace(/[^0-9]/g, '') }))}
-                      placeholder="10-digit mobile number"
-                      maxLength={12}
-                      className="flex-1 px-3.5 py-2 text-xs sm:text-sm rounded-lg bg-white border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-hidden focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all shadow-2xs"
-                      required
-                    />
+                  <div className="sm:col-span-8">
+                    <div className="flex items-center gap-2">
+                      <CountryCodePicker
+                        selectedCountry={selectedCountry}
+                        onChange={(item) => {
+                          const maxDigits = getMaxPhoneDigits(item);
+                          const adjusted = formData.mobile.slice(0, maxDigits);
+                          setSelectedCountry(item);
+                          setFormData(p => ({ ...p, mobile: adjusted }));
+                          if (touched.mobile) {
+                            setErrors(prev => ({ ...prev, mobile: validatePhone(adjusted, item, true) }));
+                          }
+                        }}
+                        size="sm"
+                        className="shrink-0"
+                      />
+                      <input 
+                        type="tel"
+                        name="mobile"
+                        value={formData.mobile}
+                        onChange={handleChange}
+                        onBlur={() => handleBlur('mobile')}
+                        placeholder={selectedCountry?.code === 'IN' ? '10-digit mobile number' : 'Mobile number'}
+                        maxLength={getMaxPhoneDigits(selectedCountry)}
+                        className={`flex-1 px-3.5 py-2 text-xs sm:text-sm rounded-lg bg-white border text-slate-900 placeholder-slate-400 focus:outline-hidden transition-all shadow-2xs ${
+                          touched.mobile && errors.mobile
+                            ? 'border-red-500 ring-2 ring-red-200'
+                            : 'border-slate-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500'
+                        }`}
+                        required
+                      />
+                    </div>
+                    {touched.mobile && errors.mobile && (
+                      <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                        <AlertCircle size={15} className="shrink-0 text-red-500" />
+                        <span>{errors.mobile}</span>
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -300,7 +370,14 @@ export const WriteReviewModal = ({ isOpen, onClose, onReviewSubmitted }) => {
                     <SearchableSelect
                       name="product"
                       value={formData.product}
-                      onChange={handleChange}
+                      onChange={(e) => {
+                        handleChange(e);
+                        if (touched.product) {
+                          setErrors(prev => ({ ...prev, product: getFieldError('product', e.target.value) }));
+                        }
+                      }}
+                      onBlur={() => handleBlur('product')}
+                      error={Boolean(touched.product && errors.product)}
                       options={allProductsList}
                       placeholder="Type or select Product / Service..."
                       searchPlaceholder="Filter 35+ products..."
@@ -309,6 +386,12 @@ export const WriteReviewModal = ({ isOpen, onClose, onReviewSubmitted }) => {
                       size="sm"
                       className="w-full"
                     />
+                    {touched.product && errors.product && (
+                      <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                        <AlertCircle size={15} className="shrink-0 text-red-500" />
+                        <span>{errors.product}</span>
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -450,10 +533,21 @@ export const WriteReviewModal = ({ isOpen, onClose, onReviewSubmitted }) => {
                       rows={4}
                       value={formData.review}
                       onChange={handleChange}
+                      onBlur={() => handleBlur('review')}
                       placeholder="Share details of your experience with precast materials, installation, quality and service..."
-                      className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-lg bg-white border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-hidden focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all resize-y shadow-2xs"
+                      className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-lg bg-white border text-slate-900 placeholder-slate-400 focus:outline-hidden transition-all resize-y shadow-2xs ${
+                        touched.review && errors.review
+                          ? 'border-red-500 ring-2 ring-red-200'
+                          : 'border-slate-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500'
+                      }`}
                       required
                     />
+                    {touched.review && errors.review && (
+                      <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
+                        <AlertCircle size={15} className="shrink-0 text-red-500" />
+                        <span>{errors.review}</span>
+                      </p>
+                    )}
                   </div>
                 </div>
 

@@ -152,7 +152,7 @@ const Header = ({ currentRoute = 'home' }) => {
             <div className="flex items-center gap-1.5 sm:gap-2.5">
               {/* Facebook Official Icon */}
               <a 
-                href="https://facebook.com" 
+                href="https://www.facebook.com/share/1Dp6ot4HVL/?mibextid=wwXIfr" 
                 target="_blank" 
                 rel="noreferrer" 
                 className="w-6 h-6 sm:w-7 sm:h-7 inline-flex items-center justify-center hover:-translate-y-0.5 hover:scale-105 transition-all duration-200 cursor-pointer drop-shadow-sm shrink-0" 
@@ -165,7 +165,7 @@ const Header = ({ currentRoute = 'home' }) => {
 
               {/* Instagram Official Icon */}
               <a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/skprecastindustries?igsh=MTQ5ZHdpNHRoYTZneQ%3D%3D&utm_source=qr" 
                 target="_blank" 
                 rel="noreferrer" 
                 className="w-6 h-6 sm:w-7 sm:h-7 inline-flex items-center justify-center hover:-translate-y-0.5 hover:scale-105 transition-all duration-200 cursor-pointer drop-shadow-sm shrink-0" 
@@ -207,11 +207,13 @@ const Header = ({ currentRoute = 'home' }) => {
 
           {/* Desktop Navigation Menu */}
           <div className="hidden lg:flex items-center gap-8" onMouseLeave={() => setHoveredTab(null)}>
-            <ul className="flex items-center gap-7 list-none">
+            <ul className="flex items-center gap-7 list-none" onMouseLeave={() => setHoveredTab(null)}>
               {/* Home */}
               <li 
                 className="relative"
-                onMouseEnter={() => setHoveredTab('Home')}>
+                onMouseEnter={() => setHoveredTab('Home')}
+                onMouseLeave={() => setHoveredTab(null)}
+              >
                 <a 
                   href="/" 
                   className={`relative inline-flex items-center gap-1.5 text-[0.95rem] font-semibold py-2.5 transition-colors duration-200 ${
@@ -229,6 +231,7 @@ const Header = ({ currentRoute = 'home' }) => {
               <li 
                 className="relative"
                 onMouseEnter={() => setHoveredTab('About')}
+                onMouseLeave={() => setHoveredTab(null)}
               >
                 <a 
                   href="/about-us" 
@@ -257,7 +260,7 @@ const Header = ({ currentRoute = 'home' }) => {
                 }}
               >
                 <a 
-                  href="/products"
+                  href="/products" 
                   className={`relative inline-flex items-center gap-1.5 text-[0.95rem] font-semibold py-2.5 transition-colors duration-200 cursor-pointer ${
                     currentIndicatorTab === 'Products' ? 'text-yellow-600' : 'text-slate-700 hover:text-yellow-600'
                   }`}
@@ -349,6 +352,7 @@ const Header = ({ currentRoute = 'home' }) => {
               <li 
                 className="relative"
                 onMouseEnter={() => setHoveredTab('Catalogues')}
+                onMouseLeave={() => setHoveredTab(null)}
               >
                 <a 
                   href="/catalogues.htm" 
@@ -372,6 +376,7 @@ const Header = ({ currentRoute = 'home' }) => {
               <li 
                 className="relative"
                 onMouseEnter={() => setHoveredTab('Blog')}
+                onMouseLeave={() => setHoveredTab(null)}
               >
                 <a 
                   href="/blog" 
@@ -393,12 +398,15 @@ const Header = ({ currentRoute = 'home' }) => {
             </ul>
 
             {/* Actions: Search & Contact Button */}
-            <div className="flex items-center gap-5">
-              {/* Search Trigger */}
+            <div className="flex items-center gap-5" onMouseEnter={() => setHoveredTab(null)}>
+              {/* Desktop 3D Search Trigger */}
               <div className="relative search-box-container">
                 <button 
-                  className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 ${
-                    isSearchOpen ? 'bg-yellow-400 text-slate-950 shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-yellow-400 hover:text-slate-950'
+                  type="button"
+                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer ${
+                    isSearchOpen 
+                      ? 'bg-gradient-to-b from-amber-400 via-yellow-400 to-amber-500 text-slate-950 shadow-[0_6px_18px_rgba(245,158,11,0.5),inset_0_1.5px_2px_rgba(255,255,255,0.9),inset_0_-2px_2px_rgba(0,0,0,0.2)] border border-amber-300 scale-105' 
+                      : 'bg-gradient-to-b from-slate-50 via-slate-100 to-slate-200 text-slate-800 hover:from-amber-300 hover:via-yellow-400 hover:to-amber-500 hover:text-slate-950 shadow-[0_4px_10px_rgba(0,0,0,0.12),inset_0_1.5px_1px_rgba(255,255,255,0.95),inset_0_-1.5px_2px_rgba(0,0,0,0.1)] border border-slate-200/90 hover:border-amber-300 hover:scale-105 active:scale-95'
                   }`}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -407,7 +415,7 @@ const Header = ({ currentRoute = 'home' }) => {
                   title="Search Products"
                   aria-label="Search"
                 >
-                  <Search size={18} />
+                  <Search size={18} className="drop-shadow-xs" />
                 </button>
 
                 {/* Search Bar Popover with Interactive Products Dropdown */}
@@ -481,68 +489,103 @@ const Header = ({ currentRoute = 'home' }) => {
             </div>
           </div>
 
-          {/* Mobile Menu Toggle Button */}
-          <button 
-            className="lg:hidden flex items-center justify-center p-2 rounded-md text-slate-800 bg-slate-100 hover:bg-slate-200 transition-colors"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle Mobile Menu"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile Drawer */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-slate-100 shadow-xl px-5 py-4 flex flex-col gap-3 max-h-[calc(100vh-80px)] overflow-y-auto">
-          {/* Mobile Search Input */}
-          <div className="flex items-center gap-2 bg-slate-100 px-3.5 py-2.5 rounded-lg shrink-0 focus-within:ring-2 focus-within:ring-amber-500/20 focus-within:bg-white focus-within:border focus-within:border-amber-400 transition-all">
-            <Search size={18} className="text-slate-500 shrink-0" />
-            <input 
-              type="text" 
-              placeholder="Filter 35+ products..." 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="bg-transparent border-none outline-none text-sm w-full text-slate-800 placeholder-slate-400"
-            />
-            {searchQuery && (
-              <button className="text-slate-400 hover:text-slate-600" onClick={() => setSearchQuery('')}>
-                <X size={15} />
+          {/* Mobile Header Right Actions: 3D Search Button + Hamburger Menu */}
+          <div className="lg:hidden flex items-center gap-2 sm:gap-2.5">
+            {/* Mobile 3D Search Button */}
+            <div className="relative search-box-container">
+              <button 
+                type="button"
+                className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer ${
+                  isSearchOpen 
+                    ? 'bg-gradient-to-b from-amber-400 via-yellow-400 to-amber-500 text-slate-950 shadow-[0_4px_14px_rgba(245,158,11,0.5),inset_0_1.5px_2px_rgba(255,255,255,0.9),inset_0_-2px_2px_rgba(0,0,0,0.2)] border border-amber-300 scale-105' 
+                    : 'bg-gradient-to-b from-slate-50 via-slate-100 to-slate-200 text-slate-800 shadow-[0_3px_8px_rgba(0,0,0,0.12),inset_0_1.5px_1px_rgba(255,255,255,0.95),inset_0_-1.5px_2px_rgba(0,0,0,0.1)] border border-slate-200/90 active:scale-95'
+                }`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsSearchOpen(!isSearchOpen);
+                }}
+                title="Search Products"
+                aria-label="Search"
+              >
+                <Search size={18} className="drop-shadow-xs" />
               </button>
-            )}
-          </div>
 
-          {/* Mobile Filtered Products Dropdown List */}
-          {searchQuery.trim() && (
-            <div className="bg-slate-50/90 rounded-xl p-2 border border-slate-200 max-h-60 overflow-y-auto flex flex-col gap-1 shadow-inner">
-              <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-2 py-1">
-                Matching Products ({filteredHeaderProducts.length})
-              </div>
-              {filteredHeaderProducts.length > 0 ? (
-                filteredHeaderProducts.map((product, idx) => (
-                  <a
-                    key={idx}
-                    href={getProductUrl(product)}
-                    onClick={(e) => {
-                      navigateTo(getProductUrl(product), e);
-                      setIsMobileMenuOpen(false);
-                      setSearchQuery('');
-                      setActiveTab('Products');
-                    }}
-                    className="px-2.5 py-2 text-xs font-medium text-slate-800 hover:bg-amber-100/70 hover:text-amber-950 rounded-lg flex items-center justify-between"
-                  >
-                    <span className="truncate">{product}</span>
-                    <ArrowRight size={12} className="text-slate-400 shrink-0 ml-2" />
-                  </a>
-                ))
-              ) : (
-                <div className="px-2 py-3 text-center text-xs text-slate-400">
-                  No products matching "{searchQuery}"
+              {/* Mobile Search Popover Overlay */}
+              {isSearchOpen && (
+                <div 
+                  className="fixed inset-x-3 top-20 max-w-md mx-auto sm:absolute sm:inset-auto sm:top-12 sm:right-0 sm:w-84 bg-white rounded-2xl shadow-2xl p-3.5 border border-slate-200 z-[100] animate-in fade-in zoom-in-95 duration-150"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="flex items-center gap-2 bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 focus-within:border-amber-500 focus-within:ring-2 focus-within:ring-amber-500/20 focus-within:bg-white transition-all shadow-inner">
+                    <Search size={16} className="text-slate-400 shrink-0" />
+                    <input 
+                      type="text" 
+                      placeholder="Filter 35+ products..." 
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="border-none bg-transparent outline-none text-sm w-full text-slate-900 placeholder-slate-400 font-medium"
+                      autoFocus
+                    />
+                    {searchQuery && (
+                      <button className="text-slate-400 hover:text-slate-600 cursor-pointer p-0.5" onClick={() => setSearchQuery('')}>
+                        <X size={14} />
+                      </button>
+                    )}
+                  </div>
+
+                  <div className="mt-2.5 pt-1 border-t border-slate-100 max-h-64 overflow-y-auto custom-scrollbar flex flex-col">
+                    <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 py-1.5 flex items-center justify-between">
+                      <span>Products ({filteredHeaderProducts.length})</span>
+                      <span className="text-[10px] text-amber-700 bg-amber-50 font-semibold px-2 py-0.5 rounded border border-amber-200/60">
+                        Click to view
+                      </span>
+                    </div>
+                    {filteredHeaderProducts.length > 0 ? (
+                      filteredHeaderProducts.map((product, idx) => (
+                        <a
+                          key={idx}
+                          href={getProductUrl(product)}
+                          onClick={(e) => {
+                            navigateTo(getProductUrl(product), e);
+                            setIsSearchOpen(false);
+                            setSearchQuery('');
+                            setActiveTab('Products');
+                          }}
+                          className="px-3 py-2 text-xs font-semibold text-slate-800 hover:bg-amber-50 hover:text-amber-900 rounded-lg transition-colors flex items-center justify-between cursor-pointer group"
+                        >
+                          <span className="truncate">{product}</span>
+                          <ArrowRight size={12} className="text-slate-400 group-hover:text-amber-600 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
+                        </a>
+                      ))
+                    ) : (
+                      <div className="px-3 py-4 text-center text-xs text-slate-400">
+                        No products matching "{searchQuery}"
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
             </div>
-          )}
 
+            {/* Mobile Menu Toggle Button */}
+            <button 
+              type="button"
+              className="flex items-center justify-center p-2 sm:p-2.5 rounded-xl text-slate-800 bg-gradient-to-b from-slate-50 via-slate-100 to-slate-200 hover:bg-slate-200 border border-slate-200/90 shadow-[0_3px_8px_rgba(0,0,0,0.12),inset_0_1.5px_1px_rgba(255,255,255,0.95)] transition-all active:scale-95 cursor-pointer"
+              onClick={() => {
+                setIsMobileMenuOpen(!isMobileMenuOpen);
+                setIsSearchOpen(false);
+              }}
+              aria-label="Toggle Mobile Menu"
+            >
+              {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Drawer (Clean Navigation without duplicate search bar) */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden bg-white border-t border-slate-100 shadow-xl px-5 py-4 flex flex-col gap-3 max-h-[calc(100vh-80px)] overflow-y-auto">
           <div className="flex flex-col gap-1">
             <a 
               href="/" 

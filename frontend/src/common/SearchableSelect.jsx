@@ -31,7 +31,9 @@ export const SearchableSelect = ({
   id,
   error,
   className = '',
+  triggerClassName = '',
   popoverClassName = '',
+  placement = 'bottom',
   size = 'md',
   onBlur,
   ...props
@@ -135,7 +137,7 @@ export const SearchableSelect = ({
               error
                 ? 'border-rose-400 focus:border-rose-500 focus:ring-2 focus:ring-rose-400/20'
                 : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-400/30'
-            } ${disabled ? 'opacity-60 cursor-not-allowed bg-slate-100' : ''}`}
+            } ${disabled ? 'opacity-60 cursor-not-allowed bg-slate-100' : ''} ${triggerClassName}`}
           />
         ) : (
           <button
@@ -148,7 +150,7 @@ export const SearchableSelect = ({
               error
                 ? 'border-rose-400 focus:border-rose-500 focus:ring-2 focus:ring-rose-400/20'
                 : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-400/30'
-            } ${disabled ? 'opacity-60 cursor-not-allowed bg-slate-100' : ''}`}
+            } ${disabled ? 'opacity-60 cursor-not-allowed bg-slate-100' : ''} ${triggerClassName}`}
           >
             <span className={`truncate ${currentDisplayLabel ? 'text-slate-900 font-medium' : 'text-slate-400'}`}>
               {currentDisplayLabel || placeholder}
@@ -177,11 +179,11 @@ export const SearchableSelect = ({
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 5 }}
+            initial={{ opacity: 0, y: placement === 'top' ? -5 : 5 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 5 }}
+            exit={{ opacity: 0, y: placement === 'top' ? -5 : 5 }}
             transition={{ duration: 0.15 }}
-            className={`absolute top-full left-0 right-0 mt-1.5 bg-white border border-slate-200 rounded-xl shadow-2xl z-[150] overflow-hidden ${popoverClassName}`}
+            className={`absolute ${placement === 'top' ? 'bottom-full mb-1.5' : 'top-full mt-1.5'} left-0 right-0 bg-white border border-slate-200 rounded-xl shadow-2xl z-[150] overflow-hidden ${popoverClassName}`}
           >
             {/* Search Filter Header */}
             {showSearch && allFlattenedOptions.length > 5 && (

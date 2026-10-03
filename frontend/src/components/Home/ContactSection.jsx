@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, CheckCircle2, ShieldCheck, Clock, MapPin, AlertCircle } from 'lucide-react';
 import { allProductsList, countryCodes, countriesList, contactSectionHeaderData } from '../../data/homeData';
-import { Button, SearchableSelect, CountryCodePicker } from '../../common';
+import { 
+  Button, 
+  ProductSelectField, 
+  NameField, 
+  EmailField, 
+  PhoneField, 
+  MessageField, 
+  CountrySelectField, 
+  getMaxPhoneDigits 
+} from '../../common';
+import { validateField } from '../../utils/validation';
 
-const getMaxPhoneDigits = (country) => {
-  if (!country) return 10;
-  if (country.code === 'IN') return 10;
-  if (['AE', 'SA', 'AU', 'FR', 'NZ'].includes(country.code)) return 9;
-  if (['US', 'CA', 'GB', 'MX', 'BR'].includes(country.code)) return 10;
-  if (['SG', 'QA', 'KW', 'OM', 'BH', 'HK'].includes(country.code)) return 8;
-  if (['DE', 'RU', 'ZA'].includes(country.code)) return 11;
-  return 12;
-};
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -31,54 +32,16 @@ const ContactSection = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-
-  // Input Sanitization & Validation Rules
-  const validateField = (name, value, currentFormData = formData) => {
-    let error = '';
-
-    if (name === 'name') {
-      const trimmed = (value || '').trim();
-      if (!trimmed) {
-        error = 'Full name is required.';
-      } else if (trimmed.length < 2) {
-        error = 'Name must be at least 2 characters.';
-      } else if (!/^[a-zA-Z\s.'-]+$/.test(trimmed)) {
-        error = 'Please enter a valid name (letters only).';
-      }
-    }
-
-    if (name === 'email') {
-      const trimmed = (value || '').trim().toLowerCase();
-      if (trimmed && !/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i.test(trimmed)) {
-        error = 'Please enter a valid email address (e.g. radha@gmail.com).';
-      }
-    }
-
-    if (name === 'phone') {
-      const cleaned = (value || '').replace(/\D/g, '');
-      const maxDigits = getMaxPhoneDigits(currentFormData.selectedCountry);
-
-      if (!cleaned) {
-        error = 'Phone / mobile number is required.';
-      } else if (currentFormData.selectedCountry?.code === 'IN') {
-        if (cleaned.length !== 10) {
-          error = 'Please enter a valid 10-digit Indian mobile number.';
-        } else if (!/^[6-9]\d{9}$/.test(cleaned)) {
-          error = 'Mobile number must start with 6, 7, 8, or 9.';
-        }
-      } else {
-        if (cleaned.length < (maxDigits > 8 ? 8 : maxDigits)) {
-          error = `Please enter a valid ${maxDigits}-digit mobile number.`;
-        }
-      }
-    }
-
-    return error;
+  const getFieldError = (name, value, currentFormData = formData) => {
+    return validateField(name, value, {
+      selectedCountry: currentFormData.selectedCountry,
+      required: name === 'name' || name === 'phone'
+    });
   };
 
   const handleBlur = (field) => {
     setTouched(prev => ({ ...prev, [field]: true }));
-    const error = validateField(field, formData[field]);
+    const error = getFieldError(field, formData[field]);
     setErrors(prev => ({ ...prev, [field]: error }));
   };
 
@@ -97,7 +60,7 @@ const ContactSection = () => {
       const lowercaseEmail = sanitizedValue.toLowerCase();
       setFormData(prev => ({ ...prev, email: lowercaseEmail }));
       if (touched.email) {
-        setErrors(prev => ({ ...prev, email: validateField('email', lowercaseEmail) }));
+        setErrors(prev => ({ ...prev, email: getFieldError('email', lowercaseEmail) }));
       }
     } else if (name === 'phone') {
       // Strictly digits only (0-9). Max length restricted based on country
@@ -107,7 +70,7 @@ const ContactSection = () => {
 
       setFormData(prev => ({ ...prev, phone: truncatedPhone }));
       if (touched.phone) {
-        setErrors(prev => ({ ...prev, phone: validateField('phone', truncatedPhone, formData) }));
+        setErrors(prev => ({ ...prev, phone: getFieldError('phone', truncatedPhone, formData) }));
       }
     } else if (name === 'message') {
       if (sanitizedValue.length <= 300) {
@@ -117,7 +80,7 @@ const ContactSection = () => {
     } else {
       setFormData(prev => ({ ...prev, [name]: sanitizedValue }));
       if (touched[name]) {
-        setErrors(prev => ({ ...prev, [name]: validateField(name, sanitizedValue) }));
+        setErrors(prev => ({ ...prev, [name]: getFieldError(name, sanitizedValue) }));
       }
     }
   };
@@ -132,9 +95,9 @@ const ContactSection = () => {
       phone: true
     });
 
-    const nameError = validateField('name', formData.name);
-    const emailError = validateField('email', formData.email);
-    const phoneError = validateField('phone', formData.phone);
+    const nameError = getFieldError('name', formData.name);
+    const emailError = getFieldError('email', formData.email);
+    const phoneError = getFieldError('phone', formData.phone);
 
     const newErrors = {
       name: nameError,
@@ -210,22 +173,22 @@ const ContactSection = () => {
               </div>
 
               {/* Bottom Info Floating Card */}
-              <div className="absolute bottom-5 inset-x-5 p-5 rounded-[15px] bg-slate-900/90 backdrop-blur-md border border-white/15 text-white shadow-2xl">
-                <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
-                  <ShieldCheck className="text-yellow-400" size={20} />
-                  {contactSectionHeaderData.showcase.title}
+              <div className="absolute bottom-5 inset-x-5 p-4 sm:p-5 rounded-[15px] bg-slate-900/90 backdrop-blur-md border border-white/15 text-white shadow-2xl space-y-2">
+                <h3 className="text-[14px] font-bold text-white flex items-center gap-2" style={{ fontSize: '14px' }}>
+                  <ShieldCheck className="text-yellow-400" size={18} />
+                  <span style={{ fontSize: '14px' }}>{contactSectionHeaderData.showcase.title}</span>
                 </h3>
-                <p className="text-xs text-slate-300 leading-relaxed mb-3">
+                <p className="text-[13px] text-slate-300 leading-relaxed font-normal" style={{ fontSize: '13px' }}>
                   {contactSectionHeaderData.showcase.description}
                 </p>
-                <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-slate-300 pt-2 border-t border-slate-700/60">
-                  <div className="flex items-center gap-1.5 text-yellow-400 font-semibold">
-                    <Clock size={14} />
-                    <span>{contactSectionHeaderData.showcase.features[0].text}</span>
+                <div className="flex flex-wrap items-center gap-4 text-slate-300 font-medium pt-2 border-t border-slate-700/60" style={{ fontSize: '11.5px' }}>
+                  <div className="flex items-center gap-1.5 text-yellow-400 font-semibold" style={{ fontSize: '11.5px' }}>
+                    <Clock size={13} />
+                    <span style={{ fontSize: '11.5px' }}>{contactSectionHeaderData.showcase.features[0].text}</span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-slate-300">
-                    <MapPin size={14} className="text-yellow-400" />
-                    <span>{contactSectionHeaderData.showcase.features[1].text}</span>
+                  <div className="flex items-center gap-1.5 text-slate-300" style={{ fontSize: '11.5px' }}>
+                    <MapPin size={13} className="text-yellow-400" />
+                    <span style={{ fontSize: '11.5px' }}>{contactSectionHeaderData.showcase.features[1].text}</span>
                   </div>
                 </div>
               </div>
@@ -242,11 +205,11 @@ const ContactSection = () => {
           >
             {/* Header Area */}
             <div className="mb-4 sm:mb-5">
-              <h2 className="text-[23px] sm:text-3xl font-extrabold tracking-tight text-theme-heading mb-1.5">
+              <h2 className="text-[22px] sm:text-[26px] font-extrabold tracking-tight text-slate-900 mb-1">
                 {contactSectionHeaderData.title}
               </h2>
-              <p className="text-xs sm:text-sm text-slate-600">
-                Or reach out manually to <a href={`mailto:${contactSectionHeaderData.email}`} className="text-amber-700 hover:text-amber-800 underline font-semibold">{contactSectionHeaderData.email}</a> / <a href={`tel:${contactSectionHeaderData.phone.replace(/[^0-9+]/g, '')}`} className="text-amber-700 hover:text-amber-800 underline font-semibold">{contactSectionHeaderData.phone}</a>
+              <p className="text-[14px] text-slate-600 leading-normal" style={{ fontSize: '14px' }}>
+                Or reach out manually to <a href={`mailto:${contactSectionHeaderData.email}`} className="text-amber-700 hover:text-amber-800 underline underline-offset-2 font-semibold" style={{ fontSize: '15px' }}>{contactSectionHeaderData.email}</a> / <a href={`tel:${contactSectionHeaderData.phone.replace(/[^0-9+]/g, '')}`} className="text-amber-700 hover:text-amber-800 underline underline-offset-2 font-semibold" style={{ fontSize: '15px' }}>{contactSectionHeaderData.phone}</a>
               </p>
             </div>
 
@@ -270,177 +233,96 @@ const ContactSection = () => {
             {/* Form Fields */}
             <form onSubmit={handleSubmit} noValidate className="space-y-4">
               
-              {/* Row 1: Product Combobox (Directly Typeable + Complete 35 Products List) & Your Name */}
+              {/* Row 1: Product Combobox & Your Name */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                
-                {/* Product / Service Looking for */}
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                    Product / Service Looking for
-                  </label>
-                  <SearchableSelect
-                    name="product"
-                    value={formData.product}
-                    onChange={handleChange}
-                    options={allProductsList}
-                    placeholder="Type or select product..."
-                    searchPlaceholder="Filter 35+ products..."
-                    isTypeable={true}
-                  />
-                </div>
-
-                {/* Your Name (With Real-Time Validation) */}
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                    Your Name <span className="text-amber-600">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    onBlur={() => handleBlur('name')}
-                    placeholder="Enter your full name..."
-                    className={`w-full bg-slate-50 hover:bg-white focus:bg-white border rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none transition-all shadow-2xs ${
-                      touched.name && errors.name
-                        ? 'border-rose-500 focus:border-rose-500 focus:ring-2 focus:ring-rose-400/20'
-                        : 'border-slate-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400/30'
-                    }`}
-                  />
-                  {touched.name && errors.name && (
-                    <p className="text-[11px] text-rose-600 font-medium mt-1 flex items-center gap-1">
-                      <AlertCircle size={12} className="shrink-0" />
-                      <span>{errors.name}</span>
-                    </p>
-                  )}
-                </div>
-
-              </div>
-
-              {/* Row 2: Email & Country (Directly Typeable + Complete 240+ Countries List) */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                
-                {/* Email Address (Strict Lowercase Only e.g. radha@gmail.com) */}
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    onBlur={() => handleBlur('email')}
-                    autoCapitalize="none"
-                    autoCorrect="off"
-                    spellCheck="false"
-                    placeholder="radha@gmail.com"
-                    className={`w-full bg-slate-50 hover:bg-white focus:bg-white border rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none transition-all lowercase shadow-2xs ${
-                      touched.email && errors.email
-                        ? 'border-rose-500 focus:border-rose-500 focus:ring-2 focus:ring-rose-400/20'
-                        : 'border-slate-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400/30'
-                    }`}
-                  />
-                  {touched.email && errors.email && (
-                    <p className="text-[11px] text-rose-600 font-medium mt-1 flex items-center gap-1">
-                      <AlertCircle size={12} className="shrink-0" />
-                      <span>{errors.email}</span>
-                    </p>
-                  )}
-                </div>
-
-                {/* Country (Typeable Input + Complete 240+ Countries Browsable List) */}
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                    Country
-                  </label>
-                  <SearchableSelect
-                    name="country"
-                    value={formData.country}
-                    onChange={handleChange}
-                    options={countriesList}
-                    placeholder="Type or select country..."
-                    searchPlaceholder="Filter 240+ countries..."
-                    isTypeable={true}
-                  />
-                </div>
-
-              </div>
-
-              {/* Row 3: Phone / Mobile with Strict Country-Length Enforcement (Numbers Only) */}
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                  Phone / Mobile <span className="text-amber-600">*</span>
-                </label>
-                <div className="flex gap-2">
-                  
-                  {/* Country Code Picker Dropdown */}
-                  <CountryCodePicker
-                    selectedCountry={formData.selectedCountry}
-                    onChange={(item) => {
-                      const newMaxDigits = getMaxPhoneDigits(item);
-                      const adjustedPhone = formData.phone.slice(0, newMaxDigits);
-                      setFormData(prev => ({ 
-                        ...prev, 
-                        selectedCountry: item,
-                        phone: adjustedPhone 
-                      }));
-                      if (touched.phone) {
-                        setErrors(prev => ({ 
-                          ...prev, 
-                          phone: validateField('phone', adjustedPhone, { ...formData, selectedCountry: item }) 
-                        }));
-                      }
-                    }}
-                  />
-
-                  {/* Phone Input (Strict Numeric & Strict Max Length) */}
-                  <div className="w-full">
-                    <input
-                      type="tel"
-                      name="phone"
-                      inputMode="numeric"
-                      pattern="[0-9]*"
-                      maxLength={currentMaxDigits}
-                      value={formData.phone}
-                      onChange={handleChange}
-                      onBlur={() => handleBlur('phone')}
-                      placeholder={formData.selectedCountry?.code === 'IN' ? 'Enter 10-digit mobile number' : `Enter ${currentMaxDigits}-digit mobile number`}
-                      className={`w-full bg-slate-50 hover:bg-white focus:bg-white border rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none transition-all shadow-2xs ${
-                        touched.phone && errors.phone
-                          ? 'border-rose-500 focus:border-rose-500 focus:ring-2 focus:ring-rose-400/20'
-                          : 'border-slate-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400/30'
-                      }`}
-                    />
-                  </div>
-                </div>
-                {touched.phone && errors.phone && (
-                  <p className="text-[11px] text-rose-600 font-medium mt-1 flex items-center gap-1">
-                    <AlertCircle size={12} className="shrink-0" />
-                    <span>{errors.phone}</span>
-                  </p>
-                )}
-              </div>
-
-              {/* Row 4: Leave a Message for us */}
-              <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Leave a Message for us
-                  </label>
-                  <span className="text-[11px] text-slate-400 font-mono">
-                    {charCount}/300
-                  </span>
-                </div>
-                <textarea
-                  name="message"
-                  rows={3}
-                  value={formData.message}
+                <ProductSelectField
+                  label="Product / Service Looking for"
+                  required={false}
+                  value={formData.product}
                   onChange={handleChange}
-                  placeholder="Tell us about your project requirements (wall height, running feet, site location, etc.)..."
-                  className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400/30 transition-all resize-none shadow-2xs"
+                  options={allProductsList}
+                  placeholder="Type or select product..."
+                  searchPlaceholder="Filter 35+ products..."
+                  isTypeable={true}
+                />
+
+                <NameField
+                  label="Your Name"
+                  required={true}
+                  value={formData.name}
+                  onChange={handleChange}
+                  onBlur={() => handleBlur('name')}
+                  error={errors.name}
+                  touched={touched.name}
+                  placeholder="Enter your full name..."
                 />
               </div>
+
+              {/* Row 2: Email & Country */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <EmailField
+                  label="Email Address"
+                  required={false}
+                  value={formData.email}
+                  onChange={handleChange}
+                  onBlur={() => handleBlur('email')}
+                  error={errors.email}
+                  touched={touched.email}
+                  placeholder="radha@gmail.com"
+                />
+
+                <CountrySelectField
+                  label="Country"
+                  required={false}
+                  value={formData.country}
+                  onChange={handleChange}
+                  options={countriesList}
+                  placeholder="Type or select country..."
+                  searchPlaceholder="Filter 240+ countries..."
+                  isTypeable={true}
+                />
+              </div>
+
+              {/* Row 3: Phone / Mobile */}
+              <PhoneField
+                label="Phone / Mobile"
+                required={true}
+                value={formData.phone}
+                selectedCountry={formData.selectedCountry}
+                onCountryChange={(item) => {
+                  const newMaxDigits = getMaxPhoneDigits(item);
+                  const adjustedPhone = formData.phone.slice(0, newMaxDigits);
+                  setFormData(prev => ({ 
+                    ...prev, 
+                    selectedCountry: item,
+                    phone: adjustedPhone 
+                  }));
+                  if (touched.phone) {
+                    setErrors(prev => ({ 
+                      ...prev, 
+                      phone: validateField('phone', adjustedPhone, { ...formData, selectedCountry: item }) 
+                    }));
+                  }
+                }}
+                onChange={handleChange}
+                onBlur={() => handleBlur('phone')}
+                error={errors.phone}
+                touched={touched.phone}
+                placeholder={formData.selectedCountry?.code === 'IN' ? 'Enter 10-digit mobile number' : `Enter ${getMaxPhoneDigits(formData.selectedCountry)}-digit mobile number`}
+              />
+
+              {/* Row 4: Leave a Message for us */}
+              <MessageField
+                label="Leave a Message for us"
+                required={false}
+                name="message"
+                rows={3}
+                maxLength={300}
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Tell us about your project requirements (wall height, running feet, site location, etc.)..."
+              />
+
 
               {/* Submit Button */}
               <div className="pt-2">
