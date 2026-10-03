@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle2, ShieldCheck, Truck, Ruler, Layers, Sparkles } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
 import { Button } from '../../common';
+import ProductShareButton from './ProductShareButton';
 
 const ProductDetailModal = ({ isOpen, onClose, product, onOpenQuoteModal }) => {
   const [activeImg, setActiveImg] = React.useState(product?.image);
@@ -102,11 +103,14 @@ const ProductDetailModal = ({ isOpen, onClose, product, onOpenQuoteModal }) => {
               {/* Right Column: Details & Specs */}
               <div className="flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="w-2 h-2 rounded-full bg-amber-500" />
-                    <span className="text-xs font-bold uppercase tracking-widest text-amber-800">
-                      {product.categoryName}
-                    </span>
+                  <div className="flex items-center justify-between gap-3 mb-2">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-amber-500" />
+                      <span className="text-xs font-bold uppercase tracking-widest text-amber-800">
+                        {product.categoryName}
+                      </span>
+                    </div>
+                    <ProductShareButton product={product} />
                   </div>
 
                   <h2 className="text-2xl font-extrabold text-slate-900 leading-tight mb-3">

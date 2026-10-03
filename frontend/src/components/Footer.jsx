@@ -807,11 +807,12 @@ const Footer = () => {
 
           {/* Pure 3D WhatsApp Circular Button (Larger on Large Screens) */}
           <a 
-            href="https://wa.me/918238902687?text=Hi%20SK%20Precast%20Industries,%20I%20would%20like%20to%20inquire%20about%20your%20precast%20products."
+            href={`https://api.whatsapp.com/send?phone=918238902687&text=${encodeURIComponent("Hello SK Precast Industries,\n\nI am interested in Precast Concrete Boundary Wall & RCC Folding Compound Wall solutions from your Palwal (Haryana) manufacturing plant.\n\nPlease share your latest product catalogue, factory price list, and supply details across Delhi NCR & India.\n\n🌐 Website: https://www.skprecast-industries.com")}`}
             target="_blank" 
             rel="noreferrer" 
             className="relative z-10 w-12 h-12 sm:w-13 sm:h-13 lg:w-[66px] lg:h-[66px] rounded-full bg-whatsapp-3d flex items-center justify-center text-white shadow-[0_6px_22px_rgba(0,0,0,0.38),0_4px_12px_rgba(37,211,102,0.45),inset_0_1.5px_2px_rgba(255,255,255,0.75),inset_0_-2px_2.5px_rgba(0,0,0,0.25)] border-2 border-emerald-400/90 hover:scale-110 active:scale-95 transition-all duration-300 group cursor-pointer"
-            title="Chat on WhatsApp (+91-8238902687)"
+            title="Chat on WhatsApp (+91-8238902687) - SK Precast Industries"
+            aria-label="Chat with SK Precast Industries on WhatsApp"
           >
             {/* Live Green Online Beacon (Small & Subtle) */}
             <span className="absolute top-0.5 right-0.5 lg:top-1 lg:right-1 flex h-2.5 w-2.5 sm:h-3 sm:w-3 lg:h-3.5 lg:w-3.5">

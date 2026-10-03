@@ -15,7 +15,7 @@ export const heroSectionData = {
   description: "High-strength, weather-resistant precast compound & boundary walls built for industrial, commercial, and residential boundaries. Our fast modular on-site installation saves up to 60% construction time and delivers certified ISO-grade high-tensile RCC durability with zero maintenance.",
   whatsappButton: {
     text: "Connect on WhatsApp",
-    link: "https://wa.me/918238902687?text=Hello%20SK%20Precast%20Industries,%20I%20am%20interested%20in%20your%20Precast%20Compound%20%26%20Boundary%20Walls."
+    link: "https://api.whatsapp.com/send?phone=918238902687&text=Hello%20SK%20Precast%20Industries,%20I%20am%20interested%20in%20Precast%20Concrete%20Boundary%20Wall%20%26%20RCC%20Folding%20Compound%20Wall%20solutions%20from%20your%20Palwal%20manufacturing%20plant.%20Please%20share%20factory%20price%20list%20and%20catalogue."
   },
   bgImage: "/assets/images/main-hero-section.webp",
   highlights: [

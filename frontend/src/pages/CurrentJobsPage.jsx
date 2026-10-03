@@ -7,6 +7,7 @@ import { aboutCompanyData } from '../data/aboutUsData';
 import { countriesList, countryCodes } from '../data/homeData';
 import { qualificationsGrouped, functionalAreasList, noticePeriodsList, salaryThousandsList, currentJobsHeroData } from '../data/currentJobsData';
 import { getMaxPhoneDigits, validateName, validateEmail, validatePhone, validateCity, validateField } from '../utils/validation';
+import { dispatchJobApplicationForm } from '../utils/whatsappDispatch';
 
 const CurrentJobsPage = () => {
   const [formData, setFormData] = useState({
@@ -214,6 +215,9 @@ const CurrentJobsPage = () => {
     }
 
     setIsSubmitted(true);
+
+    // Dispatch structured WhatsApp message with application details to Admin
+    dispatchJobApplicationForm(formData);
   };
 
   return (

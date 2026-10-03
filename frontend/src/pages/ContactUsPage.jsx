@@ -15,6 +15,7 @@ import {
 } from '../common';
 import { validateField } from '../utils/validation';
 import { navigateTo } from '../utils/navigation';
+import { dispatchContactUsForm } from '../utils/whatsappDispatch';
 import { allProductsList, countryCodes } from '../data/homeData';
 import { contactUsHeroData, companyContactDetails, mapSectionData } from '../data/contactUsData';
 
@@ -110,11 +111,8 @@ const ContactUsPage = () => {
       setLoading(false);
       setSubmitted(true);
 
-      const waMsg = `*New Contact Enquiry - SK Precast Industries*%0A%0A• *Product/Service:* ${formData.product.trim()}%0A• *Name:* ${formData.name.trim()}%0A• *Email:* ${formData.email.trim()}%0A• *Mobile:* ${formData.selectedCountry.dialCode} ${formData.phone.trim()}%0A• *Requirement:* ${formData.message.trim()}`;
-
-      setTimeout(() => {
-        window.open(`https://wa.me/918238902687?text=${waMsg}`, '_blank');
-      }, 1000);
+      // Dispatch structured WhatsApp lead to Admin
+      dispatchContactUsForm(formData);
 
       setFormData({
         product: '',
@@ -127,7 +125,7 @@ const ContactUsPage = () => {
       setErrors({});
       setTouched({});
       setTimeout(() => setSubmitted(false), 8000);
-    }, 600);
+    }, 500);
   };
 
   return (

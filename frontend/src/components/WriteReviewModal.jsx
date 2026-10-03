@@ -5,6 +5,7 @@ import { FaStar } from 'react-icons/fa6';
 import { countryCodes, allProductsList } from '../data/homeData';
 import { CountryCodePicker, SearchableSelect } from '../common';
 import { getMaxPhoneDigits, validateName, validateEmail, validatePhone, validateProduct, validateMessage } from '../utils/validation';
+import { dispatchProductReviewForm } from '../utils/whatsappDispatch';
 
 export const WriteReviewModal = ({ isOpen, onClose, onReviewSubmitted }) => {
   const [formData, setFormData] = useState({
@@ -143,13 +144,26 @@ export const WriteReviewModal = ({ isOpen, onClose, onReviewSubmitted }) => {
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSuccess(true);
+      
+      // Dispatch structured WhatsApp review details to Admin
+      dispatchProductReviewForm({
+        product: formData.product,
+        name: formData.name,
+        email: formData.email,
+        mobile: formData.mobile,
+        selectedCountry: formData.selectedCountry,
+        review: formData.review,
+        rating: formData.rating,
+        likes: formData.likes
+      });
+
       if (onReviewSubmitted) {
         onReviewSubmitted(formData);
       }
       setTimeout(() => {
         onClose();
       }, 2000);
-    }, 800);
+    }, 500);
   };
 
   return (

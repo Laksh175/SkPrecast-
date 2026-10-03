@@ -4,6 +4,7 @@ import { Button } from '../common';
 import { getBlogPostBySlug, getExploreMoreBlogs, blogPostsData } from '../data/blogData';
 import { navigateTo } from '../utils/navigation';
 import { validateName, validateEmail, validateMessage } from '../utils/validation';
+import { dispatchBlogCommentForm } from '../utils/whatsappDispatch';
 
 const BlogDetailPage = ({ slug }) => {
   const [copied, setCopied] = useState(false);
@@ -72,6 +73,16 @@ const BlogDetailPage = ({ slug }) => {
     }
 
     setCommentSubmitted(true);
+
+    // Dispatch structured WhatsApp message to Admin
+    dispatchBlogCommentForm({
+      blogTitle: currentPost?.title,
+      name: commentForm.name,
+      email: commentForm.email,
+      website: commentForm.website,
+      message: commentForm.message
+    });
+
     setCommentForm({ name: '', email: '', website: '', message: '' });
     setCommentErrors({});
     setCommentTouched({});

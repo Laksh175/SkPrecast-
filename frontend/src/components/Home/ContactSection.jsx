@@ -13,6 +13,7 @@ import {
   getMaxPhoneDigits 
 } from '../../common';
 import { validateField } from '../../utils/validation';
+import { dispatchHomeContactForm } from '../../utils/whatsappDispatch';
 
 
 const ContactSection = () => {
@@ -115,6 +116,10 @@ const ContactSection = () => {
     setTimeout(() => {
       setLoading(false);
       setSubmitted(true);
+
+      // Dispatch structured WhatsApp message to admin
+      dispatchHomeContactForm(formData);
+
       setFormData({
         product: '',
         name: '',
@@ -128,7 +133,7 @@ const ContactSection = () => {
       setTouched({});
       setCharCount(0);
       setTimeout(() => setSubmitted(false), 7000);
-    }, 600);
+    }, 500);
   };
 
   const currentMaxDigits = getMaxPhoneDigits(formData.selectedCountry);

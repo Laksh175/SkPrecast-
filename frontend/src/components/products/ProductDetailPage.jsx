@@ -6,9 +6,7 @@ import {
   Clock, Loader2, Sparkles, ChevronDown, Search, AlertCircle
 } from 'lucide-react';
 import { getProductBySlug } from '../../data/productsData';
-import { exploreRangeProductsData } from '../../data/aboutUsData';
 import { countryCodes } from '../../data/homeData';
-import { useInfiniteSlider, useClickOutside } from '../../hooks';
 import ImageZoomMagnifier from './ImageZoomMagnifier';
 import QuickQuoteModal from '../QuickQuoteModal';
 import { navigateTo } from '../../utils/navigation';
@@ -17,9 +15,12 @@ import {
   NameField, 
   EmailField, 
   PhoneField, 
-  getMaxPhoneDigits 
+  getMaxPhoneDigits,
+  ManufacturingUnitSlider
 } from '../../common';
 import { validateField } from '../../utils/validation';
+import { dispatchProductDetailForm } from '../../utils/whatsappDispatch';
+import ProductShareButton from './ProductShareButton';
 
 
 const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => {
@@ -49,9 +50,34 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
 
   useEffect(() => {
     setActiveImage(product?.image);
-  }, [product?.id, product?.image]);
+    if (product) {
+      document.title = `${product.name} | SK Precast Industries Palwal`;
 
-  const { sliderRef, isDragging, containerHandlers, sliderHandlers } = useInfiniteSlider({ speed: 0.85 });
+      const updateMetaTag = (attr, key, content) => {
+        if (!content) return;
+        let meta = document.querySelector(`meta[${attr}="${key}"]`);
+        if (!meta) {
+          meta = document.createElement('meta');
+          meta.setAttribute(attr, key);
+          document.head.appendChild(meta);
+        }
+        meta.setAttribute('content', content);
+      };
+
+      const liveUrl = `https://www.skprecast-industries.com/${product.slug || activeSlug}.htm`;
+      const liveImg = product.image?.startsWith('http') 
+        ? product.image 
+        : `https://www.skprecast-industries.com${product.image?.startsWith('/') ? '' : '/'}${product.image}`;
+
+      updateMetaTag('property', 'og:title', `${product.name} | SK Precast Industries`);
+      updateMetaTag('property', 'og:description', product.description || `Buy ${product.name} at best factory price from SK Precast Industries.`);
+      updateMetaTag('property', 'og:image', liveImg);
+      updateMetaTag('property', 'og:url', liveUrl);
+      updateMetaTag('name', 'twitter:title', `${product.name} | SK Precast Industries`);
+      updateMetaTag('name', 'twitter:description', product.description || `Buy ${product.name} from SK Precast Industries.`);
+      updateMetaTag('name', 'twitter:image', liveImg);
+    }
+  }, [product?.id, product?.image, product?.name]);
 
   // Country Code Dropdown State
   const [selectedCountry, setSelectedCountry] = useState(countryCodes[0]); // India +91
@@ -140,20 +166,20 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
       setIsInlineSubmitting(false);
       setIsInlineSubmitted(true);
 
-      const message = `Hello SK Precast Industries,%0A%0A*New Product Enquiry for ${product?.name}*%0A• *Name:* ${inlineFormState.name.trim()}%0A• *Mobile:* ${selectedCountry.dialCode} ${inlineFormState.mobile.trim()}${inlineFormState.email ? `%0A• *Email:* ${inlineFormState.email.trim()}` : ''}%0A• *Quantity:* ${inlineFormState.quantity} ${inlineFormState.unit || 'Square Feet'}%0A• *Purpose:* ${inlineFormState.purpose}%0A• *Message:* ${inlineFormState.details}%0A%0APlease share best factory quotation.`;
-
-      setTimeout(() => {
-        window.open(`https://wa.me/918238902687?text=${message}`, '_blank');
-      }, 1000);
-    }, 800);
+      // Dispatch structured WhatsApp message to admin
+      dispatchProductDetailForm({
+        productName: product?.name,
+        name: inlineFormState.name,
+        email: inlineFormState.email,
+        mobile: inlineFormState.mobile,
+        selectedCountry,
+        quantity: inlineFormState.quantity,
+        unit: inlineFormState.unit,
+        purpose: inlineFormState.purpose,
+        details: inlineFormState.details
+      });
+    }, 500);
   };
-
-  // Triple items for seamless continuous infinite looping
-  const displayRangeProducts = [
-    ...exploreRangeProductsData,
-    ...exploreRangeProductsData,
-    ...exploreRangeProductsData
-  ];
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -341,10 +367,13 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
                 
                 {/* Product Title Header */}
                 <div className="mb-3">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[5px] text-[11px] font-extrabold uppercase tracking-wider bg-amber-50 text-amber-900 border border-amber-300/80 shadow-xs mb-2">
-                    <Building2 size={12} className="text-amber-600" />
-                    {product.category}
-                  </span>
+                  <div className="flex items-center justify-between gap-3 mb-2">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[5px] text-[11px] font-extrabold uppercase tracking-wider bg-amber-50 text-amber-900 border border-amber-300/80 shadow-xs">
+                      <Building2 size={12} className="text-amber-600" />
+                      {product.category}
+                    </span>
+                    <ProductShareButton product={product} />
+                  </div>
                   <h2 className="text-2xl sm:text-3xl lg:text-[2.2rem] font-black text-slate-900 tracking-tight leading-tight">
                     {product.name}
                   </h2>
@@ -833,7 +862,7 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
         </div>
       </div>
 
-      {/* 7. Explore Our Range (Continuous Auto-Scrolling Edge-to-Edge Full Width Slider) */}
+      {/* 7. Explore Our Range (Continuous Auto-Scrolling Common Manufacturing Slider) */}
       <div id="explore-our-range" className="mt-16 sm:mt-20 pt-4 mb-4 relative z-10 w-full scroll-mt-10">
         {/* Header Row: Title on Left, Description & Button Below it on Right */}
         <div className="max-w-[1260px] mx-auto px-5 sm:px-6 lg:px-8 mb-8 sm:mb-10">
@@ -846,9 +875,9 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
                   Explore Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-[#d97706] via-amber-500 to-yellow-500">Range</span>
                 </h2>
                 <div className="flex items-center justify-center gap-2 mt-2 mx-auto">
-                  <span className="h-[2px] w-20 sm:w-28 bg-amber-400 rounded-full" />
-                  <span className="h-2 w-2 rounded-full bg-amber-500 shadow-[0_0_6px_#f59e0b] shrink-0" />
-                  <span className="h-[2px] w-20 sm:w-28 bg-amber-400 rounded-full" />
+                  <span className="h-[2px] w-20 sm:w-28 rounded-full title-accent-bar" />
+                  <span className="h-2 w-2 rounded-full title-accent-dot shrink-0" />
+                  <span className="h-[2px] w-20 sm:w-28 rounded-full title-accent-bar" />
                 </div>
               </div>
             </div>
@@ -863,6 +892,7 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
                 variant="dark-to-gold"
                 size="md"
                 href="/products.htm"
+                onClick={(e) => navigateTo('/products.htm', e)}
                 icon={<ArrowRight size={14} />}
                 iconPosition="right"
               >
@@ -873,65 +903,8 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
           </div>
         </div>
 
-        {/* Full-Width Edge-To-Edge Auto-Scrolling Track (100% Screen Width) */}
-        <div 
-          className="relative w-full overflow-hidden select-none"
-          {...containerHandlers}
-        >
-          <div
-            ref={sliderRef}
-            {...sliderHandlers}
-            className={`flex items-center gap-3.5 sm:gap-6 overflow-x-auto no-scrollbar px-3 sm:px-8 lg:px-12 py-2 sm:py-4 ${
-              isDragging ? 'cursor-grabbing' : 'cursor-grab'
-            }`}
-            style={{ 
-              scrollbarWidth: 'none', 
-              msOverflowStyle: 'none',
-              WebkitOverflowScrolling: 'touch' 
-            }}
-          >
-            {displayRangeProducts.map((item, index) => (
-              <div
-                key={`${item.id}-${index}`}
-                className="w-[220px] sm:w-[300px] md:w-[350px] lg:w-[370px] shrink-0"
-              >
-                <a
-                  href={item.link}
-                  onClick={(e) => navigateTo(item.link, e)}
-                  className="group relative block w-full h-[280px] sm:h-[360px] lg:h-[390px] rounded-[15px] overflow-hidden bg-slate-900 border border-slate-200/90 shadow-[0_8px_25px_rgba(0,0,0,0.08)] hover:shadow-[0_16px_35px_rgba(250,204,21,0.25)] hover:border-yellow-400 hover:-translate-y-1.5 transition-all duration-500 cursor-pointer"
-                  draggable={false}
-                >
-                  {/* Image (Clean full opacity) */}
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out pointer-events-none"
-                    draggable={false}
-                    loading="lazy"
-                  />
-
-                  {/* Top-Left Name Text with White Text-Shadow */}
-                  <div className="absolute top-4 left-4 right-12 z-10 text-left">
-                    <h3 
-                      className="text-white font-extrabold text-[15px] sm:text-[16px] md:text-[17px] leading-snug tracking-tight line-clamp-2"
-                      style={{ textShadow: 'black 1px 3px 7px' }}
-                    >
-                      {item.title}
-                    </h3>
-                  </div>
-
-                  {/* Bottom-Right Arrow Circle Button */}
-                  <div className="absolute bottom-4 right-4 z-10">
-                    <div className="w-9 h-9 rounded-full bg-white/95 backdrop-blur-xs flex items-center justify-center text-slate-900 group-hover:bg-gradient-to-br group-hover:from-amber-400 group-hover:to-amber-600 group-hover:text-white transition-all shadow-[0_4px_14px_rgba(0,0,0,0.3)] group-hover:translate-x-0.5">
-                      <ArrowRight size={16} />
-                    </div>
-                  </div>
-
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Common Reusable Manufacturing Unit Images Scroller Track */}
+        <ManufacturingUnitSlider showHeader={false} className="pt-2 pb-0" />
       </div>
 
       {/* Quote Modal */}

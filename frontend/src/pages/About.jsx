@@ -30,8 +30,7 @@ const About = () => {
       variants={pageVariants}
       initial="initial"
       animate="animate"
-      className="w-full"
-    >
+      className="w-full">
       {/* 1. About Hero Banner with Breadcrumbs */}
       <AboutHeroBanner />
 

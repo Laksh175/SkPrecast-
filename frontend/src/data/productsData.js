@@ -1241,7 +1241,7 @@ We understand the importance of combining functionality with design, which is wh
       '/assets/images/precast-wall-panels.jpg'
     ],
     description: 'Precision molded precast wall panels designed for quick insertion into grooved RCC vertical column posts, building walls, and sound barriers.',
-    price: '₹ 70.00 - 110.00 / Square Feet',
+    price: '₹ 80.00 - 250.00 / Square Feet',
     moq: '50 Square Feet',
     unit: 'Square Feet',
     grade: 'Vibrated RCC',
@@ -1282,7 +1282,7 @@ We understand the importance of combining functionality with design, which is wh
       '/assets/images/rcc-precast-columns.jpg'
     ],
     description: 'Heavy duty precast concrete columns with precision grooves on both sides for effortless panel sliding and high structural load bearing capacity.',
-    price: '₹ 350.00 - 650.00 / Piece',
+    price: '₹ 80.00 - 250.00 / Piece',
     moq: '500 Square Feet',
     unit: 'Piece',
     grade: 'M-35 Column Grade',
@@ -1325,7 +1325,7 @@ We understand the importance of combining functionality with design, which is wh
       '/assets/images/industrial-boundary-wall.jpg'
     ],
     description: 'Designed specifically for industrial plant estates, logistics terminals, and heavy machinery boundaries with non-combustible fire rating.',
-    price: '₹ 85.00 - 145.00 / Square Feet',
+    price: '₹ 80.00 - 250.00 / Square Feet',
     moq: '500 Square Feet',
     unit: 'Square Feet',
     grade: 'Industrial Grade RCC',
@@ -1368,7 +1368,7 @@ We understand the importance of combining functionality with design, which is wh
       '/assets/images/farm-house-boundary-wal.jpg'
     ],
     description: 'Aesthetic and secure waterproof boundary wall panels ideal for agricultural farmhouses, resorts, and private residential property boundaries.',
-    price: '₹ 75.00 - 120.00 / Square Feet',
+    price: '₹ 80.00 - 250.00 / Square Feet',
     moq: '500 Square Feet',
     unit: 'Square Feet',
     grade: 'Eco-Durability RCC',
