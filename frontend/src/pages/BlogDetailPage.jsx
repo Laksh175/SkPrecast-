@@ -217,8 +217,8 @@ const BlogDetailPage = ({ slug }) => {
         <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-7 items-start">
             
-            {/* LEFT COLUMN: Slim Compact Sticky [In this article] Card (lg:col-span-3 xl:col-span-2, top-[140px]) */}
-            <aside className="lg:col-span-3 xl:col-span-2 w-full lg:max-w-[255px] lg:sticky lg:top-[140px] self-start order-2 lg:order-1">
+            {/* LEFT COLUMN: Slim Compact Sticky [In this article] Card (Hidden on mobile screens, visible only on lg+ desktop) */}
+            <aside className="hidden lg:block lg:col-span-3 xl:col-span-2 w-full lg:max-w-[255px] lg:sticky lg:top-[140px] self-start order-2 lg:order-1">
               <div className="bg-white text-slate-900 rounded-[10px] p-3.5 sm:p-4 border border-slate-200 shadow-sm text-left">
                 
                 {/* Header with Pin Icon */}
