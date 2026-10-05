@@ -21,9 +21,9 @@ export const openWhatsApp = (formattedText, phoneNumber = ADMIN_WHATSAPP_NUMBER)
 export const dispatchContactUsForm = ({ product, name, email, phone, selectedCountry, message }) => {
   const dialCode = selectedCountry?.dialCode || '+91';
   const fullPhone = phone ? `${dialCode} ${phone.trim()}` : 'Not provided';
-  
-  const text = 
-`🏢 *NEW INQUIRY - CONTACT US PAGE*
+
+  const text =
+    `🏢 *NEW INQUIRY - CONTACT US PAGE*
 --------------------------------------------
 🔹 *Product / Service:* ${product?.trim() || 'General Inquiry'}
 👤 *Customer Name:* ${name?.trim() || 'Not provided'}
@@ -44,8 +44,8 @@ export const dispatchHomeContactForm = ({ product, name, email, country, phone, 
   const dialCode = selectedCountry?.dialCode || '+91';
   const fullPhone = phone ? `${dialCode} ${phone.trim()}` : 'Not provided';
 
-  const text = 
-`🏢 *NEW INQUIRY - HOME PAGE CONTACT*
+  const text =
+    `🏢 *NEW INQUIRY - HOME PAGE CONTACT*
 --------------------------------------------
 🔹 *Product / Service:* ${product?.trim() || 'Precast Boundary Wall'}
 👤 *Customer Name:* ${name?.trim() || 'Not provided'}
@@ -67,8 +67,8 @@ export const dispatchProductDetailForm = ({ productName, name, email, mobile, se
   const dialCode = selectedCountry?.dialCode || '+91';
   const fullPhone = mobile ? `${dialCode} ${mobile.trim()}` : 'Not provided';
 
-  const text = 
-`🏢 *NEW PRODUCT INQUIRY*
+  const text =
+    `🏢 *NEW PRODUCT INQUIRY*
 --------------------------------------------
 🔹 *Product:* ${productName || 'Precast Product'}
 👤 *Customer Name:* ${name?.trim() || 'Not provided'}
@@ -91,8 +91,8 @@ export const dispatchQuickQuoteForm = ({ productName, name, email, mobile, selec
   const dialCode = selectedCountry?.dialCode || '+91';
   const fullPhone = mobile ? `${dialCode} ${mobile.trim()}` : 'Not provided';
 
-  const text = 
-`⚡ *QUICK QUOTE REQUEST*
+  const text =
+    `⚡ *QUICK QUOTE REQUEST*
 --------------------------------------------
 🔹 *Product:* ${productName || 'Precast Boundary Wall'}
 👤 *Customer Name:* ${name?.trim() || 'Not provided'}
@@ -172,8 +172,8 @@ export const dispatchJobApplicationForm = (formData, resumeUrl = null) => {
     ? `📎 *Resume Link (Click to Open PDF):*\n${resumeUrl}\n📄 *File Name:* ${formData.resumeFile?.name || 'Resume.pdf'}`
     : `📎 *Resume Attached:* ${formData.resumeFile?.name || 'File attached via form'}\n📌 _(Note: Candidate can attach ${formData.resumeFile?.name || 'resume file'} in this chat)_`;
 
-  const text = 
-`💼 *NEW JOB APPLICATION - SK PRECAST*
+  const text =
+    `💼 *NEW JOB APPLICATION - SK PRECAST*
 --------------------------------------------
 👤 *Applicant Name:* ${formData.name?.trim()} (${formData.gender || 'Male'})
 📞 *Mobile Number:* ${fullPhone}
@@ -198,14 +198,14 @@ ${resumeSection}
 export const dispatchProductReviewForm = ({ product, name, email, mobile, selectedCountry, review, rating, likes }) => {
   const dialCode = selectedCountry?.dialCode || '+91';
   const fullPhone = mobile ? `${dialCode} ${mobile.trim()}` : 'Not provided';
-  
+
   const likedAspects = likes ? Object.entries(likes)
     .filter(([_, val]) => val === 'like')
     .map(([key]) => key)
     .join(', ') : '';
 
-  const text = 
-`⭐ *NEW CUSTOMER REVIEW & RATING*
+  const text =
+    `⭐ *NEW CUSTOMER REVIEW & RATING*
 --------------------------------------------
 🔹 *Product Reviewed:* ${product?.trim() || 'SK Precast Products'}
 👤 *Customer Name:* ${name?.trim()}
@@ -224,8 +224,8 @@ ${likedAspects ? `👍 *Liked Features:* ${likedAspects}\n` : ''}📝 *Customer 
  * 7. Blog Comment Dispatcher
  */
 export const dispatchBlogCommentForm = ({ blogTitle, name, email, website, message }) => {
-  const text = 
-`📝 *NEW BLOG COMMENT & INQUIRY*
+  const text =
+    `📝 *NEW BLOG COMMENT & INQUIRY*
 --------------------------------------------
 📰 *Blog Article:* ${blogTitle || 'SK Precast Blog'}
 👤 *Name:* ${name?.trim()}
