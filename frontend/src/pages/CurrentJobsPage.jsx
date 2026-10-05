@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Building2, MapPin, Phone, Mail, ArrowRight, ShieldCheck, FileCheck, Briefcase, Upload, CheckCircle, AlertCircle, FileText, User, Clock, Search, ChevronDown, Check, Sparkles, X } from 'lucide-react';
+import { Building2, MapPin, Phone, Mail, ArrowRight, ShieldCheck, FileCheck, Briefcase, Upload, CheckCircle, AlertCircle, FileText, User, Clock, Search, ChevronDown, Check, Sparkles, X, Loader2 } from 'lucide-react';
 import { Button, SearchableSelect, CountryCodePicker, ContactInfoCard, ExploreProductsSection } from '../common';
 import { navigateTo } from '../utils/navigation';
 import { aboutCompanyData } from '../data/aboutUsData';
 import { countriesList, countryCodes } from '../data/homeData';
 import { qualificationsGrouped, functionalAreasList, noticePeriodsList, salaryThousandsList, currentJobsHeroData } from '../data/currentJobsData';
 import { getMaxPhoneDigits, validateName, validateEmail, validatePhone, validateCity, validateField } from '../utils/validation';
-import { dispatchJobApplicationForm } from '../utils/whatsappDispatch';
+import { dispatchJobApplicationForm, uploadResumeToCloud } from '../utils/whatsappDispatch';
 
 const CurrentJobsPage = () => {
   const [formData, setFormData] = useState({
@@ -38,6 +38,7 @@ const CurrentJobsPage = () => {
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const [fileName, setFileName] = useState('');
 
   const isOtherOption = (val) => {
@@ -133,6 +134,7 @@ const CurrentJobsPage = () => {
   };
 
   const handleFileChange = (e) => {
+    setTouched(prev => ({ ...prev, resumeFile: true }));
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       const validTypes = ['.pdf', '.doc', '.docx', '.rtf'];
@@ -140,6 +142,8 @@ const CurrentJobsPage = () => {
       
       if (!validTypes.includes(fileExt)) {
         setErrors(prev => ({ ...prev, resumeFile: 'Invalid file format. Please attach .doc, .docx, .rtf, or .pdf files only.' }));
+        setFormData(prev => ({ ...prev, resumeFile: null }));
+        setFileName('');
         e.target.value = '';
         return;
       }
@@ -147,6 +151,8 @@ const CurrentJobsPage = () => {
       // 5 MB limit (5 * 1024 * 1024 bytes)
       if (file.size > 5 * 1024 * 1024) {
         setErrors(prev => ({ ...prev, resumeFile: 'File size exceeds 5 MB limit. Please upload document under 5 MB.' }));
+        setFormData(prev => ({ ...prev, resumeFile: null }));
+        setFileName('');
         e.target.value = '';
         return;
       }
@@ -154,6 +160,10 @@ const CurrentJobsPage = () => {
       setFormData(prev => ({ ...prev, resumeFile: file }));
       setFileName(file.name);
       setErrors(prev => ({ ...prev, resumeFile: '' }));
+    } else {
+      setFormData(prev => ({ ...prev, resumeFile: null }));
+      setFileName('');
+      setErrors(prev => ({ ...prev, resumeFile: 'Please attach your resume document (.doc, .docx, .rtf, .pdf)' }));
     }
   };
 
@@ -187,7 +197,7 @@ const CurrentJobsPage = () => {
     setFileName('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const fieldsToValidate = [
@@ -214,10 +224,18 @@ const CurrentJobsPage = () => {
       return;
     }
 
+    setIsUploading(true);
+
+    let resumeUrl = null;
+    if (formData.resumeFile) {
+      resumeUrl = await uploadResumeToCloud(formData.resumeFile);
+    }
+
+    setIsUploading(false);
     setIsSubmitted(true);
 
-    // Dispatch structured WhatsApp message with application details to Admin
-    dispatchJobApplicationForm(formData);
+    // Dispatch structured WhatsApp message with application details & direct clickable PDF link to Admin
+    dispatchJobApplicationForm(formData, resumeUrl);
   };
 
   return (
@@ -1055,13 +1073,23 @@ const CurrentJobsPage = () => {
                           variant="view-more"
                           size="md"
                           type="submit"
+                          disabled={isUploading}
+                          className={isUploading ? 'opacity-80 cursor-not-allowed' : ''}
                         >
-                          Submit
+                          {isUploading ? (
+                            <span className="flex items-center gap-2">
+                              <Loader2 size={16} className="animate-spin" />
+                              <span>Uploading & Opening WhatsApp...</span>
+                            </span>
+                          ) : (
+                            <span>Submit</span>
+                          )}
                         </Button>
                         <Button
                           variant="gold"
                           size="md"
                           type="button"
+                          disabled={isUploading}
                           onClick={handleReset}
                         >
                           Reset

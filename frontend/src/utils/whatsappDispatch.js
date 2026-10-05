@@ -109,11 +109,68 @@ export const dispatchQuickQuoteForm = ({ productName, name, email, mobile, selec
 };
 
 /**
+ * Upload Resume File to Cloud Storage (Free tmpfiles API) with fallback
+ * Returns direct download/view URL string
+ */
+export const uploadResumeToCloud = async (file) => {
+  if (!file) return null;
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 12000); // 12-second timeout
+
+    const response = await fetch('https://tmpfiles.org/api/v1/upload', {
+      method: 'POST',
+      body: formData,
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+
+    if (response.ok) {
+      const data = await response.json();
+      if (data?.status === 'success' && data?.data?.url) {
+        // Convert to direct download/view link
+        return data.data.url.replace('https://tmpfiles.org/', 'https://tmpfiles.org/dl/');
+      }
+    }
+  } catch (err) {
+    console.warn('Cloud resume upload failed or timed out, sending filename fallback:', err);
+  }
+  return null;
+};
+
+/**
  * 5. Current Jobs / Career Application Form Dispatcher
  */
-export const dispatchJobApplicationForm = (formData) => {
+export const dispatchJobApplicationForm = (formData, resumeUrl = null) => {
   const dialCode = formData.selectedCountry?.dialCode || '+91';
   const fullPhone = formData.mobile ? `${dialCode} ${formData.mobile.trim()}` : 'Not provided';
+
+  // Clean Total Experience string
+  let expDisplay = 'Fresher';
+  if (formData.expYears && formData.expYears !== 'Fresher') {
+    const isOtherExp = String(formData.expYears).toLowerCase().includes('other');
+    const yearsPart = isOtherExp ? (formData.otherExpYears || formData.expYears) : formData.expYears;
+    const monthsPart = (formData.expMonths && formData.expMonths !== '0 Months') ? ` ${formData.expMonths}` : '';
+    expDisplay = `${yearsPart}${monthsPart}`;
+  }
+
+  // Clean Salary string
+  let salaryDisplay = 'Not specified';
+  const isOtherSal = String(formData.salaryLakhs).toLowerCase().includes('other');
+  if (isOtherSal) {
+    salaryDisplay = formData.otherSalary || 'Other';
+  } else if (formData.salaryLakhs) {
+    const lakhsPart = `₹${formData.salaryLakhs} Lakhs`;
+    const thousandsPart = (formData.salaryThousands && formData.salaryThousands !== '0') ? ` ${formData.salaryThousands} K` : '';
+    salaryDisplay = `${lakhsPart}${thousandsPart} / Year`;
+  }
+
+  const resumeSection = resumeUrl
+    ? `📎 *Resume Link (Click to Open PDF):*\n${resumeUrl}\n📄 *File Name:* ${formData.resumeFile?.name || 'Resume.pdf'}`
+    : `📎 *Resume Attached:* ${formData.resumeFile?.name || 'File attached via form'}\n📌 _(Note: Candidate can attach ${formData.resumeFile?.name || 'resume file'} in this chat)_`;
 
   const text = 
 `💼 *NEW JOB APPLICATION - SK PRECAST*
@@ -124,11 +181,11 @@ export const dispatchJobApplicationForm = (formData) => {
 📍 *Location:* ${formData.city?.trim()}, ${formData.locality?.trim()} (${formData.country || 'India'})
 🎓 *Qualification:* ${formData.qualification || 'Graduate'}
 🏢 *Functional Area:* ${formData.functionalArea || 'Production'}
-⏳ *Total Experience:* ${formData.expYears || '0'} Years ${formData.expMonths ? `${formData.expMonths} Months` : ''}
-💰 *Expected Salary:* ₹${formData.salaryLakhs || '0'} Lakhs ${formData.salaryThousands ? `${formData.salaryThousands} K` : ''} / Year
+⏳ *Total Experience:* ${expDisplay}
+💰 *Expected Salary:* ${salaryDisplay}
 ⏱️ *Notice Period:* ${formData.noticePeriod || 'Immediate'}
 🛠️ *Key Skills:* ${formData.keySkills?.trim() || 'Not provided'}
-📎 *Resume Attached:* ${formData.resumeFile?.name || 'File uploaded via form'}
+${resumeSection}
 --------------------------------------------
 🌐 _Submitted from: skprecast-industries.com/current-jobs.htm_`;
 
