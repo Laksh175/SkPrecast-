@@ -89,7 +89,7 @@ const CataloguesPage = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.25 }}
-            className="max-w-3xl mx-auto text-slate-300 text-[15px] leading-[26px]">
+            className="max-w-3xl mx-auto text-slate-300 text-[15px] font-medium leading-[26px]">
             Browse through SK Precast Industries' complete catalogue of precast boundary walls, RCC compound walls, and modular concrete solutions manufactured at our state-of-the-art Palwal unit.
           </motion.p>
         </div>
@@ -115,7 +115,7 @@ const CataloguesPage = () => {
                     <span className="h-[2px] w-20 sm:w-28 rounded-full title-accent-bar" />
                   </div>
                 </div>
-                <p className="text-slate-300 text-[17px] leading-[28px] mt-1.5 max-w-xl mx-auto lg:mx-0">
+                <p className="text-slate-300 text-[17px] font-medium leading-[28px] mt-1.5 max-w-xl mx-auto lg:mx-0">
                   Access our complete precast technical specifications, installation guides, and product details in your preferred language.
                 </p>
               </div>
@@ -147,8 +147,8 @@ const CataloguesPage = () => {
                           {item.name}
                         </h3>
                         <p 
-                          className="!text-[16px] text-slate-300 leading-relaxed mt-1.5 font-normal"
-                          style={{ fontSize: '16px', lineHeight: '24px' }}
+                          className="!text-[16px] text-slate-300 leading-relaxed mt-1.5 font-medium"
+                          style={{ fontSize: '16px', lineHeight: '24px', fontWeight: 500 }}
                         >
                           {item.description}
                         </p>

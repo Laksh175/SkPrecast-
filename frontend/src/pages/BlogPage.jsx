@@ -104,7 +104,7 @@ const BlogPage = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.25 }}
-            className="max-w-3xl mx-auto text-slate-300 text-[13.5px] sm:text-[14px] leading-relaxed"
+            className="max-w-3xl mx-auto text-slate-300 text-[13.5px] sm:text-[14px] font-medium leading-relaxed"
           >
             Explore technical articles, industry updates, and expert insights on high-strength precast concrete boundary wall engineering.
           </motion.p>

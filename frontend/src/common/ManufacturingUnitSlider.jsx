@@ -97,7 +97,7 @@ const ManufacturingUnitSlider = ({
 
           {/* 2-Line Description */}
           {subtitle && (
-            <p className="caption-text text-slate-300 text-[15px] sm:text-[16px] leading-[26px] sm:leading-[28px] max-w-3xl mx-auto px-2 font-normal">
+            <p className="caption-text text-slate-300 text-[15px] sm:text-[16px] leading-[26px] sm:leading-[28px] max-w-3xl mx-auto px-2 font-medium">
               {subtitle}
             </p>
           )}

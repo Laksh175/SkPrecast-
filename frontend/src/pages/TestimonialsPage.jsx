@@ -97,7 +97,7 @@ const TestimonialsPage = () => {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
-            className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto font-normal leading-relaxed"
+            className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto font-medium leading-relaxed"
           >
             Real feedback and verified reviews from commercial developers, farmhouse owners, and infrastructure contractors across India.
           </motion.p>

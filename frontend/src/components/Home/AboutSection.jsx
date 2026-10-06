@@ -98,7 +98,7 @@ const AboutSection = () => {
             </div>
 
             {/* Concise About Description */}
-            <p className="text-slate-300 text-[17px] leading-[28px] mb-6 sm:mb-8 text-center lg:text-left">
+            <p className="text-slate-300 text-[17px] font-medium leading-[28px] mb-6 sm:mb-8 text-center lg:text-left">
               {paragraph}
             </p>
 

@@ -319,7 +319,7 @@ const CurrentJobsPage = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.25 }}
-            className="max-w-3xl mx-auto text-slate-300 text-[15px] leading-[26px]"
+            className="max-w-3xl mx-auto text-slate-300 text-[15px] font-medium leading-[26px]"
           >
             Join our growing team at SK Precast Industries. Submit your resume to be considered for current and upcoming engineering, production, and management openings.
           </motion.p>

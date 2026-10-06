@@ -170,7 +170,7 @@ const BlogDetailPage = ({ slug }) => {
           </div>
 
           {/* Subtitle / Brand Tagline Paragraph */}
-          <p className="max-w-3xl mx-auto text-slate-300 text-[15px] leading-[26px]">
+          <p className="max-w-3xl mx-auto text-slate-300 text-[15px] font-medium leading-[26px]">
             <strong className="text-white font-bold">SK Precast Industries: </strong>
             Leading Manufacturer &amp; Supplier of Precast Boundary Walls, RCC Compound Walls, and Heavy Duty Concrete Panels in Palwal &amp; Delhi NCR.
           </p>

@@ -135,7 +135,7 @@ const Testimonials = () => {
               </div>
 
               {/* Description */}
-              <p className="text-slate-300 text-[17px] leading-[28px] mb-6 text-center lg:text-left">
+              <p className="text-slate-300 text-[17px] font-medium leading-[28px] mb-6 text-center lg:text-left">
                 {subtitle}
               </p>
             </div>

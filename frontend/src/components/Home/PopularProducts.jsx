@@ -62,7 +62,7 @@ const PopularProducts = () => {
           </div>
 
           {/* Subtitle */}
-          <p className="text-slate-300 text-[17px] leading-[28px] max-w-3xl mx-auto">
+          <p className="text-slate-300 text-[17px] font-medium leading-[28px] max-w-3xl mx-auto">
             {subtitle}
           </p>
         </motion.div>

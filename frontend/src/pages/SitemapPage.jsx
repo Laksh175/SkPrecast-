@@ -117,7 +117,7 @@ const SitemapPage = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.25 }}
-            className="max-w-3xl mx-auto text-slate-300 text-[15px] leading-[26px]"
+            className="max-w-3xl mx-auto text-slate-300 text-[15px] font-medium leading-[26px]"
           >
             Explore the complete navigation index and precast infrastructure solutions offered by SK Precast Industries.
           </motion.p>

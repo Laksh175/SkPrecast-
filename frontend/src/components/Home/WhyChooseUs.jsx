@@ -89,7 +89,7 @@ const WhyChooseUs = () => {
             <span className="h-[2px] w-20 sm:w-28 rounded-full title-accent-bar" />
           </div>
 
-          <p className="text-slate-300 text-[17px] leading-[28px] mt-2 font-normal max-w-2xl mx-auto">
+          <p className="text-slate-300 text-[17px] leading-[28px] mt-2 font-medium max-w-2xl mx-auto">
             {subtitle}
           </p>
         </motion.div>

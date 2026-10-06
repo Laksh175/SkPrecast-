@@ -287,7 +287,7 @@ const Product = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.25 }}
-            className="max-w-2xl mx-auto text-slate-300 text-[15px] leading-[26px]"
+            className="max-w-2xl mx-auto text-slate-300 text-[15px] font-medium leading-[26px]"
           >
             Browse our complete range of heavy-duty precast compound walls, modular boundary walls, and prefabricated RCC infrastructure solutions.
           </motion.p>

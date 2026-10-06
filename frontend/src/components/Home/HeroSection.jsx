@@ -106,7 +106,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
-            className="text-slate-200 text-[15px] sm:text-base md:text-[16.5px] lg:text-[17.5px] xl:text-[18px] leading-relaxed md:leading-[1.65] mb-4 sm:mb-6 max-w-3xl font-normal drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] px-1 sm:px-0 text-center"
+            className="text-slate-200 text-[15px] sm:text-base md:text-[16.5px] lg:text-[17.5px] xl:text-[18px] leading-relaxed md:leading-[1.65] mb-4 sm:mb-6 max-w-3xl font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] px-1 sm:px-0 text-center"
           >
             {description}
           </motion.p>
