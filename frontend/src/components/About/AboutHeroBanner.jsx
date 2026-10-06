@@ -16,20 +16,31 @@ const AboutHeroBanner = () => {
 
   return (
     <section className="relative bg-theme-heroNavy text-white pt-16 pb-20 overflow-hidden border-b border-amber-500/30 font-sans">
+      {/* Background Banner Image Clearly Visible */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <img 
+          src="/assets/images/hero-page-banner.jpeg" 
+          alt="SK Precast Industries Hero Banner" 
+          className="w-full h-full object-cover object-center opacity-85"
+          loading="eager"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#090e1a]/70 via-[#090e1a]/40 to-[#090e1a]" />
+      </div>
+
       {/* 1. Subtle Architectural Dot Grid Overlay */}
       <div 
-        className="absolute inset-0 opacity-[0.18] pointer-events-none"
+        className="absolute inset-0 opacity-[0.15] pointer-events-none z-1"
         style={{
           backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px)',
           backgroundSize: '24px 24px'
         }}/>
 
       {/* 2. Ambient Gradient Glows */}
-      <div className="absolute -top-24 left-1/3 w-96 h-96 bg-amber-500/15 blur-[120px] pointer-events-none rounded-full" />
-      <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-blue-600/10 blur-[130px] pointer-events-none rounded-full" />
+      <div className="absolute -top-24 left-1/3 w-96 h-96 bg-amber-500/15 blur-[120px] pointer-events-none rounded-full z-1" />
+      <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-blue-600/10 blur-[130px] pointer-events-none rounded-full z-1" />
 
       {/* 3. Top Gold Highlight Bar */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent shadow-[0_0_12px_rgba(245,158,11,0.6)]" />
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent shadow-[0_0_12px_rgba(245,158,11,0.6)] z-1" />
 
       <div className="max-w-[1260px] mx-auto px-6 relative z-10 text-center">
         {/* Breadcrumb (Clean & Bigger Font without background square box) */}

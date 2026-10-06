@@ -88,7 +88,7 @@ const ImageZoomMagnifier = ({
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
         onTouchCancel={handleTouchEnd}
-        className="relative w-full h-[360px] sm:h-[420px] md:h-[460px] lg:h-[480px] bg-white rounded-[15px] overflow-hidden border border-slate-200 shadow-xl cursor-crosshair group select-none touch-none"
+        className="relative w-full h-[360px] sm:h-[420px] md:h-[460px] lg:h-[480px] bg-[#162238] rounded-[15px] overflow-hidden border border-slate-700/80 shadow-xl cursor-crosshair group select-none touch-none"
       >
         {/* Main Base Image (Turns Grayscale on Hover) */}
         <img
@@ -100,8 +100,8 @@ const ImageZoomMagnifier = ({
 
         {/* Bottom Hint Pill */}
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 pointer-events-none transition-opacity duration-300">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-semibold bg-white/90 backdrop-blur-md text-slate-700 shadow-md border border-slate-200/80 whitespace-nowrap">
-            <ZoomIn size={13} className="text-amber-600" />
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-semibold bg-slate-900/90 backdrop-blur-md text-slate-200 shadow-md border border-slate-700 whitespace-nowrap">
+            <ZoomIn size={13} className="text-amber-400" />
             <span className="sm:hidden">
               {isHovered ? 'Drag finger to explore details' : 'Touch & Drag to zoom'}
             </span>

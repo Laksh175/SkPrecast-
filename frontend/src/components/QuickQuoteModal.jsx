@@ -160,13 +160,13 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.94, y: 15 }}
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="relative w-full max-w-[880px] max-h-[92vh] overflow-y-auto bg-white rounded-2xl shadow-2xl border border-slate-200 z-10 my-auto custom-scrollbar"
+          className="relative w-full max-w-[880px] max-h-[92vh] overflow-y-auto bg-[#0d1527] rounded-2xl shadow-2xl border border-slate-700/70 z-10 my-auto custom-scrollbar"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Top Header Row (Split Header matching reference design) */}
-          <div className="grid grid-cols-1 md:grid-cols-12 items-stretch border-b border-slate-100 sticky top-0 z-20">
+          <div className="grid grid-cols-1 md:grid-cols-12 items-stretch border-b border-slate-800 sticky top-0 z-20">
             {/* Left Header: Product Name */}
-            <div className="md:col-span-5 px-5 py-3.5 flex items-center gap-2.5 bg-gradient-to-r from-slate-950 to-slate-900 border-r border-slate-800/80">
+            <div className="md:col-span-5 px-5 py-3.5 flex items-center gap-2.5 bg-[#060a12] border-r border-slate-800">
               <span className="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_8px_#facc15] shrink-0" />
               <h3 className="text-base sm:text-lg font-extrabold text-white tracking-tight leading-tight line-clamp-1">
                 {product.name}
@@ -174,16 +174,16 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
             </div>
 
             {/* Right Header: "Get a Quick Quote" Banner with Close Button */}
-            <div className="md:col-span-7 px-5 py-3.5 bg-gradient-to-r from-[#fef08a] via-[#78350f] to-[#020617] flex items-center justify-between text-white">
+            <div className="md:col-span-7 px-5 py-3.5 bg-gradient-to-r from-amber-600 via-amber-700 to-slate-900 flex items-center justify-between text-white">
               <span className="text-base sm:text-lg font-extrabold tracking-wide drop-shadow-md text-white">
                 Get a Quick Quote
               </span>
 
-              {/* White Round Close Button */}
+              {/* Close Button */}
               <button 
                 type="button"
                 onClick={onClose}
-                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-slate-800 hover:text-slate-950 flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-md cursor-pointer ml-3 shrink-0"
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-900/80 hover:bg-slate-900 text-slate-200 hover:text-white flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-md cursor-pointer ml-3 shrink-0 border border-slate-700"
                 aria-label="Close dialog"
               >
                 <X size={16} strokeWidth={2.5} />
@@ -197,7 +197,7 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
             {/* Left Column: Product Image, Price, MOQ, Guarantee */}
             <div className="md:col-span-5 flex flex-col items-start text-left md:sticky md:top-18">
               {/* Product Image Frame */}
-              <div className="w-full h-44 sm:h-48 rounded-xl overflow-hidden bg-slate-50 border border-slate-200/90 shadow-xs mb-3">
+              <div className="w-full h-44 sm:h-48 rounded-xl overflow-hidden bg-[#162238] border border-slate-700/60 shadow-xs mb-3">
                 <img 
                   src={product.image} 
                   alt={product.name} 
@@ -207,23 +207,23 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
 
               {/* Price Row */}
               <div className="mb-1.5 text-sm sm:text-[14.5px]">
-                <span className="font-semibold text-slate-700">Price : </span>
-                <span className="font-extrabold text-[#ce802d] text-base sm:text-lg">
+                <span className="font-semibold text-slate-300">Price : </span>
+                <span className="font-extrabold text-amber-400 text-base sm:text-lg">
                   {priceText}
                 </span>
               </div>
 
               {/* MOQ Row */}
               <div className="text-sm sm:text-[14.5px] mb-3">
-                <span className="font-bold text-slate-900">MOQ : </span>
-                <span className="font-extrabold text-slate-900 text-sm sm:text-base">
+                <span className="font-bold text-slate-200">MOQ : </span>
+                <span className="font-extrabold text-slate-100 text-sm sm:text-base">
                   {moqText}
                 </span>
               </div>
 
               {/* Quality Guarantee Tag */}
-              <div className="pt-2 flex items-center gap-1.5 text-xs text-slate-500 font-medium border-t border-slate-100 w-full">
-                <ShieldCheck size={15} className="text-emerald-600 shrink-0" />
+              <div className="pt-2 flex items-center gap-1.5 text-xs text-slate-400 font-medium border-t border-slate-800 w-full">
+                <ShieldCheck size={15} className="text-emerald-400 shrink-0" />
                 <span>Factory Direct • Quality Tested RCC</span>
               </div>
             </div>
@@ -235,19 +235,19 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="py-10 px-4 flex flex-col items-center justify-center text-center bg-amber-50/60 rounded-xl border border-amber-200/80"
+                  className="py-10 px-4 flex flex-col items-center justify-center text-center bg-[#111927] rounded-xl border border-slate-700"
                 >
-                  <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mb-3 shadow-inner">
+                  <div className="w-14 h-14 rounded-full bg-emerald-950/80 text-emerald-400 flex items-center justify-center mb-3 shadow-inner border border-emerald-800/60">
                     <CheckCircle2 size={32} />
                   </div>
-                  <h4 className="text-xl font-bold text-slate-900 mb-1">
+                  <h4 className="text-xl font-bold text-white mb-1">
                     Quote Request Sent!
                   </h4>
-                  <p className="text-sm text-slate-600 mb-4 max-w-sm">
-                    Thank you, <span className="font-bold text-slate-900">{formData.name || 'Customer'}</span>! We have dispatched your quotation request to our sales team on WhatsApp.
+                  <p className="text-sm text-slate-300 mb-4 max-w-sm">
+                    Thank you, <span className="font-bold text-white">{formData.name || 'Customer'}</span>! We have dispatched your quotation request to our sales team on WhatsApp.
                   </p>
                   
-                  <div className="inline-flex items-center gap-2 text-xs font-semibold text-theme-whatsapp bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200">
+                  <div className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-400 bg-emerald-950/60 px-3.5 py-1.5 rounded-full border border-emerald-800/50">
                     <FaWhatsapp size={14} />
                     <span>WhatsApp chat opened in new tab</span>
                   </div>
@@ -312,13 +312,13 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
 
                     {/* ESTIMATED QUANTITY & UNIT */}
                     <div>
-                      <label className="block text-[11px] sm:text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                        Estimated Quantity <span className="text-amber-600 font-bold">*</span>
+                      <label className="block text-[11px] sm:text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                        Estimated Quantity <span className="text-amber-400 font-bold">*</span>
                       </label>
-                      <div className={`flex rounded-xl border overflow-hidden focus-within:ring-2 focus-within:ring-amber-500/20 bg-white transition-all shadow-2xs ${
+                      <div className={`flex rounded-xl border overflow-hidden focus-within:ring-2 focus-within:ring-amber-500/20 bg-[#162238] transition-all shadow-2xs ${
                         touched.quantity && errors.quantity
-                          ? 'border-red-500 ring-2 ring-red-200'
-                          : 'border-slate-300 focus-within:border-amber-500 hover:border-slate-400'
+                          ? 'border-red-500 ring-2 ring-red-500/30'
+                          : 'border-slate-700/80 focus-within:border-amber-500 hover:border-slate-600'
                       }`}>
                         <input
                           type="number"
@@ -329,23 +329,23 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
                           onBlur={() => handleBlur('quantity')}
                           placeholder="1000"
                           required
-                          className="w-full px-3 py-2 text-slate-900 text-sm font-bold outline-none bg-transparent"
+                          className="w-full px-3 py-2 text-white placeholder-slate-500 text-sm font-bold outline-none bg-transparent"
                         />
-                        <div className="border-l border-amber-200/90 bg-amber-50/70 hover:bg-amber-100/70 transition-colors shrink-0 flex items-center">
+                        <div className="border-l border-slate-700 bg-slate-800/80 hover:bg-slate-800 transition-colors shrink-0 flex items-center">
                           <input
                             type="text"
                             name="unit"
                             value={formData.unit}
                             onChange={handleChange}
                             placeholder="Square Feet"
-                            className="w-24 sm:w-28 px-2.5 py-2 bg-transparent text-amber-900 text-xs sm:text-sm font-bold outline-none text-center"
+                            className="w-24 sm:w-28 px-2.5 py-2 bg-transparent text-amber-400 text-xs sm:text-sm font-bold outline-none text-center"
                             aria-label="Measurement Unit"
                           />
                         </div>
                       </div>
                       {touched.quantity && errors.quantity && (
-                        <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1 flex items-center gap-1">
-                          <AlertCircle size={14} className="shrink-0 text-red-500" />
+                        <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-400 font-medium mt-1 flex items-center gap-1">
+                          <AlertCircle size={14} className="shrink-0 text-red-400" />
                           <span>{errors.quantity}</span>
                         </p>
                       )}
@@ -354,15 +354,15 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
 
                   {/* Row 3: PURPOSE OF REQUIREMENT (Tactile Choice Cards) */}
                   <div>
-                    <label className="block text-[11px] sm:text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                      Purpose of Requirement <span className="text-amber-600 font-bold">*</span>
+                    <label className="block text-[11px] sm:text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                      Purpose of Requirement <span className="text-amber-400 font-bold">*</span>
                     </label>
                     <div className="grid grid-cols-2 gap-2.5">
                       <label 
                         className={`flex items-center justify-between p-2.5 rounded-xl border text-xs font-bold cursor-pointer transition-all ${
                           formData.purpose === 'Reselling' 
-                            ? 'bg-amber-50/90 border-amber-500 text-amber-950 ring-2 ring-amber-500/20 shadow-xs' 
-                            : 'bg-slate-50/50 border-slate-300 text-slate-700 hover:border-slate-400'
+                            ? 'bg-amber-500/15 border-amber-500 text-amber-300 ring-2 ring-amber-500/20 shadow-xs' 
+                            : 'bg-[#162238] border-slate-700/80 text-slate-300 hover:border-slate-600'
                         }`}
                       >
                         <div className="flex items-center gap-2">
@@ -374,19 +374,19 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
                             onChange={handleChange}
                             className="sr-only"
                           />
-                          <Building2 size={15} className={formData.purpose === 'Reselling' ? 'text-amber-600' : 'text-slate-400'} />
+                          <Building2 size={15} className={formData.purpose === 'Reselling' ? 'text-amber-400' : 'text-slate-400'} />
                           <span>Reselling</span>
                         </div>
-                        <span className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${formData.purpose === 'Reselling' ? 'border-amber-500 bg-amber-500' : 'border-slate-300'}`}>
-                          {formData.purpose === 'Reselling' && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                        <span className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${formData.purpose === 'Reselling' ? 'border-amber-500 bg-amber-500' : 'border-slate-600'}`}>
+                          {formData.purpose === 'Reselling' && <span className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
                         </span>
                       </label>
 
                       <label 
                         className={`flex items-center justify-between p-2.5 rounded-xl border text-xs font-bold cursor-pointer transition-all ${
                           formData.purpose === 'End Use' 
-                            ? 'bg-amber-50/90 border-amber-500 text-amber-950 ring-2 ring-amber-500/20 shadow-xs' 
-                            : 'bg-slate-50/50 border-slate-300 text-slate-700 hover:border-slate-400'
+                            ? 'bg-amber-500/15 border-amber-500 text-amber-300 ring-2 ring-amber-500/20 shadow-xs' 
+                            : 'bg-[#162238] border-slate-700/80 text-slate-300 hover:border-slate-600'
                         }`}
                       >
                         <div className="flex items-center gap-2">
@@ -398,11 +398,11 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
                             onChange={handleChange}
                             className="sr-only"
                           />
-                          <Factory size={15} className={formData.purpose === 'End Use' ? 'text-amber-600' : 'text-slate-400'} />
+                          <Factory size={15} className={formData.purpose === 'End Use' ? 'text-amber-400' : 'text-slate-400'} />
                           <span>End Use</span>
                         </div>
-                        <span className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${formData.purpose === 'End Use' ? 'border-amber-500 bg-amber-500' : 'border-slate-300'}`}>
-                          {formData.purpose === 'End Use' && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                        <span className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${formData.purpose === 'End Use' ? 'border-amber-500 bg-amber-500' : 'border-slate-600'}`}>
+                          {formData.purpose === 'End Use' && <span className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
                         </span>
                       </label>
                     </div>
@@ -411,10 +411,10 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
                   {/* Row 4: REQUIREMENT DETAILS (Compact 2.5-row Textarea) */}
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <label className="block text-[11px] sm:text-xs font-bold text-slate-700 uppercase tracking-wider">
-                        Leave a Message / Requirement Details <span className="text-amber-600 font-bold">*</span>
+                      <label className="block text-[11px] sm:text-xs font-bold text-slate-300 uppercase tracking-wider">
+                        Leave a Message / Requirement Details <span className="text-amber-400 font-bold">*</span>
                       </label>
-                      <span className="text-[11px] font-semibold text-slate-400">
+                      <span className="text-[11px] font-semibold text-slate-500">
                         {formData.details.length}/300
                       </span>
                     </div>
@@ -427,15 +427,15 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
                       onBlur={() => handleBlur('details')}
                       required
                       placeholder="I am interested. Kindly send the quotation for the same."
-                      className={`w-full px-3.5 py-2 rounded-xl border bg-slate-50/50 focus:bg-white focus:ring-2 focus:ring-amber-500/20 text-slate-900 text-xs sm:text-sm placeholder:text-slate-400 outline-none resize-none transition-all min-h-[64px] ${
+                      className={`w-full px-3.5 py-2 rounded-xl border bg-[#162238] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 text-white text-xs sm:text-sm placeholder:text-slate-500 outline-none resize-none transition-all min-h-[64px] ${
                         touched.details && errors.details
-                          ? 'border-red-500 ring-2 ring-red-200'
-                          : 'border-slate-300 focus:border-amber-500 hover:border-slate-400'
+                          ? 'border-red-500 ring-2 ring-red-500/30'
+                          : 'border-slate-700/80 focus:border-amber-500 hover:border-slate-600'
                       }`}
                     />
                     {touched.details && errors.details && (
-                      <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1 flex items-center gap-1">
-                        <AlertCircle size={14} className="shrink-0 text-red-500" />
+                      <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-400 font-medium mt-1 flex items-center gap-1">
+                        <AlertCircle size={14} className="shrink-0 text-red-400" />
                         <span>{errors.details}</span>
                       </p>
                     )}
@@ -449,7 +449,7 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
                       type="submit"
                       disabled={isSubmitting}
                       fullWidth
-                      icon={isSubmitting ? <Loader2 size={18} className="animate-spin text-slate-900" /> : <ArrowRight size={17} />}
+                      icon={isSubmitting ? <Loader2 size={18} className="animate-spin text-slate-950" /> : <ArrowRight size={17} />}
                       iconPosition="right"
                     >
                       {isSubmitting ? 'Sending Request...' : 'Send Enquiry'}

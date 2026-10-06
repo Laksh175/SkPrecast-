@@ -37,7 +37,7 @@ const ProductRange = () => {
   const { title, subtitle } = productRangeHeaderData;
 
   return (
-    <section className="relative pt-4 pb-12 sm:py-16 lg:py-20 bg-theme-pageBg font-sans overflow-hidden">
+    <section className="relative pt-4 pb-12 sm:py-16 lg:py-20 bg-[#090e1a] font-sans overflow-hidden">
       <div className="max-w-[1260px] mx-auto px-5 sm:px-6 lg:px-8">
         
         {/* Section Title with Smooth Entrance */}
@@ -49,7 +49,7 @@ const ProductRange = () => {
           className="text-center max-w-3xl mx-auto mb-10 sm:mb-14"
         >
           <h2 className="text-[23px] sm:text-4xl lg:text-[2.75rem] font-extrabold tracking-tight leading-normal">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-[#d97706] via-amber-500 to-yellow-500 drop-shadow-sm inline-block pt-1 pb-2.5 px-1">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 drop-shadow-sm inline-block pt-1 pb-2.5 px-1">
               {title}
             </span>
           </h2>
@@ -62,7 +62,7 @@ const ProductRange = () => {
           </div>
 
           {/* Subtitle */}
-          <p className="text-slate-600 text-[17px] leading-[28px] max-w-3xl mx-auto">
+          <p className="text-slate-300 text-[17px] leading-[28px] max-w-3xl mx-auto">
             {subtitle}
           </p>
         </motion.div>
@@ -80,7 +80,7 @@ const ProductRange = () => {
               key={product.id}
               variants={cardVariants}
               whileHover={{ y: -8, transition: { duration: 0.3, ease: 'easeOut' } }}
-              className="group flex flex-col bg-gradient-to-b from-white to-slate-50/80 rounded-[15px] overflow-hidden border border-slate-200/90 hover:border-yellow-400 shadow-[0_8px_25px_rgba(0,0,0,0.05)] hover:shadow-[0px_1px_14px_2px_rgba(250,204,21,0.45)] transition-all duration-300"
+              className="group flex flex-col bg-[#111927] rounded-[15px] overflow-hidden border border-slate-800 hover:border-amber-400 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_35px_rgba(245,158,11,0.25)] transition-all duration-300"
             >
               {/* Product Image Header with Light Sweep Shimmer on Hover */}
               <div className="p-[6px]">
@@ -90,39 +90,39 @@ const ProductRange = () => {
                     navigateTo('/products', e);
                     window.location.hash = product.id;
                   }}
-                  className="block relative h-56 w-full overflow-hidden rounded-[12px] bg-slate-100 cursor-pointer shadow-xs"
+                  className="block relative h-56 w-full overflow-hidden rounded-[12px] bg-slate-900 cursor-pointer shadow-inner"
                   title={`View ${product.title}`}
                 >
                   <img
                     src={product.image}
                     alt={product.title}
-                    className="w-full h-full object-cover rounded-[12px] group-hover:scale-108 group-hover:brightness-[1.03] transition-all duration-700 ease-out"
+                    className="w-full h-full object-cover rounded-[12px] group-hover:scale-108 group-hover:brightness-[1.05] transition-all duration-700 ease-out"
                     loading="lazy"
                   />
 
                   {/* Light Sweep Shimmer Bar on Hover */}
-                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none" />
                 </a>
               </div>
 
               {/* Card Body */}
-              <div className="flex-1 px-5 pb-5 pt-2 flex flex-col justify-between bg-white">
+              <div className="flex-1 px-5 pb-5 pt-2 flex flex-col justify-between bg-[#111927]">
                 <div>
                   {/* Category Title (Clickable) */}
-                  <h2 className="mb-4 pb-2 border-b border-slate-100">
+                  <h2 className="mb-4 pb-2 border-b border-slate-800">
                     <a
                       href={`/products#${product.id}`}
                       onClick={(e) => {
                         navigateTo('/products', e);
                         window.location.hash = product.id;
                       }}
-                      className="inline-block text-lg font-bold text-slate-900 group-hover:text-amber-700 transition-colors cursor-pointer"
+                      className="inline-block text-lg font-bold text-slate-100 group-hover:text-amber-300 transition-colors cursor-pointer"
                     >
                       {product.title}
                     </a>
                   </h2>
 
-                  {/* List of Products (All Clickable with Unique Diamond Bullet) */}
+                  {/* List of Products */}
                   <ul className="space-y-2.5">
                     {product.items.map((item, idx) => (
                       <li key={idx}>
@@ -132,9 +132,9 @@ const ProductRange = () => {
                             navigateTo('/products', e);
                             window.location.hash = product.id;
                           }}
-                          className="flex items-start gap-2 text-[0.825rem] text-slate-700 font-medium leading-snug group/item hover:text-amber-700 hover:translate-x-1 transition-all cursor-pointer"
+                          className="flex items-start gap-2 text-[0.825rem] text-slate-300 font-medium leading-snug group/item hover:text-amber-300 hover:translate-x-1 transition-all cursor-pointer"
                         >
-                          <FaDiamond size={8} className="text-yellow-500 mt-1.5 shrink-0 group-hover/item:text-yellow-600 group-hover/item:scale-125 group-hover/item:rotate-45 transition-all duration-300" />
+                          <FaDiamond size={8} className="text-amber-400 mt-1.5 shrink-0 group-hover/item:text-yellow-300 group-hover/item:scale-125 group-hover/item:rotate-45 transition-all duration-300" />
                           <span>{item}</span>
                         </a>
                       </li>
@@ -142,15 +142,15 @@ const ProductRange = () => {
                   </ul>
                 </div>
 
-                {/* View All Link (Clickable) */}
-                <div className="mt-6 pt-4 border-t border-slate-100">
+                {/* View All Link */}
+                <div className="mt-6 pt-4 border-t border-slate-800">
                   <a
                     href={`/products#${product.id}`}
                     onClick={(e) => {
                       navigateTo('/products', e);
                       window.location.hash = product.id;
                     }}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-700 hover:text-yellow-600 transition-colors cursor-pointer group-hover:translate-x-1"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 hover:text-amber-300 transition-colors cursor-pointer group-hover:translate-x-1"
                   >
                     <span>+ View all</span>
                     <FaArrowRight size={10} className="group-hover:translate-x-1 transition-transform" />

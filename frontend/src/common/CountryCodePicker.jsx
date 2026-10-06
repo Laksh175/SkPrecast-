@@ -59,15 +59,15 @@ export const CountryCodePicker = ({
           e.stopPropagation();
           if (!disabled) setIsOpen(!isOpen);
         }}
-        className={`bg-slate-50/70 hover:bg-white border border-slate-300 rounded-xl ${sizeClasses} font-bold text-slate-900 flex items-center gap-1.5 justify-center hover:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-400/30 transition-all cursor-pointer shadow-2xs h-full ${
-          disabled ? 'opacity-60 cursor-not-allowed bg-slate-100' : ''
+        className={`bg-[#162238] hover:bg-[#1a2942] border border-slate-700 rounded-xl ${sizeClasses} font-bold text-slate-100 flex items-center gap-1.5 justify-center hover:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all cursor-pointer shadow-inner h-full ${
+          disabled ? 'opacity-60 cursor-not-allowed bg-slate-900' : ''
         }`}
       >
         <span>{selectedCountry?.flag || '🇮🇳'}</span>
         <span>{selectedCountry?.dialCode || '+91'}</span>
         <ChevronDown
           size={14}
-          className={`text-slate-500 transition-transform duration-200 ${isOpen ? 'rotate-180 text-amber-600' : ''}`}
+          className={`text-slate-400 transition-transform duration-200 ${isOpen ? 'rotate-180 text-amber-400' : ''}`}
         />
       </button>
 
@@ -79,23 +79,23 @@ export const CountryCodePicker = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 5 }}
             transition={{ duration: 0.15 }}
-            className={`absolute top-full left-0 ${popoverWidth} mt-1.5 bg-white border border-slate-200 rounded-xl shadow-2xl z-[150] overflow-hidden`}
+            className={`absolute top-full left-0 ${popoverWidth} mt-1.5 bg-[#0d1527] border border-slate-700 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-[150] overflow-hidden`}
           >
             {/* Search Input */}
-            <div className="p-2.5 border-b border-slate-200 bg-slate-50 flex items-center gap-2">
+            <div className="p-2.5 border-b border-slate-800 bg-[#111927] flex items-center gap-2">
               <Search size={14} className="text-slate-400 ml-1.5 shrink-0" />
               <input
                 type="text"
                 placeholder="Search country or code..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-transparent text-xs text-slate-900 placeholder:text-slate-400 outline-none w-full py-0.5"
+                className="bg-transparent text-xs text-slate-100 placeholder:text-slate-500 outline-none w-full py-0.5"
                 autoFocus
               />
             </div>
 
             {/* List */}
-            <div className="max-h-56 overflow-y-auto divide-y divide-slate-100 custom-scrollbar">
+            <div className="max-h-56 overflow-y-auto divide-y divide-slate-800/60 custom-scrollbar">
               {filteredList.length > 0 ? (
                 filteredList.map((item, idx) => {
                   const isSelected = selectedCountry?.code === item.code;
@@ -104,8 +104,8 @@ export const CountryCodePicker = ({
                       key={idx}
                       type="button"
                       onClick={() => handleSelect(item)}
-                      className={`w-full text-left px-3.5 py-2 text-xs hover:bg-yellow-50 hover:text-amber-900 transition-colors flex items-center justify-between cursor-pointer ${
-                        isSelected ? 'bg-yellow-100/80 text-amber-950 font-bold' : 'text-slate-700'
+                      className={`w-full text-left px-3.5 py-2 text-xs hover:bg-slate-800/80 hover:text-amber-300 transition-colors flex items-center justify-between cursor-pointer ${
+                        isSelected ? 'bg-amber-500/20 text-amber-300 font-bold' : 'text-slate-300'
                       }`}
                     >
                       <span className="flex items-center gap-2 truncate">
@@ -113,10 +113,10 @@ export const CountryCodePicker = ({
                         <span className="truncate">{item.name}</span>
                       </span>
                       <div className="flex items-center gap-1.5 shrink-0 ml-2">
-                        <span className="font-mono text-slate-500 text-[11px]">
+                        <span className="font-mono text-slate-400 text-[11px]">
                           {item.dialCode}
                         </span>
-                        {isSelected && <Check size={12} className="text-amber-600" />}
+                        {isSelected && <Check size={12} className="text-amber-400" />}
                       </div>
                     </button>
                   );

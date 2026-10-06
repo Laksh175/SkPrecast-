@@ -129,13 +129,24 @@ const ContactUsPage = () => {
   };
 
   return (
-    <div className="w-full bg-theme-pageBg text-theme-heading font-sans">
+    <div className="w-full bg-[#090e1a] text-slate-100 font-sans">
       
       {/* 1. HERO SECTION */}
-      <section className="relative bg-theme-heroNavy text-white pt-14 pb-16 lg:pt-20 lg:pb-22 overflow-hidden border-b border-amber-500/20 shadow-xl">
+      <section className="relative bg-[#0d1527] text-white pt-14 pb-16 lg:pt-20 lg:pb-22 overflow-hidden border-b border-amber-500/20 shadow-xl">
+        {/* Background Banner Image Clearly Visible */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <img 
+            src="/assets/images/hero-page-banner.jpeg" 
+            alt="SK Precast Industries Contact Banner" 
+            className="w-full h-full object-cover object-center opacity-85"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#090e1a]/70 via-[#090e1a]/40 to-[#090e1a]" />
+        </div>
+
         {/* Architectural Dot Grid Overlay */}
         <div 
-          className="absolute inset-0 opacity-[0.18] pointer-events-none"
+          className="absolute inset-0 opacity-[0.15] pointer-events-none z-1"
           style={{
             backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px)',
             backgroundSize: '24px 24px'
@@ -143,11 +154,11 @@ const ContactUsPage = () => {
         />
 
         {/* Ambient Gradient Glows */}
-        <div className="absolute -top-24 left-1/4 w-96 h-96 bg-amber-500/15 blur-[120px] pointer-events-none rounded-full" />
-        <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-blue-600/10 blur-[130px] pointer-events-none rounded-full" />
+        <div className="absolute -top-24 left-1/4 w-96 h-96 bg-amber-500/15 blur-[120px] pointer-events-none rounded-full z-1" />
+        <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-blue-600/10 blur-[130px] pointer-events-none rounded-full z-1" />
 
         {/* Top Gold Highlight Bar */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent shadow-[0_0_12px_rgba(245,158,11,0.6)]" />
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent shadow-[0_0_12px_rgba(245,158,11,0.6)] z-1" />
 
         <div className="max-w-[1260px] mx-auto px-6 relative z-10 text-center">
           {/* Breadcrumb */}
@@ -204,20 +215,20 @@ const ContactUsPage = () => {
         </div>
       </section>
 
-      {/* 2. MAIN CONTACT & ENQUIRY SECTION (Left Box Wider, Right Box Compact, Distinct Cards) */}
-      <section className="py-12 sm:py-16 bg-[#f8fafc] text-slate-900 relative">
+      {/* 2. MAIN CONTACT & ENQUIRY SECTION */}
+      <section className="py-12 sm:py-16 bg-[#090e1a] text-white relative">
         <div className="max-w-[1260px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
             
             {/* LEFT CARD: Company Contact Details (Wider Card: lg:col-span-7) */}
-            <div className="lg:col-span-7 bg-white rounded-[20px] border border-slate-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-lg transition-all duration-300 p-6 sm:p-7 lg:p-8 flex flex-col justify-between h-full">
+            <div className="lg:col-span-7 bg-[#111927] rounded-[20px] border border-slate-800 shadow-xl hover:shadow-2xl transition-all duration-300 p-6 sm:p-7 lg:p-8 flex flex-col justify-between h-full">
               
               <div>
                 {/* Header with Signature Gradient Text and Decorative Accent Underline */}
                 <div className="mb-5 text-left">
-                  <h2 className="text-[22px] sm:text-2xl lg:text-[26px] font-black tracking-tight leading-tight text-slate-900">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-[#d97706] via-amber-500 to-yellow-500 drop-shadow-sm">
+                  <h2 className="text-[22px] sm:text-2xl lg:text-[26px] font-black tracking-tight leading-tight text-white">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-300 to-yellow-400 drop-shadow-sm">
                       {companyContactDetails.companyName}
                     </span>
                   </h2>
@@ -228,16 +239,16 @@ const ContactUsPage = () => {
                   </div>
                 </div>
 
-                {/* Details List with Clean Thin Separator Lines and Compact Spacing */}
-                <div className="divide-y divide-slate-100 text-left">
+                {/* Details List */}
+                <div className="divide-y divide-slate-800 text-left">
                   {/* Item 1: Contact Person */}
                   <div className="flex items-start gap-3.5 py-3 first:pt-0">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25),inset_0_1px_1.5px_rgba(255,255,255,0.6)] ring-1 ring-amber-300/40">
-                      <User size={18} className="text-white drop-shadow-xs" />
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-slate-950 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25)] ring-1 ring-amber-300/40">
+                      <User size={18} className="text-slate-950 drop-shadow-xs" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Contact Person</span>
-                      <p className="caption-text text-[13.5px] sm:text-[14px] text-slate-800 font-bold leading-snug">
+                      <p className="caption-text text-[13.5px] sm:text-[14px] text-white font-bold leading-snug">
                         {companyContactDetails.contactPerson}
                       </p>
                     </div>
@@ -245,12 +256,12 @@ const ContactUsPage = () => {
 
                   {/* Item 2: Address */}
                   <div className="flex items-start gap-3.5 py-3">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25),inset_0_1px_1.5px_rgba(255,255,255,0.6)] ring-1 ring-amber-300/40">
-                      <MapPin size={18} className="text-white drop-shadow-xs" />
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-slate-950 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25)] ring-1 ring-amber-300/40">
+                      <MapPin size={18} className="text-slate-950 drop-shadow-xs" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Address</span>
-                      <p className="caption-text text-[13.5px] sm:text-[14px] text-slate-700 font-medium leading-relaxed">
+                      <p className="caption-text text-[13.5px] sm:text-[14px] text-slate-300 font-medium leading-relaxed">
                         {companyContactDetails.address}
                       </p>
                     </div>
@@ -258,18 +269,18 @@ const ContactUsPage = () => {
 
                   {/* Item 3: Call Us */}
                   <div className="flex items-start gap-3.5 py-3">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25),inset_0_1px_1.5px_rgba(255,255,255,0.6)] ring-1 ring-amber-300/40">
-                      <Phone size={18} className="text-white drop-shadow-xs" />
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-slate-950 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25)] ring-1 ring-amber-300/40">
+                      <Phone size={18} className="text-slate-950 drop-shadow-xs" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Mobile</span>
                       <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                         {companyContactDetails.phones.map((ph, idx) => (
                           <React.Fragment key={ph}>
-                            <a href={`tel:${ph.replace(/[^0-9+]/g, '')}`} className="caption-text text-[13.5px] sm:text-[14px] text-slate-800 hover:text-amber-600 transition-colors font-medium">
+                            <a href={`tel:${ph.replace(/[^0-9+]/g, '')}`} className="caption-text text-[13.5px] sm:text-[14px] text-slate-200 hover:text-amber-400 transition-colors font-medium">
                               {ph}
                             </a>
-                            {idx < companyContactDetails.phones.length - 1 && <span className="text-slate-300 font-bold">•</span>}
+                            {idx < companyContactDetails.phones.length - 1 && <span className="text-slate-600 font-bold">•</span>}
                           </React.Fragment>
                         ))}
                       </div>
@@ -278,12 +289,12 @@ const ContactUsPage = () => {
 
                   {/* Item 4: Email */}
                   <div className="flex items-start gap-3.5 py-3">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25),inset_0_1px_1.5px_rgba(255,255,255,0.6)] ring-1 ring-amber-300/40">
-                      <Mail size={18} className="text-white drop-shadow-xs" />
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-slate-950 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25)] ring-1 ring-amber-300/40">
+                      <Mail size={18} className="text-slate-950 drop-shadow-xs" />
                     </div>
                     <div className="min-w-0 flex-1 overflow-hidden">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">E-Mail</span>
-                      <a href={`mailto:${companyContactDetails.email}`} className="caption-text text-[13.5px] sm:text-[14px] text-slate-800 hover:text-amber-600 transition-colors font-medium truncate block">
+                      <a href={`mailto:${companyContactDetails.email}`} className="caption-text text-[13.5px] sm:text-[14px] text-slate-200 hover:text-amber-400 transition-colors font-medium truncate block">
                         {companyContactDetails.email}
                       </a>
                     </div>
@@ -291,12 +302,12 @@ const ContactUsPage = () => {
 
                   {/* Item 5: Alt. Email */}
                   <div className="flex items-start gap-3.5 py-3">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25),inset_0_1px_1.5px_rgba(255,255,255,0.6)] ring-1 ring-amber-300/40">
-                      <Mail size={18} className="text-white drop-shadow-xs" />
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-slate-950 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25)] ring-1 ring-amber-300/40">
+                      <Mail size={18} className="text-slate-950 drop-shadow-xs" />
                     </div>
                     <div className="min-w-0 flex-1 overflow-hidden">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Alt. E-Mail</span>
-                      <a href={`mailto:${companyContactDetails.altEmail}`} className="caption-text text-[13.5px] sm:text-[14px] text-slate-800 hover:text-amber-600 transition-colors font-medium truncate block">
+                      <a href={`mailto:${companyContactDetails.altEmail}`} className="caption-text text-[13.5px] sm:text-[14px] text-slate-200 hover:text-amber-400 transition-colors font-medium truncate block">
                         {companyContactDetails.altEmail}
                       </a>
                     </div>
@@ -304,8 +315,8 @@ const ContactUsPage = () => {
 
                   {/* Item 6: Web Address */}
                   <div className="flex items-start gap-3.5 py-3">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25),inset_0_1px_1.5px_rgba(255,255,255,0.6)] ring-1 ring-amber-300/40">
-                      <Monitor size={18} className="text-white drop-shadow-xs" />
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-slate-950 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25)] ring-1 ring-amber-300/40">
+                      <Monitor size={18} className="text-slate-950 drop-shadow-xs" />
                     </div>
                     <div className="min-w-0 flex-1 overflow-hidden">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Web Address</span>
@@ -313,7 +324,7 @@ const ContactUsPage = () => {
                         href={companyContactDetails.website} 
                         target="_blank" 
                         rel="noreferrer" 
-                        className="caption-text text-[13.5px] sm:text-[14px] text-slate-800 hover:text-amber-600 transition-colors font-medium truncate block"
+                        className="caption-text text-[13.5px] sm:text-[14px] text-slate-200 hover:text-amber-400 transition-colors font-medium truncate block"
                       >
                         {companyContactDetails.website}
                       </a>
@@ -322,8 +333,8 @@ const ContactUsPage = () => {
 
                   {/* Item 7: Web Page */}
                   <div className="flex items-start gap-3.5 py-3 last:pb-0">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25),inset_0_1px_1.5px_rgba(255,255,255,0.6)] ring-1 ring-amber-300/40">
-                      <Globe size={18} className="text-white drop-shadow-xs" />
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-slate-950 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_4px_10px_rgba(217,119,6,0.25)] ring-1 ring-amber-300/40">
+                      <Globe size={18} className="text-slate-950 drop-shadow-xs" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">Web Page</span>
@@ -334,7 +345,7 @@ const ContactUsPage = () => {
                             href={dir.url} 
                             target="_blank" 
                             rel="noreferrer" 
-                            className="caption-text text-[13px] sm:text-[13.5px] text-slate-800 hover:text-amber-600 transition-colors font-medium break-all block"
+                            className="caption-text text-[13px] sm:text-[13.5px] text-slate-200 hover:text-amber-400 transition-colors font-medium break-all block"
                           >
                             {dir.url}
                           </a>
@@ -349,7 +360,7 @@ const ContactUsPage = () => {
             </div>
 
             {/* RIGHT CARD: Exact Enquiry Form (Matching Equal Height Card: lg:col-span-5) */}
-            <div className="lg:col-span-5 bg-white rounded-[20px] border border-slate-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-lg transition-all duration-300 p-6 sm:p-7 lg:p-8 flex flex-col justify-center h-full">
+            <div className="lg:col-span-5 bg-[#111927] rounded-[20px] border border-slate-800 shadow-xl hover:shadow-2xl transition-all duration-300 p-6 sm:p-7 lg:p-8 flex flex-col justify-center h-full">
               
               <div>
                 {/* Success Banner */}
@@ -357,11 +368,11 @@ const ContactUsPage = () => {
                   <motion.div 
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mb-5 p-3.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 flex items-start gap-3 text-sm"
+                    className="mb-5 p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-300 flex items-start gap-3 text-sm"
                   >
-                    <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 size={18} className="text-emerald-400 shrink-0 mt-0.5" />
                     <div>
-                      <strong className="font-bold block text-emerald-950">Thank you for contacting SK Precast Industries!</strong>
+                      <strong className="font-bold block text-white">Thank you for contacting SK Precast Industries!</strong>
                       Your requirement has been received. Our team will reach out to you within 30 minutes.
                     </div>
                   </motion.div>
@@ -434,10 +445,10 @@ const ContactUsPage = () => {
                   <div className="pt-1 flex justify-center">
                     <Button
                       type="submit"
-                      variant="dark-to-gold"
+                      variant="gold-to-dark"
                       size="md"
                       disabled={loading}
-                      className="px-10 sm:px-12 py-2.5 sm:py-3 min-w-[150px] rounded-xl"
+                      className="px-10 sm:px-12 py-2.5 sm:py-3 min-w-[150px] rounded-xl font-bold"
                     >
                       {loading ? (
                         <span className="inline-flex items-center gap-2">
@@ -462,26 +473,26 @@ const ContactUsPage = () => {
       </section>
 
       {/* 3. GOOGLE MAP SECTION (Palwal, Haryana Unit) */}
-      <section id="google-map-section" className="py-10 sm:py-16 bg-white border-t border-slate-200 overflow-hidden w-full">
+      <section id="google-map-section" className="py-10 sm:py-16 bg-[#090e1a] border-t border-slate-800 overflow-hidden w-full">
         <div className="max-w-[1260px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
           
           {/* Section Heading */}
           <div className="text-center mb-6 sm:mb-8">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight">
-              Factory Location & <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-[#d97706] via-amber-500 to-yellow-500">Google Map</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight">
+              Factory Location & <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-300 to-yellow-400">Google Map</span>
             </h2>
             <div className="flex items-center justify-center gap-2 my-2.5 mx-auto">
               <span className="h-[2px] w-16 sm:w-24 rounded-full title-accent-bar" />
               <span className="h-2 w-2 rounded-full title-accent-dot shrink-0" />
               <span className="h-[2px] w-16 sm:w-24 rounded-full title-accent-bar" />
             </div>
-            <p className="caption-text text-slate-600 text-[14px] sm:text-[15px] leading-[22px] sm:leading-[24px] max-w-xl mx-auto px-2">
+            <p className="caption-text text-slate-300 text-[14px] sm:text-[15px] leading-[22px] sm:leading-[24px] max-w-xl mx-auto px-2">
               {mapSectionData.subtitle}
             </p>
           </div>
 
           {/* Interactive Google Map Frame */}
-          <div className="relative rounded-2xl overflow-hidden border border-slate-200/90 shadow-xl bg-slate-100 h-[320px] sm:h-[400px] md:h-[460px] w-full">
+          <div className="relative rounded-2xl overflow-hidden border border-slate-800 shadow-xl bg-[#162238] h-[320px] sm:h-[400px] md:h-[460px] w-full">
             <iframe 
               title="SK Precast Industries Palwal Haryana Location Map"
               src={mapSectionData.embedUrl} 

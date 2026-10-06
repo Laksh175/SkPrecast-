@@ -31,15 +31,26 @@ const TestimonialsPage = () => {
   }, []);
 
   return (
-    <div className="w-full bg-theme-pageBg text-theme-heading font-sans min-h-screen">
+    <div className="w-full bg-[#090e1a] text-slate-100 font-sans min-h-screen">
       
       {/* ========================================================================= */}
       {/* 1. HERO BANNER SECTION (Clean Dark Navy & Gold)                           */}
       {/* ========================================================================= */}
-      <section className="relative bg-theme-heroNavy text-white pt-14 pb-14 lg:pt-18 lg:pb-18 overflow-hidden border-b border-amber-500/20 shadow-xl">
+      <section className="relative bg-[#0d1527] text-white pt-14 pb-14 lg:pt-18 lg:pb-18 overflow-hidden border-b border-amber-500/20 shadow-xl">
+        {/* Background Banner Image Clearly Visible */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <img 
+            src="/assets/images/hero-page-banner.jpeg" 
+            alt="SK Precast Industries Testimonials Banner" 
+            className="w-full h-full object-cover object-center opacity-85"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#090e1a]/70 via-[#090e1a]/40 to-[#090e1a]" />
+        </div>
+
         {/* Architectural Dot Grid Overlay */}
         <div 
-          className="absolute inset-0 opacity-[0.18] pointer-events-none"
+          className="absolute inset-0 opacity-[0.15] pointer-events-none z-1"
           style={{
             backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px)',
             backgroundSize: '24px 24px'
@@ -47,8 +58,8 @@ const TestimonialsPage = () => {
         />
 
         {/* Ambient Gradient Glows */}
-        <div className="absolute -top-24 left-1/4 w-96 h-96 bg-amber-500/15 blur-[120px] pointer-events-none rounded-full" />
-        <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-blue-600/10 blur-[130px] pointer-events-none rounded-full" />
+        <div className="absolute -top-24 left-1/4 w-96 h-96 bg-amber-500/15 blur-[120px] pointer-events-none rounded-full z-1" />
+        <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-blue-600/10 blur-[130px] pointer-events-none rounded-full z-1" />
 
         <div className="max-w-[1260px] mx-auto px-6 relative z-10 text-center">
           {/* Breadcrumbs */}
@@ -96,13 +107,13 @@ const TestimonialsPage = () => {
       {/* ========================================================================= */}
       {/* 2. MAIN SECTION: 2-COLUMN TESTIMONIALS (LEFT) + CONTACT CARD (RIGHT)      */}
       {/* ========================================================================= */}
-      <section className="relative pt-8 pb-14 sm:pt-10 sm:pb-18 lg:pt-12 lg:pb-20 bg-gradient-to-b from-[#faf5f0] via-[#fdfbf7] to-[#f8fafc]">
+      <section className="relative pt-8 pb-14 sm:pt-10 sm:pb-18 lg:pt-12 lg:pb-20 bg-[#090e1a]">
         
-        {/* Soft Ambient Glows (Contained safely so parent section does not break sticky) */}
+        {/* Soft Ambient Glows */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[650px] h-[320px] bg-gradient-to-tr from-rose-200/30 via-amber-200/30 to-orange-100/20 blur-[130px] rounded-full" />
-          <div className="absolute top-1/3 left-10 w-80 h-80 bg-amber-200/20 blur-[140px] rounded-full" />
-          <div className="absolute top-2/3 right-10 w-80 h-80 bg-teal-200/20 blur-[140px] rounded-full" />
+          <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[650px] h-[320px] bg-amber-500/10 blur-[130px] rounded-full" />
+          <div className="absolute top-1/3 left-10 w-80 h-80 bg-blue-600/10 blur-[140px] rounded-full" />
+          <div className="absolute top-2/3 right-10 w-80 h-80 bg-amber-500/10 blur-[140px] rounded-full" />
         </div>
 
         <div className="max-w-[1260px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -112,7 +123,7 @@ const TestimonialsPage = () => {
           {/* ========================================================================= */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-start">
             
-            {/* LEFT SIDE: 2 Columns of Testimonials (1 line me 2 comments) */}
+            {/* LEFT SIDE: 2 Columns of Testimonials */}
             <div className="lg:col-span-8">
               <div className="columns-1 sm:columns-2 gap-5 space-y-5 [column-fill:_balance]">
                 {allVerifiedTestimonials.map((item, index) => (
@@ -122,7 +133,7 @@ const TestimonialsPage = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-30px' }}
                     transition={{ duration: 0.45, delay: (index % 2) * 0.08 }}
-                    className="break-inside-avoid inline-block w-full h-fit bg-white/95 backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-slate-200/90 hover:border-amber-400/80 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_30px_-8px_rgba(245,158,11,0.16)] transition-all duration-300 hover:-translate-y-1.5 group relative"
+                    className="break-inside-avoid inline-block w-full h-fit bg-[#111927] backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-slate-800 hover:border-amber-400/80 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 group relative"
                   >
                     {/* Top Subtle Amber Bar Accent on Hover */}
                     <div className="absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl" />
@@ -140,13 +151,13 @@ const TestimonialsPage = () => {
                       </div>
                     </div>
 
-                    {/* Testimonial Content (Dynamic Natural Height) */}
-                    <div className="text-slate-700 text-[13.5px] sm:text-[14px] leading-relaxed font-normal mb-4">
+                    {/* Testimonial Content */}
+                    <div className="text-slate-300 text-[13.5px] sm:text-[14px] leading-relaxed font-normal mb-4">
                       "{item.content}"
                     </div>
 
                     {/* Divider */}
-                    <div className="h-[1px] w-full bg-slate-100 mb-3" />
+                    <div className="h-[1px] w-full bg-slate-800 mb-3" />
 
                     {/* User Details with Avatar */}
                     <div className="flex items-center gap-3">
@@ -154,7 +165,7 @@ const TestimonialsPage = () => {
                         <img 
                           src={item.profilePhoto} 
                           alt={item.name} 
-                          className="w-9 h-9 rounded-full object-cover shrink-0 ring-2 ring-amber-300/60"
+                          className="w-9 h-9 rounded-full object-cover shrink-0 ring-2 ring-amber-400/60"
                         />
                       ) : (
                         <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#fde047] via-[#facc15] to-[#eab308] text-slate-950 font-extrabold flex items-center justify-center text-xs shadow-[0_2px_8px_rgba(250,204,21,0.3)] shrink-0 border border-yellow-300/80 group-hover:scale-105 transition-transform">
@@ -163,14 +174,14 @@ const TestimonialsPage = () => {
                       )}
                       
                       <div className="overflow-hidden text-left">
-                        <h3 className="text-[13.5px] font-bold text-slate-900 group-hover:text-amber-700 transition-colors leading-tight">
+                        <h3 className="text-[13.5px] font-bold text-white group-hover:text-amber-400 transition-colors leading-tight">
                           {item.name}
                         </h3>
-                        <p className="caption-text text-[12px] text-slate-500 mt-0.5 font-medium flex flex-wrap items-center gap-1.5">
+                        <p className="caption-text text-[12px] text-slate-400 mt-0.5 font-medium flex flex-wrap items-center gap-1.5">
                           <span>{item.role}</span>
                           {item.relativeTime && (
                             <>
-                              <span className="text-slate-300">•</span>
+                              <span className="text-slate-600">•</span>
                               <span className="text-slate-400">{item.relativeTime}</span>
                             </>
                           )}
@@ -182,11 +193,11 @@ const TestimonialsPage = () => {
               </div>
             </div>
 
-            {/* RIGHT SIDE: Sticky Column containing Write a Review Button + Contact Card + User Satisfaction Card */}
+            {/* RIGHT SIDE: Sticky Column */}
             <div className="lg:col-span-4 relative h-full">
               <div className="sticky top-[120px] sm:top-[130px] lg:top-[140px] z-20 space-y-4 sm:space-y-5">
                 
-                {/* 0. WRITE A REVIEW BUTTON (Opens Review Modal) */}
+                {/* 0. WRITE A REVIEW BUTTON */}
                 <button
                   type="button"
                   onClick={() => setIsReviewModalOpen(true)}
@@ -196,21 +207,21 @@ const TestimonialsPage = () => {
                   <span>Write a Review</span>
                 </button>
 
-                {/* 1. STANDALONE CONTACT DETAILS CARD (Common Reusable Component) */}
+                {/* 1. STANDALONE CONTACT DETAILS CARD */}
                 <ContactInfoCard className="w-full" />
 
-                {/* 2. USER SATISFACTION SECTION (Title above the box + 3 lighting border cards) */}
+                {/* 2. USER SATISFACTION SECTION */}
                 <div className="w-full text-left">
-                  {/* Title Above Box (Font-size 21px) */}
-                  <h3 className="text-[21px] font-bold text-slate-900 tracking-tight mb-2.5 px-0.5">
+                  {/* Title Above Box */}
+                  <h3 className="text-[21px] font-bold text-white tracking-tight mb-2.5 px-0.5">
                     User Satisfaction
                   </h3>
 
-                  {/* White Container Box */}
-                  <div className="w-full relative rounded-[15px] p-5 sm:p-6 bg-theme-pageBg border border-slate-200 shadow-xl shadow-slate-200/50 hover:border-slate-300 hover:shadow-2xl hover:shadow-slate-300/40 transition-all duration-300">
+                  {/* Container Box */}
+                  <div className="w-full relative rounded-[15px] p-5 sm:p-6 bg-[#111927] border border-slate-800 shadow-xl hover:border-slate-700 transition-all duration-300">
                     <div className="grid grid-cols-3 gap-2.5 sm:gap-3.5">
                       
-                      {/* Metric 1: Response (Full 360° Border with Color Shade Scrolling) */}
+                      {/* Metric 1: Response */}
                       <div className="relative rounded-2xl p-[2px] overflow-hidden group shadow-xs hover:shadow-md transition-all">
                         {/* Infinite Full-Perimeter Color Shade Scrolling Border */}
                         <div 
@@ -219,17 +230,17 @@ const TestimonialsPage = () => {
                         />
                         
                         {/* Inner Card */}
-                        <div className="relative z-10 w-full h-full bg-white rounded-[14px] py-4 px-2 flex flex-col items-center justify-center text-center">
-                          <span className="text-[18px] sm:text-[20px] font-black text-amber-600 tracking-tight mb-1">
+                        <div className="relative z-10 w-full h-full bg-[#162238] rounded-[14px] py-4 px-2 flex flex-col items-center justify-center text-center">
+                          <span className="text-[18px] sm:text-[20px] font-black text-amber-400 tracking-tight mb-1">
                             100%
                           </span>
-                          <span className="text-[12.5px] sm:text-[13px] font-bold text-slate-700 leading-tight">
+                          <span className="text-[12.5px] sm:text-[13px] font-bold text-slate-200 leading-tight">
                             Response
                           </span>
                         </div>
                       </div>
 
-                      {/* Metric 2: Quality (Full 360° Border with Color Shade Scrolling) */}
+                      {/* Metric 2: Quality */}
                       <div className="relative rounded-2xl p-[2px] overflow-hidden group shadow-xs hover:shadow-md transition-all">
                         {/* Infinite Full-Perimeter Color Shade Scrolling Border */}
                         <div 
@@ -238,17 +249,17 @@ const TestimonialsPage = () => {
                         />
                         
                         {/* Inner Card */}
-                        <div className="relative z-10 w-full h-full bg-white rounded-[14px] py-4 px-2 flex flex-col items-center justify-center text-center">
-                          <span className="text-[18px] sm:text-[20px] font-black text-amber-600 tracking-tight mb-1">
+                        <div className="relative z-10 w-full h-full bg-[#162238] rounded-[14px] py-4 px-2 flex flex-col items-center justify-center text-center">
+                          <span className="text-[18px] sm:text-[20px] font-black text-amber-400 tracking-tight mb-1">
                             100%
                           </span>
-                          <span className="text-[12.5px] sm:text-[13px] font-bold text-slate-700 leading-tight">
+                          <span className="text-[12.5px] sm:text-[13px] font-bold text-slate-200 leading-tight">
                             Quality
                           </span>
                         </div>
                       </div>
 
-                      {/* Metric 3: Delivery (Full 360° Border with Color Shade Scrolling) */}
+                      {/* Metric 3: Delivery */}
                       <div className="relative rounded-2xl p-[2px] overflow-hidden group shadow-xs hover:shadow-md transition-all">
                         {/* Infinite Full-Perimeter Color Shade Scrolling Border */}
                         <div 
@@ -257,11 +268,11 @@ const TestimonialsPage = () => {
                         />
                         
                         {/* Inner Card */}
-                        <div className="relative z-10 w-full h-full bg-white rounded-[14px] py-4 px-2 flex flex-col items-center justify-center text-center">
-                          <span className="text-[18px] sm:text-[20px] font-black text-amber-600 tracking-tight mb-1">
+                        <div className="relative z-10 w-full h-full bg-[#162238] rounded-[14px] py-4 px-2 flex flex-col items-center justify-center text-center">
+                          <span className="text-[18px] sm:text-[20px] font-black text-amber-400 tracking-tight mb-1">
                             100%
                           </span>
-                          <span className="text-[12.5px] sm:text-[13px] font-bold text-slate-700 leading-tight">
+                          <span className="text-[12.5px] sm:text-[13px] font-bold text-slate-200 leading-tight">
                             Delivery
                           </span>
                         </div>
@@ -282,7 +293,7 @@ const TestimonialsPage = () => {
       {/* ========================================================================= */}
       {/* 3. EXPLORE OUR PRODUCTS SECTION (Common Reusable Component)                 */}
       {/* ========================================================================= */}
-      <ExploreProductsSection className="py-14 sm:py-18 bg-white border-t border-slate-200" />
+      <ExploreProductsSection className="py-14 sm:py-18 bg-[#090e1a] border-t border-slate-800" />
       
       {/* 4. WRITE A REVIEW POPUP MODAL (Blur Background) */}
       <WriteReviewModal 

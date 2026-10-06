@@ -36,7 +36,7 @@ export const Button = ({
   // 1. Base Styles (Radius, Font-Weight, Alignment, Transitions, Shadows)
   const hasCustomCase = className.includes('normal-case') || className.includes('capitalize') || className.includes('lowercase') || className.includes('uppercase');
   const caseClass = hasCustomCase ? '' : 'capitalize';
-  const baseStyles = `inline-flex items-center justify-center font-bold tracking-wider ${caseClass} transition-all duration-300 cursor-pointer select-none group/btn text-center whitespace-nowrap active:scale-98 disabled:opacity-50 disabled:pointer-events-none`.trim();
+  const baseStyles = `relative overflow-hidden inline-flex items-center justify-center font-bold tracking-wider ${caseClass} transition-all duration-300 cursor-pointer select-none group/btn text-center whitespace-nowrap active:scale-98 disabled:opacity-50 disabled:pointer-events-none`.trim();
 
   // 2. Sizes
   const sizeStyles = {
@@ -45,25 +45,31 @@ export const Button = ({
     lg: 'px-6 sm:px-8 py-3.5 sm:py-4 rounded-full text-xs sm:text-sm gap-2.5 shadow-lg'
   };
 
-  // 3. Variant Color & Style Configurations
+  // 3. Variant Color & Style Configurations (Black Hover with Shimmer & Distinct Box Shadows)
   const variantStyles = {
-    // 1. Primary Gold Gradient CTA (Get Best Price, Send Enquiry, etc.)
-    gold: 'bg-gradient-to-r from-[#fde047] via-[#facc15] to-[#eab308] hover:bg-gradient-to-r hover:from-white hover:via-white hover:to-white text-slate-950 hover:text-slate-900 shadow-[0_4px_14px_rgba(234,179,8,0.28)] hover:shadow-md border border-yellow-400/90 hover:border-slate-300 hover:scale-[1.02]',
+    // 1. Primary Gold Gradient CTA (Default: Gold -> Hover: Deep Black with Amber Glow & Shimmer)
+    gold: 'bg-gradient-to-r from-[#fde047] via-[#facc15] to-[#eab308] hover:from-slate-950 hover:via-slate-900 hover:to-slate-950 text-slate-950 hover:text-white shadow-[0_4px_14px_rgba(234,179,8,0.28)] hover:shadow-[0_0_20px_rgba(250,204,21,0.4),0_8px_25px_rgba(0,0,0,0.9)] border border-yellow-400/90 hover:border-amber-400 hover:scale-[1.03]',
     
-    // 2. Dark Slate-900 Button (Request to Call, Submit, etc.)
-    dark: 'bg-slate-900 hover:bg-slate-800 text-white shadow-md hover:shadow-lg border border-transparent',
+    // 2. Dark Slate Button (Default: Dark Slate -> Hover: Deep Black with Gold Glow)
+    dark: 'bg-slate-900 hover:bg-slate-950 text-white hover:text-amber-300 border border-slate-700/90 hover:border-amber-400 shadow-md hover:shadow-[0_0_20px_rgba(250,204,21,0.35),0_8px_25px_rgba(0,0,0,0.9)] hover:scale-[1.03]',
     
-    // 3. VIEW MORE / Card Dual Action Button (Black default -> White hover with Slate border)
-    'view-more': 'bg-slate-900 hover:bg-white text-white hover:text-slate-900 border border-slate-900 hover:border-slate-900 shadow-sm hover:shadow-md',
+    // 3. VIEW MORE / Card Action Button (Default: White -> Hover: Deep Black with White/Silver Glow & Shimmer)
+    'view-more': 'bg-white hover:bg-slate-950 text-slate-950 hover:text-white border border-slate-200/90 hover:border-slate-500 shadow-md hover:shadow-[0_0_20px_rgba(255,255,255,0.25),0_8px_25px_rgba(0,0,0,0.9)] hover:scale-[1.03]',
     
-    // 4. Dark to Gold Gradient Hover (Special CTAs in Hero / About)
-    'dark-to-gold': 'bg-slate-900 hover:bg-gradient-to-r hover:from-[#fef08a] hover:via-[#fde047] hover:to-[#facc15] text-white hover:text-slate-950 shadow-md hover:shadow-yellow-500/25 hover:-translate-y-0.5 border border-transparent hover:border-yellow-300/80',
+    // 3b. Explicit White Button
+    white: 'bg-white hover:bg-slate-950 text-slate-950 hover:text-white border border-slate-200/90 hover:border-slate-500 shadow-md hover:shadow-[0_0_20px_rgba(255,255,255,0.25),0_8px_25px_rgba(0,0,0,0.9)] hover:scale-[1.03]',
     
-    // 5. WhatsApp Green Button
-    whatsapp: 'bg-slate-900 hover:bg-slate-800 text-white shadow-md hover:shadow-lg border border-transparent',
+    // 4. Dark to Gold / White
+    'dark-to-gold': 'bg-slate-900 hover:bg-slate-950 text-white hover:text-amber-300 border border-slate-700/90 hover:border-amber-400 shadow-md hover:shadow-[0_0_20px_rgba(250,204,21,0.35),0_8px_25px_rgba(0,0,0,0.9)] hover:scale-[1.03]',
     
-    // 6. Light / Ghost Secondary
-    light: 'bg-slate-50 hover:bg-slate-100 text-slate-700 hover:text-slate-950 border border-slate-200/90 shadow-xs'
+    // 5. Gold to Dark Gradient
+    'gold-to-dark': 'bg-gradient-to-r from-[#fde047] via-[#facc15] to-[#eab308] hover:from-slate-950 hover:via-slate-900 hover:to-slate-950 text-slate-950 hover:text-white shadow-[0_4px_14px_rgba(234,179,8,0.28)] hover:shadow-[0_0_20px_rgba(250,204,21,0.4),0_8px_25px_rgba(0,0,0,0.9)] border border-yellow-400/90 hover:border-amber-400 hover:scale-[1.03]',
+
+    // 6. WhatsApp Button
+    whatsapp: 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-md hover:shadow-lg border border-transparent',
+    
+    // 7. Light / Ghost Secondary
+    light: 'bg-slate-900/60 hover:bg-slate-950 text-slate-200 hover:text-white border border-slate-700/80 hover:border-slate-500 shadow-xs hover:shadow-lg hover:scale-[1.03]'
   };
 
   const chosenSize = sizeStyles[size] || sizeStyles.md;
@@ -88,14 +94,17 @@ export const Button = ({
 
   const content = (
     <>
+      {/* Light Sweep Shining Shimmer Bar on Hover */}
+      <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
+
       {Icon && iconPosition === 'left' && (
-        <span className="shrink-0 group-hover/btn:-translate-x-0.5 transition-transform">
+        <span className="relative z-1 shrink-0 group-hover/btn:-translate-x-0.5 transition-transform">
           {typeof Icon === 'function' ? <Icon size={15} /> : Icon}
         </span>
       )}
-      <span>{children}</span>
+      <span className="relative z-1">{children}</span>
       {Icon && iconPosition === 'right' && (
-        <span className="shrink-0 group-hover/btn:translate-x-1 transition-transform">
+        <span className="relative z-1 shrink-0 group-hover/btn:translate-x-1 transition-transform">
           {typeof Icon === 'function' ? <Icon size={14} /> : Icon}
         </span>
       )}

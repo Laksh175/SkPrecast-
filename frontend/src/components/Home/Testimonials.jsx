@@ -5,41 +5,41 @@ import { testimonialsHeaderData, testimonialsCol1, testimonialsCol2 } from '../.
 
 const TestimonialCard = ({ item }) => {
   return (
-    <div className="bg-slate-50 hover:bg-white border border-slate-200/90 hover:border-yellow-400 rounded-[15px] p-5 sm:p-6 shadow-[0_6px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_30px_rgba(250,204,21,0.2)] transition-all duration-300 select-none group h-full flex flex-col justify-between">
+    <div className="bg-[#111927] hover:bg-[#162238] border border-slate-800 hover:border-amber-400/60 rounded-[15px] p-5 sm:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_12px_30px_rgba(245,158,11,0.2)] transition-all duration-300 select-none group h-full flex flex-col justify-between">
       <div>
         {/* Top 5 Stars Rating */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-1 text-amber-400">
             {[...Array(5)].map((_, i) => (
-              <FaStar key={i} className="text-yellow-400 text-xs sm:text-[13px] drop-shadow-sm" />
+              <FaStar key={i} className="text-amber-400 text-xs sm:text-[13px] drop-shadow-sm" />
             ))}
           </div>
-          <FaQuoteLeft className="text-slate-300 group-hover:text-yellow-500/50 text-base transition-colors" />
+          <FaQuoteLeft className="text-slate-700 group-hover:text-amber-400/40 text-base transition-colors" />
         </div>
 
         {/* Review Content */}
-        <p className="text-slate-700 text-[13.5px] sm:text-sm leading-relaxed mb-4 font-normal">
+        <p className="text-slate-300 text-[13.5px] sm:text-sm leading-relaxed mb-4 font-normal">
           "{item.content}"
         </p>
       </div>
 
       <div>
         {/* Divider */}
-        <div className="h-[1px] w-full bg-slate-200/80 mb-3.5" />
+        <div className="h-[1px] w-full bg-slate-800 mb-3.5" />
 
         {/* User Info with Initials Avatar */}
         <div className="flex items-center gap-3.5">
           {/* Name Initials Circle */}
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[#fde047] via-[#facc15] to-[#eab308] text-slate-950 font-extrabold flex items-center justify-center text-xs sm:text-sm shadow-[0_2px_10px_rgba(250,204,21,0.35)] shrink-0 border border-yellow-300/80 group-hover:scale-105 transition-transform">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-amber-400 via-yellow-400 to-amber-500 text-slate-950 font-extrabold flex items-center justify-center text-xs sm:text-sm shadow-[0_2px_10px_rgba(245,158,11,0.35)] shrink-0 border border-amber-300/80 group-hover:scale-105 transition-transform">
             {item.initials}
           </div>
 
           {/* Name & Role */}
           <div className="overflow-hidden text-left">
-            <h4 className="text-sm font-bold text-slate-900 group-hover:text-amber-700 transition-colors truncate">
+            <h4 className="text-sm font-bold text-slate-100 group-hover:text-amber-300 transition-colors truncate">
               {item.name}
             </h4>
-            <p className="text-xs text-slate-500 truncate font-medium">
+            <p className="text-xs text-slate-400 truncate font-medium">
               {item.role}
             </p>
           </div>
@@ -103,16 +103,16 @@ const Testimonials = () => {
   }, [allTestimonials.length]);
 
   return (
-    <section id="testimonials" className="relative py-10 lg:py-16 bg-white text-slate-900 font-sans overflow-hidden border-t border-slate-200/90">
+    <section id="testimonials" className="relative py-10 lg:py-16 bg-[#090e1a] text-slate-100 font-sans overflow-hidden border-t border-slate-800">
       
       {/* Subtle Background Glow */}
-      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-yellow-400/5 blur-[120px] pointer-events-none rounded-full" />
-      <div className="absolute bottom-10 right-0 w-96 h-96 bg-slate-100 blur-[100px] pointer-events-none rounded-full" />
+      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-amber-500/5 blur-[120px] pointer-events-none rounded-full" />
+      <div className="absolute bottom-10 right-0 w-96 h-96 bg-blue-500/5 blur-[100px] pointer-events-none rounded-full" />
 
       <div className="max-w-[1260px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
           
-          {/* Left Column: Heading & Description (Centered on mobile, left on desktop) */}
+          {/* Left Column: Heading & Description */}
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -122,8 +122,8 @@ const Testimonials = () => {
           >
             <div>
               <div className="inline-block text-center lg:text-left">
-                <h2 className="text-[23px] sm:text-3xl lg:text-[2.25rem] font-extrabold tracking-tight leading-[1.3] text-slate-900 mb-2">
-                  {title} <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-[#d97706] via-amber-500 to-yellow-500">{highlight}</span>
+                <h2 className="text-[23px] sm:text-3xl lg:text-[2.25rem] font-extrabold tracking-tight leading-[1.3] text-slate-100 mb-2">
+                  {title} <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500">{highlight}</span>
                 </h2>
 
                 {/* Decorative Underline Accent */}
@@ -135,23 +135,23 @@ const Testimonials = () => {
               </div>
 
               {/* Description */}
-              <p className="text-slate-600 text-[17px] leading-[28px] mb-6 text-center lg:text-left">
+              <p className="text-slate-300 text-[17px] leading-[28px] mb-6 text-center lg:text-left">
                 {subtitle}
               </p>
             </div>
 
             {/* Trust Highlights */}
-            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-200/90 mt-4 text-center lg:text-left">
+            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-800 mt-4 text-center lg:text-left">
               {stats.map((stat) => (
                 <div key={stat.id} className="flex flex-col items-center lg:items-start">
                   <span className={`text-2xl sm:text-3xl font-extrabold ${stat.color}`}>{stat.value}</span>
-                  <span className="text-xs text-slate-500 uppercase tracking-wider font-bold mt-0.5">{stat.label}</span>
+                  <span className="text-xs text-slate-400 uppercase tracking-wider font-bold mt-0.5">{stat.label}</span>
                 </div>
               ))}
             </div>
           </motion.div>
 
-          {/* Right Column: MOBILE VIEW (Swipeable Horizontal Carousel with All Reviews) */}
+          {/* Right Column: MOBILE VIEW */}
           <div className="block lg:hidden relative w-full pt-2 pb-4">
             <div
               ref={sliderRef}
@@ -184,20 +184,20 @@ const Testimonials = () => {
                   aria-label={`Testimonial ${dotIdx + 1}`}
                   className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                     activeSlide === dotIdx 
-                      ? 'w-6 bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]' 
-                      : 'w-2 bg-slate-300 hover:bg-slate-400'
+                      ? 'w-6 bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.6)]' 
+                      : 'w-2 bg-slate-700 hover:bg-slate-600'
                   }`}
                 />
               ))}
             </div>
           </div>
 
-          {/* Right Column: DESKTOP VIEW (Dual Vertical Infinite Scrolling Columns) */}
+          {/* Right Column: DESKTOP VIEW */}
           <div className="hidden lg:block lg:col-span-7 relative h-[470px] sm:h-[490px] overflow-hidden">
             
             {/* Top & Bottom Smooth Gradient Fade Masks */}
-            <div className="absolute top-0 inset-x-0 h-12 bg-gradient-to-b from-white to-transparent z-20 pointer-events-none" />
-            <div className="absolute bottom-0 inset-x-0 h-12 bg-gradient-to-t from-white to-transparent z-20 pointer-events-none" />
+            <div className="absolute top-0 inset-x-0 h-12 bg-gradient-to-b from-[#090e1a] to-transparent z-20 pointer-events-none" />
+            <div className="absolute bottom-0 inset-x-0 h-12 bg-gradient-to-t from-[#090e1a] to-transparent z-20 pointer-events-none" />
 
             <div className="grid grid-cols-2 gap-5 h-full">
               
@@ -210,7 +210,7 @@ const Testimonials = () => {
                 </div>
               </div>
 
-              {/* Column 2: Vertical Infinite Scroll (Downward / Offset Upward) */}
+              {/* Column 2: Vertical Infinite Scroll (Downward) */}
               <div className="overflow-hidden relative group/col2">
                 <div className="flex flex-col gap-5 animate-marquee-vertical-reverse group-hover/col2:[animation-play-state:paused]">
                   {[...testimonialsCol2, ...testimonialsCol2, ...testimonialsCol2].map((item, idx) => (

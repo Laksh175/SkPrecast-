@@ -239,13 +239,24 @@ const CurrentJobsPage = () => {
   };
 
   return (
-    <div className="w-full bg-[#f8fafc] text-slate-900 font-sans min-h-screen">
+    <div className="w-full bg-[#090e1a] text-slate-100 font-sans min-h-screen">
       
       {/* 1. HERO BANNER SECTION */}
-      <section className="relative bg-theme-heroNavy text-white pt-14 pb-16 lg:pt-20 lg:pb-22 overflow-hidden border-b border-amber-500/20 shadow-xl">
+      <section className="relative bg-[#0d1527] text-white pt-14 pb-16 lg:pt-20 lg:pb-22 overflow-hidden border-b border-amber-500/20 shadow-xl">
+        {/* Background Banner Image Clearly Visible */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <img 
+            src="/assets/images/hero-page-banner.jpeg" 
+            alt="SK Precast Industries Current Jobs Banner" 
+            className="w-full h-full object-cover object-center opacity-85"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#090e1a]/70 via-[#090e1a]/40 to-[#090e1a]" />
+        </div>
+
         {/* Architectural Dot Grid Background */}
         <div 
-          className="absolute inset-0 opacity-[0.18] pointer-events-none"
+          className="absolute inset-0 opacity-[0.15] pointer-events-none z-1"
           style={{
             backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px)',
             backgroundSize: '24px 24px'
@@ -253,11 +264,11 @@ const CurrentJobsPage = () => {
         />
 
         {/* Ambient Gradient Glows */}
-        <div className="absolute -top-24 left-1/4 w-96 h-96 bg-amber-500/15 blur-[120px] pointer-events-none rounded-full" />
-        <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-blue-600/10 blur-[130px] pointer-events-none rounded-full" />
+        <div className="absolute -top-24 left-1/4 w-96 h-96 bg-amber-500/15 blur-[120px] pointer-events-none rounded-full z-1" />
+        <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-blue-600/10 blur-[130px] pointer-events-none rounded-full z-1" />
 
         {/* Top Gold Accent Line */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent shadow-[0_0_12px_rgba(245,158,11,0.6)]" />
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent shadow-[0_0_12px_rgba(245,158,11,0.6)] z-1" />
 
         <div className="max-w-[1260px] mx-auto px-6 relative z-10 text-center">
           
@@ -316,7 +327,7 @@ const CurrentJobsPage = () => {
       </section>
 
       {/* 2. MAIN JOBS SECTION (Left: Form with wider width, Right: Contact Card) */}
-      <section className="py-12 sm:py-16 bg-white text-slate-900 relative">
+      <section className="py-12 sm:py-16 bg-[#090e1a] text-white relative">
         <div className="max-w-[1320px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
@@ -325,7 +336,7 @@ const CurrentJobsPage = () => {
             <div className="lg:col-span-7 xl:col-span-8 flex flex-col gap-6 text-left">
               
               {/* Highlighted Status Card Banner with Modern Mirror-Sheen Infinite Glow Animation */}
-              <div className="relative rounded-[22px] p-[1.5px] overflow-hidden group shadow-lg shadow-amber-500/10">
+              <div className="relative rounded-[22px] p-[1.5px] overflow-hidden group shadow-xl shadow-amber-500/10">
                 
                 {/* 1. Infinite Ambient Glowing Pulsing Border Aura */}
                 <motion.div 
@@ -342,7 +353,7 @@ const CurrentJobsPage = () => {
                 />
 
                 {/* 2. Inner Main Glass Card Surface */}
-                <div className="relative rounded-[21px] p-6 sm:p-7 bg-gradient-to-b from-white via-[#fffdf9] to-[#fff9ee] backdrop-blur-md overflow-hidden text-center z-10">
+                <div className="relative rounded-[21px] p-6 sm:p-7 bg-gradient-to-b from-[#111927] via-[#162238] to-[#111927] border border-slate-800 backdrop-blur-md overflow-hidden text-center z-10">
                   
                   {/* 3. Sweeping Infinite Mirror Sheen / Glowing Light Beam */}
                   <motion.div
@@ -355,7 +366,7 @@ const CurrentJobsPage = () => {
                       ease: 'easeInOut',
                       repeatDelay: 0.6
                     }}
-                    className="absolute inset-0 w-1/3 -skew-x-25 bg-gradient-to-r from-transparent via-white/80 to-transparent pointer-events-none z-20 shadow-[0_0_25px_rgba(255,255,255,0.9)]"
+                    className="absolute inset-0 w-1/3 -skew-x-25 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none z-20 shadow-[0_0_25px_rgba(255,255,255,0.2)]"
                   />
 
                   {/* 4. Subtle Ambient Background Glows */}
@@ -365,15 +376,15 @@ const CurrentJobsPage = () => {
                   {/* Content Container */}
                   <div className="relative z-10">
                     {/* Main Highlight Title */}
-                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center justify-center gap-2">
-                      <Sparkles size={18} className="text-amber-500 shrink-0" />
+                    <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center justify-center gap-2">
+                      <Sparkles size={18} className="text-amber-400 shrink-0" />
                       <span>No Active Openings Right Now</span>
-                      <Sparkles size={18} className="text-amber-500 shrink-0" />
+                      <Sparkles size={18} className="text-amber-400 shrink-0" />
                     </h3>
 
                     {/* Descriptive Text */}
-                    <p className="caption-text text-[16px] leading-[26px] text-slate-600 max-w-2xl mx-auto mt-2 font-medium">
-                      We are continually expanding our precast manufacturing and engineering teams! <strong className="text-slate-900 font-bold">Post your resume below</strong> to get fast-tracked for immediate upcoming project vacancies.
+                    <p className="caption-text text-[16px] leading-[26px] text-slate-300 max-w-2xl mx-auto mt-2 font-medium">
+                      We are continually expanding our precast manufacturing and engineering teams! <strong className="text-white font-bold">Post your resume below</strong> to get fast-tracked for immediate upcoming project vacancies.
                     </p>
                   </div>
 
@@ -381,20 +392,20 @@ const CurrentJobsPage = () => {
               </div>
 
               {/* Form Container Card */}
-              <div className="bg-white rounded-[20px] border border-slate-200/90 shadow-xl shadow-slate-200/50 p-6 sm:p-8 relative overflow-hidden">
+              <div className="bg-[#111927] rounded-[20px] border border-slate-800 shadow-2xl p-6 sm:p-8 relative overflow-hidden">
                 
-                {/* Form Top Header with Design Accent & No Icon */}
-                <div className="text-center w-full mb-6 pb-4 border-b border-slate-200">
-                  <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-tight">
-                    Post Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-[#d97706] via-amber-500 to-yellow-500">Resume</span>
+                {/* Form Top Header with Design Accent */}
+                <div className="text-center w-full mb-6 pb-4 border-b border-slate-800">
+                  <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-tight">
+                    Post Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-300 to-yellow-400">Resume</span>
                   </h2>
                   <div className="flex items-center justify-center gap-2 mt-2.5 mb-2 mx-auto">
                     <span className="h-[2px] w-16 sm:w-24 rounded-full title-accent-bar" />
                     <span className="h-2 w-2 rounded-full title-accent-dot shrink-0" />
                     <span className="h-[2px] w-16 sm:w-24 rounded-full title-accent-bar" />
                   </div>
-                  <span className="text-xs font-bold text-red-500 inline-flex items-center gap-1 mt-1">
-                    <span className="text-red-500 font-black">*</span> Fields are mandatory
+                  <span className="text-xs font-bold text-red-400 inline-flex items-center gap-1 mt-1">
+                    <span className="text-red-400 font-black">*</span> Fields are mandatory
                   </span>
                 </div>
 
@@ -403,12 +414,12 @@ const CurrentJobsPage = () => {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     className="py-12 px-6 text-center">
-                    <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4 shadow-md">
+                    <div className="w-16 h-16 rounded-full bg-emerald-950/50 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto mb-4 shadow-md">
                       <CheckCircle size={36} />
                     </div>
-                    <h3 className="text-2xl font-black text-slate-900 mb-2">Resume Submitted Successfully!</h3>
-                    <p className="text-slate-600 max-w-md mx-auto mb-6 text-sm sm:text-base">
-                      Thank you, <span className="font-bold text-slate-900">{formData.name}</span>. Your resume has been recorded in our talent database. Our HR department will contact you at <span className="font-semibold text-slate-900">{formData.email}</span> if your profile matches our requirements.
+                    <h3 className="text-2xl font-black text-white mb-2">Resume Submitted Successfully!</h3>
+                    <p className="text-slate-300 max-w-md mx-auto mb-6 text-sm sm:text-base">
+                      Thank you, <span className="font-bold text-white">{formData.name}</span>. Your resume has been recorded in our talent database. Our HR department will contact you at <span className="font-semibold text-amber-300">{formData.email}</span> if your profile matches our requirements.
                     </p>
                     <button
                       type="button"
@@ -439,7 +450,7 @@ const CurrentJobsPage = () => {
                         setIsCountryCodeOpen(false);
                         setCountryCodeSearch('');
                       }}
-                      className="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-600 text-white font-bold text-sm transition-all shadow-md cursor-pointer"
+                      className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm transition-all shadow-md cursor-pointer"
                     >
                       Submit Another Resume
                     </button>
@@ -449,8 +460,8 @@ const CurrentJobsPage = () => {
                     
                     {/* 1. Name */}
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-center">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right">
-                        <span className="text-red-500 font-bold mr-1">*</span>Your Name :
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-200 sm:text-right">
+                        <span className="text-red-400 font-bold mr-1">*</span>Your Name :
                       </label>
                       <div className="sm:col-span-8">
                         <input
@@ -461,15 +472,15 @@ const CurrentJobsPage = () => {
                           onBlur={() => handleBlur('name')}
                           required
                           placeholder="Enter your full name"
-                          className={`w-full px-3.5 py-2.5 rounded-xl border outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white ${
+                          className={`w-full px-3.5 py-2.5 rounded-xl border outline-none text-sm text-white placeholder-slate-400 transition-all shadow-xs bg-[#162238] focus:bg-[#1a2942] ${
                             touched.name && errors.name
-                              ? 'border-red-500 ring-2 ring-red-200'
-                              : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                              ? 'border-red-500 ring-2 ring-red-500/40'
+                              : 'border-slate-700/80 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20'
                           }`}
                         />
                         {touched.name && errors.name && (
-                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
-                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                          <p style={{ fontSize: '13px' }} className="text-[13px] leading-snug text-red-400 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-400" />
                             <span>{errors.name}</span>
                           </p>
                         )}
@@ -478,40 +489,40 @@ const CurrentJobsPage = () => {
 
                     {/* 2. Gender */}
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-center">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right">
-                        <span className="text-red-500 font-bold mr-1">*</span>Gender :
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-200 sm:text-right">
+                        <span className="text-red-400 font-bold mr-1">*</span>Gender :
                       </label>
                       <div className="sm:col-span-8 flex items-center gap-6">
-                        <label className="inline-flex items-center gap-2 cursor-pointer text-sm font-semibold text-slate-800">
+                        <label className="inline-flex items-center gap-2 cursor-pointer text-sm font-semibold text-slate-300 hover:text-white">
                           <input
                             type="radio"
                             name="gender"
                             value="Male"
                             checked={formData.gender === 'Male'}
                             onChange={handleInputChange}
-                            className="accent-amber-600 w-4 h-4 cursor-pointer"
+                            className="accent-amber-500 w-4 h-4 cursor-pointer"
                           />
                           <span>Male</span>
                         </label>
-                        <label className="inline-flex items-center gap-2 cursor-pointer text-sm font-semibold text-slate-800">
+                        <label className="inline-flex items-center gap-2 cursor-pointer text-sm font-semibold text-slate-300 hover:text-white">
                           <input
                             type="radio"
                             name="gender"
                             value="Female"
                             checked={formData.gender === 'Female'}
                             onChange={handleInputChange}
-                            className="accent-amber-600 w-4 h-4 cursor-pointer"
+                            className="accent-amber-500 w-4 h-4 cursor-pointer"
                           />
                           <span>Female</span>
                         </label>
-                        <label className="inline-flex items-center gap-2 cursor-pointer text-sm font-semibold text-slate-800">
+                        <label className="inline-flex items-center gap-2 cursor-pointer text-sm font-semibold text-slate-300 hover:text-white">
                           <input
                             type="radio"
                             name="gender"
                             value="Other"
                             checked={formData.gender === 'Other'}
                             onChange={handleInputChange}
-                            className="accent-amber-600 w-4 h-4 cursor-pointer"
+                            className="accent-amber-500 w-4 h-4 cursor-pointer"
                           />
                           <span>Other</span>
                         </label>
@@ -520,8 +531,8 @@ const CurrentJobsPage = () => {
 
                     {/* 3. Email ID */}
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-center">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right">
-                        <span className="text-red-500 font-bold mr-1">*</span>Email ID :
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-200 sm:text-right">
+                        <span className="text-red-400 font-bold mr-1">*</span>Email ID :
                       </label>
                       <div className="sm:col-span-8">
                         <input
@@ -532,25 +543,25 @@ const CurrentJobsPage = () => {
                           onBlur={() => handleBlur('email')}
                           required
                           placeholder="e.g. name@example.com"
-                          className={`w-full px-3.5 py-2.5 rounded-xl border outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white ${
+                          className={`w-full px-3.5 py-2.5 rounded-xl border outline-none text-sm text-white placeholder-slate-400 transition-all shadow-xs bg-[#162238] focus:bg-[#1a2942] ${
                             touched.email && errors.email
-                              ? 'border-red-500 ring-2 ring-red-200'
-                              : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                              ? 'border-red-500 ring-2 ring-red-500/40'
+                              : 'border-slate-700/80 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20'
                           }`}
                         />
                         {touched.email && errors.email && (
-                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
-                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                          <p style={{ fontSize: '13px' }} className="text-[13px] leading-snug text-red-400 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-400" />
                             <span>{errors.email}</span>
                           </p>
                         )}
                       </div>
                     </div>
 
-                    {/* 4. Country (Standardized Searchable Combobox with all 240+ Countries) */}
+                    {/* 4. Country */}
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-center">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right">
-                        <span className="text-red-500 font-bold mr-1">*</span>Country :
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-200 sm:text-right">
+                        <span className="text-red-400 font-bold mr-1">*</span>Country :
                       </label>
                       <div className="sm:col-span-8">
                         <SearchableSelect
@@ -568,8 +579,8 @@ const CurrentJobsPage = () => {
 
                     {/* 5. Current City */}
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-center">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right">
-                        <span className="text-red-500 font-bold mr-1">*</span>Current City :
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-200 sm:text-right">
+                        <span className="text-red-400 font-bold mr-1">*</span>Current City :
                       </label>
                       <div className="sm:col-span-8">
                         <input
@@ -580,15 +591,15 @@ const CurrentJobsPage = () => {
                           onBlur={() => handleBlur('city')}
                           required
                           placeholder="e.g. Palwal, Faridabad, Delhi NCR"
-                          className={`w-full px-3.5 py-2.5 rounded-xl border outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white ${
+                          className={`w-full px-3.5 py-2.5 rounded-xl border outline-none text-sm text-white placeholder-slate-400 transition-all shadow-xs bg-[#162238] focus:bg-[#1a2942] ${
                             touched.city && errors.city
-                              ? 'border-red-500 ring-2 ring-red-200'
-                              : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                              ? 'border-red-500 ring-2 ring-red-500/40'
+                              : 'border-slate-700/80 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20'
                           }`}
                         />
                         {touched.city && errors.city && (
-                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
-                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                          <p style={{ fontSize: '13px' }} className="text-[13px] leading-snug text-red-400 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-400" />
                             <span>{errors.city}</span>
                           </p>
                         )}
@@ -597,8 +608,8 @@ const CurrentJobsPage = () => {
 
                     {/* 6. Current Locality */}
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-center">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right">
-                        <span className="text-red-500 font-bold mr-1">*</span>Current Locality :
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-200 sm:text-right">
+                        <span className="text-red-400 font-bold mr-1">*</span>Current Locality :
                       </label>
                       <div className="sm:col-span-8">
                         <input
@@ -608,15 +619,15 @@ const CurrentJobsPage = () => {
                           onChange={handleInputChange}
                           onBlur={() => handleBlur('locality')}
                           placeholder="Enter your area / locality"
-                          className={`w-full px-3.5 py-2.5 rounded-xl border outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white ${
+                          className={`w-full px-3.5 py-2.5 rounded-xl border outline-none text-sm text-white placeholder-slate-400 transition-all shadow-xs bg-[#162238] focus:bg-[#1a2942] ${
                             touched.locality && errors.locality
-                              ? 'border-red-500 ring-2 ring-red-200'
-                              : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                              ? 'border-red-500 ring-2 ring-red-500/40'
+                              : 'border-slate-700/80 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20'
                           }`}
                         />
                         {touched.locality && errors.locality && (
-                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
-                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                          <p style={{ fontSize: '13px' }} className="text-[13px] leading-snug text-red-400 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-400" />
                             <span>{errors.locality}</span>
                           </p>
                         )}
@@ -625,8 +636,8 @@ const CurrentJobsPage = () => {
 
                     {/* 7. Mobile with Standardized Common Country Code Picker */}
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-center">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right">
-                        <span className="text-red-500 font-bold mr-1">*</span>Mobile :
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-200 sm:text-right">
+                        <span className="text-red-400 font-bold mr-1">*</span>Mobile :
                       </label>
                       <div className="sm:col-span-8">
                         <div className="flex gap-2">
@@ -657,16 +668,16 @@ const CurrentJobsPage = () => {
                             onBlur={() => handleBlur('mobile')}
                             required
                             placeholder={formData.selectedCountry?.code === 'IN' ? '10-digit mobile number' : `Enter ${getMaxPhoneDigits(formData.selectedCountry)}-digit mobile number`}
-                            className={`flex-1 px-3.5 py-2.5 rounded-xl border outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white ${
+                            className={`flex-1 px-3.5 py-2.5 rounded-xl border outline-none text-sm text-white placeholder-slate-400 transition-all shadow-xs bg-[#162238] focus:bg-[#1a2942] ${
                               touched.mobile && errors.mobile
-                                ? 'border-red-500 ring-2 ring-red-200'
-                                : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                                ? 'border-red-500 ring-2 ring-red-500/40'
+                                : 'border-slate-700/80 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20'
                             }`}
                           />
                         </div>
                         {touched.mobile && errors.mobile && (
-                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
-                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                          <p style={{ fontSize: '13px' }} className="text-[13px] leading-snug text-red-400 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-400" />
                             <span>{errors.mobile}</span>
                           </p>
                         )}
@@ -675,8 +686,8 @@ const CurrentJobsPage = () => {
 
                     {/* 8. Qualification (Grouped Searchable Dropdown) */}
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right pt-2.5">
-                        <span className="text-red-500 font-bold mr-1">*</span>Qualification :
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-200 sm:text-right pt-2.5">
+                        <span className="text-red-400 font-bold mr-1">*</span>Qualification :
                       </label>
                       <div className="sm:col-span-8">
                         <SearchableSelect
@@ -713,13 +724,13 @@ const CurrentJobsPage = () => {
                               onBlur={() => handleBlur('qualification')}
                               required
                               placeholder="Please enter your specific qualification (e.g., B.Des, ITI, B.F.Tech, etc.)..."
-                              className="w-full px-3.5 py-2.5 rounded-xl border border-amber-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-amber-50/40 focus:bg-white placeholder:text-slate-400"
+                              className="w-full px-3.5 py-2.5 rounded-xl border border-amber-500/60 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 outline-none text-sm text-white transition-all shadow-xs bg-[#1a2942] focus:bg-[#1f3150] placeholder:text-slate-400"
                             />
                           </motion.div>
                         )}
                         {touched.qualification && errors.qualification && (
-                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
-                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                          <p style={{ fontSize: '13px' }} className="text-[13px] leading-snug text-red-400 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-400" />
                             <span>{errors.qualification}</span>
                           </p>
                         )}
@@ -728,8 +739,8 @@ const CurrentJobsPage = () => {
 
                     {/* 9. Functional Area (Searchable Dropdown) */}
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right pt-2.5">
-                        <span className="text-red-500 font-bold mr-1">*</span>Functional Area :
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-200 sm:text-right pt-2.5">
+                        <span className="text-red-400 font-bold mr-1">*</span>Functional Area :
                       </label>
                       <div className="sm:col-span-8">
                         <SearchableSelect
@@ -766,13 +777,13 @@ const CurrentJobsPage = () => {
                               onBlur={() => handleBlur('functionalArea')}
                               required
                               placeholder="Please enter your specific functional area / department..."
-                              className="w-full px-3.5 py-2.5 rounded-xl border border-amber-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-amber-50/40 focus:bg-white placeholder:text-slate-400"
+                              className="w-full px-3.5 py-2.5 rounded-xl border border-amber-500/60 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 outline-none text-sm text-white transition-all shadow-xs bg-[#1a2942] focus:bg-[#1f3150] placeholder:text-slate-400"
                             />
                           </motion.div>
                         )}
                         {touched.functionalArea && errors.functionalArea && (
-                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
-                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                          <p style={{ fontSize: '13px' }} className="text-[13px] leading-snug text-red-400 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-400" />
                             <span>{errors.functionalArea}</span>
                           </p>
                         )}
@@ -781,8 +792,8 @@ const CurrentJobsPage = () => {
 
                     {/* 10. Total Work Experience (Searchable Dropdowns for Years & Months) */}
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right pt-2.5">
-                        <span className="text-red-500 font-bold mr-1">*</span>Total Work Experience :
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-200 sm:text-right pt-2.5">
+                        <span className="text-red-400 font-bold mr-1">*</span>Total Work Experience :
                       </label>
                       <div className="sm:col-span-8">
                         <div className="grid grid-cols-2 gap-3">
@@ -831,23 +842,23 @@ const CurrentJobsPage = () => {
                               onBlur={() => handleBlur('expYears')}
                               required
                               placeholder="Please specify your total work experience (e.g., 32 Years, 15+ Years Freelance, etc.)..."
-                              className="w-full px-3.5 py-2.5 rounded-xl border border-amber-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-amber-50/40 focus:bg-white placeholder:text-slate-400"
+                              className="w-full px-3.5 py-2.5 rounded-xl border border-amber-500/60 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 outline-none text-sm text-white transition-all shadow-xs bg-[#1a2942] focus:bg-[#1f3150] placeholder:text-slate-400"
                             />
                           </motion.div>
                         )}
                         {touched.expYears && errors.expYears && (
-                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
-                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                          <p style={{ fontSize: '13px' }} className="text-[13px] leading-snug text-red-400 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-400" />
                             <span>{errors.expYears}</span>
                           </p>
                         )}
                       </div>
                     </div>
 
-                    {/* 11. Current Annual Salary (Searchable Dropdowns for Lakhs & Thousands) */}
+                    {/* 11. Current Annual Salary */}
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right pt-2.5">
-                        <span className="text-red-500 font-bold mr-1">*</span>Current Annual Salary :
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-200 sm:text-right pt-2.5">
+                        <span className="text-red-400 font-bold mr-1">*</span>Current Annual Salary :
                       </label>
                       <div className="sm:col-span-8">
                         <div className="grid grid-cols-2 gap-3">
@@ -907,23 +918,23 @@ const CurrentJobsPage = () => {
                               onBlur={() => handleBlur('salaryLakhs')}
                               required
                               placeholder="Please specify your current annual salary (e.g., 55 Lakhs / Annum, Negotiable, Per Project)..."
-                              className="w-full px-3.5 py-2.5 rounded-xl border border-amber-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-amber-50/40 focus:bg-white placeholder:text-slate-400"
+                              className="w-full px-3.5 py-2.5 rounded-xl border border-amber-500/60 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 outline-none text-sm text-white transition-all shadow-xs bg-[#1a2942] focus:bg-[#1f3150] placeholder:text-slate-400"
                             />
                           </motion.div>
                         )}
                         {touched.salaryLakhs && errors.salaryLakhs && (
-                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
-                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                          <p style={{ fontSize: '13px' }} className="text-[13px] leading-snug text-red-400 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-400" />
                             <span>{errors.salaryLakhs}</span>
                           </p>
                         )}
                       </div>
                     </div>
 
-                    {/* 12. Duration of Notice Period (Searchable Dropdown) */}
+                    {/* 12. Duration of Notice Period */}
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right pt-2.5">
-                        <span className="text-red-500 font-bold mr-1">*</span>Duration of Notice Period :
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-200 sm:text-right pt-2.5">
+                        <span className="text-red-400 font-bold mr-1">*</span>Duration of Notice Period :
                       </label>
                       <div className="sm:col-span-8">
                         <SearchableSelect
@@ -960,23 +971,23 @@ const CurrentJobsPage = () => {
                               onBlur={() => handleBlur('noticePeriod')}
                               required
                               placeholder="Please enter your notice period duration (e.g., 45 Days, Serving Notice, etc.)..."
-                              className="w-full px-3.5 py-2.5 rounded-xl border border-amber-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm text-slate-800 transition-all shadow-xs bg-amber-50/40 focus:bg-white placeholder:text-slate-400"
+                              className="w-full px-3.5 py-2.5 rounded-xl border border-amber-500/60 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 outline-none text-sm text-white transition-all shadow-xs bg-[#1a2942] focus:bg-[#1f3150] placeholder:text-slate-400"
                             />
                           </motion.div>
                         )}
                         {touched.noticePeriod && errors.noticePeriod && (
-                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
-                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                          <p style={{ fontSize: '13px' }} className="text-[13px] leading-snug text-red-400 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-400" />
                             <span>{errors.noticePeriod}</span>
                           </p>
                         )}
                       </div>
                     </div>
 
-                    {/* 13. Key Skills (Multi-line Textarea with increased height) */}
+                    {/* 13. Key Skills */}
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right pt-2.5">
-                        <span className="text-red-500 font-bold mr-1">*</span>Key Skills :
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-200 sm:text-right pt-2.5">
+                        <span className="text-red-400 font-bold mr-1">*</span>Key Skills :
                       </label>
                       <div className="sm:col-span-8">
                         <textarea
@@ -987,31 +998,31 @@ const CurrentJobsPage = () => {
                           onBlur={() => handleBlur('keySkills')}
                           required
                           placeholder="e.g. Precast Casting, RCC Quality Testing, AutoCAD, Boundary Wall Erection, Site Execution, Team Management..."
-                          className={`w-full px-3.5 py-2.5 rounded-xl border outline-none text-sm text-slate-800 transition-all shadow-xs bg-slate-50/50 focus:bg-white resize-y min-h-[105px] ${
+                          className={`w-full px-3.5 py-2.5 rounded-xl border outline-none text-sm text-white placeholder-slate-400 transition-all shadow-xs bg-[#162238] focus:bg-[#1a2942] resize-y min-h-[105px] ${
                             touched.keySkills && errors.keySkills
-                              ? 'border-red-500 ring-2 ring-red-200'
-                              : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                              ? 'border-red-500 ring-2 ring-red-500/40'
+                              : 'border-slate-700/80 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20'
                           }`}
                         />
                         {touched.keySkills && errors.keySkills && (
-                          <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5">
-                            <AlertCircle size={15} className="shrink-0 text-red-500" />
+                          <p style={{ fontSize: '13px' }} className="text-[13px] leading-snug text-red-400 font-medium mt-1.5 flex items-center gap-1.5">
+                            <AlertCircle size={15} className="shrink-0 text-red-400" />
                             <span>{errors.keySkills}</span>
                           </p>
                         )}
                       </div>
                     </div>
 
-                    {/* 14. Attach Resume with Complete File Support & 5MB Validation */}
+                    {/* 14. Attach Resume */}
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-700 sm:text-right pt-2">
-                        <span className="text-red-500 font-bold mr-1">*</span>Attach Resume :
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-200 sm:text-right pt-2">
+                        <span className="text-red-400 font-bold mr-1">*</span>Attach Resume :
                       </label>
                       <div className="sm:col-span-8">
                         <div className="flex flex-col gap-1.5">
                           <div className="flex flex-wrap items-center gap-2.5">
-                            <label className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-50 hover:bg-amber-500 text-amber-950 hover:text-white border border-amber-300 hover:border-amber-500 font-bold text-[12px] cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md">
-                              <Upload size={14} className="text-amber-600 group-hover:text-white transition-colors" />
+                            <label className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[12px] cursor-pointer transition-all duration-200 shadow-md">
+                              <Upload size={14} className="text-slate-950" />
                               <span>Choose file</span>
                               <input
                                 type="file"
@@ -1021,13 +1032,13 @@ const CurrentJobsPage = () => {
                               />
                             </label>
 
-                            <div className={`flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-xl border flex-1 min-w-[180px] max-w-full ${
-                              touched.resumeFile && errors.resumeFile ? 'border-red-500 ring-2 ring-red-200' : 'border-slate-200'
+                            <div className={`flex items-center gap-2 px-3 py-1.5 bg-[#162238] rounded-xl border flex-1 min-w-[180px] max-w-full ${
+                              touched.resumeFile && errors.resumeFile ? 'border-red-500 ring-2 ring-red-500/40' : 'border-slate-700/80'
                             }`}>
                               {fileName ? (
                                 <div className="flex items-center justify-between w-full gap-2">
-                                  <span className="text-[12px] text-emerald-800 font-bold flex items-center gap-1.5 truncate">
-                                    <CheckCircle size={13} className="text-emerald-600 shrink-0" />
+                                  <span className="text-[12px] text-emerald-400 font-bold flex items-center gap-1.5 truncate">
+                                    <CheckCircle size={13} className="text-emerald-400 shrink-0" />
                                     <span className="truncate">{fileName}</span>
                                   </span>
                                   <button
@@ -1039,26 +1050,26 @@ const CurrentJobsPage = () => {
                                         setErrors(prev => ({ ...prev, resumeFile: 'Please attach your resume document.' }));
                                       }
                                     }}
-                                    className="p-0.5 text-slate-400 hover:text-red-600 transition-colors shrink-0 cursor-pointer"
+                                    className="p-0.5 text-slate-400 hover:text-red-400 transition-colors shrink-0 cursor-pointer"
                                     title="Remove attached file"
                                   >
                                     <X size={14} />
                                   </button>
                                 </div>
                               ) : (
-                                <span className="text-[12px] text-slate-500 font-medium">
+                                <span className="text-[12px] text-slate-400 font-medium">
                                   No file chosen
                                 </span>
                               )}
                             </div>
                           </div>
 
-                          <p className="caption-text text-[11.5px] font-semibold text-amber-700 tracking-normal mt-0.5">
+                          <p className="caption-text text-[11.5px] font-semibold text-amber-400/90 tracking-normal mt-0.5">
                             Allowed File Type : .doc, .docx, .rtf, .pdf (Upto 5 MB)
                           </p>
                           {touched.resumeFile && errors.resumeFile && (
-                            <p style={{ fontSize: '14px' }} className="text-[14px] leading-snug text-red-500 font-medium mt-1 flex items-center gap-1.5">
-                              <AlertCircle size={15} className="shrink-0 text-red-500" />
+                            <p style={{ fontSize: '13px' }} className="text-[13px] leading-snug text-red-400 font-medium mt-1 flex items-center gap-1.5">
+                              <AlertCircle size={15} className="shrink-0 text-red-400" />
                               <span>{errors.resumeFile}</span>
                             </p>
                           )}
@@ -1067,14 +1078,14 @@ const CurrentJobsPage = () => {
                     </div>
 
                     {/* Submit & Reset Buttons */}
-                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 pt-4 border-t border-slate-200 mt-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 pt-4 border-t border-slate-800 mt-6">
                       <div className="sm:col-start-5 sm:col-span-8 flex flex-wrap items-center gap-3.5">
                         <Button
-                          variant="view-more"
+                          variant="gold-to-dark"
                           size="md"
                           type="submit"
                           disabled={isUploading}
-                          className={isUploading ? 'opacity-80 cursor-not-allowed' : ''}
+                          className={isUploading ? 'opacity-80 cursor-not-allowed font-bold' : 'font-bold'}
                         >
                           {isUploading ? (
                             <span className="flex items-center gap-2">
@@ -1086,7 +1097,7 @@ const CurrentJobsPage = () => {
                           )}
                         </Button>
                         <Button
-                          variant="gold"
+                          variant="dark-to-gold"
                           size="md"
                           type="button"
                           disabled={isUploading}
@@ -1104,15 +1115,15 @@ const CurrentJobsPage = () => {
 
             </div>
 
-            {/* RIGHT COLUMN: Exact About Us Contact Details Card (lg:col-span-5 xl:col-span-4) */}
+            {/* RIGHT COLUMN: Contact Details Card (lg:col-span-5 xl:col-span-4) */}
             <div className="lg:col-span-5 xl:col-span-4 relative h-full">
               <div className="sticky top-[110px] sm:top-[125px] lg:top-[135px] z-20 flex flex-col gap-4">
                 <ContactInfoCard className="w-full" />
                 <Button
-                  variant="dark-to-gold"
+                  variant="gold-to-dark"
                   size="md"
                   href="/contact-us.htm"
-                  className="w-full"
+                  className="w-full font-bold"
                 >
                   Contact Us
                 </Button>
@@ -1125,7 +1136,7 @@ const CurrentJobsPage = () => {
       </section>
 
       {/* 3. EXPLORE OUR PRODUCTS SECTION (Common Reusable Component) */}
-      <ExploreProductsSection className="py-14 sm:py-18 bg-[#f8fafc] border-t border-slate-200/90" />
+      <ExploreProductsSection className="py-14 sm:py-18 bg-[#090e1a] border-t border-slate-800" />
 
     </div>
   );

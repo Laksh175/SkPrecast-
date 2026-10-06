@@ -24,13 +24,24 @@ const BlogPage = () => {
   };
 
   return (
-    <div className="w-full bg-theme-pageBg text-theme-heading font-sans min-h-screen">
+    <div className="w-full bg-[#090e1a] text-slate-100 font-sans min-h-screen">
       
       {/* 1. HERO BANNER SECTION */}
-      <section className="relative bg-theme-heroNavy text-white pt-14 pb-16 lg:pt-20 lg:pb-22 overflow-hidden border-b border-amber-500/20 shadow-xl">
+      <section className="relative bg-[#060a12] text-white pt-14 pb-16 lg:pt-20 lg:pb-22 overflow-hidden border-b border-slate-800 shadow-xl">
+        {/* Background Banner Image Clearly Visible */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <img 
+            src="/assets/images/hero-page-banner.jpeg" 
+            alt="SK Precast Industries Blog Banner" 
+            className="w-full h-full object-cover object-center opacity-85"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#060a12]/70 via-[#060a12]/40 to-[#060a12]" />
+        </div>
+
         {/* Architectural Dot Grid Background */}
         <div 
-          className="absolute inset-0 opacity-[0.18] pointer-events-none"
+          className="absolute inset-0 opacity-[0.15] pointer-events-none z-1"
           style={{
             backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px)',
             backgroundSize: '24px 24px'
@@ -38,11 +49,11 @@ const BlogPage = () => {
         />
 
         {/* Ambient Gradient Glows */}
-        <div className="absolute -top-24 left-1/4 w-96 h-96 bg-amber-500/15 blur-[120px] pointer-events-none rounded-full" />
-        <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-blue-600/10 blur-[130px] pointer-events-none rounded-full" />
+        <div className="absolute -top-24 left-1/4 w-96 h-96 bg-amber-500/10 blur-[120px] pointer-events-none rounded-full z-1" />
+        <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-blue-600/10 blur-[130px] pointer-events-none rounded-full z-1" />
 
         {/* Top Gold Accent Line */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent shadow-[0_0_12px_rgba(245,158,11,0.6)]" />
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent shadow-[0_0_12px_rgba(245,158,11,0.6)] z-1" />
 
         <div className="max-w-[1260px] mx-auto px-6 relative z-10 text-center">
           
@@ -101,13 +112,13 @@ const BlogPage = () => {
       </section>
 
       {/* 2. BLOG POSTS SECTION */}
-      <section className="py-12 sm:py-16 lg:py-20">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#090e1a]">
         <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-8">
           
           {/* Section Heading */}
           <div className="text-center mb-10 sm:mb-14">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight">
-              Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-[#d97706] via-amber-500 to-yellow-500">Blog Posts</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight">
+              Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500">Blog Posts</span>
             </h2>
             <div className="flex items-center justify-center gap-2 my-2.5 mx-auto">
               <span className="h-[2px] w-16 sm:w-24 rounded-full title-accent-bar" />
@@ -124,7 +135,7 @@ const BlogPage = () => {
                 initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: idx * 0.15 }}
-                className="group bg-white rounded-[10px] p-4 sm:p-5 border border-slate-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-2xl hover:border-amber-400/80 transition-all duration-300 flex flex-col justify-between cursor-pointer"
+                className="group bg-[#111927] rounded-[10px] p-4 sm:p-5 border border-slate-800 shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-2xl hover:border-amber-400/80 transition-all duration-300 flex flex-col justify-between cursor-pointer"
               >
                 <a
                   href={`/blog/${post.slug}`}
@@ -132,7 +143,7 @@ const BlogPage = () => {
                   className="block text-left"
                 >
                   {/* Padded Image Container with Hover Zoom */}
-                  <div className="relative aspect-[16/10] rounded-[10px] overflow-hidden bg-slate-100 border border-slate-100/80 mb-4">
+                  <div className="relative aspect-[16/10] rounded-[10px] overflow-hidden bg-[#162238] border border-slate-700/80 mb-4">
                     <img 
                       src={post.image} 
                       alt={post.title}
@@ -148,22 +159,22 @@ const BlogPage = () => {
                   {/* Text Content */}
                   <div className="px-1 text-left">
                     {/* Title */}
-                    <h3 className="text-[16px] sm:text-[17.5px] font-bold text-slate-900 group-hover:text-amber-600 transition-colors leading-snug mb-2 line-clamp-2">
+                    <h3 className="text-[16px] sm:text-[17.5px] font-bold text-white group-hover:text-amber-400 transition-colors leading-snug mb-2 line-clamp-2">
                       {post.title}
                     </h3>
 
                     {/* 2-line Description with '...' */}
-                    <p style={{ fontSize: '14px' }} className="text-[14px] text-slate-600 leading-relaxed line-clamp-2 mb-3.5 font-normal">
+                    <p style={{ fontSize: '14px' }} className="text-[14px] text-slate-300 leading-relaxed line-clamp-2 mb-3.5 font-normal">
                       {post.excerpt}
                     </p>
                   </div>
                 </a>
 
                 {/* Footer Meta Row: Date with React Calendar Icon */}
-                <div className="px-1 pt-3 border-t border-dashed border-slate-200 flex items-center">
-                  {/* Date with React Icon (Matching Font Color) */}
-                  <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500">
-                    <Calendar size={14} className="text-slate-500 stroke-[2] shrink-0" />
+                <div className="px-1 pt-3 border-t border-dashed border-slate-800 flex items-center">
+                  {/* Date with React Icon */}
+                  <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400">
+                    <Calendar size={14} className="text-slate-400 stroke-[2] shrink-0" />
                     <span>{post.date}</span>
                   </div>
                 </div>

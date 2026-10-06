@@ -171,7 +171,7 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
       whileInView="visible"
       viewport={{ once: true, margin: '-40px' }}
       whileHover={{ y: -5, transition: { duration: 0.28, ease: 'easeOut' } }}
-      className="relative w-full bg-white rounded-[15px] border border-slate-200/90 shadow-[0_8px_25px_rgba(0,0,0,0.05)] hover:border-yellow-400 hover:shadow-[0px_1px_14px_2px_rgba(250,204,21,0.45)] transition-all duration-300 p-6 sm:p-7 md:p-8 lg:p-8 flex flex-col md:flex-row gap-6 sm:gap-8 lg:gap-10 items-start mb-6"
+      className="relative w-full bg-gradient-to-b from-[#131d2e] via-[#111927] to-[#0d1522] rounded-[15px] border border-slate-800/90 shadow-[0_12px_35px_rgba(0,0,0,0.6)] hover:border-amber-400/80 hover:shadow-[0px_2px_20px_2px_rgba(245,158,11,0.25)] transition-all duration-300 p-6 sm:p-7 md:p-8 lg:p-8 flex flex-col md:flex-row gap-6 sm:gap-8 lg:gap-10 items-start mb-6"
     >
 
       {/* 1. Left: Product Image with Zoom Lens & Gallery Thumbnails */}
@@ -188,7 +188,7 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
           onTouchEnd={handleTouchEnd}
           onTouchCancel={handleTouchEnd}
           onClick={() => onViewDetails(product)}
-          className="w-full h-[250px] sm:h-[290px] lg:h-[310px] rounded-[15px] overflow-hidden bg-slate-100 relative group border border-slate-200/80 shadow-inner cursor-crosshair select-none touch-none"
+          className="w-full h-[250px] sm:h-[290px] lg:h-[310px] rounded-[15px] overflow-hidden bg-slate-900 relative group border border-slate-800 shadow-inner cursor-crosshair select-none touch-none"
         >
           <AnimatePresence mode="wait">
             <motion.img
@@ -207,7 +207,7 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
 
           {/* Bottom Hint Pill */}
           <div className="absolute bottom-3.5 left-1/2 -translate-x-1/2 z-10 pointer-events-none transition-opacity duration-300">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold bg-slate-900/85 text-white shadow-lg backdrop-blur-md border border-white/20 whitespace-nowrap">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold bg-slate-950/90 text-amber-300 shadow-lg backdrop-blur-md border border-amber-400/30 whitespace-nowrap">
               <ZoomIn size={12} className="text-amber-400" />
               <span className="sm:hidden">
                 {isHovered ? 'Drag finger to explore details' : 'Touch & Drag to zoom'}
@@ -232,7 +232,7 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
                   width: `${lensWidth}px`,
                   height: `${lensHeight}px`
                 }}
-                className="absolute pointer-events-none z-20 rounded-xl border-2 border-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.6)] flex flex-col justify-between p-1.5 overflow-hidden"
+                className="absolute pointer-events-none z-20 rounded-xl border-2 border-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.6)] flex flex-col justify-between p-1.5 overflow-hidden"
               >
                 {/* Full-Color HD Zoom Cutout Inside Lens */}
                 {containerSize.width > 0 && (
@@ -250,11 +250,11 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
                 )}
 
                 {/* Lens Tag Label */}
-                <div className="relative z-10 bg-slate-900/90 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-[4px] tracking-tight truncate border border-amber-400/40 text-center shadow-xs">
+                <div className="relative z-10 bg-slate-950/90 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-[4px] tracking-tight truncate border border-amber-400/40 text-center shadow-xs">
                   {product.name}
                 </div>
                 <div className="relative z-10 flex justify-between items-center px-0.5">
-                  <span className="text-[8px] font-bold text-amber-300 bg-slate-900/80 px-1 rounded">2.2x</span>
+                  <span className="text-[8px] font-bold text-amber-300 bg-slate-900/90 px-1 rounded">2.2x</span>
                   <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
                 </div>
               </motion.div>
@@ -262,7 +262,7 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
           </AnimatePresence>
         </div>
 
-        {/* Gallery Thumbnails (Full Width Matching Main Image Above + Interactive Switch with Smooth Active Highlight + Arrows) */}
+        {/* Gallery Thumbnails */}
         {galleryList.length > 1 && (
           <div className="relative flex items-center gap-2 mt-3.5 w-full">
             {/* Left Scroll Arrow */}
@@ -270,7 +270,7 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
               <button
                 type="button"
                 onClick={(e) => scrollCardGallery('left', e)}
-                className="w-7 h-7 rounded-full bg-slate-900/80 hover:bg-slate-900 text-white flex items-center justify-center shadow-md transition-all shrink-0 cursor-pointer z-10 hover:scale-110 active:scale-95"
+                className="w-7 h-7 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center shadow-md transition-all shrink-0 cursor-pointer z-10 hover:scale-110 active:scale-95 border border-slate-700"
                 title="Previous images"
               >
                 <ChevronLeft size={15} />
@@ -292,9 +292,9 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
                     setActiveImage(imgUrl);
                   }}
                   onMouseEnter={() => setActiveImage(imgUrl)}
-                  className={`w-[70px] h-[70px] sm:w-[76px] sm:h-[76px] rounded-xl overflow-hidden border-2 transition-all duration-300 p-0.5 cursor-pointer bg-slate-100 shrink-0 ${activeImage === imgUrl
-                      ? 'border-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.55)] scale-105 ring-2 ring-blue-400/40'
-                      : 'border-slate-300/90 hover:border-amber-400 opacity-75 hover:opacity-100 hover:scale-[1.02]'
+                  className={`w-[70px] h-[70px] sm:w-[76px] sm:h-[76px] rounded-xl overflow-hidden border-2 transition-all duration-300 p-0.5 cursor-pointer bg-slate-900 shrink-0 ${activeImage === imgUrl
+                      ? 'border-amber-400 shadow-[0_0_12px_rgba(245,158,11,0.55)] scale-105 ring-2 ring-amber-400/40'
+                      : 'border-slate-800 hover:border-amber-400/60 opacity-75 hover:opacity-100 hover:scale-[1.02]'
                     }`}
                   title={`View image ${i + 1}`}
                 >
@@ -312,7 +312,7 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
               <button
                 type="button"
                 onClick={(e) => scrollCardGallery('right', e)}
-                className="w-7 h-7 rounded-full bg-slate-900/80 hover:bg-slate-900 text-white flex items-center justify-center shadow-md transition-all shrink-0 cursor-pointer z-10 hover:scale-110 active:scale-95"
+                className="w-7 h-7 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center shadow-md transition-all shrink-0 cursor-pointer z-10 hover:scale-110 active:scale-95 border border-slate-700"
                 title="Next images"
               >
                 <ChevronRight size={15} />
@@ -321,7 +321,7 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
           </div>
         )}
 
-        {/* Floating Side-by-Side Zoom Output Window (Active on Desktop Hover) */}
+        {/* Floating Zoom Window */}
         <AnimatePresence>
           {isHovered && (
             <motion.div
@@ -337,9 +337,8 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
                 backgroundSize: `${zoomLevel * 100}%`
               }}
             >
-              {/* Header Badge in Zoom Preview */}
               <div className="absolute top-3 left-3 z-10">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-slate-900/90 backdrop-blur-md text-white border border-amber-400/50 shadow-lg">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-slate-950/90 backdrop-blur-md text-amber-300 border border-amber-400/50 shadow-lg">
                   <Eye size={13} className="text-amber-400" />
                   HD Material Texture Zoom ({zoomLevel}x)
                 </span>
@@ -358,23 +357,23 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
             navigateTo(`/${product.slug}.htm`);
             onViewDetails(product);
           }}
-          className="text-xl sm:text-2xl font-extrabold text-slate-900 hover:text-amber-600 transition-colors cursor-pointer leading-snug"
+          className="text-xl sm:text-2xl font-extrabold text-slate-100 hover:text-amber-400 transition-colors cursor-pointer leading-snug"
         >
           {product.name}
         </h3>
 
         {/* Price */}
         <div className="flex flex-wrap items-baseline gap-1.5 mt-2 mb-1">
-          <span className="text-xl sm:text-2xl font-extrabold text-amber-500">
+          <span className="text-xl sm:text-2xl font-extrabold text-amber-400">
             {priceMain}
           </span>
-          <span className="text-slate-600 text-sm font-semibold">
+          <span className="text-slate-400 text-sm font-semibold">
             / {unitText}
           </span>
         </div>
 
         {/* MOQ */}
-        <div className="text-xs sm:text-sm font-bold text-slate-700 mb-3.5">
+        <div className="text-xs sm:text-sm font-bold text-slate-300 mb-3.5">
           {moqText}
         </div>
 
@@ -389,23 +388,23 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
           </Button>
         </div>
 
-        {/* Key Attributes Specs Table (First 5 Specifications) */}
-        <div className="w-full border-t border-b border-slate-200/80 divide-y divide-slate-100 text-xs sm:text-sm mb-4">
+        {/* Key Attributes Specs Table */}
+        <div className="w-full border-t border-b border-slate-800 divide-y divide-slate-800/60 text-xs sm:text-sm mb-4">
           {specsRows.map((row, idx) => (
             <div key={idx} className="py-2.5 grid grid-cols-12 gap-2 items-center">
-              <span className="col-span-5 sm:col-span-4 text-slate-500 font-medium capitalize">
+              <span className="col-span-5 sm:col-span-4 text-slate-400 font-medium capitalize">
                 {row.label}
               </span>
-              <span className="col-span-7 sm:col-span-8 text-slate-900 font-bold">
+              <span className="col-span-7 sm:col-span-8 text-slate-100 font-bold">
                 {row.value}
               </span>
             </div>
           ))}
         </div>
 
-        {/* About & Description Paragraph (Clamped to 3 lines with ellipsis) + Click to view more specifications link */}
+        {/* About & Description Paragraph */}
         <div className="w-full mb-5">
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3">
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed line-clamp-3">
             {aboutContent}
           </p>
           <a
@@ -414,7 +413,7 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
               navigateTo(`/${product.slug}.htm`, e);
               onViewDetails(product);
             }}
-            className="text-amber-600 hover:text-amber-700 text-[14px] font-bold underline inline-flex items-center gap-1 mt-2 cursor-pointer transition-colors"
+            className="text-amber-400 hover:text-amber-300 text-[14px] font-bold underline inline-flex items-center gap-1 mt-2 cursor-pointer transition-colors"
           >
             <span>Click to view more specifications</span>
             <span>→</span>
@@ -427,7 +426,7 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
             variant="view-more"
             size="sm"
             href="tel:+918238902687"
-            icon={<PhoneCall size={14} className="text-amber-400 group-hover/btn:text-slate-950 transition-colors" />}
+            icon={<PhoneCall size={14} />}
             iconPosition="left"
             className="!text-[14px]"
           >

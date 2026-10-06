@@ -3,37 +3,40 @@
 @tailwind utilities;
 
 :root {
-  /* Central Theme Variables - Default values */
+  /* Central Theme Variables - Dark Theme */
   --color-primary-amber: #f59e0b;
   --color-primary-gold: #fbbf24;
   --color-primary-brand-yellow: #dfb722;
   --color-primary-dark-amber: #d97706;
   --color-primary-deep-amber: #b45309;
-  --color-primary-light: #fffbeb;
-  --color-primary-soft-yellow: #fef3c7;
-  --color-primary-icon-gloss: #f3f0ed;
+  --color-primary-light: rgba(245, 158, 11, 0.15);
+  --color-primary-soft-yellow: rgba(251, 191, 36, 0.2);
+  --color-primary-icon-gloss: #1e293b;
 
-  --color-dark-hero-navy: #0b1220;
-  --color-dark-hero-navy-mid: #111c33;
-  --color-dark-midnight: #020617;
-  --color-dark-footer-bg: #0b1220;
-  --color-dark-card-dark: #1e293b;
+  --color-dark-hero-navy: #090e1a;
+  --color-dark-hero-navy-mid: #0f172a;
+  --color-dark-midnight: #030712;
+  --color-dark-footer-bg: #070b14;
+  --color-dark-card-dark: #111927;
+  --color-dark-surface-light: #162238;
 
-  --color-surface-page-bg: #f8fafc;
-  --color-surface-card-bg: #ffffff;
-  --color-surface-light-gray: #f1f5f9;
+  --color-surface-page-bg: #090e1a;
+  --color-surface-card-bg: #111927;
+  --color-surface-light-gray: #162238;
+  --color-surface-card-hover: #17233d;
 
-  --color-text-heading: #0f172a;
-  --color-text-subheading: #1e293b;
-  --color-text-body: #334155;
-  --color-text-muted: #64748b;
-  --color-text-caption: #94a3b8;
+  --color-text-heading: #f8fafc;
+  --color-text-subheading: #f1f5f9;
+  --color-text-body: #cbd5e1;
+  --color-text-muted: #94a3b8;
+  --color-text-caption: #64748b;
   --color-text-light: #ffffff;
-  --color-text-light-muted: #cbd5e1;
+  --color-text-light-muted: #94a3b8;
 
-  --color-border-card: #e2e8f0;
-  --color-border-subtle: #f1f5f9;
-  --color-border-gold-glow: rgba(245, 158, 11, 0.2);
+  --color-border-card: #1e293b;
+  --color-border-subtle: #1e293b;
+  --color-border-active: #334155;
+  --color-border-gold-glow: rgba(245, 158, 11, 0.35);
 
   --color-utility-whatsapp: #16a34a;
   --color-utility-whatsapp-light: #25D366;
@@ -45,16 +48,16 @@
 
 @layer utilities {
   .bg-theme-heading {
-    background-color: var(--color-text-heading, #0f172a) !important;
+    background-color: var(--color-text-heading, #f8fafc) !important;
   }
   .bg-theme-heroNavy {
-    background-color: var(--color-dark-hero-navy, #0b1220) !important;
+    background-color: var(--color-dark-hero-navy, #090e1a) !important;
   }
   .bg-theme-footerBg {
-    background-color: var(--color-dark-footer-bg, #0b1220) !important;
+    background-color: var(--color-dark-footer-bg, #070b14) !important;
   }
   .bg-theme-pageBg {
-    background-color: var(--color-surface-page-bg, #f8fafc) !important;
+    background-color: var(--color-surface-page-bg, #090e1a) !important;
   }
   .bg-whatsapp-3d {
     background: linear-gradient(135deg, var(--color-utility-whatsapp-light, #25d366), var(--color-utility-whatsapp-mid, #1ea952), var(--color-utility-whatsapp-dark, #128c7e));
@@ -64,16 +67,21 @@
   }
   .title-accent-dot {
     background-color: var(--color-primary-amber, #f59e0b) !important;
-    box-shadow: 0 0 6px var(--color-primary-amber, #f59e0b) !important;
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.6) !important;
+  }
+  .dark-card-glow {
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.05);
   }
 }
 
 @layer base {
   body {
-    @apply font-sans text-gray-700 bg-[#f8fafc] antialiased text-[15px] sm:text-[16px];
+    @apply font-sans text-slate-300 bg-[#090e1a] antialiased text-[15px] sm:text-[16px];
     top: 0px !important;
     position: static !important;
     line-height: 1.65;
+    background-color: #090e1a;
+    color: #cbd5e1;
   }
 
   /* SEO-Optimized Headings Hierarchy */

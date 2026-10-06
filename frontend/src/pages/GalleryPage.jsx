@@ -58,13 +58,24 @@ const GalleryPage = () => {
   const currentLightboxItem = activeImageIndex !== null ? galleryItemsData[activeImageIndex] : null;
 
   return (
-    <div className="w-full bg-theme-pageBg text-theme-heading font-sans min-h-screen">
+    <div className="w-full bg-[#090e1a] text-slate-100 font-sans min-h-screen">
       
       {/* 1. HERO BANNER SECTION (30px Title, 15px Subtitle matching other pages) */}
-      <section className="relative bg-theme-heroNavy text-white pt-14 pb-16 lg:pt-20 lg:pb-22 overflow-hidden border-b border-amber-500/20 shadow-xl">
+      <section className="relative bg-[#060a12] text-white pt-14 pb-16 lg:pt-20 lg:pb-22 overflow-hidden border-b border-slate-800 shadow-xl">
+        {/* Background Banner Image Clearly Visible */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <img 
+            src="/assets/images/hero-page-banner.jpeg" 
+            alt="SK Precast Industries Gallery Banner" 
+            className="w-full h-full object-cover object-center opacity-85"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#060a12]/70 via-[#060a12]/40 to-[#060a12]" />
+        </div>
+
         {/* Architectural Dot Grid Overlay */}
         <div 
-          className="absolute inset-0 opacity-[0.18] pointer-events-none"
+          className="absolute inset-0 opacity-[0.15] pointer-events-none z-1"
           style={{
             backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px)',
             backgroundSize: '24px 24px'
@@ -72,11 +83,11 @@ const GalleryPage = () => {
         />
 
         {/* Ambient Gradient Glows */}
-        <div className="absolute -top-24 left-1/4 w-96 h-96 bg-amber-500/15 blur-[120px] pointer-events-none rounded-full" />
-        <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-blue-600/10 blur-[130px] pointer-events-none rounded-full" />
+        <div className="absolute -top-24 left-1/4 w-96 h-96 bg-amber-500/10 blur-[120px] pointer-events-none rounded-full z-1" />
+        <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-blue-600/10 blur-[130px] pointer-events-none rounded-full z-1" />
 
         {/* Top Gold Highlight Bar */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent shadow-[0_0_12px_rgba(245,158,11,0.6)]" />
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent shadow-[0_0_12px_rgba(245,158,11,0.6)] z-1" />
 
         <div className="max-w-[1260px] mx-auto px-6 relative z-10 text-center">
           {/* Breadcrumbs */}
@@ -134,7 +145,7 @@ const GalleryPage = () => {
       </section>
 
       {/* 2. GALLERY GRID (2 COLS) + STICKY CONTACT CARD (RIGHT) */}
-      <section className="py-12 sm:py-16">
+      <section className="py-12 sm:py-16 bg-[#090e1a]">
         <div className="max-w-[1360px] mx-auto px-5 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
@@ -150,7 +161,7 @@ const GalleryPage = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: idx * 0.04 }}
                     onClick={() => handleOpenLightbox(idx)}
-                    className="group relative bg-white rounded-[16px] overflow-hidden border border-slate-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-2xl hover:border-amber-400 transition-all duration-300 cursor-pointer aspect-[16/11]"
+                    className="group relative bg-[#111927] rounded-[16px] overflow-hidden border border-slate-800 shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:shadow-2xl hover:border-amber-400 transition-all duration-300 cursor-pointer aspect-[16/11]"
                   >
                     {/* Full Card Image */}
                     <img 
@@ -165,7 +176,7 @@ const GalleryPage = () => {
                     />
 
                     {/* Subtle Hover Gradient & Zoom Indicator */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-slate-950/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                       <div className="w-12 h-12 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center shadow-xl transform translate-y-3 group-hover:translate-y-0 transition-all duration-300">
                         <ZoomIn size={22} className="stroke-[2.5]" />
                       </div>
@@ -188,7 +199,7 @@ const GalleryPage = () => {
       </section>
 
       {/* 3. Explore Our Products Section (Common Reusable Component) */}
-      <ExploreProductsSection className="py-12 sm:py-16 lg:py-20 bg-white border-t border-slate-200" />
+      <ExploreProductsSection className="py-12 sm:py-16 lg:py-20 bg-[#090e1a] border-t border-slate-800" />
 
       {/* 4. LIGHTBOX FULLSCREEN MODAL */}
       <AnimatePresence>

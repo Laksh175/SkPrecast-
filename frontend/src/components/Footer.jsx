@@ -376,7 +376,7 @@ const Footer = () => {
                   searchPlaceholder="Filter languages..."
                   placement="bottom"
                   size="sm"
-                  triggerClassName="bg-white hover:bg-slate-50 border-2 border-slate-300 rounded-lg text-slate-800 font-semibold py-1.5 text-xs shadow-xs"
+                  triggerClassName="bg-[#162238] hover:bg-[#1a2942] border border-slate-700 rounded-lg text-slate-100 font-semibold py-1.5 text-xs shadow-xs"
                   popoverClassName="w-56 -left-10 sm:left-0 shadow-2xl z-[200]"
                 />
               </div>
@@ -675,7 +675,7 @@ const Footer = () => {
                     searchPlaceholder="Filter languages..."
                     placement="top"
                     size="sm"
-                    triggerClassName="bg-white hover:bg-slate-50 border-2 border-slate-300 rounded-lg text-slate-800 font-semibold py-1.5 text-xs shadow-xs"
+                    triggerClassName="bg-[#162238] hover:bg-[#1a2942] border border-slate-700 rounded-lg text-slate-100 font-semibold py-1.5 text-xs shadow-xs"
                     popoverClassName="w-56 -right-2 left-auto sm:left-0 shadow-2xl z-[200]"
                   />
                 </div>

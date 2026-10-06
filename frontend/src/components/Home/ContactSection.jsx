@@ -139,11 +139,11 @@ const ContactSection = () => {
   const currentMaxDigits = getMaxPhoneDigits(formData.selectedCountry);
 
   return (
-    <section id="contact" className="relative py-12 lg:py-16 bg-white text-slate-900 font-sans overflow-hidden border-t border-slate-200/90">
+    <section id="contact" className="relative py-12 lg:py-16 bg-[#090e1a] text-slate-100 font-sans overflow-hidden border-t border-slate-800">
       
       {/* Background Subtle Gradient Glows */}
-      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-yellow-400/5 blur-[120px] pointer-events-none rounded-full" />
-      <div className="absolute bottom-10 right-0 w-96 h-96 bg-slate-100 blur-[100px] pointer-events-none rounded-full" />
+      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-amber-500/5 blur-[120px] pointer-events-none rounded-full" />
+      <div className="absolute bottom-10 right-0 w-96 h-96 bg-blue-500/5 blur-[100px] pointer-events-none rounded-full" />
 
       <div className="max-w-[1260px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         
@@ -159,40 +159,40 @@ const ContactSection = () => {
             className="lg:col-span-5 flex flex-col justify-between self-stretch"
           >
             {/* Image Card Container */}
-            <div className="relative rounded-[15px] overflow-hidden border border-slate-200/90 shadow-xl bg-slate-100 group h-[340px] sm:h-[420px] lg:h-full min-h-[360px]">
+            <div className="relative rounded-[15px] overflow-hidden border border-slate-800 shadow-[0_15px_40px_rgba(0,0,0,0.6)] bg-slate-900 group h-[340px] sm:h-[420px] lg:h-full min-h-[360px]">
               <img 
                 src="/assets/images/contact-wall.jpg" 
                 alt="SK Precast Boundary Wall Installation"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out brightness-90" 
               />
               
               {/* Subtle Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/50 to-transparent" />
 
               {/* Floating Top Badge */}
-              <div className="absolute top-5 left-5 bg-slate-900/85 backdrop-blur-md border border-white/20 px-4 py-2 rounded-[15px] flex items-center gap-2.5 shadow-lg">
-                <span className="w-2.5 h-2.5 rounded-full bg-yellow-400 animate-ping" />
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-100">
+              <div className="absolute top-5 left-5 bg-slate-900/90 backdrop-blur-md border border-amber-400/30 px-4 py-2 rounded-[15px] flex items-center gap-2.5 shadow-lg">
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping" />
+                <span className="text-xs font-bold uppercase tracking-wider text-amber-300">
                   {contactSectionHeaderData.showcase.badge}
                 </span>
               </div>
 
               {/* Bottom Info Floating Card */}
-              <div className="absolute bottom-5 inset-x-5 p-4 sm:p-5 rounded-[15px] bg-slate-900/90 backdrop-blur-md border border-white/15 text-white shadow-2xl space-y-2">
-                <h3 className="text-[14px] font-bold text-white flex items-center gap-2" style={{ fontSize: '14px' }}>
-                  <ShieldCheck className="text-yellow-400" size={18} />
+              <div className="absolute bottom-5 inset-x-5 p-4 sm:p-5 rounded-[15px] bg-slate-900/90 backdrop-blur-md border border-slate-700/80 text-white shadow-2xl space-y-2">
+                <h3 className="text-[14px] font-bold text-slate-100 flex items-center gap-2" style={{ fontSize: '14px' }}>
+                  <ShieldCheck className="text-amber-400" size={18} />
                   <span style={{ fontSize: '14px' }}>{contactSectionHeaderData.showcase.title}</span>
                 </h3>
                 <p className="text-[13px] text-slate-300 leading-relaxed font-normal" style={{ fontSize: '13px' }}>
                   {contactSectionHeaderData.showcase.description}
                 </p>
                 <div className="flex flex-wrap items-center gap-4 text-slate-300 font-medium pt-2 border-t border-slate-700/60" style={{ fontSize: '11.5px' }}>
-                  <div className="flex items-center gap-1.5 text-yellow-400 font-semibold" style={{ fontSize: '11.5px' }}>
+                  <div className="flex items-center gap-1.5 text-amber-400 font-semibold" style={{ fontSize: '11.5px' }}>
                     <Clock size={13} />
                     <span style={{ fontSize: '11.5px' }}>{contactSectionHeaderData.showcase.features[0].text}</span>
                   </div>
                   <div className="flex items-center gap-1.5 text-slate-300" style={{ fontSize: '11.5px' }}>
-                    <MapPin size={13} className="text-yellow-400" />
+                    <MapPin size={13} className="text-amber-400" />
                     <span style={{ fontSize: '11.5px' }}>{contactSectionHeaderData.showcase.features[1].text}</span>
                   </div>
                 </div>
@@ -200,21 +200,21 @@ const ContactSection = () => {
             </div>
           </motion.div>
 
-          {/* Right Column: Contact Form (Clean White Theme + Combobox & Full List Dropdown) */}
+          {/* Right Column: Contact Form */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
-            className="lg:col-span-7 bg-white border border-slate-200/90 rounded-[15px] p-5 sm:p-7 lg:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.06)]"
+            className="lg:col-span-7 bg-[#111927] border border-slate-800 rounded-[15px] p-5 sm:p-7 lg:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
           >
             {/* Header Area */}
             <div className="mb-4 sm:mb-5">
-              <h2 className="text-[22px] sm:text-[26px] font-extrabold tracking-tight text-slate-900 mb-1">
+              <h2 className="text-[22px] sm:text-[26px] font-extrabold tracking-tight text-slate-100 mb-1">
                 {contactSectionHeaderData.title}
               </h2>
-              <p className="text-[14px] text-slate-600 leading-normal" style={{ fontSize: '14px' }}>
-                Or reach out manually to <a href={`mailto:${contactSectionHeaderData.email}`} className="text-amber-700 hover:text-amber-800 underline underline-offset-2 font-semibold" style={{ fontSize: '15px' }}>{contactSectionHeaderData.email}</a> / <a href={`tel:${contactSectionHeaderData.phone.replace(/[^0-9+]/g, '')}`} className="text-amber-700 hover:text-amber-800 underline underline-offset-2 font-semibold" style={{ fontSize: '15px' }}>{contactSectionHeaderData.phone}</a>
+              <p className="text-[14px] text-slate-400 leading-normal" style={{ fontSize: '14px' }}>
+                Or reach out manually to <a href={`mailto:${contactSectionHeaderData.email}`} className="text-amber-400 hover:text-amber-300 underline underline-offset-2 font-semibold" style={{ fontSize: '15px' }}>{contactSectionHeaderData.email}</a> / <a href={`tel:${contactSectionHeaderData.phone.replace(/[^0-9+]/g, '')}`} className="text-amber-400 hover:text-amber-300 underline underline-offset-2 font-semibold" style={{ fontSize: '15px' }}>{contactSectionHeaderData.phone}</a>
               </p>
             </div>
 
@@ -223,12 +223,12 @@ const ContactSection = () => {
               <motion.div 
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 flex items-start gap-3"
+                className="mb-6 p-4 rounded-xl bg-emerald-950/60 border border-emerald-500/50 text-emerald-300 flex items-start gap-3"
               >
-                <CheckCircle2 className="text-emerald-600 shrink-0 mt-0.5" size={20} />
+                <CheckCircle2 className="text-emerald-400 shrink-0 mt-0.5" size={20} />
                 <div>
-                  <h4 className="font-bold text-sm text-emerald-900">Inquiry Received Successfully!</h4>
-                  <p className="text-xs text-emerald-700 mt-0.5">
+                  <h4 className="font-bold text-sm text-emerald-200">Inquiry Received Successfully!</h4>
+                  <p className="text-xs text-emerald-400 mt-0.5">
                     Thank you! Our technical sales engineer will contact you shortly with the best quote and specifications.
                   </p>
                 </div>
@@ -328,11 +328,10 @@ const ContactSection = () => {
                 placeholder="Tell us about your project requirements (wall height, running feet, site location, etc.)..."
               />
 
-
               {/* Submit Button */}
               <div className="pt-2">
                 <Button
-                  variant="dark-to-gold"
+                  variant="gold"
                   size="md"
                   type="submit"
                   disabled={loading}

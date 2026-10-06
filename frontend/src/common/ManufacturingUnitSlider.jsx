@@ -42,7 +42,7 @@ const ManufacturingUnitSlider = ({
         {displayItems.map((item, index) => (
           <div
             key={`${item.id || index}-${index}`}
-            className="group relative h-44 sm:h-64 md:h-72 lg:h-[320px] w-[210px] sm:w-[320px] md:w-[400px] lg:w-[460px] shrink-0 rounded-xl sm:rounded-[15px] overflow-hidden shadow-[0_4px_16px_rgba(0,0,0,0.08)] hover:shadow-[0_16px_35px_rgba(250,204,21,0.35)] border border-slate-200/90 hover:border-yellow-400 transition-all duration-500 hover:-translate-y-1"
+            className="group relative h-44 sm:h-64 md:h-72 lg:h-[320px] w-[210px] sm:w-[320px] md:w-[400px] lg:w-[460px] shrink-0 rounded-xl sm:rounded-[15px] overflow-hidden shadow-xl hover:shadow-[0_16px_35px_rgba(250,204,21,0.35)] border border-slate-800 hover:border-yellow-400 bg-[#111927] transition-all duration-500 hover:-translate-y-1"
           >
             {/* Facility Image */}
             <img
@@ -67,10 +67,10 @@ const ManufacturingUnitSlider = ({
   }
 
   return (
-    <section className={`relative pt-4 pb-8 sm:py-12 lg:py-16 bg-white font-sans overflow-hidden border-y border-slate-200/80 ${className}`}>
+    <section className={`relative pt-4 pb-8 sm:py-12 lg:py-16 bg-[#090e1a] font-sans overflow-hidden border-y border-slate-800 ${className}`}>
       
       {/* Background Subtle Gradient Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-slate-100/80 blur-[100px] pointer-events-none rounded-full" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-amber-500/10 blur-[100px] pointer-events-none rounded-full" />
 
       {/* Header Container - Centered Title & Description */}
       <div className="max-w-[1260px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-5 sm:mb-8 text-center">
@@ -83,7 +83,7 @@ const ManufacturingUnitSlider = ({
         >
           {/* Title with Continuous Linear Gradient */}
           <h2 className="text-[23px] sm:text-3xl lg:text-[2.6rem] font-extrabold tracking-tight leading-tight">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-[#d97706] via-amber-500 to-yellow-500 drop-shadow-sm inline-block pt-1 pb-1 sm:pb-2">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-300 to-yellow-400 drop-shadow-sm inline-block pt-1 pb-1 sm:pb-2">
               {title}
             </span>
           </h2>
@@ -97,7 +97,7 @@ const ManufacturingUnitSlider = ({
 
           {/* 2-Line Description */}
           {subtitle && (
-            <p className="caption-text text-slate-600 text-[15px] sm:text-[16px] leading-[26px] sm:leading-[28px] max-w-3xl mx-auto px-2 font-normal">
+            <p className="caption-text text-slate-300 text-[15px] sm:text-[16px] leading-[26px] sm:leading-[28px] max-w-3xl mx-auto px-2 font-normal">
               {subtitle}
             </p>
           )}

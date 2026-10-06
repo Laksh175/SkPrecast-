@@ -15,44 +15,47 @@ export const themeColors = {
     brandYellow: '#dfb722',  // Brand button yellow & classic accents
     darkAmber: '#d97706',    // Active text link hover & dark amber (Amber-600)
     deepAmber: '#b45309',    // Deep amber text (Amber-700)
-    light: '#fffbeb',        // Light pill badge backgrounds (Amber-50)
-    softYellow: '#fef3c7',   // Icon circle soft background (Amber-100)
-    iconGloss: '#f3f0ed',    // 3D icon gradient bottom highlight
+    light: 'rgba(245, 158, 11, 0.15)', // Dark badge translucent background
+    softYellow: 'rgba(251, 191, 36, 0.2)', // Icon circle translucent background
+    iconGloss: '#1e293b',    // Icon gradient bottom highlight
   },
 
   // 2. Dark Navy & Slate Theme Colors (Hero Banners, Lightbox, Footer)
   dark: {
-    heroNavy: '#0b1220',     // Top hero banner & footer dark navy background
-    heroNavyMid: '#111c33',  // Hero ambient gradient middle tone
-    midnight: '#020617',     // Lightbox modal background (Slate-950)
-    footerBg: '#0b1220',     // Footer background (Original Deep Navy)
-    cardDark: '#1e293b',     // Secondary dark controls & cards (Slate-800)
+    heroNavy: '#090e1a',     // Top hero banner & main background
+    heroNavyMid: '#0f172a',  // Hero ambient gradient middle tone
+    midnight: '#030712',     // Deepest midnight modal background
+    footerBg: '#070b14',     // Footer background (Ultra Deep Navy)
+    cardDark: '#111927',     // Dark elevated cards (Slate-900)
+    surfaceLight: '#162238', // Elevated dark interactive surface
   },
 
-  // 3. Surface & Light Background Colors
+  // 3. Surface Background Colors (Dark Palette)
   surface: {
-    pageBg: '#f8fafc',       // Main website page background (Slate-50)
-    cardBg: '#ffffff',       // Product & content cards background (Pure White)
-    lightGray: '#f1f5f9',    // Table alternate rows & inputs (Slate-100)
+    pageBg: '#090e1a',       // Main website page background (Deep Slate Navy)
+    cardBg: '#111927',       // Product & content cards background (Elevated Dark Slate)
+    lightGray: '#162238',    // Table alternate rows & inputs background
+    cardHover: '#17233d',   // Card hover elevated tone
   },
 
-  // 4. Typography / Font Colors (Headings, Body Text, Muted Text)
+  // 4. Typography / Font Colors (High Legibility Dark Mode)
   text: {
-    heading: '#0f172a',      // Main Page Titles, H1, H2 headings (Slate-900)
-    subheading: '#1e293b',   // Card titles, bold text (Slate-800)
-    body: '#334155',         // Paragraph text, specifications (Slate-700)
-    muted: '#64748b',        // Subtitles, dates, captions (Slate-500)
-    caption: '#94a3b8',      // Small uppercase labels e.g. "ADDRESS" (Slate-400)
-    light: '#ffffff',        // White text on dark hero & footer backgrounds
-    lightMuted: '#cbd5e1',   // Subtitle text on dark hero & footer (Slate-300)
+    heading: '#f8fafc',      // Main Page Titles, H1, H2 headings (Slate-50)
+    subheading: '#f1f5f9',   // Card titles, bold text (Slate-100)
+    body: '#cbd5e1',         // Paragraph text, specifications (Slate-300)
+    muted: '#94a3b8',        // Subtitles, dates, captions (Slate-400)
+    caption: '#64748b',      // Small uppercase labels (Slate-500)
+    light: '#ffffff',        // Pure white highlights
+    lightMuted: '#94a3b8',   // Subtitle text (Slate-400)
   },
 
-  // 5. Border & Divider Colors
+  // 5. Border & Divider Colors (Dark Theme Borders)
   border: {
-    card: '#e2e8f0',         // Card borders, product box outlines (Slate-200)
-    subtle: '#f1f5f9',       // Subtle line dividers inside cards (Slate-100)
-    goldGlow: 'rgba(245, 158, 11, 0.2)', // Amber glowing border on dark backgrounds
-    goldRing: 'rgba(252, 211, 77, 0.5)', // Ring border for 3D icons (Amber-300/50)
+    card: '#1e293b',         // Card borders, product box outlines (Slate-800)
+    subtle: '#1e293b',       // Subtle line dividers inside cards
+    active: '#334155',       // Active/hover border (Slate-700)
+    goldGlow: 'rgba(245, 158, 11, 0.35)', // Amber glowing border on dark backgrounds
+    goldRing: 'rgba(252, 211, 77, 0.4)', // Ring border for 3D icons
   },
 
   // 6. Action & Utility Colors

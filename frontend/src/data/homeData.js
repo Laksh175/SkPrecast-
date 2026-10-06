@@ -17,7 +17,7 @@ export const heroSectionData = {
     text: "Connect on WhatsApp",
     link: "https://api.whatsapp.com/send?phone=918238902687&text=Hello%20SK%20Precast%20Industries,%20I%20am%20interested%20in%20Precast%20Concrete%20Boundary%20Wall%20%26%20RCC%20Folding%20Compound%20Wall%20solutions%20from%20your%20Palwal%20manufacturing%20plant.%20Please%20share%20factory%20price%20list%20and%20catalogue."
   },
-  bgImage: "/assets/images/main-hero-section.webp",
+  bgImage: "/assets/images/hero-page-banner.jpeg",
   highlights: [
     { 
       id: 1,
@@ -306,7 +306,7 @@ export const popularProductsData = [
     slug: 'rcc-wall',
     image: '/assets/images/rcc-wall.jpg',
     description: 'High-strength RCC boundary walls engineered for heavy load resistance and site security.',
-    price: '₹ 60.00 - 120.00 / Square Feet',
+    price: '₹ 80.00 - 250.00 / Square Feet',
     moq: '1000 Square Feet',
     unit: 'Square Feet'
   },
@@ -316,7 +316,7 @@ export const popularProductsData = [
     slug: 'readymade-boundary-wall',
     image: '/assets/images/readymade-boundary-wall.jpg',
     description: 'Modular precast readymade boundary walls built for fast and cost-effective site setup.',
-    price: '₹ 80.00 - 150.00 / Feet',
+    price: '₹ 80.00 - 250.00 / Feet',
     moq: '250 Feet',
     unit: 'Square Feet'
   },
@@ -326,7 +326,7 @@ export const popularProductsData = [
     slug: 'prefab-rcc-readymade-precast-compound-wall',
     image: '/assets/images/prefab-rcc-readymade-precast-compound-wall.jpg',
     description: 'Factory-cured prefab compound walls offering seamless interlocking and weatherproofing.',
-    price: '₹ 60.00 - 120.00 / Square Feet',
+    price: '₹ 80.00 - 250.00 / Square Feet',
     moq: '1000 Square Feet',
     unit: 'Square Feet'
   },
@@ -336,7 +336,7 @@ export const popularProductsData = [
     slug: 'rcc-readymade-compound-wall',
     image: '/assets/images/rcc-readymade-compound-wall.jpg',
     description: 'Premium RCC readymade compound walls for residential plots and industrial fencing.',
-    price: '₹ 60.00 - 120.00 / Square Feet',
+    price: '₹ 80.00 - 250.00 / Square Feet',
     moq: '1000 Square Feet',
     unit: 'Square Feet'
   },
@@ -346,7 +346,7 @@ export const popularProductsData = [
     slug: 'rcc-compound-wall',
     image: '/assets/images/rcc-compound-wall.jpg',
     description: 'Heavy-duty reinforced concrete compound walls tailored for permanent perimeter fencing.',
-    price: '₹ 80.00 - 120.00 / Square Feet',
+    price: '₹ 80.00 - 250.00 / Square Feet',
     moq: '1000 Square Feet',
     unit: 'Square Feet'
   },
@@ -356,7 +356,7 @@ export const popularProductsData = [
     slug: 'rcc-folding-compound-wall',
     image: '/assets/images/rcc-folding-compound-wall.jpg',
     description: 'Interlocking folding precast panels offering flexible and quick on-site installation.',
-    price: '₹ 80.00 - 125.00 / Square Feet',
+    price: '₹ 80.00 - 250.00 / Square Feet',
     moq: '250 Feet',
     unit: 'Feet'
   },
@@ -366,7 +366,7 @@ export const popularProductsData = [
     slug: 'readymade-compound-wall',
     image: '/assets/images/readymade-compound-wall.jpg',
     description: 'Maintenance-free readymade walls engineered with high-density vibrated concrete.',
-    price: '₹ 80.00 - 150.00 / Square Feet',
+    price: '₹ 80.00 - 250.00 / Square Feet',
     moq: '500 Feet',
     unit: 'Feet'
   },
@@ -376,7 +376,7 @@ export const popularProductsData = [
     slug: 'readymade-walls',
     image: '/assets/images/readymade-walls.jpg',
     description: 'Universal readymade wall slabs and columns suitable for farmhouses and industrial yards.',
-    price: '₹ 60.00 - 120.00 / Square Feet',
+    price: '₹ 80.00 - 250.00 / Square Feet',
     moq: '1000 Square Feet',
     unit: 'Square Feet'
   },
@@ -386,7 +386,7 @@ export const popularProductsData = [
     slug: 'rcc-folding-wall',
     image: '/assets/images/rcc-folding-wall.jpg',
     description: 'Heavy-duty precast folding panels designed for high wind resistance and durability.',
-    price: '₹ 80.00 - 150.00 / piece',
+    price: '₹ 80.00 - 250.00 / piece',
     moq: '100 piece',
     unit: 'piece'
   },
@@ -396,7 +396,7 @@ export const popularProductsData = [
     slug: 'precast-wall',
     image: '/assets/images/precast-wall.jpg',
     description: 'High-density vibrated precast concrete walls for warehousing and commercial complexes.',
-    price: '₹ 60.00 - 120.00 / Square Feet',
+    price: '₹ 80.00 - 250.00 / Square Feet',
     moq: '1000 Square Feet',
     unit: 'Square Feet'
   },
@@ -406,7 +406,7 @@ export const popularProductsData = [
     slug: 'solar-plant-boundary-wall',
     image: '/assets/images/solar-plant-boundary-wall.jpg',
     description: 'Specialized heavy-duty security walls engineered for large-scale solar power plants.',
-    price: '₹ 100.00 - 250.00 / feet',
+    price: '₹ 80.00 - 250.00 / feet',
     moq: '1000 Square Feet',
     unit: 'Square Feet'
   }

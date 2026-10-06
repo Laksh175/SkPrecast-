@@ -27,8 +27,8 @@ export const FormFieldWrapper = ({
     <div className={`text-left ${className}`}>
       {label && (
         <div className="flex items-center justify-between mb-1">
-          <label className={`block text-[11.5px] sm:text-[12.5px] font-semibold text-slate-700 ${labelClassName}`}>
-            {label} {required && <span className="text-red-500 font-bold">*</span>}
+          <label className={`block text-[11.5px] sm:text-[12.5px] font-semibold text-slate-200 ${labelClassName}`}>
+            {label} {required && <span className="text-red-400 font-bold">*</span>}
           </label>
           {rightLabel && (
             <span className="text-[10.5px] text-slate-400 font-medium">
@@ -43,9 +43,9 @@ export const FormFieldWrapper = ({
       {hasError && (
         <p 
           style={{ fontSize: '14px' }} 
-          className={`text-[14px] leading-snug text-red-500 font-medium mt-1.5 flex items-center gap-1.5 ${errorClassName}`}
+          className={`text-[14px] leading-snug text-red-400 font-medium mt-1.5 flex items-center gap-1.5 ${errorClassName}`}
         >
-          <AlertCircle size={16} className="shrink-0 text-red-500" />
+          <AlertCircle size={16} className="shrink-0 text-red-400" />
           <span style={{ fontSize: '14px' }}>{error}</span>
         </p>
       )}
@@ -135,10 +135,10 @@ export const NameField = ({
         onChange={onChange}
         onBlur={onBlur}
         disabled={disabled}
-        className={`w-full bg-slate-50/80 hover:bg-white focus:bg-white border rounded-lg sm:rounded-xl px-3.5 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-all font-medium ${
+        className={`w-full bg-[#162238] hover:bg-[#1a2942] focus:bg-[#1a2942] border rounded-lg sm:rounded-xl px-3.5 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-100 placeholder:text-slate-500 outline-none transition-all font-medium ${
           hasError
-            ? 'border-red-500 ring-2 ring-red-200'
-            : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/15'
+            ? 'border-red-500 ring-2 ring-red-500/20'
+            : 'border-slate-700 focus:border-amber-400 focus:ring-2 focus:ring-amber-500/20'
         } ${inputClassName}`}
       />
     </FormFieldWrapper>
@@ -185,10 +185,10 @@ export const EmailField = ({
         autoCapitalize="none"
         autoCorrect="off"
         spellCheck="false"
-        className={`w-full bg-slate-50/80 hover:bg-white focus:bg-white border rounded-lg sm:rounded-xl px-3.5 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-all font-medium ${
+        className={`w-full bg-[#162238] hover:bg-[#1a2942] focus:bg-[#1a2942] border rounded-lg sm:rounded-xl px-3.5 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-100 placeholder:text-slate-500 outline-none transition-all font-medium ${
           hasError
-            ? 'border-red-500 ring-2 ring-red-200'
-            : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/15'
+            ? 'border-red-500 ring-2 ring-red-500/20'
+            : 'border-slate-700 focus:border-amber-400 focus:ring-2 focus:ring-amber-500/20'
         } ${inputClassName}`}
       />
     </FormFieldWrapper>
@@ -248,10 +248,10 @@ export const PhoneField = ({
             onChange={onChange}
             onBlur={onBlur}
             disabled={disabled}
-            className={`w-full bg-slate-50/80 hover:bg-white focus:bg-white border rounded-lg sm:rounded-xl px-3.5 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-all font-medium h-full ${
+            className={`w-full bg-[#162238] hover:bg-[#1a2942] focus:bg-[#1a2942] border rounded-lg sm:rounded-xl px-3.5 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-100 placeholder:text-slate-500 outline-none transition-all font-medium h-full ${
               hasError
-                ? 'border-red-500 ring-2 ring-red-200'
-                : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/15'
+                ? 'border-red-500 ring-2 ring-red-500/20'
+                : 'border-slate-700 focus:border-amber-400 focus:ring-2 focus:ring-amber-500/20'
             } ${inputClassName}`}
           />
         </div>
@@ -301,10 +301,10 @@ export const MessageField = ({
         onChange={onChange}
         onBlur={onBlur}
         disabled={disabled}
-        className={`w-full bg-slate-50/80 hover:bg-white focus:bg-white border rounded-lg sm:rounded-xl px-3.5 py-2.5 sm:py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-all resize-none font-medium ${
+        className={`w-full bg-[#162238] hover:bg-[#1a2942] focus:bg-[#1a2942] border rounded-lg sm:rounded-xl px-3.5 py-2.5 sm:py-3 text-sm text-slate-100 placeholder:text-slate-500 outline-none transition-all resize-none font-medium ${
           hasError
-            ? 'border-red-500 ring-2 ring-red-200'
-            : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/15'
+            ? 'border-red-500 ring-2 ring-red-500/20'
+            : 'border-slate-700 focus:border-amber-400 focus:ring-2 focus:ring-amber-500/20'
         } ${textareaClassName}`}
       />
     </FormFieldWrapper>
@@ -399,10 +399,10 @@ export const InputField = ({
         min={min}
         max={max}
         disabled={disabled}
-        className={`w-full bg-slate-50/80 hover:bg-white focus:bg-white border rounded-lg sm:rounded-xl px-3.5 py-2.5 sm:py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-all font-medium ${
+        className={`w-full bg-[#162238] hover:bg-[#1a2942] focus:bg-[#1a2942] border rounded-lg sm:rounded-xl px-3.5 py-2.5 sm:py-3 text-sm text-slate-100 placeholder:text-slate-500 outline-none transition-all font-medium ${
           hasError
-            ? 'border-red-500 ring-2 ring-red-200'
-            : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/15'
+            ? 'border-red-500 ring-2 ring-red-500/20'
+            : 'border-slate-700 focus:border-amber-400 focus:ring-2 focus:ring-amber-500/20'
         } ${inputClassName}`}
         {...rest}
       />

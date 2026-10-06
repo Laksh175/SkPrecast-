@@ -133,11 +133,11 @@ export const SearchableSelect = ({
             onFocus={() => !disabled && setIsOpen(true)}
             onBlur={onBlur}
             placeholder={placeholder}
-            className={`w-full bg-slate-50/70 hover:bg-white focus:bg-white border rounded-xl ${sizeClasses} pr-10 text-slate-900 placeholder:text-slate-400 focus:outline-none transition-all shadow-2xs cursor-pointer ${
+            className={`w-full bg-[#162238] hover:bg-[#1a2942] focus:bg-[#1a2942] border rounded-xl ${sizeClasses} pr-10 text-slate-100 placeholder:text-slate-500 focus:outline-none transition-all shadow-inner cursor-pointer ${
               error
-                ? 'border-rose-400 focus:border-rose-500 focus:ring-2 focus:ring-rose-400/20'
-                : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-400/30'
-            } ${disabled ? 'opacity-60 cursor-not-allowed bg-slate-100' : ''} ${triggerClassName}`}
+                ? 'border-rose-500 focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20'
+                : 'border-slate-700 focus:border-amber-400 focus:ring-2 focus:ring-amber-500/20'
+            } ${disabled ? 'opacity-60 cursor-not-allowed bg-slate-900' : ''} ${triggerClassName}`}
           />
         ) : (
           <button
@@ -146,13 +146,13 @@ export const SearchableSelect = ({
             disabled={disabled}
             onClick={() => !disabled && setIsOpen(!isOpen)}
             onBlur={onBlur}
-            className={`w-full bg-slate-50/70 hover:bg-white focus:bg-white border rounded-xl ${sizeClasses} pr-10 text-left transition-all shadow-2xs flex items-center justify-between cursor-pointer ${
+            className={`w-full bg-[#162238] hover:bg-[#1a2942] focus:bg-[#1a2942] border rounded-xl ${sizeClasses} pr-10 text-left transition-all shadow-inner flex items-center justify-between cursor-pointer ${
               error
-                ? 'border-rose-400 focus:border-rose-500 focus:ring-2 focus:ring-rose-400/20'
-                : 'border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-400/30'
-            } ${disabled ? 'opacity-60 cursor-not-allowed bg-slate-100' : ''} ${triggerClassName}`}
+                ? 'border-rose-500 focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20'
+                : 'border-slate-700 focus:border-amber-400 focus:ring-2 focus:ring-amber-500/20'
+            } ${disabled ? 'opacity-60 cursor-not-allowed bg-slate-900' : ''} ${triggerClassName}`}
           >
-            <span className={`truncate ${currentDisplayLabel ? 'text-slate-900 font-medium' : 'text-slate-400'}`}>
+            <span className={`truncate ${currentDisplayLabel ? 'text-slate-100 font-medium' : 'text-slate-500'}`}>
               {currentDisplayLabel || placeholder}
             </span>
           </button>
@@ -166,11 +166,11 @@ export const SearchableSelect = ({
             e.stopPropagation();
             if (!disabled) setIsOpen(!isOpen);
           }}
-          className="absolute right-0 top-0 bottom-0 px-3 flex items-center justify-center text-slate-400 hover:text-amber-600 transition-colors cursor-pointer"
+          className="absolute right-0 top-0 bottom-0 px-3 flex items-center justify-center text-slate-400 hover:text-amber-400 transition-colors cursor-pointer"
         >
           <ChevronDown
             size={16}
-            className={`transition-transform duration-200 ${isOpen ? 'rotate-180 text-amber-600' : ''}`}
+            className={`transition-transform duration-200 ${isOpen ? 'rotate-180 text-amber-400' : ''}`}
           />
         </button>
       </div>
@@ -183,33 +183,33 @@ export const SearchableSelect = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: placement === 'top' ? -5 : 5 }}
             transition={{ duration: 0.15 }}
-            className={`absolute ${placement === 'top' ? 'bottom-full mb-1.5' : 'top-full mt-1.5'} left-0 right-0 bg-white border border-slate-200 rounded-xl shadow-2xl z-[150] overflow-hidden ${popoverClassName}`}
+            className={`absolute ${placement === 'top' ? 'bottom-full mb-1.5' : 'top-full mt-1.5'} left-0 right-0 bg-[#0d1527] border border-slate-700 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-[150] overflow-hidden ${popoverClassName}`}
           >
             {/* Search Filter Header */}
             {showSearch && allFlattenedOptions.length > 5 && (
-              <div className="p-2.5 border-b border-slate-200 bg-slate-50 flex items-center gap-2">
+              <div className="p-2.5 border-b border-slate-800 bg-[#111927] flex items-center gap-2">
                 <Search size={14} className="text-slate-400 ml-1 shrink-0" />
                 <input
                   type="text"
                   placeholder={defaultSearchPlaceholder}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="bg-transparent text-xs text-slate-900 placeholder:text-slate-400 outline-none w-full py-0.5"
+                  className="bg-transparent text-xs text-slate-100 placeholder:text-slate-500 outline-none w-full py-0.5"
                   autoFocus
                 />
               </div>
             )}
 
             {/* Scrollable Options List */}
-            <div className="max-h-56 overflow-y-auto divide-y divide-slate-100 custom-scrollbar">
+            <div className="max-h-56 overflow-y-auto divide-y divide-slate-800/60 custom-scrollbar">
               {isGrouped ? (
                 (filteredList).length > 0 ? (
                   (filteredList).map((grp, gIdx) => (
                     <div key={gIdx} className="py-1">
-                      <div className="px-3.5 py-1.5 text-[11px] font-black uppercase tracking-wider text-slate-500 bg-slate-50/80 sticky top-0 z-10 border-y border-slate-200/50">
+                      <div className="px-3.5 py-1.5 text-[11px] font-black uppercase tracking-wider text-amber-400 bg-[#162238] sticky top-0 z-10 border-y border-slate-700/60">
                         {grp.group}
                       </div>
-                      <div className="divide-y divide-slate-50">
+                      <div className="divide-y divide-slate-800/40">
                         {grp.options.map((opt, optIdx) => {
                           const optLabel = typeof opt === 'object' ? opt.label : opt;
                           const optVal = typeof opt === 'object' ? opt.value : opt;
@@ -219,12 +219,12 @@ export const SearchableSelect = ({
                               key={optIdx}
                               type="button"
                               onClick={() => handleSelect(optVal)}
-                              className={`w-full text-left px-4 py-2 text-xs hover:bg-yellow-50 hover:text-amber-900 transition-colors flex items-center justify-between cursor-pointer ${
-                                isSelected ? 'bg-yellow-100/80 text-amber-950 font-bold' : 'text-slate-700'
+                              className={`w-full text-left px-4 py-2 text-xs hover:bg-slate-800/80 hover:text-amber-300 transition-colors flex items-center justify-between cursor-pointer ${
+                                isSelected ? 'bg-amber-500/20 text-amber-300 font-bold' : 'text-slate-300'
                               }`}
                             >
                               <span className="truncate">{optLabel}</span>
-                              {isSelected && <Check size={14} className="text-amber-600 shrink-0 ml-2" />}
+                              {isSelected && <Check size={14} className="text-amber-400 shrink-0 ml-2" />}
                             </button>
                           );
                         })}
@@ -247,18 +247,18 @@ export const SearchableSelect = ({
                         key={idx}
                         type="button"
                         onClick={() => handleSelect(optVal)}
-                        className={`w-full text-left px-3.5 py-2.5 text-xs hover:bg-yellow-50 hover:text-amber-900 transition-colors flex items-center justify-between cursor-pointer ${
-                          isSelected ? 'bg-yellow-100/80 text-amber-950 font-bold' : 'text-slate-700'
+                        className={`w-full text-left px-3.5 py-2.5 text-xs hover:bg-slate-800/80 hover:text-amber-300 transition-colors flex items-center justify-between cursor-pointer ${
+                          isSelected ? 'bg-amber-500/20 text-amber-300 font-bold' : 'text-slate-300'
                         }`}
                       >
                         <span className="truncate">{optLabel}</span>
-                        {isSelected && <Check size={14} className="text-amber-600 shrink-0 ml-2" />}
+                        {isSelected && <Check size={14} className="text-amber-400 shrink-0 ml-2" />}
                       </button>
                     );
                   })
                 ) : isTypeable && value ? (
-                  <div className="p-3 text-left text-xs text-slate-500">
-                    Use custom: "<span className="text-amber-700 font-semibold">{value}</span>"
+                  <div className="p-3 text-left text-xs text-slate-400">
+                    Use custom: "<span className="text-amber-400 font-semibold">{value}</span>"
                   </div>
                 ) : (
                   <div className="p-3.5 text-center text-xs text-slate-400">

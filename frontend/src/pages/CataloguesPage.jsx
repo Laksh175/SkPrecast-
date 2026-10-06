@@ -14,13 +14,24 @@ const CataloguesPage = () => {
   }, []);
 
   return (
-    <div className="w-full min-h-[70vh] bg-theme-pageBg font-sans overflow-hidden">
+    <div className="w-full min-h-[70vh] bg-[#090e1a] font-sans overflow-hidden">
       
       {/* 1. Hero Banner matching About & Product pages */}
-      <section className="relative bg-theme-heroNavy text-white pt-16 pb-20 overflow-hidden border-b border-amber-500/30 font-sans">
+      <section className="relative bg-[#060a12] text-white pt-16 pb-20 overflow-hidden border-b border-slate-800 font-sans">
+        {/* Background Banner Image Clearly Visible */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <img 
+            src="/assets/images/hero-page-banner.jpeg" 
+            alt="SK Precast Industries Banner" 
+            className="w-full h-full object-cover object-center opacity-85"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#060a12]/70 via-[#060a12]/40 to-[#060a12]" />
+        </div>
+
         {/* Subtle Architectural Dot Grid Overlay */}
         <div 
-          className="absolute inset-0 opacity-[0.18] pointer-events-none"
+          className="absolute inset-0 opacity-[0.15] pointer-events-none z-1"
           style={{
             backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px)',
             backgroundSize: '24px 24px'
@@ -28,11 +39,11 @@ const CataloguesPage = () => {
         />
 
         {/* Ambient Gradient Glows */}
-        <div className="absolute -top-24 left-1/3 w-96 h-96 bg-amber-500/15 blur-[120px] pointer-events-none rounded-full" />
-        <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-blue-600/10 blur-[130px] pointer-events-none rounded-full" />
+        <div className="absolute -top-24 left-1/3 w-96 h-96 bg-amber-500/10 blur-[120px] pointer-events-none rounded-full z-1" />
+        <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-blue-600/10 blur-[130px] pointer-events-none rounded-full z-1" />
 
         {/* Top Gold Highlight Bar */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent shadow-[0_0_12px_rgba(245,158,11,0.6)]" />
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent shadow-[0_0_12px_rgba(245,158,11,0.6)] z-1" />
 
         <div className="max-w-[1260px] mx-auto px-6 relative z-10 text-center">
           {/* Breadcrumb */}
@@ -85,7 +96,7 @@ const CataloguesPage = () => {
       </section>
 
       {/* 2. Top Showcase Section: 2 PDF Catalogues (Left) + Contact Us Card (Right) */}
-      <section className="py-12 sm:py-16 bg-theme-pageBg border-b border-slate-200/80">
+      <section className="py-12 sm:py-16 bg-[#090e1a] border-b border-slate-800">
         <div className="max-w-[1260px] mx-auto px-5 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
             
@@ -95,8 +106,8 @@ const CataloguesPage = () => {
               {/* Section Header with Gradient Shading */}
               <div className="mb-6 text-center lg:text-left">
                 <div className="inline-block">
-                  <h2 className="text-[23px] sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight">
-                    Download <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-[#d97706] via-amber-500 to-yellow-500">Product Brochures</span>
+                  <h2 className="text-[23px] sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight">
+                    Download <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500">Product Brochures</span>
                   </h2>
                   <div className="flex items-center justify-center gap-2 mt-2.5 mb-2.5 mx-auto">
                     <span className="h-[2px] w-20 sm:w-28 rounded-full title-accent-bar" />
@@ -104,7 +115,7 @@ const CataloguesPage = () => {
                     <span className="h-[2px] w-20 sm:w-28 rounded-full title-accent-bar" />
                   </div>
                 </div>
-                <p className="text-slate-600 text-[17px] leading-[28px] mt-1.5 max-w-xl mx-auto lg:mx-0">
+                <p className="text-slate-300 text-[17px] leading-[28px] mt-1.5 max-w-xl mx-auto lg:mx-0">
                   Access our complete precast technical specifications, installation guides, and product details in your preferred language.
                 </p>
               </div>
@@ -112,18 +123,18 @@ const CataloguesPage = () => {
               {/* 2 PDF Catalogue Cards Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 flex-1">
                 {catalogueBrochuresData.map((item) => (
-                  <div key={item.id} className="bg-white rounded-[15px] border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-amber-400 transition-all duration-300 p-4 sm:p-5 flex flex-col justify-between group">
-                    {/* Image Container with 10px border radius and white background frame */}
+                  <div key={item.id} className="bg-[#111927] rounded-[15px] border border-slate-800 shadow-sm hover:shadow-xl hover:border-amber-400 transition-all duration-300 p-4 sm:p-5 flex flex-col justify-between group">
+                    {/* Image Container with 10px border radius */}
                     <div 
                       onClick={() => setActivePdfModal({ title: item.title, url: item.url, downloadName: item.downloadName })}
-                      className="relative w-full aspect-[4/3] rounded-[10px] overflow-hidden bg-slate-100 border border-slate-200/80 shadow-xs mb-4 cursor-pointer"
+                      className="relative w-full aspect-[4/3] rounded-[10px] overflow-hidden bg-[#162238] border border-slate-700/80 shadow-xs mb-4 cursor-pointer"
                     >
                       <img 
                         src={item.image} 
                         alt={`${item.name} - SK Precast Industries`} 
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-[6px] bg-slate-900/80 backdrop-blur-md text-white font-bold text-[11px] border border-white/20 shadow-sm flex items-center gap-1.5">
+                      <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-[6px] bg-slate-950/80 backdrop-blur-md text-white font-bold text-[11px] border border-white/20 shadow-sm flex items-center gap-1.5">
                         <FileText size={13} className="text-amber-400" />
                         <span>{item.edition}</span>
                       </div>
@@ -132,22 +143,25 @@ const CataloguesPage = () => {
                     {/* Content & Action */}
                     <div className="text-left flex-1 flex flex-col justify-between">
                       <div className="mb-4">
-                        <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-amber-600 transition-colors">
+                        <h3 className="text-lg font-extrabold text-white group-hover:text-amber-400 transition-colors">
                           {item.name}
                         </h3>
-                        <p className="text-xs text-slate-500 mt-0.5">
+                        <p 
+                          className="!text-[16px] text-slate-300 leading-relaxed mt-1.5 font-normal"
+                          style={{ fontSize: '16px', lineHeight: '24px' }}
+                        >
                           {item.description}
                         </p>
                       </div>
 
                       {/* Action Button */}
-                      <div className="pt-3 border-t border-slate-100">
+                      <div className="pt-3 border-t border-slate-800">
                         <Button 
-                          variant="dark-to-gold"
+                          variant="gold"
                           size="md"
                           fullWidth
                           onClick={() => setActivePdfModal({ title: item.title, url: item.url, downloadName: item.downloadName })}
-                          icon={<Eye size={15} className="text-yellow-400 group-hover/btn:text-slate-950 transition-colors" />}
+                          icon={<Eye size={15} />}
                           iconPosition="left"
                           className="rounded-full normal-case text-xs sm:text-sm font-bold shadow-md"
                         >

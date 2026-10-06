@@ -213,20 +213,31 @@ const Product = () => {
   }, []);
 
   return (
-    <div className="w-full bg-theme-pageBg font-sans pb-20">
+    <div className="w-full bg-[#090e1a] font-sans pb-20">
       {/* 1. Products Hero Banner */}
-      <section className="relative bg-theme-heroNavy text-white pt-16 pb-20 overflow-hidden border-b border-amber-500/30">
+      <section className="relative bg-[#060a12] text-white pt-16 pb-20 overflow-hidden border-b border-slate-800">
+        {/* Background Banner Image Clearly Visible */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <img 
+            src="/assets/images/hero-page-banner.jpeg" 
+            alt="SK Precast Industries Products Banner" 
+            className="w-full h-full object-cover object-center opacity-85"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#060a12]/70 via-[#060a12]/40 to-[#060a12]" />
+        </div>
+
         {/* Subtle dot overlay */}
         <div
-          className="absolute inset-0 opacity-[0.18] pointer-events-none"
+          className="absolute inset-0 opacity-[0.15] pointer-events-none z-1"
           style={{
             backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px)',
             backgroundSize: '24px 24px'
           }}
         />
         {/* Ambient Glows */}
-        <div className="absolute -top-24 left-1/3 w-96 h-96 bg-amber-500/15 blur-[120px] pointer-events-none rounded-full" />
-        <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-blue-600/10 blur-[130px] pointer-events-none rounded-full" />
+        <div className="absolute -top-24 left-1/3 w-96 h-96 bg-amber-500/10 blur-[120px] pointer-events-none rounded-full z-1" />
+        <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-blue-600/10 blur-[130px] pointer-events-none rounded-full z-1" />
 
         <div className="max-w-[1260px] mx-auto px-6 relative z-10 text-center">
           {/* Top Breadcrumb (Clean & Bigger Font without background square box) */}
@@ -286,14 +297,14 @@ const Product = () => {
       {/* 2. Main Catalog Filter & Grid Container */}
       <div id="products-grid-section" className="max-w-[1260px] mx-auto px-5 sm:px-6 lg:px-8 pt-10">
 
-        {/* Sticky Unified Control Bar: Rounded 25px Category Tabs + 3D Search (Sticks with clean gap below Header) */}
+        {/* Sticky Unified Control Bar: Rounded 25px Category Tabs + 3D Search */}
         <div
           className="sticky z-30 mb-8 transition-all duration-200"
           style={{ top: 'calc(var(--header-height, 115px) + 14px)' }}
         >
-          <div className="flex flex-wrap lg:flex-nowrap items-center justify-between gap-2.5 sm:gap-3 bg-white p-2.5 sm:p-3 rounded-[15px] border border-slate-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all">
+          <div className="flex flex-wrap lg:flex-nowrap items-center justify-between gap-2.5 sm:gap-3 bg-[#0d1527] p-2.5 sm:p-3 rounded-[15px] border border-slate-700/80 shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all">
 
-            {/* 1. Category Tabs (radius 25px, compact on mobile, auto-centered on click, with smooth sliding pill animation) */}
+            {/* 1. Category Tabs */}
             <div 
               ref={tabsContainerRef}
               className="flex items-center gap-1.5 sm:gap-2.5 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-0.5 w-full lg:w-auto scroll-smooth"
@@ -318,20 +329,20 @@ const Product = () => {
                     className={`relative inline-flex items-center gap-1.5 px-2.5 py-1.5 sm:px-4 sm:py-2.5 rounded-[20px] sm:rounded-[25px] text-[12.5px] sm:text-[14px] font-bold whitespace-nowrap transition-colors duration-200 cursor-pointer shrink-0 select-none ${
                       isActive
                         ? 'text-slate-950 font-black'
-                        : 'bg-slate-50 hover:bg-slate-100 text-slate-700 hover:text-slate-950 border border-slate-200/90 shadow-xs'
+                        : 'bg-[#162238] hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/70 shadow-xs'
                     }`}
                   >
                     {/* Animated Sliding Active Pill Background */}
                     {isActive && (
                       <motion.div
                         layoutId="activeCategoryPill"
-                        className="absolute inset-0 bg-gradient-to-r from-[#fef08a] via-[#fde047] to-[#facc15] rounded-[20px] sm:rounded-[25px] border border-yellow-400 shadow-[0_3px_12px_rgba(234,179,8,0.35)] -z-0"
+                        className="absolute inset-0 bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-400 rounded-[20px] sm:rounded-[25px] border border-amber-300 shadow-[0_3px_12px_rgba(245,158,11,0.45)] -z-0"
                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                       />
                     )}
                     <span className="relative z-10">{cat.name}</span>
                     <span className={`relative z-10 px-1.5 py-0.2 sm:px-2 sm:py-0.5 rounded-full text-[10px] sm:text-[11px] font-extrabold transition-all ${
-                      isActive ? 'bg-slate-950 text-yellow-400 scale-105' : 'bg-slate-200/80 text-slate-700'
+                      isActive ? 'bg-slate-950 text-amber-400 scale-105' : 'bg-slate-800 text-slate-400'
                     }`}>
                       {count}
                     </span>
@@ -341,25 +352,25 @@ const Product = () => {
             </div>
 
             {/* 2. 3D Search Icon Button & 3. Result Counter */}
-            <div className="flex items-center justify-between lg:justify-start w-full lg:w-auto gap-3 shrink-0 pt-1.5 lg:pt-0 border-t lg:border-t-0 border-slate-100">
+            <div className="flex items-center justify-between lg:justify-start w-full lg:w-auto gap-3 shrink-0 pt-1.5 lg:pt-0 border-t lg:border-t-0 border-slate-800">
               {/* 3D Search Icon / Expandable Bar */}
               <div className="relative flex items-center shrink-0">
                 {isSearchOpen || searchQuery ? (
-                  <div className="flex items-center gap-1.5 bg-slate-50 border border-amber-400/90 rounded-[25px] px-2 py-1 shadow-[0_3px_10px_rgba(245,158,11,0.18)] transition-all">
-                    <Search size={14} className="text-amber-600 ml-1 shrink-0" />
+                  <div className="flex items-center gap-1.5 bg-[#162238] border border-amber-400/80 rounded-[25px] px-2 py-1 shadow-[0_3px_10px_rgba(245,158,11,0.25)] transition-all">
+                    <Search size={14} className="text-amber-400 ml-1 shrink-0" />
                     <input
                       ref={searchInputRef}
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Search products..."
-                      className="w-28 sm:w-40 md:w-48 px-1.5 py-0.5 text-xs sm:text-sm text-slate-800 placeholder-slate-400 bg-transparent focus:outline-none"
+                      className="w-28 sm:w-40 md:w-48 px-1.5 py-0.5 text-xs sm:text-sm text-white placeholder-slate-500 bg-transparent focus:outline-none"
                       autoFocus
                     />
                     {searchQuery && (
                       <button
                         onClick={() => setSearchQuery('')}
-                        className="p-1 text-slate-400 hover:text-slate-600 cursor-pointer"
+                        className="p-1 text-slate-400 hover:text-white cursor-pointer"
                         title="Clear text"
                       >
                         <X size={12} />
@@ -370,7 +381,7 @@ const Product = () => {
                         setIsSearchOpen(false);
                         setSearchQuery('');
                       }}
-                      className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-200/80 hover:bg-slate-300 text-slate-700 flex items-center justify-center cursor-pointer transition-colors"
+                      className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center cursor-pointer transition-colors"
                       title="Close Search"
                     >
                       <X size={12} />
@@ -382,18 +393,18 @@ const Product = () => {
                       setIsSearchOpen(true);
                       setTimeout(() => searchInputRef.current?.focus(), 50);
                     }}
-                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-[10px] sm:rounded-[12px] bg-gradient-to-br from-amber-400 via-amber-500 to-[#f3f0ed] text-white flex items-center justify-center shrink-0 shadow-[0_3px_8px_rgba(217,119,6,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.6),inset_0_-2px_3px_rgba(0,0,0,0.2)] ring-1 ring-amber-300/50 hover:scale-105 active:scale-95 transition-all cursor-pointer group"
+                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-[10px] sm:rounded-[12px] bg-gradient-to-br from-amber-400 via-amber-500 to-yellow-600 text-slate-950 flex items-center justify-center shrink-0 shadow-[0_3px_8px_rgba(217,119,6,0.4)] ring-1 ring-amber-300/50 hover:scale-105 active:scale-95 transition-all cursor-pointer group"
                     title="Search Products"
                   >
-                    <Search size={14} className="text-white drop-shadow-xs group-hover:scale-110 transition-transform" />
+                    <Search size={14} className="text-slate-950 drop-shadow-xs group-hover:scale-110 transition-transform" />
                   </button>
                 )}
               </div>
 
               {/* Result Counter */}
-              <div className="text-[12px] sm:text-sm text-slate-500 font-semibold whitespace-nowrap pl-1 shrink-0">
-                Showing <span className="text-slate-900 font-extrabold">{selectedCategory === 'all' ? totalDisplayedInAll : displayedProducts.length}</span> of{' '}
-                <span className="text-slate-900 font-extrabold">{filteredProducts.length}</span>
+              <div className="text-[12px] sm:text-sm text-slate-400 font-semibold whitespace-nowrap pl-1 shrink-0">
+                Showing <span className="text-white font-extrabold">{selectedCategory === 'all' ? totalDisplayedInAll : displayedProducts.length}</span> of{' '}
+                <span className="text-amber-400 font-extrabold">{filteredProducts.length}</span>
               </div>
             </div>
           </div>
@@ -402,17 +413,17 @@ const Product = () => {
         {/* Compound Wall Category Intro Header */}
         {selectedCategory === 'compound-wall' && !searchQuery && (
           <div className="w-full text-center py-2 mb-8">
-            <h2 className="text-[23px] sm:text-3xl lg:text-4xl font-extrabold text-slate-900 mb-2">
+            <h2 className="text-[23px] sm:text-3xl lg:text-4xl font-extrabold text-white mb-2">
               Compound Wall
             </h2>
-            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-500 mb-4 font-semibold">
-              <span className="hover:text-amber-600 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Home</span>
-              <span className="text-slate-400">&gt;</span>
-              <span className="hover:text-amber-600 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Products</span>
-              <span className="text-slate-400">&gt;</span>
-              <span className="text-amber-600 font-bold">Compound Wall</span>
+            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-400 mb-4 font-semibold">
+              <span className="hover:text-amber-400 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Home</span>
+              <span className="text-slate-500">&gt;</span>
+              <span className="hover:text-amber-400 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Products</span>
+              <span className="text-slate-500">&gt;</span>
+              <span className="text-amber-400 font-bold">Compound Wall</span>
             </div>
-            <p className="text-[14px] sm:text-[17px] leading-[24px] sm:leading-[28px] text-slate-600 w-full max-w-6xl mx-auto font-normal text-justify">
+            <p className="text-[14px] sm:text-[17px] leading-[24px] sm:leading-[28px] text-slate-300 w-full max-w-6xl mx-auto font-normal text-justify">
               Leading Manufacturers, Wholesaler, Retailer, Exporters and Trader of Concrete Folding Compound Wall, Concrete Precast Single Panel Wall, Factory Boundary Wall, Heavy Readymade Boundary Wall, Industrial Compound Wall, Panel Build RCC Compound Wall, Panel Build RCC Precast Compound Wall, Precast Compound Walls, Precast Heavy Duty Boundary Wall, Precast Heavy Duty Compound Wall, Prefab RCC Readymade Precast Compound Wall, RCC Compound Wall, rcc folding compound wall, RCC Industrial One Piece Compound Wall, RCC Readymade Compound Wall, Readymade Compound Wall and Single Mould RCC Precast Compound Wall from Palwal.
             </p>
           </div>
@@ -421,17 +432,17 @@ const Product = () => {
         {/* Boundary Wall Category Intro Header */}
         {selectedCategory === 'boundary-wall' && !searchQuery && (
           <div className="w-full text-center py-2 mb-8">
-            <h2 className="text-[23px] sm:text-3xl lg:text-4xl font-extrabold text-slate-900 mb-2">
+            <h2 className="text-[23px] sm:text-3xl lg:text-4xl font-extrabold text-white mb-2">
               Boundary Wall
             </h2>
-            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-500 mb-4 font-semibold">
-              <span className="hover:text-amber-600 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Home</span>
-              <span className="text-slate-400">&gt;</span>
-              <span className="hover:text-amber-600 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Products</span>
-              <span className="text-slate-400">&gt;</span>
-              <span className="text-amber-600 font-bold">Boundary Wall</span>
+            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-400 mb-4 font-semibold">
+              <span className="hover:text-amber-400 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Home</span>
+              <span className="text-slate-500">&gt;</span>
+              <span className="hover:text-amber-400 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Products</span>
+              <span className="text-slate-500">&gt;</span>
+              <span className="text-amber-400 font-bold">Boundary Wall</span>
             </div>
-            <p className="text-[14px] sm:text-[17px] leading-[24px] sm:leading-[28px] text-slate-600 w-full max-w-6xl mx-auto font-normal text-justify">
+            <p className="text-[14px] sm:text-[17px] leading-[24px] sm:leading-[28px] text-slate-300 w-full max-w-6xl mx-auto font-normal text-justify">
               Leading Manufacturers, Wholesaler, Retailer, Exporters and Trader of Cement Boundary Wall, Concrete Boundary Wall, Concrete Prestressed Boundary Walls, Precast Boundary Wall, RCC Boundary Wall, Readymade Boundary Wall and Solar Plant Boundary Wall from Palwal.
             </p>
           </div>
@@ -440,17 +451,17 @@ const Product = () => {
         {/* Cement Wall Category Intro Header */}
         {selectedCategory === 'cement-wall' && !searchQuery && (
           <div className="w-full text-center py-2 mb-8">
-            <h2 className="text-[23px] sm:text-3xl lg:text-4xl font-extrabold text-slate-900 mb-2">
+            <h2 className="text-[23px] sm:text-3xl lg:text-4xl font-extrabold text-white mb-2">
               Cement Wall
             </h2>
-            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-500 mb-4 font-semibold">
-              <span className="hover:text-amber-600 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Home</span>
-              <span className="text-slate-400">&gt;</span>
-              <span className="hover:text-amber-600 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Products</span>
-              <span className="text-slate-400">&gt;</span>
-              <span className="text-amber-600 font-bold">Cement Wall</span>
+            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-400 mb-4 font-semibold">
+              <span className="hover:text-amber-400 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Home</span>
+              <span className="text-slate-500">&gt;</span>
+              <span className="hover:text-amber-400 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Products</span>
+              <span className="text-slate-500">&gt;</span>
+              <span className="text-amber-400 font-bold">Cement Wall</span>
             </div>
-            <p className="text-[14px] sm:text-[17px] leading-[24px] sm:leading-[28px] text-slate-600 w-full max-w-6xl mx-auto font-normal text-center">
+            <p className="text-[14px] sm:text-[17px] leading-[24px] sm:leading-[28px] text-slate-300 w-full max-w-6xl mx-auto font-normal text-center">
               Leading Manufacturer and Supplier of Pre Fabricated Cement Wall and RCC Cement Wall from Palwal.
             </p>
           </div>
@@ -459,17 +470,17 @@ const Product = () => {
         {/* Other Products Category Intro Header */}
         {selectedCategory === 'other-products' && !searchQuery && (
           <div className="w-full text-center py-2 mb-8">
-            <h2 className="text-[23px] sm:text-3xl lg:text-4xl font-extrabold text-slate-900 mb-2">
+            <h2 className="text-[23px] sm:text-3xl lg:text-4xl font-extrabold text-white mb-2">
               Other Products
             </h2>
-            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-500 mb-4 font-semibold">
-              <span className="hover:text-amber-600 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Home</span>
-              <span className="text-slate-400">&gt;</span>
-              <span className="hover:text-amber-600 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Products</span>
-              <span className="text-slate-400">&gt;</span>
-              <span className="text-amber-600 font-bold">Other Products</span>
+            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-400 mb-4 font-semibold">
+              <span className="hover:text-amber-400 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Home</span>
+              <span className="text-slate-500">&gt;</span>
+              <span className="hover:text-amber-400 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Products</span>
+              <span className="text-slate-500">&gt;</span>
+              <span className="text-amber-400 font-bold">Other Products</span>
             </div>
-            <p className="text-[14px] sm:text-[17px] leading-[24px] sm:leading-[28px] text-slate-600 w-full max-w-6xl mx-auto font-normal text-center">
+            <p className="text-[14px] sm:text-[17px] leading-[24px] sm:leading-[28px] text-slate-300 w-full max-w-6xl mx-auto font-normal text-center">
               Leading Manufacturers, Wholesaler, Retailer, Exporters and Trader of Precast Wall, RCC Folding Wall, RCC Wall and Readymade Walls from Palwal.
             </p>
           </div>
@@ -486,7 +497,7 @@ const Product = () => {
               transition={{ duration: 0.28, ease: 'easeOut' }}
             >
               {selectedCategory === 'compound-wall' || selectedCategory === 'boundary-wall' || selectedCategory === 'cement-wall' || selectedCategory === 'other-products' ? (
-                /* Dedicated List Format for Compound Wall, Boundary Wall, Cement Wall & Other Products (Matching https://www.skprecast-industries.com) */
+                /* Dedicated List Format for Compound Wall, Boundary Wall, Cement Wall & Other Products */
                 <div className="flex flex-col gap-6">
                   {displayedProducts.map((product, index) => (
                     <CompoundWallCard
@@ -520,22 +531,22 @@ const Product = () => {
                               <button
                                 type="button"
                                 onClick={() => handleCategoryChange(cat.id)}
-                                className="inline-flex items-center gap-2.5 px-3.5 sm:px-4 py-2 rounded-[12px] bg-white hover:bg-slate-50 text-slate-900 shadow-sm border border-slate-200/90 hover:border-amber-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group text-left shrink-0"
+                                className="inline-flex items-center gap-2.5 px-3.5 sm:px-4 py-2 rounded-[12px] bg-[#111927] hover:bg-slate-800 text-white shadow-sm border border-slate-800 hover:border-amber-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group text-left shrink-0"
                               >
                                 <span className="relative flex h-2.5 w-2.5 shrink-0">
                                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
                                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500 shadow-[0_0_8px_#f59e0b]"></span>
                                 </span>
-                                <span className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-900 group-hover:text-amber-600 transition-colors">
+                                <span className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-white group-hover:text-amber-400 transition-colors">
                                   {cat.name}
                                 </span>
-                                <span className="px-2 py-0.5 rounded-full text-[11px] font-extrabold bg-slate-100 text-slate-600 group-hover:bg-amber-100 group-hover:text-amber-800 transition-colors">
+                                <span className="px-2 py-0.5 rounded-full text-[11px] font-extrabold bg-[#162238] text-slate-300 group-hover:bg-amber-500/20 group-hover:text-amber-300 transition-colors">
                                   {itemsInCat.length}
                                 </span>
                               </button>
 
                               {/* Decorative Partition Divider Line */}
-                              <div className="h-[2px] flex-1 bg-gradient-to-r from-amber-400/80 via-slate-300 to-transparent rounded-full" />
+                              <div className="h-[2px] flex-1 bg-gradient-to-r from-amber-400/80 via-slate-700 to-transparent rounded-full" />
                             </div>
                           </div>
 
@@ -589,12 +600,12 @@ const Product = () => {
             </motion.div>
           </AnimatePresence>
         ) : (
-          <div className="bg-white rounded-[15px] p-12 text-center border border-slate-200 my-8">
-            <div className="w-16 h-16 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center mx-auto mb-4">
+          <div className="bg-[#111927] rounded-[15px] p-12 text-center border border-slate-800 my-8">
+            <div className="w-16 h-16 rounded-full bg-amber-500/15 text-amber-400 flex items-center justify-center mx-auto mb-4 border border-amber-500/30">
               <Search size={28} />
             </div>
-            <h3 className="text-lg font-bold text-slate-900 mb-2">No products found</h3>
-            <p className="text-slate-500 text-sm max-w-md mx-auto mb-5">
+            <h3 className="text-lg font-bold text-white mb-2">No products found</h3>
+            <p className="text-slate-400 text-sm max-w-md mx-auto mb-5">
               We couldn't find any products matching "{searchQuery}". Try searching with a different keyword or category.
             </p>
             <Button

@@ -127,20 +127,20 @@ const Header = ({ currentRoute = 'home' }) => {
   ];
 
   return (
-    <header className={`sticky top-0 left-0 w-full z-50 bg-white transition-all duration-300 ${isScrolled ? 'shadow-lg' : 'shadow-sm'}`}>
+    <header className={`sticky top-0 left-0 w-full z-50 bg-[#090e1a]/95 backdrop-blur-md transition-all duration-300 ${isScrolled ? 'shadow-[0_10px_30px_rgba(0,0,0,0.7)] border-b border-slate-800' : 'border-b border-slate-800/60'}`}>
       {/* Top Bar (Visible on both Mobile & Desktop) */}
-      <div className="bg-white border-b border-gray-100 text-xs text-slate-600 py-1.5">
+      <div className="bg-[#060a12] border-b border-slate-800/80 text-xs text-slate-400 py-1.5">
         <div className="max-w-[1280px] mx-auto px-3 sm:px-6 flex justify-between items-center gap-2">
           {/* Left: Email & GST No (Stacked on Mobile, Row on Desktop) */}
           <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 text-[11px] sm:text-xs">
-            <a href="mailto:info@skprecast-industries.com" className="flex items-center gap-1 font-medium hover:text-amber-700 transition-colors">
-              <Mail size={13} className="text-amber-600 shrink-0" />
+            <a href="mailto:info@skprecast-industries.com" className="flex items-center gap-1 font-medium hover:text-amber-400 transition-colors text-slate-300">
+              <Mail size={13} className="text-amber-400 shrink-0" />
               <span>info@skprecast-industries.com</span>
             </a>
-            <span className="text-slate-300 hidden md:inline">|</span>
+            <span className="text-slate-700 hidden md:inline">|</span>
             <div className="flex items-center text-[10px] sm:text-[0.775rem] tracking-wider">
-              <span className="font-semibold text-slate-500">GST NO. :</span>
-              <span className="font-bold text-amber-900 bg-amber-50/90 px-1.5 sm:px-2 py-0.5 rounded border border-amber-200/80 ml-1">
+              <span className="font-semibold text-slate-400">GST NO. :</span>
+              <span className="font-bold text-amber-300 bg-amber-500/10 px-1.5 sm:px-2 py-0.5 rounded border border-amber-500/30 ml-1">
                 06AEGFS8126M1ZK
               </span>
             </div>
@@ -148,7 +148,7 @@ const Header = ({ currentRoute = 'home' }) => {
 
           {/* Right: Social Media Icons */}
           <div className="flex items-center gap-1.5 sm:gap-3 shrink-0 ml-auto">
-            <span className="font-semibold text-slate-500 text-[11px] sm:text-xs hidden xs:inline sm:inline">Follow Us:</span>
+            <span className="font-semibold text-slate-400 text-[11px] sm:text-xs hidden xs:inline sm:inline">Follow Us:</span>
             <div className="flex items-center gap-1.5 sm:gap-2.5">
               {/* Facebook Official Icon */}
               <a 
@@ -192,7 +192,7 @@ const Header = ({ currentRoute = 'home' }) => {
       </div>
 
       {/* Main Navbar */}
-      <nav className="bg-white border-b border-black/[0.03]">
+      <nav className="bg-[#090e1a]/90 backdrop-blur-md">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-2 sm:py-2.5 flex justify-between items-center relative">
           {/* Logo */}
           <a 
@@ -202,7 +202,7 @@ const Header = ({ currentRoute = 'home' }) => {
             <img 
               src="/assets/images/sk-logo.png" 
               alt="SK Precast Industries" 
-              className="h-[46px] sm:h-[58px] lg:h-[70px] max-h-[70px] w-auto object-contain block"/>
+              className="h-[46px] sm:h-[58px] lg:h-[70px] max-h-[70px] w-auto object-contain block brightness-110"/>
           </a>
 
           {/* Desktop Navigation Menu */}
@@ -217,11 +217,11 @@ const Header = ({ currentRoute = 'home' }) => {
                 <a 
                   href="/" 
                   className={`relative inline-flex items-center gap-1.5 text-[0.95rem] font-semibold py-2.5 transition-colors duration-200 ${
-                    currentIndicatorTab === 'Home' ? 'text-yellow-600' : 'text-slate-700 hover:text-yellow-600'
+                    currentIndicatorTab === 'Home' ? 'text-amber-400' : 'text-slate-200 hover:text-amber-400'
                   }`}
                   onClick={(e) => { navigateTo('/', e); setActiveTab('Home'); setIsProductsOpen(false); }}>
                   Home
-                  <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#fde047] via-[#facc15] to-[#eab308] rounded-full transition-all duration-300 origin-center ${
+                  <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 rounded-full transition-all duration-300 origin-center ${
                     currentIndicatorTab === 'Home' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
                   }`} />
                 </a>
@@ -236,12 +236,12 @@ const Header = ({ currentRoute = 'home' }) => {
                 <a 
                   href="/about-us" 
                   className={`relative inline-flex items-center gap-1.5 text-[0.95rem] font-semibold py-2.5 transition-colors duration-200 ${
-                    currentIndicatorTab === 'About' ? 'text-yellow-600' : 'text-slate-700 hover:text-yellow-600'
+                    currentIndicatorTab === 'About' ? 'text-amber-400' : 'text-slate-200 hover:text-amber-400'
                   }`}
                   onClick={(e) => { navigateTo('/about-us', e); setActiveTab('About'); setIsProductsOpen(false); }}
                 >
                   About Us
-                  <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#fde047] via-[#facc15] to-[#eab308] rounded-full transition-all duration-300 origin-center ${
+                  <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 rounded-full transition-all duration-300 origin-center ${
                     currentIndicatorTab === 'About' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
                   }`} />
                 </a>
@@ -262,7 +262,7 @@ const Header = ({ currentRoute = 'home' }) => {
                 <a 
                   href="/products" 
                   className={`relative inline-flex items-center gap-1.5 text-[0.95rem] font-semibold py-2.5 transition-colors duration-200 cursor-pointer ${
-                    currentIndicatorTab === 'Products' ? 'text-yellow-600' : 'text-slate-700 hover:text-yellow-600'
+                    currentIndicatorTab === 'Products' ? 'text-amber-400' : 'text-slate-200 hover:text-amber-400'
                   }`}
                   onClick={(e) => {
                     navigateTo('/products', e);
@@ -273,21 +273,21 @@ const Header = ({ currentRoute = 'home' }) => {
                   aria-expanded={isProductsOpen}
                 >
                   <span>Products</span>
-                  <ChevronDown size={15} className={`transition-transform duration-200 ${isProductsOpen ? 'rotate-180 text-yellow-600' : 'text-slate-500'}`} />
-                  <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#fde047] via-[#facc15] to-[#eab308] rounded-full transition-all duration-300 origin-center ${
+                  <ChevronDown size={15} className={`transition-transform duration-200 ${isProductsOpen ? 'rotate-180 text-amber-400' : 'text-slate-400'}`} />
+                  <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 rounded-full transition-all duration-300 origin-center ${
                     currentIndicatorTab === 'Products' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
                   }`} />
                 </a>
 
                 {/* Mega Menu Dropdown */}
-                <div className={`absolute top-[calc(100%+8px)] -right-[260px] w-[880px] bg-white rounded-xl shadow-2xl p-7 border border-slate-100 z-50 transition-all duration-200 ${
+                <div className={`absolute top-[calc(100%+8px)] -right-[260px] w-[880px] bg-[#0d1527] rounded-xl shadow-[0_25px_60px_rgba(0,0,0,0.8)] p-7 border border-slate-700/80 z-50 transition-all duration-200 ${
                   isProductsOpen ? 'opacity-100 visible translate-y-0 pointer-events-auto' : 'opacity-0 invisible translate-y-2 pointer-events-none'
                 }`}>
                   {/* Invisible Hover Extension */}
                   <div className="absolute -top-4 left-0 w-full h-4 bg-transparent" />
 
                   {/* Top Arrow Pointer */}
-                  <div className="absolute -top-1.5 right-[295px] w-3.5 h-3.5 bg-white transform rotate-45 border-t border-l border-slate-100" />
+                  <div className="absolute -top-1.5 right-[295px] w-3.5 h-3.5 bg-[#0d1527] transform rotate-45 border-t border-l border-slate-700/80" />
 
                   <div className="grid grid-cols-4 gap-7">
                     {productCategories.map((col, idx) => (
@@ -300,17 +300,17 @@ const Header = ({ currentRoute = 'home' }) => {
                             setIsProductsOpen(false);
                             setHoveredTab(null);
                           }}
-                          className="text-[0.8125rem] font-extrabold text-slate-900 tracking-wider uppercase mb-3.5 pb-2.5 relative flex items-center hover:text-amber-600 transition-colors cursor-pointer"
+                          className="text-[0.8125rem] font-extrabold text-amber-400 tracking-wider uppercase mb-3.5 pb-2.5 relative flex items-center hover:text-amber-300 transition-colors cursor-pointer"
                         >
                           <span>{col.title}</span>
-                          <span className="absolute bottom-0 left-0 right-3.5 h-[1px] bg-amber-200 rounded-full" />
+                          <span className="absolute bottom-0 left-0 right-3.5 h-[1px] bg-amber-500/40 rounded-full" />
                         </a>
                         <ul className="list-none flex flex-col gap-2.5">
                           {col.items.map((item, itemIdx) => (
                             <li key={itemIdx}>
                               <a 
                                 href={`/${item.slug}.htm`}
-                                className="text-[0.845rem] font-medium text-slate-600 leading-snug py-0.5 inline-block transition-all duration-200 hover:text-yellow-600 hover:translate-x-1 cursor-pointer"
+                                className="text-[0.845rem] font-medium text-slate-300 leading-snug py-0.5 inline-block transition-all duration-200 hover:text-amber-400 hover:translate-x-1 cursor-pointer"
                                 onClick={(e) => {
                                   navigateTo(`/${item.slug}.htm`, e);
                                   setActiveTab('Products');
@@ -328,13 +328,13 @@ const Header = ({ currentRoute = 'home' }) => {
                   </div>
 
                   {/* Mega Menu Footer Banner */}
-                  <div className="mt-6 pt-3.5 border-t border-slate-100 flex justify-between items-center text-[0.8125rem] text-slate-500">
+                  <div className="mt-6 pt-3.5 border-t border-slate-800 flex justify-between items-center text-[0.8125rem] text-slate-400">
                     <div>
-                      <strong className="text-slate-900">Looking for custom precast specifications?</strong> We manufacture durable, precision-engineered precast solutions.
+                      <strong className="text-slate-100">Looking for custom precast specifications?</strong> We manufacture durable, precision-engineered precast solutions.
                     </div>
                     <a 
                       href="/products" 
-                      className="inline-flex items-center gap-1 font-bold text-yellow-600 hover:text-yellow-700 transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1 font-bold text-amber-400 hover:text-amber-300 transition-colors cursor-pointer"
                       onClick={(e) => {
                         navigateTo('/products', e);
                         setActiveTab('Products');
@@ -357,7 +357,7 @@ const Header = ({ currentRoute = 'home' }) => {
                 <a 
                   href="/catalogues.htm" 
                   className={`relative inline-flex items-center gap-1.5 text-[0.95rem] font-semibold py-2.5 transition-colors duration-200 ${
-                    currentIndicatorTab === 'Catalogues' ? 'text-yellow-600' : 'text-slate-700 hover:text-yellow-600'
+                    currentIndicatorTab === 'Catalogues' ? 'text-amber-400' : 'text-slate-200 hover:text-amber-400'
                   }`}
                   onClick={(e) => { 
                     setActiveTab('Catalogues'); 
@@ -366,7 +366,7 @@ const Header = ({ currentRoute = 'home' }) => {
                   }}
                 >
                   Catalogues
-                  <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#fde047] via-[#facc15] to-[#eab308] rounded-full transition-all duration-300 origin-center ${
+                  <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 rounded-full transition-all duration-300 origin-center ${
                     currentIndicatorTab === 'Catalogues' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
                   }`} />
                 </a>
@@ -381,7 +381,7 @@ const Header = ({ currentRoute = 'home' }) => {
                 <a 
                   href="/blog" 
                   className={`relative inline-flex items-center gap-1.5 text-[0.95rem] font-semibold py-2.5 transition-colors duration-200 cursor-pointer ${
-                    currentIndicatorTab === 'Blog' ? 'text-yellow-600' : 'text-slate-700 hover:text-yellow-600'
+                    currentIndicatorTab === 'Blog' ? 'text-amber-400' : 'text-slate-200 hover:text-amber-400'
                   }`}
                   onClick={(e) => { 
                     setActiveTab('Blog'); 
@@ -390,7 +390,7 @@ const Header = ({ currentRoute = 'home' }) => {
                   }}
                 >
                   Blog
-                  <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#fde047] via-[#facc15] to-[#eab308] rounded-full transition-all duration-300 origin-center ${
+                  <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 rounded-full transition-all duration-300 origin-center ${
                     currentIndicatorTab === 'Blog' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
                   }`} />
                 </a>
@@ -405,8 +405,8 @@ const Header = ({ currentRoute = 'home' }) => {
                   type="button"
                   className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer ${
                     isSearchOpen 
-                      ? 'bg-gradient-to-b from-amber-400 via-yellow-400 to-amber-500 text-slate-950 shadow-[0_6px_18px_rgba(245,158,11,0.5),inset_0_1.5px_2px_rgba(255,255,255,0.9),inset_0_-2px_2px_rgba(0,0,0,0.2)] border border-amber-300 scale-105' 
-                      : 'bg-gradient-to-b from-slate-50 via-slate-100 to-slate-200 text-slate-800 hover:from-amber-300 hover:via-yellow-400 hover:to-amber-500 hover:text-slate-950 shadow-[0_4px_10px_rgba(0,0,0,0.12),inset_0_1.5px_1px_rgba(255,255,255,0.95),inset_0_-1.5px_2px_rgba(0,0,0,0.1)] border border-slate-200/90 hover:border-amber-300 hover:scale-105 active:scale-95'
+                      ? 'bg-gradient-to-b from-amber-400 via-yellow-400 to-amber-500 text-slate-950 shadow-[0_6px_20px_rgba(245,158,11,0.6)] border border-amber-300 scale-105' 
+                      : 'bg-gradient-to-b from-slate-800 to-slate-900 text-slate-200 hover:text-amber-300 shadow-[0_4px_10px_rgba(0,0,0,0.5)] border border-slate-700 hover:border-amber-400/60 hover:scale-105 active:scale-95'
                   }`}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -420,30 +420,30 @@ const Header = ({ currentRoute = 'home' }) => {
 
                 {/* Search Bar Popover with Interactive Products Dropdown */}
                 {isSearchOpen && (
-                  <div className="absolute top-12 right-0 w-80 sm:w-96 bg-white rounded-xl shadow-2xl p-3 border border-slate-200 z-50 animate-in fade-in zoom-in-95 duration-150" onClick={(e) => e.stopPropagation()}>
+                  <div className="absolute top-12 right-0 w-80 sm:w-96 bg-[#0d1527] rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] p-3 border border-slate-700 z-50 animate-in fade-in zoom-in-95 duration-150" onClick={(e) => e.stopPropagation()}>
                     {/* Search Input Box */}
-                    <div className="flex items-center gap-2 bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 focus-within:border-amber-500 focus-within:ring-2 focus-within:ring-amber-500/20 focus-within:bg-white transition-all">
+                    <div className="flex items-center gap-2 bg-[#162238] border border-slate-600 rounded-lg px-3 py-2 focus-within:border-amber-400 focus-within:ring-2 focus-within:ring-amber-500/30 transition-all">
                       <Search size={16} className="text-slate-400 shrink-0" />
                       <input 
                         type="text" 
                         placeholder="Filter 35+ products..." 
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="border-none bg-transparent outline-none text-sm w-full text-slate-900 placeholder-slate-400 font-medium"
+                        className="border-none bg-transparent outline-none text-sm w-full text-slate-100 placeholder-slate-400 font-medium"
                         autoFocus
                       />
                       {searchQuery && (
-                        <button className="text-slate-400 hover:text-slate-600 cursor-pointer p-0.5" onClick={() => setSearchQuery('')}>
+                        <button className="text-slate-400 hover:text-slate-200 cursor-pointer p-0.5" onClick={() => setSearchQuery('')}>
                           <X size={14} />
                         </button>
                       )}
                     </div>
 
                     {/* Products Dropdown List */}
-                    <div className="mt-2.5 pt-1 border-t border-slate-100 max-h-72 overflow-y-auto custom-scrollbar flex flex-col">
+                    <div className="mt-2.5 pt-1 border-t border-slate-800 max-h-72 overflow-y-auto custom-scrollbar flex flex-col">
                       <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 py-1.5 flex items-center justify-between">
                         <span>Products ({filteredHeaderProducts.length})</span>
-                        <span className="text-[10px] text-amber-700 bg-amber-50 font-semibold px-2 py-0.5 rounded border border-amber-200/60">
+                        <span className="text-[10px] text-amber-300 bg-amber-500/20 font-semibold px-2 py-0.5 rounded border border-amber-500/40">
                           Click to view
                         </span>
                       </div>
@@ -458,10 +458,10 @@ const Header = ({ currentRoute = 'home' }) => {
                               setSearchQuery('');
                               setActiveTab('Products');
                             }}
-                            className="px-3 py-2.5 text-sm text-slate-700 hover:bg-amber-50/90 hover:text-amber-950 rounded-lg transition-colors flex items-center justify-between group cursor-pointer border-b border-slate-50 last:border-b-0"
+                            className="px-3 py-2.5 text-sm text-slate-200 hover:bg-slate-800/80 hover:text-amber-300 rounded-lg transition-colors flex items-center justify-between group cursor-pointer border-b border-slate-800/50 last:border-b-0"
                           >
                             <span className="font-medium text-[13.5px] truncate">{product}</span>
-                            <ArrowRight size={13} className="text-slate-300 group-hover:text-amber-600 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
+                            <ArrowRight size={13} className="text-slate-500 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
                           </a>
                         ))
                       ) : (
@@ -477,7 +477,7 @@ const Header = ({ currentRoute = 'home' }) => {
               {/* Standalone Contact Us CTA */}
               <a 
                 href="/contact-us.htm" 
-                className="inline-flex items-center justify-center bg-gradient-to-r from-[#fef08a] via-[#fde047] to-[#facc15] hover:from-[#fde047] hover:to-[#eab308] text-slate-950 font-bold text-[0.925rem] px-6 py-2.5 rounded-lg shadow-md shadow-yellow-500/20 hover:shadow-yellow-500/35 border border-yellow-300/80 transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
+                className="inline-flex items-center justify-center bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-yellow-400 hover:to-amber-500 text-slate-950 font-bold text-[0.925rem] px-6 py-2.5 rounded-lg shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 border border-amber-300 transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
                 onClick={(e) => {
                   navigateTo('/contact-us.htm', e);
                   setActiveTab('Contact');
@@ -497,8 +497,8 @@ const Header = ({ currentRoute = 'home' }) => {
                 type="button"
                 className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer ${
                   isSearchOpen 
-                    ? 'bg-gradient-to-b from-amber-400 via-yellow-400 to-amber-500 text-slate-950 shadow-[0_4px_14px_rgba(245,158,11,0.5),inset_0_1.5px_2px_rgba(255,255,255,0.9),inset_0_-2px_2px_rgba(0,0,0,0.2)] border border-amber-300 scale-105' 
-                    : 'bg-gradient-to-b from-slate-50 via-slate-100 to-slate-200 text-slate-800 shadow-[0_3px_8px_rgba(0,0,0,0.12),inset_0_1.5px_1px_rgba(255,255,255,0.95),inset_0_-1.5px_2px_rgba(0,0,0,0.1)] border border-slate-200/90 active:scale-95'
+                    ? 'bg-gradient-to-b from-amber-400 via-yellow-400 to-amber-500 text-slate-950 shadow-[0_4px_14px_rgba(245,158,11,0.5)] border border-amber-300 scale-105' 
+                    : 'bg-gradient-to-b from-slate-800 to-slate-900 text-slate-200 shadow-[0_3px_8px_rgba(0,0,0,0.5)] border border-slate-700 active:scale-95'
                 }`}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -513,30 +513,30 @@ const Header = ({ currentRoute = 'home' }) => {
               {/* Mobile Search Popover Overlay */}
               {isSearchOpen && (
                 <div 
-                  className="fixed inset-x-3 top-20 max-w-md mx-auto sm:absolute sm:inset-auto sm:top-12 sm:right-0 sm:w-84 bg-white rounded-2xl shadow-2xl p-3.5 border border-slate-200 z-[100] animate-in fade-in zoom-in-95 duration-150"
+                  className="fixed inset-x-3 top-20 max-w-md mx-auto sm:absolute sm:inset-auto sm:top-12 sm:right-0 sm:w-84 bg-[#0d1527] rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.9)] p-3.5 border border-slate-700 z-[100] animate-in fade-in zoom-in-95 duration-150"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <div className="flex items-center gap-2 bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 focus-within:border-amber-500 focus-within:ring-2 focus-within:ring-amber-500/20 focus-within:bg-white transition-all shadow-inner">
+                  <div className="flex items-center gap-2 bg-[#162238] border border-slate-600 rounded-xl px-3.5 py-2.5 focus-within:border-amber-400 focus-within:ring-2 focus-within:ring-amber-500/30 transition-all">
                     <Search size={16} className="text-slate-400 shrink-0" />
                     <input 
                       type="text" 
                       placeholder="Filter 35+ products..." 
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="border-none bg-transparent outline-none text-sm w-full text-slate-900 placeholder-slate-400 font-medium"
+                      className="border-none bg-transparent outline-none text-sm w-full text-slate-100 placeholder-slate-400 font-medium"
                       autoFocus
                     />
                     {searchQuery && (
-                      <button className="text-slate-400 hover:text-slate-600 cursor-pointer p-0.5" onClick={() => setSearchQuery('')}>
+                      <button className="text-slate-400 hover:text-slate-200 cursor-pointer p-0.5" onClick={() => setSearchQuery('')}>
                         <X size={14} />
                       </button>
                     )}
                   </div>
 
-                  <div className="mt-2.5 pt-1 border-t border-slate-100 max-h-64 overflow-y-auto custom-scrollbar flex flex-col">
+                  <div className="mt-2.5 pt-1 border-t border-slate-800 max-h-64 overflow-y-auto custom-scrollbar flex flex-col">
                     <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 py-1.5 flex items-center justify-between">
                       <span>Products ({filteredHeaderProducts.length})</span>
-                      <span className="text-[10px] text-amber-700 bg-amber-50 font-semibold px-2 py-0.5 rounded border border-amber-200/60">
+                      <span className="text-[10px] text-amber-300 bg-amber-500/20 font-semibold px-2 py-0.5 rounded border border-amber-500/40">
                         Click to view
                       </span>
                     </div>
@@ -551,10 +551,10 @@ const Header = ({ currentRoute = 'home' }) => {
                             setSearchQuery('');
                             setActiveTab('Products');
                           }}
-                          className="px-3 py-2 text-xs font-semibold text-slate-800 hover:bg-amber-50 hover:text-amber-900 rounded-lg transition-colors flex items-center justify-between cursor-pointer group"
+                          className="px-3 py-2 text-xs font-semibold text-slate-200 hover:bg-slate-800/80 hover:text-amber-300 rounded-lg transition-colors flex items-center justify-between cursor-pointer group"
                         >
                           <span className="truncate">{product}</span>
-                          <ArrowRight size={12} className="text-slate-400 group-hover:text-amber-600 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
+                          <ArrowRight size={12} className="text-slate-500 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
                         </a>
                       ))
                     ) : (
@@ -570,7 +570,7 @@ const Header = ({ currentRoute = 'home' }) => {
             {/* Mobile Menu Toggle Button */}
             <button 
               type="button"
-              className="flex items-center justify-center p-2 sm:p-2.5 rounded-xl text-slate-800 bg-gradient-to-b from-slate-50 via-slate-100 to-slate-200 hover:bg-slate-200 border border-slate-200/90 shadow-[0_3px_8px_rgba(0,0,0,0.12),inset_0_1.5px_1px_rgba(255,255,255,0.95)] transition-all active:scale-95 cursor-pointer"
+              className="flex items-center justify-center p-2 sm:p-2.5 rounded-xl text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 shadow-[0_3px_8px_rgba(0,0,0,0.5)] transition-all active:scale-95 cursor-pointer"
               onClick={() => {
                 setIsMobileMenuOpen(!isMobileMenuOpen);
                 setIsSearchOpen(false);
@@ -583,14 +583,14 @@ const Header = ({ currentRoute = 'home' }) => {
         </div>
       </nav>
 
-      {/* Mobile Drawer (Clean Navigation without duplicate search bar) */}
+      {/* Mobile Drawer */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-slate-100 shadow-xl px-5 py-4 flex flex-col gap-3 max-h-[calc(100vh-80px)] overflow-y-auto">
+        <div className="lg:hidden bg-[#0d1527] border-t border-slate-800 shadow-2xl px-5 py-4 flex flex-col gap-3 max-h-[calc(100vh-80px)] overflow-y-auto">
           <div className="flex flex-col gap-1">
             <a 
               href="/" 
               className={`text-base font-semibold py-2.5 px-3 rounded-lg transition-colors ${
-                activeTab === 'Home' ? 'bg-amber-50 text-amber-900 font-bold' : 'text-slate-800 hover:bg-slate-50'
+                activeTab === 'Home' ? 'bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30' : 'text-slate-200 hover:bg-slate-800'
               }`}
               onClick={(e) => { navigateTo('/', e); setActiveTab('Home'); setIsMobileMenuOpen(false); }}
             >
@@ -599,7 +599,7 @@ const Header = ({ currentRoute = 'home' }) => {
             <a 
               href="/about-us" 
               className={`text-base font-semibold py-2.5 px-3 rounded-lg transition-colors ${
-                activeTab === 'About' ? 'bg-amber-50 text-amber-900 font-bold' : 'text-slate-800 hover:bg-slate-50'
+                activeTab === 'About' ? 'bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30' : 'text-slate-200 hover:bg-slate-800'
               }`}
               onClick={(e) => { navigateTo('/about-us', e); setActiveTab('About'); setIsMobileMenuOpen(false); }}
             >
@@ -611,7 +611,7 @@ const Header = ({ currentRoute = 'home' }) => {
               <button 
                 type="button"
                 className={`w-full flex items-center justify-between text-base font-semibold py-2.5 px-3 rounded-lg transition-colors cursor-pointer ${
-                  isMobileProductsOpen || activeTab === 'Products' ? 'bg-amber-50/90 text-amber-900 font-bold' : 'text-slate-800 hover:bg-slate-50'
+                  isMobileProductsOpen || activeTab === 'Products' ? 'bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30' : 'text-slate-200 hover:bg-slate-800'
                 }`}
                 onClick={(e) => {
                   e.preventDefault();
@@ -620,15 +620,15 @@ const Header = ({ currentRoute = 'home' }) => {
                 }}
               >
                 <span>Products</span>
-                <ChevronDown size={18} className={`transition-transform duration-200 ${isMobileProductsOpen ? 'rotate-180 text-amber-600' : 'text-slate-500'}`} />
+                <ChevronDown size={18} className={`transition-transform duration-200 ${isMobileProductsOpen ? 'rotate-180 text-amber-400' : 'text-slate-400'}`} />
               </button>
 
               {isMobileProductsOpen && (
-                <div className="pl-3 pr-2 py-2.5 bg-slate-50/90 rounded-xl my-1.5 flex flex-col gap-2.5 border border-slate-200/80 shadow-2xs">
+                <div className="pl-3 pr-2 py-2.5 bg-[#111927] rounded-xl my-1.5 flex flex-col gap-2.5 border border-slate-800 shadow-inner">
                   {/* View All Products Link */}
                   <a
                     href="/products"
-                    className="text-xs sm:text-sm font-extrabold text-amber-950 py-2 px-3 bg-gradient-to-r from-[#fef08a] via-[#fde047] to-[#facc15] rounded-lg flex items-center justify-between border border-yellow-300 shadow-xs cursor-pointer"
+                    className="text-xs sm:text-sm font-extrabold text-slate-950 py-2 px-3 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 rounded-lg flex items-center justify-between shadow-sm cursor-pointer"
                     onClick={(e) => {
                       navigateTo('/products', e);
                       setActiveTab('Products');
@@ -644,11 +644,11 @@ const Header = ({ currentRoute = 'home' }) => {
                   {productCategories.map((col, idx) => {
                     const isCategoryOpen = mobileExpandedCategory === col.categoryId;
                     return (
-                      <div key={idx} className="flex flex-col bg-white rounded-lg p-2.5 border border-slate-200/90 shadow-2xs">
+                      <div key={idx} className="flex flex-col bg-[#162238] rounded-lg p-2.5 border border-slate-700/60 shadow-sm">
                         <div className="flex items-center justify-between">
                           <a
                             href={`/${col.categoryId}.htm`}
-                            className="text-[12px] font-extrabold text-slate-900 uppercase tracking-wide hover:text-amber-600 transition-colors flex-1"
+                            className="text-[12px] font-extrabold text-amber-400 uppercase tracking-wide hover:text-amber-300 transition-colors flex-1"
                             onClick={(e) => {
                               navigateTo(`/${col.categoryId}.htm`, e);
                               setActiveTab('Products');
@@ -665,21 +665,21 @@ const Header = ({ currentRoute = 'home' }) => {
                               e.stopPropagation();
                               setMobileExpandedCategory(prev => prev === col.categoryId ? null : col.categoryId);
                             }}
-                            className="p-1 text-slate-400 hover:text-slate-700 cursor-pointer"
+                            className="p-1 text-slate-400 hover:text-slate-200 cursor-pointer"
                             aria-label={`Toggle ${col.title}`}
                           >
-                            <ChevronDown size={15} className={`transition-transform duration-200 ${isCategoryOpen ? 'rotate-180 text-amber-600' : ''}`} />
+                            <ChevronDown size={15} className={`transition-transform duration-200 ${isCategoryOpen ? 'rotate-180 text-amber-400' : ''}`} />
                           </button>
                         </div>
 
                         {/* Expandable sub-items */}
                         {isCategoryOpen && (
-                          <div className="flex flex-col gap-1 pt-2 mt-1.5 border-t border-slate-100">
+                          <div className="flex flex-col gap-1 pt-2 mt-1.5 border-t border-slate-700">
                             {col.items.map((item, itemIdx) => (
                               <a 
                                 key={itemIdx} 
                                 href={`/${item.slug}.htm`}
-                                className="text-xs text-slate-600 hover:text-amber-600 py-1 px-1.5 rounded hover:bg-amber-50/60 transition-colors"
+                                className="text-xs text-slate-300 hover:text-amber-400 py-1 px-1.5 rounded hover:bg-slate-800 transition-colors"
                                 onClick={(e) => {
                                   navigateTo(`/${item.slug}.htm`, e);
                                   setActiveTab('Products');
@@ -702,7 +702,7 @@ const Header = ({ currentRoute = 'home' }) => {
             <a 
               href="/catalogues.htm" 
               className={`text-base font-semibold py-2.5 px-3 rounded-lg transition-colors ${
-                activeTab === 'Catalogues' ? 'bg-amber-50 text-amber-900 font-bold' : 'text-slate-800 hover:bg-slate-50'
+                activeTab === 'Catalogues' ? 'bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30' : 'text-slate-200 hover:bg-slate-800'
               }`}
               onClick={(e) => { 
                 setActiveTab('Catalogues'); 
@@ -716,7 +716,7 @@ const Header = ({ currentRoute = 'home' }) => {
             <a 
               href="/blog" 
               className={`text-base font-semibold py-2.5 px-3 rounded-lg transition-colors cursor-pointer ${
-                activeTab === 'Blog' ? 'bg-amber-50 text-amber-900 font-bold' : 'text-slate-800 hover:bg-slate-50'
+                activeTab === 'Blog' ? 'bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30' : 'text-slate-200 hover:bg-slate-800'
               }`}
               onClick={(e) => { 
                 setActiveTab('Blog'); 
@@ -730,9 +730,9 @@ const Header = ({ currentRoute = 'home' }) => {
             <div className="pt-2">
               <a 
                 href="/contact-us.htm" 
-                className="w-full inline-flex items-center justify-center bg-gradient-to-r from-[#fef08a] via-[#fde047] to-[#facc15] text-slate-950 font-bold py-3 rounded-lg text-center shadow-md border border-yellow-300/80 cursor-pointer"
+                className="w-full inline-flex items-center justify-center bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-slate-950 font-bold py-3 rounded-lg text-center shadow-lg border border-amber-300 cursor-pointer"
                 onClick={(e) => { 
-                  navigateTo('/contact-us.htm', e);
+                  navigateTo('/contact-us.htm', e); 
                   setActiveTab('Contact'); 
                   setIsMobileMenuOpen(false); 
                 }}
