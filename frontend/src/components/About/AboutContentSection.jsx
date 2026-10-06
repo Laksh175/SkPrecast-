@@ -270,7 +270,7 @@ const AboutContentSection = () => {
 
             {/* Right: Subtitle Text + View All Button directly below paragraph */}
             <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-4 max-w-lg mx-auto lg:mx-0">
-              <p className="text-slate-300 text-[17px] leading-[28px]">
+              <p className="text-slate-300 text-[17px] font-medium leading-[28px]">
                 Explore our successfully engineered precast concrete and boundary wall solutions delivered across industrial and residential sites.
               </p>
               
