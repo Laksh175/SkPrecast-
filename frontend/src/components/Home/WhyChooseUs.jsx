@@ -61,7 +61,7 @@ const WhyChooseUs = () => {
   }, []);
 
   return (
-    <section className="relative py-10 lg:pt-12 lg:pb-20 bg-[#090e1a] font-sans overflow-hidden border-t border-slate-800">
+    <section className="relative pt-4 pb-14 sm:pb-16 lg:pb-20 bg-[#090e1a] font-sans overflow-hidden">
       
       {/* Background Subtle Gradient Glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-amber-500/5 blur-[130px] pointer-events-none rounded-full" />
@@ -74,7 +74,7 @@ const WhyChooseUs = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="text-center max-w-4xl mx-auto mb-8 sm:mb-12"
+          className="text-center max-w-4xl mx-auto mb-6 sm:mb-8"
         >
           <h2 className="text-[23px] sm:text-3xl lg:text-[2.35rem] font-extrabold tracking-tight leading-tight">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 drop-shadow-sm inline-block pt-1 pb-2">
@@ -171,17 +171,18 @@ const WhyChooseUs = () => {
         </div>
 
         {/* --- DESKTOP & TABLET VIEW: Original 2x2 Staggered Floating Cards Grid --- */}
-        <div className="hidden md:block relative pb-6 lg:pb-12">
+        <div className="hidden md:block relative pb-4 lg:pb-6">
           
           {/* Connecting Dashed Pathway (Desktop only) */}
           <div className="hidden lg:block absolute inset-0 pointer-events-none z-0">
             <svg className="w-full h-full" viewBox="0 0 1000 540" fill="none" preserveAspectRatio="none">
               <path 
                 d="M 270 100 C 440 50, 580 170, 730 190 C 830 200, 420 290, 270 350 C 190 390, 580 420, 740 470" 
-                stroke="#1e293b" 
-                strokeWidth="1.8" 
+                stroke="#f59e0b" 
+                strokeWidth="2.2" 
                 strokeDasharray="6 6" 
-                className="opacity-75"
+                strokeLinecap="round"
+                className="opacity-55 drop-shadow-[0_0_8px_rgba(245,158,11,0.35)]"
               />
             </svg>
           </div>

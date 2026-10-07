@@ -172,11 +172,11 @@ body > .skiptranslate {
 }
 
 .animate-marquee-vertical {
-  animation: marquee-vertical 25s linear infinite;
+  animation: marquee-vertical 65s linear infinite;
 }
 
 .animate-marquee-vertical-reverse {
-  animation: marquee-vertical-reverse 25s linear infinite;
+  animation: marquee-vertical-reverse 65s linear infinite;
 }
 
 /* Badge Shimmer Light Beam Sweep Animation */

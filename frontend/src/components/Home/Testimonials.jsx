@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaStar, FaQuoteLeft } from 'react-icons/fa6';
+import { ArrowRight } from 'lucide-react';
 import { testimonialsHeaderData, testimonialsCol1, testimonialsCol2 } from '../../data/homeData';
+import { Button } from '../../common';
+import { navigateTo } from '../../utils/navigation';
 
 const TestimonialCard = ({ item }) => {
   return (
@@ -17,8 +20,11 @@ const TestimonialCard = ({ item }) => {
           <FaQuoteLeft className="text-slate-700 group-hover:text-amber-400/40 text-base transition-colors" />
         </div>
 
-        {/* Review Content */}
-        <p className="text-slate-300 text-[13.5px] sm:text-sm leading-relaxed mb-4 font-normal">
+        {/* Review Content (15px) */}
+        <p 
+          className="text-slate-100 font-normal mb-4 tracking-normal"
+          style={{ fontSize: '15px', lineHeight: '25px' }}
+        >
           "{item.content}"
         </p>
       </div>
@@ -36,7 +42,7 @@ const TestimonialCard = ({ item }) => {
 
           {/* Name & Role */}
           <div className="overflow-hidden text-left">
-            <h4 className="text-sm font-bold text-slate-100 group-hover:text-amber-300 transition-colors truncate">
+            <h4 className="text-[14.5px] font-bold text-slate-100 group-hover:text-amber-300 transition-colors truncate">
               {item.name}
             </h4>
             <p className="text-xs text-slate-400 truncate font-medium">
@@ -97,13 +103,13 @@ const Testimonials = () => {
           return next;
         });
       }
-    }, 4000);
+    }, 6500);
 
     return () => clearInterval(interval);
   }, [allTestimonials.length]);
 
   return (
-    <section id="testimonials" className="relative py-10 lg:py-16 bg-[#090e1a] text-slate-100 font-sans overflow-hidden border-t border-slate-800">
+    <section id="testimonials" className="relative pt-4 pb-8 sm:py-10 lg:py-12 bg-[#090e1a] text-slate-100 font-sans overflow-hidden">
       
       {/* Subtle Background Glow */}
       <div className="absolute top-1/4 -left-20 w-96 h-96 bg-amber-500/5 blur-[120px] pointer-events-none rounded-full" />
@@ -149,6 +155,21 @@ const Testimonials = () => {
                 </div>
               ))}
             </div>
+
+            {/* View More Reviews Button */}
+            <div className="mt-6 flex justify-center">
+              <Button
+                variant="gold"
+                size="sm"
+                href="/testimonials.htm"
+                onClick={(e) => navigateTo('/testimonials.htm', e)}
+                icon={<ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />}
+                iconPosition="right"
+                className="px-6 py-2.5 rounded-xl text-xs sm:text-[13px] font-bold tracking-tight shadow-[0_4px_16px_rgba(245,158,11,0.25)] hover:shadow-[0_6px_22px_rgba(245,158,11,0.4)]"
+              >
+                View More Reviews
+              </Button>
+            </div>
           </motion.div>
 
           {/* Right Column: MOBILE VIEW */}
@@ -193,11 +214,21 @@ const Testimonials = () => {
           </div>
 
           {/* Right Column: DESKTOP VIEW */}
-          <div className="hidden lg:block lg:col-span-7 relative h-[470px] sm:h-[490px] overflow-hidden">
+          <div className="hidden lg:block lg:col-span-7 relative h-[480px] sm:h-[510px] overflow-hidden rounded-2xl">
             
-            {/* Top & Bottom Smooth Gradient Fade Masks */}
-            <div className="absolute top-0 inset-x-0 h-12 bg-gradient-to-b from-[#090e1a] to-transparent z-20 pointer-events-none" />
-            <div className="absolute bottom-0 inset-x-0 h-12 bg-gradient-to-t from-[#090e1a] to-transparent z-20 pointer-events-none" />
+            {/* Top Distinct Fade Design & Glowing Portal Accent */}
+            <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#090e1a] from-15% via-[#090e1a]/90 via-60% to-transparent z-20 pointer-events-none" />
+            <div className="absolute top-0 inset-x-2 z-30 pointer-events-none flex items-center justify-center">
+              <div className="h-[1.5px] w-full bg-gradient-to-r from-transparent via-amber-400/80 to-transparent shadow-[0_0_12px_rgba(245,158,11,0.9)]" />
+              <div className="absolute top-1/2 -translate-y-1/2 w-10 h-[3px] rounded-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.7)]" />
+            </div>
+
+            {/* Bottom Distinct Fade Design & Glowing Beam Accent */}
+            <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#090e1a] from-15% via-[#090e1a]/90 via-60% to-transparent z-20 pointer-events-none" />
+            <div className="absolute bottom-0 inset-x-2 z-30 pointer-events-none flex items-center justify-center">
+              <div className="h-[1.5px] w-full bg-gradient-to-r from-transparent via-amber-400/80 to-transparent shadow-[0_0_12px_rgba(245,158,11,0.9)]" />
+              <div className="absolute top-1/2 -translate-y-1/2 w-10 h-[3px] rounded-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.7)]" />
+            </div>
 
             <div className="grid grid-cols-2 gap-5 h-full">
               

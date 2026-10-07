@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
@@ -11,8 +11,27 @@ const HeroSection = () => {
     description, 
     whatsappButton, 
     bgImage, 
+    bgImages: customBgImages,
     highlights 
   } = heroSectionData;
+
+  const imagesList = customBgImages || [
+    bgImage || "/assets/images/hero-page-banner.jpeg",
+    "/assets/images/hero-section-image2.jpeg",
+    "/assets/images/hero-banner-image3.jpeg",
+    "/assets/images/home-banner-image4.jpeg"
+  ];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    if (imagesList.length <= 1) return;
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % imagesList.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [imagesList.length]);
 
   return (
     <div className="relative w-full bg-[#090e1a] font-sans">
@@ -21,18 +40,30 @@ const HeroSection = () => {
         className="relative flex flex-col justify-between overflow-visible bg-[#090e1a] pt-8 sm:pt-12 lg:pt-14 pb-28 sm:pb-32 lg:pb-36"
         aria-label="SK Precast Industries Hero"
       >
-        {/* Background Layer: High Quality Image + Architectural Lighting Design */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
-          <img 
-            src={bgImage} 
-            alt="Precast Concrete Compound and Boundary Wall by SK Precast Industries" 
-            className="w-full h-full object-cover object-center"
-            loading="eager"
-            fetchPriority="high"
-          />
+        {/* Background Layer: High Quality Image Slideshow + Architectural Lighting Design */}
+        <div className="absolute inset-0 z-0 overflow-hidden bg-[#090e1a]">
+          {imagesList.map((imgSrc, idx) => (
+            <motion.img 
+              key={imgSrc}
+              src={imgSrc} 
+              alt={`Precast Concrete Compound and Boundary Wall by SK Precast Industries Slide ${idx + 1}`} 
+              className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
+              initial={false}
+              animate={{ 
+                opacity: currentImageIndex === idx ? 1 : 0,
+                scale: currentImageIndex === idx ? 1.05 : 1
+              }}
+              transition={{ 
+                opacity: { duration: 1.4, ease: "easeInOut" },
+                scale: { duration: 6, ease: "easeOut" }
+              }}
+              loading={idx === 0 ? "eager" : "lazy"}
+              fetchPriority={idx === 0 ? "high" : "auto"}
+            />
+          ))}
           
           {/* Dynamic Architectural Gradient Lighting */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#33353b]/70 via-[#33353b]/30 to-[#2a2e38] z-10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#33353b]/70 via-[#33353b]/30 to-[#2a2e38] z-10 pointer-events-none" />
           
           {/* Central Warm Amber Spotlight / Glow */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,_rgba(245,158,11,0.15)_0%,_transparent_65%)] z-10 pointer-events-none" />
@@ -158,17 +189,17 @@ const HeroSection = () => {
                   >
                     {/* Subtle centered divider on desktop */}
                     {index !== 0 && (
-                      <div className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 w-[1px] h-12 lg:h-14 bg-slate-800" />
+                      <div className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 w-[1px] h-12 lg:h-14 bg-slate-700" />
                     )}
 
                     {/* Subtle centered vertical divider on mobile */}
                     {index % 2 === 1 && (
-                      <div className="block md:hidden absolute left-0 top-1/2 -translate-y-1/2 w-[1px] h-10 bg-slate-800" />
+                      <div className="block md:hidden absolute left-0 top-1/2 -translate-y-1/2 w-[1px] h-10 bg-slate-700" />
                     )}
 
                     {/* Subtle horizontal line between row 1 and row 2 on mobile */}
                     {index >= 2 && (
-                      <div className="block md:hidden absolute top-0 left-3 right-3 h-[1px] bg-slate-800" />
+                      <div className="block md:hidden absolute top-0 left-3 right-3 h-[1px] bg-slate-700" />
                     )}
 
                     {/* 2-Line Title */}
@@ -190,7 +221,7 @@ const HeroSection = () => {
       </section>
 
       {/* Spacing spacer below hero to accommodate the bottom overlap of the floating card without colliding with next section */}
-      <div className="w-full h-16 sm:h-16 md:h-16 lg:h-24 bg-[#090e1a]" />
+      <div className="w-full h-10 sm:h-12 md:h-12 lg:h-16 bg-[#090e1a]" />
     </div>
   );
 };

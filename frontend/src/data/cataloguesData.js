@@ -19,7 +19,7 @@ export const catalogueBrochuresData = [
     edition: 'Hindi Edition',
     name: 'Hindi Catalogue',
     description: 'Complete Precast Wall Specifications (PDF)',
-    image: '/assets/images/example-image.jpg',
+    image: '/assets/images/catagory-page-image.jpeg',
     url: '/assets/Pdf/catalog-Hindi.pdf',
     downloadName: 'SK_Precast_Hindi_Catalogue.pdf'
   },
@@ -29,7 +29,7 @@ export const catalogueBrochuresData = [
     edition: 'English Edition',
     name: 'English Catalogue',
     description: 'Complete Precast Wall Specifications (PDF)',
-    image: '/assets/images/example-image.jpg',
+    image: '/assets/images/catagory-page-image.jpeg',
     url: '/assets/Pdf/catalog-english.pdf',
     downloadName: 'SK_Precast_English_Catalogue.pdf'
   }

@@ -67,7 +67,7 @@ const ManufacturingUnitSlider = ({
   }
 
   return (
-    <section className={`relative pt-4 pb-8 sm:py-12 lg:py-16 bg-[#090e1a] font-sans overflow-hidden border-y border-slate-800 ${className}`}>
+    <section className={`relative pt-2 pb-6 sm:py-8 lg:py-10 bg-[#090e1a] font-sans overflow-hidden ${className}`}>
       
       {/* Background Subtle Gradient Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-amber-500/10 blur-[100px] pointer-events-none rounded-full" />

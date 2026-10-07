@@ -33,15 +33,29 @@ export const aboutCompanyData = {
   }
 };
 
-// 3. Mission & Vision Data
+// 3. Mission & Vision Data (Dual Pillars of Excellence)
 export const missionVisionData = {
   mission: {
+    tag: 'Core Purpose',
     title: 'Our Mission',
-    text: 'Supply a reliable and high-quality Product & service to the client best proficiently and cost-effectively.'
+    tagline: 'Precision • Durability • Cost Efficiency',
+    text: 'Supply a reliable and high-quality Product & service to the client best proficiently and cost-effectively, delivering high-tensile precast concrete wall solutions that save up to 40% time and labor.',
+    highlights: [
+      { text: '40% Cost & Time Savings', icon: 'Zap' },
+      { text: 'M-30 Concrete Strength', icon: 'ShieldCheck' },
+      { text: 'Rapid Modular Assembly', icon: 'Clock' }
+    ]
   },
   vision: {
+    tag: 'Future Roadmap',
     title: 'Our Vision',
-    text: 'Our vision is to be the selected supplier of our dealers and spread across the nation as a prominent manufacturer and exporter.'
+    tagline: 'Innovation • Pan-India Reach • Trust',
+    text: 'Our vision is to be the selected supplier of our dealers and spread across the nation as a prominent manufacturer and exporter, setting benchmarks in automated precast boundary wall engineering.',
+    highlights: [
+      { text: 'Pan-India Supply Network', icon: 'Globe' },
+      { text: 'Automated Factory Curing', icon: 'Factory' },
+      { text: '100% Certified Quality', icon: 'Award' }
+    ]
   }
 };
 

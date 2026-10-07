@@ -76,53 +76,135 @@ const AboutContentSection = () => {
 
         </div>
 
-        {/* 2. Our Mission & Our Vision - Custom Template with Pill Headers & Dashed Borders */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 mb-16 sm:mb-24 pt-4">
+        {/* 2. Our Mission & Our Vision - Dual Pillars of Excellence (with Automatic Periodic Shining Animation) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 mb-16 sm:mb-24 pt-2">
           
-          {/* Card 1: Our Mission (Slides in from Left) */}
+          {/* Card 1: Our Mission */}
           <motion.div
-            initial={{ opacity: 0, x: -60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative rounded-[15px] p-7 sm:p-9 pt-12 sm:pt-14 bg-[#111927] border-2 border-dashed border-slate-700/80 hover:border-slate-500 hover:shadow-2xl transition-all duration-300 flex flex-col items-center text-center group">
-            {/* Top Pill Header (Floating on top border) */}
-            <div className="absolute -top-5 left-1/2 -translate-x-1/2 px-7 sm:px-9 py-2 rounded-[5px] bg-[#162238] text-white font-bold text-sm sm:text-base tracking-wide shadow-md border border-slate-700 whitespace-nowrap">
-              {missionVisionData.mission.title}
-            </div>
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="relative rounded-2xl p-7 sm:p-9 pt-9 sm:pt-11 bg-gradient-to-br from-[#121c2e] via-[#0d1627] to-[#080d18] border border-slate-700/80 hover:border-amber-400/90 shadow-[0_15px_40px_rgba(0,0,0,0.6)] hover:shadow-[0_20px_50px_rgba(245,158,11,0.25)] transition-all duration-500 flex flex-col justify-between items-center text-center group overflow-hidden"
+          >
+            {/* Automatic Periodic Diagonal Shining Light Sweep (every 3.5s) */}
+            <motion.div
+              animate={{ x: ['-150%', '250%'] }}
+              transition={{
+                repeat: Infinity,
+                repeatType: 'loop',
+                duration: 1.6,
+                repeatDelay: 2.5,
+                ease: [0.4, 0, 0.2, 1],
+              }}
+              className="absolute inset-y-0 -left-1/3 w-2/3 -skew-x-25 bg-gradient-to-r from-transparent via-amber-300/20 to-transparent pointer-events-none z-20"
+            />
 
-            {/* Centered Circular Target Icon */}
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#162238] text-white flex items-center justify-center shadow-lg mb-5 group-hover:scale-105 transition-transform duration-300 ring-4 ring-slate-800">
-              <Target className="w-8 h-8 sm:w-10 sm:h-10 text-amber-400 stroke-[2.2]" />
-            </div>
+            {/* Top Amber Light Beam Accent */}
+            <div className="absolute top-0 inset-x-0 h-[2.5px] bg-gradient-to-r from-transparent via-amber-400/80 to-transparent shadow-[0_0_15px_rgba(245,158,11,0.9)]" />
+            
+            {/* Ambient Background Corner Glow */}
+            <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 blur-[70px] pointer-events-none rounded-full" />
 
-            {/* Paragraph Text */}
-            <p className="text-slate-300 text-[17px] leading-[28px] max-w-[92%] mx-auto">
-              {missionVisionData.mission.text}
-            </p>
+            <div className="relative z-10 w-full">
+              {/* Centered Luminous Shining 3D Target Icon */}
+              <div className="relative mx-auto mb-5 w-18 h-18 sm:w-20 sm:h-20 flex items-center justify-center">
+                <div className="absolute inset-0 rounded-2xl bg-amber-400/25 blur-lg group-hover:blur-xl group-hover:bg-amber-400/40 animate-pulse transition-all duration-500" />
+                <div className="relative w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-gradient-to-br from-amber-300 via-yellow-400 to-amber-500 text-slate-950 flex items-center justify-center shadow-[0_8px_25px_rgba(245,158,11,0.6)] ring-4 ring-amber-400/30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 overflow-hidden">
+                  {/* Icon Periodic Inner Glimmer */}
+                  <motion.div
+                    animate={{ x: ['-150%', '200%'] }}
+                    transition={{
+                      repeat: Infinity,
+                      repeatType: 'loop',
+                      duration: 1.2,
+                      repeatDelay: 2.5,
+                      ease: 'easeInOut',
+                    }}
+                    className="absolute inset-0 -skew-x-20 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none"
+                  />
+                  <Target className="w-8 h-8 sm:w-9 sm:h-9 text-slate-950 stroke-[2.5] relative z-10" />
+                </div>
+              </div>
+
+              {/* Title & Tagline */}
+              <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-1 group-hover:text-amber-300 transition-colors">
+                {missionVisionData.mission.title}
+              </h3>
+              <p className="text-amber-400/90 text-xs font-bold uppercase tracking-widest mb-4">
+                {missionVisionData.mission.tagline}
+              </p>
+
+              {/* Paragraph Text */}
+              <p className="text-slate-200 text-[15px] sm:text-[16px] leading-[26px] font-normal max-w-[95%] mx-auto">
+                {missionVisionData.mission.text}
+              </p>
+            </div>
           </motion.div>
 
-          {/* Card 2: Our Vision (Slides in from Right) */}
+          {/* Card 2: Our Vision */}
           <motion.div
-            initial={{ opacity: 0, x: 60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative rounded-[15px] p-7 sm:p-9 pt-12 sm:pt-14 bg-[#111927] border-2 border-dashed border-amber-500/40 hover:border-amber-400 hover:shadow-2xl transition-all duration-300 flex flex-col items-center text-center group">
-            {/* Top Pill Header (Floating on top border) */}
-            <div className="absolute -top-5 left-1/2 -translate-x-1/2 px-7 sm:px-9 py-2 rounded-[5px] bg-gradient-to-r from-amber-600 via-amber-700 to-yellow-600 text-white font-bold text-sm sm:text-base tracking-wide shadow-md border border-amber-400/50 whitespace-nowrap">
-              {missionVisionData.vision.title}
-            </div>
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.15, ease: 'easeOut' }}
+            className="relative rounded-2xl p-7 sm:p-9 pt-9 sm:pt-11 bg-gradient-to-br from-[#121c2e] via-[#0d1627] to-[#080d18] border border-slate-700/80 hover:border-amber-400/90 shadow-[0_15px_40px_rgba(0,0,0,0.6)] hover:shadow-[0_20px_50px_rgba(245,158,11,0.25)] transition-all duration-500 flex flex-col justify-center items-center text-center group overflow-hidden"
+          >
+            {/* Automatic Periodic Diagonal Shining Light Sweep (Staggered by 1.2s, every 3.5s) */}
+            <motion.div
+              animate={{ x: ['-150%', '250%'] }}
+              transition={{
+                repeat: Infinity,
+                repeatType: 'loop',
+                duration: 1.6,
+                repeatDelay: 2.5,
+                delay: 1.2,
+                ease: [0.4, 0, 0.2, 1],
+              }}
+              className="absolute inset-y-0 -left-1/3 w-2/3 -skew-x-25 bg-gradient-to-r from-transparent via-amber-300/20 to-transparent pointer-events-none z-20"
+            />
 
-            {/* Centered Circular Eye Icon */}
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-amber-500 via-amber-600 to-yellow-500 text-slate-950 flex items-center justify-center shadow-lg mb-5 group-hover:scale-105 transition-transform duration-300 ring-4 ring-amber-500/20">
-              <Eye className="w-8 h-8 sm:w-10 sm:h-10 text-slate-950 stroke-[2.2]" />
-            </div>
+            {/* Top Amber Light Beam Accent */}
+            <div className="absolute top-0 inset-x-0 h-[2.5px] bg-gradient-to-r from-transparent via-amber-400/80 to-transparent shadow-[0_0_15px_rgba(245,158,11,0.9)]" />
+            
+            {/* Ambient Background Corner Glow */}
+            <div className="absolute top-0 left-0 w-48 h-48 bg-blue-500/10 blur-[70px] pointer-events-none rounded-full" />
 
-            {/* Paragraph Text */}
-            <p className="text-slate-300 text-[17px] leading-[28px] max-w-[92%] mx-auto">
-              {missionVisionData.vision.text}
-            </p>
+            <div className="relative z-10 w-full">
+              {/* Centered Luminous Shining 3D Eye Icon */}
+              <div className="relative mx-auto mb-5 w-18 h-18 sm:w-20 sm:h-20 flex items-center justify-center">
+                <div className="absolute inset-0 rounded-2xl bg-amber-400/25 blur-lg group-hover:blur-xl group-hover:bg-amber-400/40 animate-pulse transition-all duration-500" />
+                <div className="relative w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-gradient-to-br from-amber-300 via-yellow-400 to-amber-500 text-slate-950 flex items-center justify-center shadow-[0_8px_25px_rgba(245,158,11,0.6)] ring-4 ring-amber-400/30 group-hover:scale-110 group-hover:-rotate-6 transition-all duration-500 overflow-hidden">
+                  {/* Icon Periodic Inner Glimmer */}
+                  <motion.div
+                    animate={{ x: ['-150%', '200%'] }}
+                    transition={{
+                      repeat: Infinity,
+                      repeatType: 'loop',
+                      duration: 1.2,
+                      repeatDelay: 2.5,
+                      delay: 1.2,
+                      ease: 'easeInOut',
+                    }}
+                    className="absolute inset-0 -skew-x-20 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none"
+                  />
+                  <Eye className="w-8 h-8 sm:w-9 sm:h-9 text-slate-950 stroke-[2.5] relative z-10" />
+                </div>
+              </div>
+
+              {/* Title & Tagline */}
+              <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-1 group-hover:text-amber-300 transition-colors">
+                {missionVisionData.vision.title}
+              </h3>
+              <p className="text-amber-400/90 text-xs font-bold uppercase tracking-widest mb-4">
+                {missionVisionData.vision.tagline}
+              </p>
+
+              {/* Paragraph Text */}
+              <p className="text-slate-200 text-[15px] sm:text-[16px] leading-[26px] font-normal max-w-[95%] mx-auto">
+                {missionVisionData.vision.text}
+              </p>
+            </div>
           </motion.div>
 
         </div>

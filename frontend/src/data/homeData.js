@@ -18,6 +18,12 @@ export const heroSectionData = {
     link: "https://api.whatsapp.com/send?phone=918238902687&text=Hello%20SK%20Precast%20Industries,%20I%20am%20interested%20in%20Precast%20Concrete%20Boundary%20Wall%20%26%20RCC%20Folding%20Compound%20Wall%20solutions%20from%20your%20Palwal%20manufacturing%20plant.%20Please%20share%20factory%20price%20list%20and%20catalogue."
   },
   bgImage: "/assets/images/hero-page-banner.jpeg",
+  bgImages: [
+    "/assets/images/hero-page-banner.jpeg",
+    "/assets/images/hero-section-image2.jpeg",
+    "/assets/images/hero-banner-image3.jpeg",
+    "/assets/images/home-banner-image4.jpeg"
+  ],
   highlights: [
     { 
       id: 1,
@@ -73,7 +79,7 @@ export const productRangeData = [
   {
     id: 'boundary-wall',
     title: 'Boundary Wall',
-    image: '/assets/images/product-range-2.jpeg',
+    image: '/assets/images/wall-image-2-home.jpeg',
     items: [
       'Cement Boundary Wall',
       'Concrete Boundary Wall',
@@ -84,7 +90,7 @@ export const productRangeData = [
   {
     id: 'cement-wall',
     title: 'Cement Wall',
-    image: '/assets/images/product-range-3.jpeg',
+    image: '/assets/images/wall-image-3-home.jpeg',
     items: [
       'Pre Fabricated Cement Wall',
       'RCC Cement Wall'
@@ -93,7 +99,7 @@ export const productRangeData = [
   {
     id: 'other-products',
     title: 'Other Products',
-    image: '/assets/images/product-range-4.jpeg',
+    image: '/assets/images/wall-image-4-home.jpeg',
     items: [
       'Precast Wall',
       'RCC Folding Wall',
@@ -127,7 +133,7 @@ export const aboutHomeSectionData = {
   tag: 'About Us',
   heading: "India's Trusted Manufacturer of RCC Precast Solutions",
   paragraph: "Deeply rooted in Palwal, Haryana, SK Precast Industries is a premier manufacturer and supplier of heavy-duty RCC and concrete compound walls. Established in 2020 under the visionary leadership of Mr. Vivek Koladiya, our company delivers tried-and-tested precast concrete infrastructure to wholesale dealers, retailers, and industrial clients across the nation.",
-  image: '/assets/images/about-image.jpg',
+  image: '/assets/images/about-us-home.jpeg',
   stats: [
     {
       id: 'gst',
@@ -487,13 +493,13 @@ export const testimonialsHeaderData = {
       id: 1,
       value: "2020",
       label: "Est. Year / 5+ Yrs Trust",
-      color: "text-slate-900"
+      color: "text-amber-400"
     },
     {
       id: 2,
       value: "4.9 / 5.0",
       label: "Customer Satisfaction",
-      color: "text-amber-600"
+      color: "text-amber-400"
     }
   ]
 };
@@ -603,7 +609,7 @@ export const contactSectionHeaderData = {
   email: "info@skprecast-industries.com",
   phone: "+91-8238902687",
   showcase: {
-    image: "/assets/images/contact-wall.jpg",
+    image: "/assets/images/form-image.jpeg",
     badge: "Palwal Unit, Haryana",
     title: "Direct Manufacturer Pricing",
     description: "Get high-density vibrated precast boundary walls delivered directly from our Palwal plant across Delhi NCR & North India.",

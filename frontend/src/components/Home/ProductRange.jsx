@@ -37,7 +37,7 @@ const ProductRange = () => {
   const { title, subtitle } = productRangeHeaderData;
 
   return (
-    <section className="relative pt-4 pb-12 sm:py-16 lg:py-20 bg-[#090e1a] font-sans overflow-hidden">
+    <section className="relative pt-2 pb-8 sm:py-10 lg:py-12 bg-[#090e1a] font-sans overflow-hidden">
       <div className="max-w-[1260px] mx-auto px-5 sm:px-6 lg:px-8">
         
         {/* Section Title with Smooth Entrance */}
@@ -46,7 +46,7 @@ const ProductRange = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="text-center max-w-3xl mx-auto mb-10 sm:mb-14"
+          className="text-center max-w-3xl mx-auto mb-6 sm:mb-8"
         >
           <h2 className="text-[23px] sm:text-4xl lg:text-[2.75rem] font-extrabold tracking-tight leading-normal">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 drop-shadow-sm inline-block pt-1 pb-2.5 px-1">

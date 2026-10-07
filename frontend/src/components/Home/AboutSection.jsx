@@ -14,15 +14,15 @@ const AboutSection = () => {
   const { tag, heading, paragraph, image, stats, button } = aboutHomeSectionData;
 
   return (
-    <section className="relative pt-4 pb-12 sm:py-12 lg:py-16 bg-[#090e1a] font-sans overflow-hidden">
+    <section className="relative pt-2 pb-8 sm:py-10 lg:py-12 bg-[#090e1a] font-sans overflow-hidden">
       {/* Background Subtle Gradient Glows */}
       <div className="absolute top-1/3 -left-32 w-96 h-96 bg-amber-500/10 blur-[120px] pointer-events-none rounded-full" />
       <div className="absolute bottom-10 right-0 w-96 h-96 bg-blue-500/5 blur-[100px] pointer-events-none rounded-full" />
 
       <div className="max-w-[1260px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* Left Column: Circular Feature Image with Orbital Orbit Accent */}
+          {/* Left Column: Square Feature Image with Square Orbital Animation */}
           <motion.div 
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -30,21 +30,21 @@ const AboutSection = () => {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="order-2 lg:order-1 lg:col-span-5 flex justify-center items-center pt-2 lg:pt-0"
           >
-            <div className="relative w-[300px] h-[300px] sm:w-[380px] sm:h-[380px] flex items-center justify-center">
+            <div className="relative w-[290px] h-[290px] sm:w-[370px] sm:h-[370px] flex items-center justify-center">
               
-              {/* Outer Orbital Orbit Ring with Nodes (Continuous Smooth Rotation) */}
-              <div className="absolute inset-0 rounded-full border border-slate-800 pointer-events-none animate-[spin_25s_linear_infinite]">
-                <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-amber-400 shadow-[0_0_12px_#f59e0b] ring-4 ring-[#090e1a]" />
-                <span className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-yellow-400 shadow-[0_0_12px_#fbbf24] ring-4 ring-[#090e1a]" />
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-3.5 h-3.5 rounded-full bg-amber-400 shadow-[0_0_12px_#f59e0b] ring-4 ring-[#090e1a]" />
-                <span className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-yellow-400 shadow-[0_0_12px_#fbbf24] ring-4 ring-[#090e1a]" />
+              {/* Outer Square Orbital Orbit Ring with Nodes (Continuous Smooth Rotation) */}
+              <div className="absolute inset-0 rounded-[26px] border border-slate-800 pointer-events-none animate-[spin_25s_linear_infinite]">
+                <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-[4px] bg-amber-400 shadow-[0_0_12px_#f59e0b] ring-4 ring-[#090e1a]" />
+                <span className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-[4px] bg-yellow-400 shadow-[0_0_12px_#fbbf24] ring-4 ring-[#090e1a]" />
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-3.5 h-3.5 rounded-[4px] bg-amber-400 shadow-[0_0_12px_#f59e0b] ring-4 ring-[#090e1a]" />
+                <span className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-[4px] bg-yellow-400 shadow-[0_0_12px_#fbbf24] ring-4 ring-[#090e1a]" />
               </div>
 
-              {/* Inner Decorative Subtle Ring */}
-              <div className="absolute inset-4 rounded-full border border-dashed border-amber-400/30 pointer-events-none animate-[spin_60s_linear_infinite]" />
+              {/* Inner Decorative Dashed Square Ring (Opposite Rotation) */}
+              <div className="absolute inset-4 rounded-[20px] border border-dashed border-amber-400/35 pointer-events-none animate-[spin_50s_linear_infinite_reverse]" />
 
-              {/* Main Circular Image Frame */}
-              <div className="relative w-[260px] h-[260px] sm:w-[330px] sm:h-[330px] rounded-full overflow-hidden shadow-2xl border-4 border-slate-800 ring-1 ring-amber-400/30 group">
+              {/* Main Square Image Frame */}
+              <div className="relative w-[250px] h-[250px] sm:w-[320px] sm:h-[320px] rounded-[16px] overflow-hidden shadow-2xl border-4 border-slate-800 ring-1 ring-amber-400/40 group z-10 bg-slate-900">
                 <img 
                   src={image} 
                   alt="About SK Precast Industries" 
@@ -56,7 +56,7 @@ const AboutSection = () => {
               </div>
 
               {/* Decorative Hand-Drawn Arrow */}
-              <div className="absolute -bottom-6 -right-6 hidden sm:block pointer-events-none opacity-80">
+              <div className="absolute -bottom-6 -right-6 hidden sm:block pointer-events-none opacity-80 z-20">
                 <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5 25C15 35 35 38 48 20" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="4 4" />
                   <path d="M42 16L50 19L47 27" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />

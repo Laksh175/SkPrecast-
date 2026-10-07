@@ -95,7 +95,7 @@ const Footer = () => {
       {/* Top Gold Gradient Glow Bar */}
       <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-amber-400 to-transparent relative z-10 shadow-[0_0_12px_rgba(245,158,11,0.6)]" />
 
-      <div className="max-w-[1260px] mx-auto px-5 sm:px-6 pt-10 sm:pt-14 pb-8 relative z-10">
+      <div className="max-w-[1260px] mx-auto px-5 sm:px-6 pt-10 sm:pt-14 pb-3 sm:pb-4 relative z-10">
         
         {/* ========================================================================= */}
         {/* 1. DESKTOP LAYOUT (lg: and above - 1024px+) */}
@@ -725,7 +725,7 @@ const Footer = () => {
         {/* ========================================================================= */}
         {/* 3. COPYRIGHT & MEMBER BADGE (All screen sizes) */}
         {/* ========================================================================= */}
-        <div className="mt-6 sm:mt-8 pt-5 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <div className="mt-4 sm:mt-5 pt-3.5 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left pb-1">
           <div className="caption-text text-xs sm:text-[13px] text-slate-400 leading-relaxed font-normal">
             <div>
               All Rights Reserved. <strong className="text-slate-200 font-semibold">SK Precast Industries</strong>
@@ -760,49 +760,95 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Unique Floating Actions: WhatsApp & Scroll To Top (Compact & Sleek) */}
+      {/* Unique Floating Actions: Direct Call & WhatsApp in 1 Line + Scroll To Top */}
       <div className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 flex flex-col items-end gap-2.5 sm:gap-3 z-50">
-        {/* Pure 3D Circular WhatsApp Button with 3D Waving Hand Peek-a-boo Animation */}
-        <div className="relative flex items-center justify-center">
-          
-          {/* 3D Waving Hand Emoji peeking from behind the circle */}
-          <div className="absolute -top-1.5 -left-1.5 lg:-top-3 lg:-left-3 z-0 pointer-events-none select-none animate-peek-hand">
-            <div className="text-xl sm:text-2xl lg:text-4xl filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.35)]">
-              👋
-            </div>
-          </div>
-
-          {/* Pure 3D WhatsApp Circular Button (Larger on Large Screens) */}
-          <a 
-            href={`https://api.whatsapp.com/send?phone=918238902687&text=${encodeURIComponent("Hello SK Precast Industries,\n\nI am interested in Precast Concrete Boundary Wall & RCC Folding Compound Wall solutions from your Palwal (Haryana) manufacturing plant.\n\nPlease share your latest product catalogue, factory price list, and supply details across Delhi NCR & India.\n\n🌐 Website: https://www.skprecast-industries.com")}`}
-            target="_blank" 
-            rel="noreferrer" 
-            className="relative z-10 w-12 h-12 sm:w-13 sm:h-13 lg:w-[66px] lg:h-[66px] rounded-full bg-whatsapp-3d flex items-center justify-center text-white shadow-[0_6px_22px_rgba(0,0,0,0.38),0_4px_12px_rgba(37,211,102,0.45),inset_0_1.5px_2px_rgba(255,255,255,0.75),inset_0_-2px_2.5px_rgba(0,0,0,0.25)] border-2 border-emerald-400/90 hover:scale-110 active:scale-95 transition-all duration-300 group cursor-pointer"
-            title="Chat on WhatsApp (+91-8238902687) - SK Precast Industries"
-            aria-label="Chat with SK Precast Industries on WhatsApp"
-          >
-            {/* Live Green Online Beacon (Small & Subtle) */}
-            <span className="absolute top-0.5 right-0.5 lg:top-1 lg:right-1 flex h-2.5 w-2.5 sm:h-3 sm:w-3 lg:h-3.5 lg:w-3.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-300 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 sm:h-3 sm:w-3 lg:h-3.5 lg:w-3.5 bg-emerald-400 border-[1.5px] border-slate-900 shadow-[0_0_6px_#34d399]" />
-            </span>
-
-            {/* Crisp 3D WhatsApp Icon */}
-            <FaWhatsapp className="w-6 h-6 sm:w-7 sm:h-7 lg:w-[34px] lg:h-[34px] text-white drop-shadow-md group-hover:rotate-12 transition-transform duration-300" />
-          </a>
-        </div>
-
-        {/* Unique Scroll To Top Button */}
+        {/* Scroll To Top Button */}
         <button 
-          className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-[#fef08a] via-[#fde047] to-[#facc15] hover:from-[#fde047] hover:to-[#eab308] text-slate-950 flex items-center justify-center shadow-[0_6px_20px_rgba(250,204,21,0.35)] border border-yellow-300/80 transition-all duration-300 ${
+          className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#fef08a] via-[#fde047] to-[#facc15] hover:from-[#fde047] hover:to-[#eab308] text-slate-950 flex items-center justify-center shadow-[0_6px_20px_rgba(250,204,21,0.35)] border border-yellow-300/80 transition-all duration-300 ${
             showScrollTop ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-4'
           } hover:-translate-y-1 hover:scale-105 cursor-pointer`}
           onClick={scrollToTop}
           title="Back to Top"
           aria-label="Back to Top"
         >
-          <FaChevronUp size={14} />
+          <FaChevronUp size={13} />
         </button>
+
+        {/* 1 Line (Side by Side) Dual Floating Buttons: Direct Call + WhatsApp */}
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          
+          {/* 1. Direct Call Button */}
+          <div className="relative flex items-center justify-center group/call">
+            {/* Small Speech Bubble on Hover */}
+            <div className="absolute bottom-full right-0 mb-3 opacity-0 invisible translate-y-2 group-hover/call:opacity-100 group-hover/call:visible group-hover/call:translate-y-0 transition-all duration-300 ease-out pointer-events-none z-30 select-none">
+              <div className="relative bg-[#111927]/95 backdrop-blur-md border border-slate-700/90 rounded-2xl px-4 py-2 shadow-[0_12px_35px_rgba(0,0,0,0.7),0_0_15px_rgba(245,158,11,0.25)] w-56 sm:w-60 text-left">
+                <p className="text-slate-200 font-normal leading-snug" style={{ fontSize: '13.5px' }}>
+                  Direct Factory Call: <span className="text-amber-300 font-bold whitespace-nowrap" style={{ fontSize: '14px' }}>+91 82389 02687</span>
+                </p>
+                <div className="absolute -bottom-1.5 right-5 sm:right-7 w-3 h-3 bg-[#111927] border-b border-r border-slate-700/90 rotate-45" />
+              </div>
+            </div>
+
+            {/* 3D Circular Call Button */}
+            <a 
+              href="tel:+918238902687"
+              className="relative z-10 w-12 h-12 sm:w-13 sm:h-13 lg:w-[66px] lg:h-[66px] rounded-full bg-gradient-to-br from-[#1e293b] via-[#0f172a] to-[#020617] border-2 border-amber-400/90 flex items-center justify-center text-amber-400 shadow-[0_6px_22px_rgba(0,0,0,0.45),0_4px_12px_rgba(245,158,11,0.35),inset_0_1.5px_2px_rgba(255,255,255,0.2),inset_0_-2px_2.5px_rgba(0,0,0,0.4)] hover:scale-110 active:scale-95 transition-all duration-300 group cursor-pointer"
+              aria-label="Direct Phone Call (+91-8238902687) - SK Precast Industries"
+            >
+              {/* Pulsing Gold Beacon */}
+              <span className="absolute top-0.5 right-0.5 lg:top-1 lg:right-1 flex h-2.5 w-2.5 sm:h-3 sm:w-3 lg:h-3.5 lg:w-3.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-300 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 sm:h-3 sm:w-3 lg:h-3.5 lg:w-3.5 bg-amber-400 border-[1.5px] border-slate-900 shadow-[0_0_6px_#f59e0b]" />
+              </span>
+
+              <FaPhone className="w-5 h-5 sm:w-5.5 sm:h-5.5 lg:w-[26px] lg:h-[26px] text-amber-400 drop-shadow-md group-hover:rotate-12 transition-transform duration-300" />
+            </a>
+          </div>
+
+          {/* 2. Pure 3D Circular WhatsApp Button with Hover Message Bubble Popup */}
+          <div className="relative flex items-center justify-center group/wa">
+            
+            {/* Small Speech Bubble Message Popup on Hover (Positioned at Top) */}
+            <div className="absolute bottom-full right-0 mb-3 opacity-0 invisible translate-y-2 group-hover/wa:opacity-100 group-hover/wa:visible group-hover/wa:translate-y-0 transition-all duration-300 ease-out pointer-events-none z-30 select-none">
+              <div className="relative bg-[#111927]/95 backdrop-blur-md border border-slate-700/90 rounded-2xl px-4 py-2.5 shadow-[0_12px_35px_rgba(0,0,0,0.7),0_0_15px_rgba(37,211,102,0.15)] w-64 sm:w-72 text-left">
+                {/* Message text (14px) */}
+                <p className="text-slate-200 font-normal leading-snug" style={{ fontSize: '13.5px' }}>
+                  Hello! 👋 Need instant price quote? <span className="text-amber-300 font-bold whitespace-nowrap" style={{ fontSize: '14px' }}>Chat on WhatsApp!</span>
+                </p>
+
+                {/* Bottom Arrow pointing down to WhatsApp button */}
+                <div className="absolute -bottom-1.5 right-5 sm:right-7 w-3 h-3 bg-[#111927] border-b border-r border-slate-700/90 rotate-45" />
+              </div>
+            </div>
+
+            {/* 3D Waving Hand Emoji peeking from behind the circle */}
+            <div className="absolute -top-1.5 -left-1.5 lg:-top-3 lg:-left-3 z-0 pointer-events-none select-none animate-peek-hand">
+              <div className="text-xl sm:text-2xl lg:text-4xl filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.35)]">
+                👋
+              </div>
+            </div>
+
+            {/* Pure 3D WhatsApp Circular Button (Larger on Large Screens) */}
+            <a 
+              href={`https://api.whatsapp.com/send?phone=918238902687&text=${encodeURIComponent("Hello SK Precast Industries,\n\nI am interested in Precast Concrete Boundary Wall & RCC Folding Compound Wall solutions from your Palwal (Haryana) manufacturing plant.\n\nPlease share your latest product catalogue, factory price list, and supply details across Delhi NCR & India.\n\n🌐 Website: https://www.skprecast-industries.com")}`}
+              target="_blank" 
+              rel="noreferrer" 
+              className="relative z-10 w-12 h-12 sm:w-13 sm:h-13 lg:w-[66px] lg:h-[66px] rounded-full bg-whatsapp-3d flex items-center justify-center text-white shadow-[0_6px_22px_rgba(0,0,0,0.38),0_4px_12px_rgba(37,211,102,0.45),inset_0_1.5px_2px_rgba(255,255,255,0.75),inset_0_-2px_2.5px_rgba(0,0,0,0.25)] border-2 border-emerald-400/90 hover:scale-110 active:scale-95 transition-all duration-300 group cursor-pointer"
+              aria-label="Chat with SK Precast Industries on WhatsApp"
+            >
+              {/* Live Green Online Beacon (Small & Subtle) */}
+              <span className="absolute top-0.5 right-0.5 lg:top-1 lg:right-1 flex h-2.5 w-2.5 sm:h-3 sm:w-3 lg:h-3.5 lg:w-3.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-300 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 sm:h-3 sm:w-3 lg:h-3.5 lg:w-3.5 bg-emerald-400 border-[1.5px] border-slate-900 shadow-[0_0_6px_#34d399]" />
+              </span>
+
+              {/* Crisp 3D WhatsApp Icon */}
+              <FaWhatsapp className="w-6 h-6 sm:w-7 sm:h-7 lg:w-[34px] lg:h-[34px] text-white drop-shadow-md group-hover:rotate-12 transition-transform duration-300" />
+            </a>
+          </div>
+
+        </div>
+
       </div>
     </footer>
   );

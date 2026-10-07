@@ -211,11 +211,11 @@ const BlogDetailPage = ({ slug }) => {
         <div className="max-w-[1360px] mx-auto px-5 sm:px-6 lg:px-8">
           <div className="relative aspect-[16/9] sm:aspect-[21/9] rounded-[10px] sm:rounded-[12px] overflow-hidden bg-[#111927] border border-slate-800 shadow-xl">
             <img 
-              src={currentPost.image} 
+              src={currentPost.detailImage || currentPost.image} 
               alt={currentPost.title}
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.src = currentPost.fallbackImage;
+                e.target.src = currentPost.fallbackImage || currentPost.image;
               }}
               className="w-full h-full object-cover"
             />

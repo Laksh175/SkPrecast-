@@ -8,8 +8,9 @@ export const blogPostsData = [
     rawDate: '2026-03-24',
     category: 'precast boundary wall supplier',
     categoryName: 'Precast Boundary Wall Supplier',
-    image: '/assets/images/blog-example-1.jpeg',
-    fallbackImage: '/assets/images/blog-example-1.jpeg',
+    image: '/assets/images/blog-image.jpeg',
+    detailImage: '/assets/images/hero-section-image2.jpeg',
+    fallbackImage: '/assets/images/hero-section-image2.jpeg',
     readTime: '4 min read',
     author: 'Admin',
     tableOfContents: [
@@ -111,8 +112,8 @@ export const blogPostsData = [
     rawDate: '2026-01-27',
     category: 'precast heavy duty wall manufacturer',
     categoryName: 'Precast Heavy Duty Wall Manufacturer',
-    image: '/assets/images/blog-example-2.jpeg',
-    fallbackImage: 'https://catalog.wlimg.com/1/9434574/other-images/940891.jpg',
+    image: '/assets/images/hero-page-banner.jpeg',
+    fallbackImage: '/assets/images/hero-page-banner.jpeg',
     readTime: '4 min read',
     author: 'Admin',
     tableOfContents: [

@@ -151,8 +151,11 @@ const TestimonialsPage = () => {
                       </div>
                     </div>
 
-                    {/* Testimonial Content */}
-                    <div className="text-slate-300 text-[13.5px] sm:text-[14px] leading-relaxed font-normal mb-4">
+                    {/* Testimonial Content (15px) */}
+                    <div 
+                      className="text-slate-100 font-normal mb-4 leading-[25px]"
+                      style={{ fontSize: '15px' }}
+                    >
                       "{item.content}"
                     </div>
 

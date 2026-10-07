@@ -139,7 +139,7 @@ const ContactSection = () => {
   const currentMaxDigits = getMaxPhoneDigits(formData.selectedCountry);
 
   return (
-    <section id="contact" className="relative py-12 lg:py-16 bg-[#090e1a] text-slate-100 font-sans overflow-hidden border-t border-slate-800">
+    <section id="contact" className="relative pt-4 pb-12 sm:py-10 lg:py-14 bg-[#090e1a] text-slate-100 font-sans overflow-hidden">
       
       {/* Background Subtle Gradient Glows */}
       <div className="absolute top-1/4 -left-32 w-96 h-96 bg-amber-500/5 blur-[120px] pointer-events-none rounded-full" />
@@ -161,9 +161,9 @@ const ContactSection = () => {
             {/* Image Card Container */}
             <div className="relative rounded-[15px] overflow-hidden border border-slate-800 shadow-[0_15px_40px_rgba(0,0,0,0.6)] bg-slate-900 group h-[340px] sm:h-[420px] lg:h-full min-h-[360px]">
               <img 
-                src="/assets/images/contact-wall.jpg" 
+                src={contactSectionHeaderData.showcase?.image || "/assets/images/form-image.jpeg"} 
                 alt="SK Precast Boundary Wall Installation"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out brightness-90" 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out brightness-95" 
               />
               
               {/* Subtle Gradient Overlay */}
