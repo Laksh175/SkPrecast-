@@ -9,7 +9,8 @@ import {
   CheckCircle2,
   X,
   PhoneCall,
-  SlidersHorizontal
+  SlidersHorizontal,
+  ChevronRight
 } from 'lucide-react';
 import { FaRotateRight, FaChevronDown, FaChevronUp, FaWhatsapp } from 'react-icons/fa6';
 import { allProductsData, productCategoriesData } from '../../data/productsData';
@@ -245,7 +246,7 @@ const Product = () => {
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="flex items-center justify-center gap-2.5 text-sm sm:text-base font-semibold text-slate-300 mb-6"
+            className="flex items-center justify-center flex-wrap gap-2 sm:gap-2.5 text-sm sm:text-base font-semibold text-slate-300 mb-6"
           >
             <a
               href="/"
@@ -254,7 +255,7 @@ const Product = () => {
             >
               Home
             </a>
-            <span className="text-slate-500 font-normal">/</span>
+            <ChevronRight size={17} strokeWidth={2.5} className="text-amber-400/90 shrink-0" />
             <span className="text-amber-400 font-bold">Products Catalog</span>
           </motion.div>
 
@@ -416,11 +417,11 @@ const Product = () => {
             <h2 className="text-[23px] sm:text-3xl lg:text-4xl font-extrabold text-white mb-2">
               Compound Wall
             </h2>
-            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-400 mb-4 font-semibold">
+            <div className="flex items-center justify-center flex-wrap gap-2 text-xs sm:text-sm text-slate-400 mb-4 font-semibold">
               <span className="hover:text-amber-400 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Home</span>
-              <span className="text-slate-500">&gt;</span>
+              <ChevronRight size={15} strokeWidth={2.5} className="text-amber-400/90 shrink-0" />
               <span className="hover:text-amber-400 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Products</span>
-              <span className="text-slate-500">&gt;</span>
+              <ChevronRight size={15} strokeWidth={2.5} className="text-amber-400/90 shrink-0" />
               <span className="text-amber-400 font-bold">Compound Wall</span>
             </div>
             <p className="text-[14px] sm:text-[17px] leading-[24px] sm:leading-[28px] text-slate-300 w-full max-w-6xl mx-auto font-normal text-justify">
@@ -435,11 +436,11 @@ const Product = () => {
             <h2 className="text-[23px] sm:text-3xl lg:text-4xl font-extrabold text-white mb-2">
               Boundary Wall
             </h2>
-            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-400 mb-4 font-semibold">
+            <div className="flex items-center justify-center flex-wrap gap-2 text-xs sm:text-sm text-slate-400 mb-4 font-semibold">
               <span className="hover:text-amber-400 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Home</span>
-              <span className="text-slate-500">&gt;</span>
+              <ChevronRight size={15} strokeWidth={2.5} className="text-amber-400/90 shrink-0" />
               <span className="hover:text-amber-400 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Products</span>
-              <span className="text-slate-500">&gt;</span>
+              <ChevronRight size={15} strokeWidth={2.5} className="text-amber-400/90 shrink-0" />
               <span className="text-amber-400 font-bold">Boundary Wall</span>
             </div>
             <p className="text-[14px] sm:text-[17px] leading-[24px] sm:leading-[28px] text-slate-300 w-full max-w-6xl mx-auto font-normal text-justify">
@@ -454,11 +455,11 @@ const Product = () => {
             <h2 className="text-[23px] sm:text-3xl lg:text-4xl font-extrabold text-white mb-2">
               Cement Wall
             </h2>
-            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-400 mb-4 font-semibold">
+            <div className="flex items-center justify-center flex-wrap gap-2 text-xs sm:text-sm text-slate-400 mb-4 font-semibold">
               <span className="hover:text-amber-400 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Home</span>
-              <span className="text-slate-500">&gt;</span>
+              <ChevronRight size={15} strokeWidth={2.5} className="text-amber-400/90 shrink-0" />
               <span className="hover:text-amber-400 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Products</span>
-              <span className="text-slate-500">&gt;</span>
+              <ChevronRight size={15} strokeWidth={2.5} className="text-amber-400/90 shrink-0" />
               <span className="text-amber-400 font-bold">Cement Wall</span>
             </div>
             <p className="text-[14px] sm:text-[17px] leading-[24px] sm:leading-[28px] text-slate-300 w-full max-w-6xl mx-auto font-normal text-center">
@@ -473,11 +474,11 @@ const Product = () => {
             <h2 className="text-[23px] sm:text-3xl lg:text-4xl font-extrabold text-white mb-2">
               Other Products
             </h2>
-            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-400 mb-4 font-semibold">
+            <div className="flex items-center justify-center flex-wrap gap-2 text-xs sm:text-sm text-slate-400 mb-4 font-semibold">
               <span className="hover:text-amber-400 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Home</span>
-              <span className="text-slate-500">&gt;</span>
+              <ChevronRight size={15} strokeWidth={2.5} className="text-amber-400/90 shrink-0" />
               <span className="hover:text-amber-400 transition-colors cursor-pointer" onClick={() => handleCategoryChange('all')}>Products</span>
-              <span className="text-slate-500">&gt;</span>
+              <ChevronRight size={15} strokeWidth={2.5} className="text-amber-400/90 shrink-0" />
               <span className="text-amber-400 font-bold">Other Products</span>
             </div>
             <p className="text-[14px] sm:text-[17px] leading-[24px] sm:leading-[28px] text-slate-300 w-full max-w-6xl mx-auto font-normal text-center">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { navigateTo } from '../utils/navigation';
-import { X, Download, FileText, Eye } from 'lucide-react';
+import { X, Download, FileText, Eye, ChevronRight } from 'lucide-react';
 import { Button, ContactInfoCard, ExploreProductsSection } from '../common';
 import { catalogueBrochuresData } from '../data/cataloguesData';
 
@@ -51,14 +51,14 @@ const CataloguesPage = () => {
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="flex items-center justify-center gap-2.5 text-sm sm:text-base font-semibold text-slate-300 mb-6">
+            className="flex items-center justify-center flex-wrap gap-2 sm:gap-2.5 text-sm sm:text-base font-semibold text-slate-300 mb-6">
             <a 
               href="/index.htm" 
               onClick={(e) => navigateTo('/index.htm', e)}
               className="hover:text-amber-400 transition-colors cursor-pointer">
               Home
             </a>
-            <span className="text-slate-500 font-normal">/</span>
+            <ChevronRight size={17} strokeWidth={2.5} className="text-amber-400/90 shrink-0" />
             <span className="text-amber-400 font-bold">Catalogues</span>
           </motion.div>
 

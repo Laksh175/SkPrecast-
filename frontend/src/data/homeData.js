@@ -1,6 +1,4 @@
-// ============================================================================
-// SK PRECAST INDUSTRIES - CENTRALIZED HOME & WEBSITE DATA
-// ============================================================================
+import { allProductsData } from './productsData';
 
 // ----------------------------------------------------------------------------
 // 1. HERO SECTION DATA
@@ -305,7 +303,7 @@ export const popularProductsHeaderData = {
   subtitle: 'Explore our most demanded precast concrete and RCC boundary wall solutions trusted by infrastructure developers, contractors, and property owners across India.'
 };
 
-export const popularProductsData = [
+const rawPopularProducts = [
   {
     id: 1,
     name: 'RCC Wall',
@@ -320,7 +318,7 @@ export const popularProductsData = [
     id: 2,
     name: 'Readymade Boundary Wall',
     slug: 'readymade-boundary-wall',
-    image: '/assets/images/readymade-boundary-wall.jpg',
+    image: '/assets/images/wall-image-3-home.jpeg',
     description: 'Modular precast readymade boundary walls built for fast and cost-effective site setup.',
     price: '₹ 80.00 - 250.00 / Feet',
     moq: '250 Feet',
@@ -360,7 +358,7 @@ export const popularProductsData = [
     id: 6,
     name: 'RCC Folding Compound Wall',
     slug: 'rcc-folding-compound-wall',
-    image: '/assets/images/rcc-folding-compound-wall.jpg',
+    image: '/assets/images/heavy-readymade-boundary-wall-2.jpg',
     description: 'Interlocking folding precast panels offering flexible and quick on-site installation.',
     price: '₹ 80.00 - 250.00 / Square Feet',
     moq: '250 Feet',
@@ -370,7 +368,7 @@ export const popularProductsData = [
     id: 7,
     name: 'Readymade Compound Wall',
     slug: 'readymade-compound-wall',
-    image: '/assets/images/readymade-compound-wall.jpg',
+    image: '/assets/images/industrial-compound-wall-square.jpg',
     description: 'Maintenance-free readymade walls engineered with high-density vibrated concrete.',
     price: '₹ 80.00 - 250.00 / Square Feet',
     moq: '500 Feet',
@@ -410,13 +408,25 @@ export const popularProductsData = [
     id: 11,
     name: 'Solar Plant Boundary Wall',
     slug: 'solar-plant-boundary-wall',
-    image: '/assets/images/solar-plant-boundary-wall.jpg',
+    image: '/assets/images/precast-wall.jpg',
     description: 'Specialized heavy-duty security walls engineered for large-scale solar power plants.',
     price: '₹ 80.00 - 250.00 / feet',
     moq: '1000 Square Feet',
     unit: 'Square Feet'
   }
 ];
+
+export const popularProductsData = rawPopularProducts.map((item) => {
+  const matched = allProductsData.find((p) => p.slug === item.slug);
+  return {
+    ...item,
+    name: matched?.name || item.name,
+    image: matched?.image || item.image,
+    price: matched?.price || item.price,
+    moq: matched?.moq || item.moq,
+    unit: matched?.unit || item.unit
+  };
+});
 
 // ----------------------------------------------------------------------------
 // 6. WHY CHOOSE US DATA

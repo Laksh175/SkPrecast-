@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Phone, Mail, MapPin, CheckCircle2, ChevronDown, 
-  Search, ExternalLink, User, Monitor, Globe, Building2
+  Search, ExternalLink, User, Monitor, Globe, Building2, ChevronRight
 } from 'lucide-react';
 import { 
   Button, 
@@ -166,7 +166,7 @@ const ContactUsPage = () => {
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="flex items-center justify-center gap-2.5 text-sm sm:text-base font-semibold text-slate-300 mb-5"
+            className="flex items-center justify-center flex-wrap gap-2 sm:gap-2.5 text-sm sm:text-base font-semibold text-slate-300 mb-5"
           >
             <a 
               href="/" 
@@ -175,7 +175,7 @@ const ContactUsPage = () => {
             >
               Home
             </a>
-            <span className="text-slate-500 font-normal">/</span>
+            <ChevronRight size={17} strokeWidth={2.5} className="text-amber-400/90 shrink-0" />
             <span className="text-amber-400 font-bold">{contactUsHeroData.breadcrumb}</span>
           </motion.div>
 

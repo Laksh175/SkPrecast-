@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Building2, MapPin, Phone, Mail, ArrowRight, ShieldCheck, FileCheck, Briefcase, Upload, CheckCircle, AlertCircle, FileText, User, Clock, Search, ChevronDown, Check, Sparkles, X, Loader2 } from 'lucide-react';
+import { Building2, MapPin, Phone, Mail, ArrowRight, ShieldCheck, FileCheck, Briefcase, Upload, CheckCircle, AlertCircle, FileText, User, Clock, Search, ChevronDown, Check, Sparkles, X, Loader2, ChevronRight } from 'lucide-react';
 import { Button, SearchableSelect, CountryCodePicker, ContactInfoCard, ExploreProductsSection } from '../common';
 import { navigateTo } from '../utils/navigation';
 import { aboutCompanyData } from '../data/aboutUsData';
@@ -277,7 +277,7 @@ const CurrentJobsPage = () => {
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="flex items-center justify-center gap-2.5 text-sm sm:text-base font-semibold text-slate-300 mb-4"
+            className="flex items-center justify-center flex-wrap gap-2 sm:gap-2.5 text-sm sm:text-base font-semibold text-slate-300 mb-4"
           >
             <a 
               href="/" 
@@ -286,7 +286,7 @@ const CurrentJobsPage = () => {
             >
               Home
             </a>
-            <span className="text-slate-500 font-normal">/</span>
+            <ChevronRight size={17} strokeWidth={2.5} className="text-amber-400/90 shrink-0" />
             <span className="text-amber-400 font-bold">Current Jobs</span>
           </motion.div>
 

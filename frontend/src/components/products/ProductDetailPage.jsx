@@ -251,11 +251,11 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="flex items-center justify-center flex-wrap gap-2.5 text-sm sm:text-base font-semibold text-slate-300 mb-4"
+            className="flex items-center justify-center flex-wrap gap-2 sm:gap-2.5 text-sm sm:text-base font-semibold text-slate-300 mb-4"
           >
             {product.breadcrumbs.map((crumb, idx) => (
               <React.Fragment key={crumb.path}>
-                {idx > 0 && <span className="text-slate-500 font-normal">/</span>}
+                {idx > 0 && <ChevronRight size={17} strokeWidth={2.5} className="text-amber-400/90 shrink-0" />}
                 {idx === product.breadcrumbs.length - 1 ? (
                   <span className="text-amber-400 font-bold">
                     {crumb.label}

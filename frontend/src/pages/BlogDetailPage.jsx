@@ -147,7 +147,7 @@ const BlogDetailPage = ({ slug }) => {
         <div className="max-w-[1360px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10 text-center">
           
           {/* Top Breadcrumb (Clean & Bold without background box) */}
-          <div className="flex items-center justify-center flex-wrap gap-2.5 text-sm sm:text-base font-semibold text-slate-300 mb-4">
+          <div className="flex items-center justify-center flex-wrap gap-2 sm:gap-2.5 text-sm sm:text-base font-semibold text-slate-300 mb-4">
             <a 
               href="/" 
               onClick={(e) => navigateTo('/', e)}
@@ -155,7 +155,7 @@ const BlogDetailPage = ({ slug }) => {
             >
               Home
             </a>
-            <span className="text-slate-500 font-normal">/</span>
+            <ChevronRight size={17} strokeWidth={2.5} className="text-amber-400/90 shrink-0" />
             <a 
               href="/blog" 
               onClick={(e) => navigateTo('/blog', e)}
@@ -163,7 +163,7 @@ const BlogDetailPage = ({ slug }) => {
             >
               Blog
             </a>
-            <span className="text-slate-500 font-normal">/</span>
+            <ChevronRight size={17} strokeWidth={2.5} className="text-amber-400/90 shrink-0" />
             <span className="text-amber-400 font-bold capitalize">
               {currentPost.categoryName || currentPost.category}
             </span>

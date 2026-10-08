@@ -53,10 +53,10 @@ export const allProductsData = [
     categoryName: 'Compound Wall',
     name: 'Concrete Precast Single Panel Wall',
     slug: 'concrete-precast-single-panel-wall',
-    image: '/assets/images/concrete-precast-single-panel-wall.jpeg',
+    image: '/assets/images/wall-image-3-home.jpeg',
     galleryImages: [
-      '/assets/images/concrete-precast-single-panel-wall.jpeg',
-      '/assets/images/concrete-precast-single-panel-wall-2.jpg'
+      '/assets/images/wall-image-3-home.jpeg',
+      '/assets/images/concreate-single-panel-2.jpeg'
     ],
     description: 'We offer high-quality Concrete Precast Single Panel Walls in standard sizes for wall construction. Our precast concrete panels come in various colors, providing a smooth finish and high durability. Made from concrete, these panels require low maintenance, making them ideal for long-lasting wall solutions. As a leading Manufacturer and Supplier, we provide top-notch products for your construction needs.',
     price: '₹ 80.00 - 250.00 / Square Feet',
@@ -98,7 +98,7 @@ export const allProductsData = [
     image: '/assets/images/factory-boundary-wall.jpg',
     galleryImages: [
       '/assets/images/factory-boundary-wall.jpg',
-      '/assets/images/slider-wall-1.jpg'
+      '/assets/images/concreate-single-panel-2.jpeg'
     ],
     description: 'We offer high-strength concrete factory boundary walls ranging from 6 to 12 feet in height, designed for durability and weather-resistance. With a wall thickness of 200-400 mm and anti-climb features, our walls provide enhanced security for factories. Low-maintenance and suitable for various applications, our boundary walls are ideal for manufacturers and suppliers looking for reliable perimeter protection solutions.',
     price: '₹ 80.00 - 250.00 / Square Feet',
@@ -135,9 +135,9 @@ export const allProductsData = [
     categoryName: 'Compound Wall',
     name: 'Heavy Readymade Boundary Wall',
     slug: 'heavy-readymade-boundary-wall',
-    image: '/assets/images/heavy-readymade-boundary-wall.jpg',
+    image: '/assets/images/compound-wall-image.jpeg',
     galleryImages: [
-      '/assets/images/heavy-readymade-boundary-wall.jpg',
+      '/assets/images/compound-wall-image.jpeg',
       '/assets/images/heavy-readymade-boundary-wall-2.jpg'
     ],
     description: 'We are a trusted Readymade Boundary Wall Manufacturer, offering high-quality, durable, and aesthetically appealing boundary wall solutions for residential, commercial, and industrial projects. Our readymade walls are designed for quick installation, reducing construction time and labor costs while ensuring long-lasting strength and stability.',
@@ -175,7 +175,10 @@ export const allProductsData = [
     categoryName: 'Compound Wall',
     name: 'Industrial Compound Wall',
     slug: 'industrial-compound-wall',
-    image: '/assets/images/industrial-compound-wall.jpg',
+    image: '/assets/images/compound-wall.jpeg',
+    galleryImages: [
+      '/assets/images/compound-wall.jpeg'
+    ],
     description: 'We are a leading Industrial Compound Wall Exporter, providing high-quality, durable, and robust boundary wall solutions for industrial facilities worldwide. Our walls are designed to offer maximum strength, security, and long-lasting performance, ensuring reliable protection for factories, warehouses, and commercial complexes.',
     price: '₹ 80.00 - 250.00 / Square Feet',
     moq: '1000 Square Feet',
@@ -209,7 +212,10 @@ export const allProductsData = [
     categoryName: 'Compound Wall',
     name: 'Panel Build RCC Compound Wall',
     slug: 'panel-build-rcc-compound-wall',
-    image: '/assets/images/panel-build-rcc-compound-wall.jpg',
+    image: '/assets/images/form-image.jpeg',
+    galleryImages: [
+      '/assets/images/form-image.jpeg'
+    ],
     description: 'We are a leading Manufacturer and Supplier of high-quality Panel Build RCC Compound Walls based in Palwal, Haryana. Precision panel-built RCC compound walls engineered for interlocking joint alignment, high compression strength, and complete weather resistance.',
     price: '₹ 80.00 - 250.00 / Square Feet',
     moq: '1000 Square Feet',
@@ -247,7 +253,10 @@ export const allProductsData = [
     categoryName: 'Compound Wall',
     name: 'Panel Build RCC Precast Compound Wall',
     slug: 'panel-build-rcc-precast-compound-wall',
-    image: '/assets/images/panel-build-rcc-precast-compound-wall.jpg',
+    image: '/assets/images/heavy-readymade-boundary-wall-2.jpg',
+    galleryImages: [
+      '/assets/images/heavy-readymade-boundary-wall-2.jpg'
+    ],
     description: 'We offer high-quality RCC precast compound walls with a smooth finish, available in standard sizes and various colors. Ideal for boundary wall applications, our reinforced cement concrete walls are durable, sturdy, and require low maintenance.',
     price: '₹ 80.00 - 250.00 / Square Feet',
     moq: '100 Square Feet',
@@ -285,11 +294,11 @@ export const allProductsData = [
     categoryName: 'Compound Wall',
     name: 'Precast Compound Walls',
     slug: 'precast-compound-walls',
-    image: '/assets/images/precast-compound-walls.jpg',
+    image: '/assets/images/cataloge-page-image.jpeg',
     galleryImages: [
-      '/assets/images/precast-compound-walls.jpg',
-      '/assets/images/precast-compound-walls-2.jpg',
-      '/assets/images/precast-compound-walls-3.jpg'
+      '/assets/images/cataloge-page-image.jpeg',
+      '/assets/images/wall-image-second.jpeg',
+      '/assets/images/concreate-single-panel-2.jpeg'
     ],
     description: 'We are one of the leading Precast Compound Wall Manufacturers, offering durable and high-quality precast walls for residential, commercial, and industrial projects.',
     price: '₹ 80.00 - 250.00 / Square Feet',
@@ -324,11 +333,11 @@ export const allProductsData = [
     categoryName: 'Compound Wall',
     name: 'Precast Heavy Duty Boundary Wall',
     slug: 'precast-heavy-duty-boundary-wall',
-    image: '/assets/images/precast-heavy-duty-boundary-wall.jpg',
+    image: '/assets/images/precast-heavy-duty-boundary-wall-1.jpg',
     galleryImages: [
-      '/assets/images/precast-heavy-duty-boundary-wall.jpg',
-      '/assets/images/precast-heavy-duty-boundary-wall-2.jpg',
-      '/assets/images/precast-heavy-duty-boundary-wall-3.jpg'
+      '/assets/images/precast-heavy-duty-boundary-wall-1.jpg',
+      '/assets/images/hero-banner-image3.jpeg',
+      '/assets/images/heavy-readymade-boundary-wall-2.jpg'
     ],
     description: 'We are a trusted Precast Heavy Duty Wall Manufacturer, offering durable and high-quality wall solutions for industrial, commercial, and residential projects.',
     price: '₹ 80.00 - 250.00 / Square Feet',
@@ -365,14 +374,14 @@ export const allProductsData = [
     categoryName: 'Compound Wall',
     name: 'Precast Heavy Duty Compound Wall',
     slug: 'precast-heavy-duty-compound-wall',
-    image: '/assets/images/precast-heavy-duty-compound-wall.jpg',
+    image: '/assets/images/form-image.jpeg',
     galleryImages: [
-      '/assets/images/precast-heavy-duty-compound-wall.jpg',
-      '/assets/images/precast-heavy-duty-compound-wall-2.jpg',
-      '/assets/images/precast-heavy-duty-compound-wall-3.jpg',
-      '/assets/images/precast-heavy-duty-compound-wall-4.jpg',
-      '/assets/images/precast-heavy-duty-compound-wall-5.jpg',
-      '/assets/images/precast-heavy-duty-compound-wall-6.jpg'
+      '/assets/images/form-image.jpeg',
+      '/assets/images/wall-image-second.jpeg',
+      '/assets/images/industrial-compound-wall-square.jpg',
+      '/assets/images/precast-wall.jpg',
+      '/assets/images/wall-image-3-home.jpeg',
+      '/assets/images/wall-image-4-home.jpeg'
     ],
     description: 'We offer high-quality precast compound walls designed for heavy-duty applications. Our walls are available in heights ranging from 2700mm to 4500mm and a thickness of 227mm x 227mm, made from durable high carbon steel (4mm).',
     price: '₹ 80.00 - 250.00 / Square Feet',
@@ -481,10 +490,10 @@ export const allProductsData = [
     categoryName: 'Compound Wall',
     name: 'RCC Folding Compound Wall',
     slug: 'rcc-folding-compound-wall',
-    image: '/assets/images/rcc-folding-compound-wall.jpg',
+    image: '/assets/images/heavy-readymade-boundary-wall-2.jpg',
     galleryImages: [
-      '/assets/images/rcc-folding-compound-wall.jpg',
-      '/assets/images/rcc-folding-compound-wall-2.jpg'
+      '/assets/images/heavy-readymade-boundary-wall-2.jpg',
+      '/assets/images/hero-banner-image3.jpeg'
     ],
     description: 'Cost-effective, time-saving, reusable, and supreme strength RCC folding compound walls engineered for rapid boundary construction.',
     price: '₹ 80.00 - 250.00 / Square Feet',
@@ -589,10 +598,10 @@ export const allProductsData = [
     categoryName: 'Compound Wall',
     name: 'Readymade Compound Wall',
     slug: 'readymade-compound-wall',
-    image: '/assets/images/readymade-compound-wall.jpg',
+    image: '/assets/images/industrial-compound-wall-square.jpg',
     galleryImages: [
-      '/assets/images/readymade-compound-wall.jpg',
-      '/assets/images/readymade-compound-wall-2.jpg',
+      '/assets/images/industrial-compound-wall-square.jpg',
+      '/assets/images/wall-image-second.jpeg',
       '/assets/images/readymade-compound-wall-3.jpg'
     ],
     description: 'We are a leading Readymade Compound Wall Manufacturer, providing durable, high-quality, and visually appealing compound wall solutions for residential, commercial, and industrial projects.',
@@ -634,7 +643,10 @@ export const allProductsData = [
     categoryName: 'Compound Wall',
     name: 'Single Mould RCC Precast Compound Wall',
     slug: 'single-mould-rcc-precast-compound-wall',
-    image: '/assets/images/single-mould-rcc-precast-compound-wall.jpg',
+    image: '/assets/images/wall-image-4-home.jpeg',
+    galleryImages: [
+      '/assets/images/wall-image-4-home.jpeg'
+    ],
     description: 'We are a leading Manufacturer and Supplier of high-quality Single Mould RCC Precast Compound Walls, crafted from durable Reinforced Cement Concrete (RCC) with a smooth finish.',
     price: '₹ 80.00 - 250.00 / Square Feet',
     moq: '100 Square Feet',
@@ -711,10 +723,10 @@ export const allProductsData = [
     categoryName: 'Boundary Wall',
     name: 'Concrete Boundary Wall',
     slug: 'concrete-boundary-wall',
-    image: '/assets/images/concrete-boundary-wall.jpg',
+    image: '/assets/images/about-us-home.jpeg',
     galleryImages: [
-      '/assets/images/concrete-boundary-wall.jpg',
-      '/assets/images/concrete-boundary-wall-2.jpg'
+      '/assets/images/about-us-home.jpeg',
+      '/assets/images/compound-wall.jpeg'
     ],
     description: 'Precision cast concrete boundary wall offering cost-effective perimeter demarcations with zero brickwork, reusable panels, and supreme structural strength.',
     price: '₹ 80.00 - 250.00 / Square Feet',
@@ -751,9 +763,9 @@ export const allProductsData = [
     categoryName: 'Boundary Wall',
     name: 'Concrete Prestressed Boundary Walls',
     slug: 'concrete-prestressed-boundary-walls',
-    image: '/assets/images/concrete-prestressed-boundary-walls.jpg',
+    image: '/assets/images/industrial-compound-wall-square.jpg',
     galleryImages: [
-      '/assets/images/concrete-prestressed-boundary-walls.jpg'
+      '/assets/images/industrial-compound-wall-square.jpg'
     ],
     description: 'Prestressed steel reinforced concrete boundary panels providing extraordinary flexural strength, crack resistance, and low-maintenance security.',
     price: '₹ 80.00 - 250.00 / Square Feet',
@@ -788,10 +800,10 @@ export const allProductsData = [
     categoryName: 'Boundary Wall',
     name: 'Precast Boundary Wall',
     slug: 'precast-boundary-wall',
-    image: '/assets/images/precast-boundary-wall.jpg',
+    image: '/assets/images/rcc-compound-wall.jpg',
     galleryImages: [
-      '/assets/images/precast-boundary-wall.jpg',
-      '/assets/images/precast-boundary-wall-2.jpg'
+      '/assets/images/rcc-compound-wall.jpg',
+      '/assets/images/precast-boundary-wall-2.jpeg'
     ],
     description: 'Standard modular precast boundary wall engineered for fast erection and dependable all-weather performance with high cement strength.',
     price: '₹ 80.00 - 250.00 / Square Feet',
@@ -838,11 +850,11 @@ We understand the importance of combining functionality with design, which is wh
     categoryName: 'Boundary Wall',
     name: 'RCC Boundary Wall',
     slug: 'rcc-boundary-wall',
-    image: '/assets/images/rcc-boundary-wall.jpg',
+    image: '/assets/images/pre-fabricated-cement-wall.jpg',
     galleryImages: [
-      '/assets/images/rcc-boundary-wall.jpg',
-      '/assets/images/rcc-boundary-wall-2.jpg',
-      '/assets/images/rcc-boundary-wall-3.jpg'
+      '/assets/images/pre-fabricated-cement-wall.jpg',
+      '/assets/images/precast-concerete-wall.jpg',
+      '/assets/images/rcc-industrial-one-piece-compound-wall.jpg'
     ],
     description: 'High-strength reinforced concrete boundary walls designed for heavy soil retention, rapid setup, and lifetime structural strength.',
     price: '₹ 80.00 - 250.00 / Feet',
@@ -879,11 +891,11 @@ We understand the importance of combining functionality with design, which is wh
     categoryName: 'Boundary Wall',
     name: 'Readymade Boundary Wall',
     slug: 'readymade-boundary-wall',
-    image: '/assets/images/readymade-boundary-wall.jpg',
+    image: '/assets/images/wall-image-3-home.jpeg',
     galleryImages: [
-      '/assets/images/readymade-boundary-wall.jpg',
+      '/assets/images/wall-image-3-home.jpeg',
       '/assets/images/readymade-boundary-wall-2.jpg',
-      '/assets/images/readymade-boundary-wall-3.jpg'
+      '/assets/images/precast-wall-panels.jpg'
     ],
     description: 'Modular precast readymade boundary walls built for fast and cost-effective site boundary setup with heavy-duty interlocking concrete panels.',
     price: '₹ 80.00 - 250.00 / Feet',
@@ -922,10 +934,10 @@ We understand the importance of combining functionality with design, which is wh
     categoryName: 'Boundary Wall',
     name: 'Solar Plant Boundary Wall',
     slug: 'solar-plant-boundary-wall',
-    image: '/assets/images/solar-plant-boundary-wall.jpg',
+    image: '/assets/images/precast-wall.jpg',
     galleryImages: [
-      '/assets/images/solar-plant-boundary-wall.jpg',
-      '/assets/images/solar-plant-boundary-wall-2.jpg',
+      '/assets/images/precast-wall.jpg',
+      '/assets/images/wall-image-second.jpeg',
       '/assets/images/solar-plant-boundary-wall-3.jpg'
     ],
     description: 'Specially engineered boundary walls for mega solar parks and industrial enclosures, providing robust anti-theft and all-weather perimeter protection.',
@@ -1008,9 +1020,9 @@ We understand the importance of combining functionality with design, which is wh
     categoryName: 'Cement Wall',
     name: 'RCC Cement Wall',
     slug: 'rcc-cement-wall',
-    image: '/assets/images/rcc-cement-wall.jpg',
+    image: '/assets/images/wall-image-1.jpeg',
     galleryImages: [
-      '/assets/images/rcc-cement-wall.jpg'
+      '/assets/images/wall-image-1.jpeg'
     ],
     description: 'Reinforced cement concrete walls built with high-grade OPC cement and high-tensile steel reinforcement, providing superior load-bearing capacity and all-weather boundary security.',
     price: '₹ 80.00 - 250.00 / Square Feet',
@@ -1320,9 +1332,9 @@ We understand the importance of combining functionality with design, which is wh
     categoryName: 'Other Products',
     name: 'Industrial Boundary Wall',
     slug: 'industrial-boundary-wall',
-    image: '/assets/images/industrial-boundary-wall.jpg',
+    image: '/assets/images/concrete-folding-compound-wall.jpg',
     galleryImages: [
-      '/assets/images/industrial-boundary-wall.jpg'
+      '/assets/images/concrete-folding-compound-wall.jpg'
     ],
     description: 'Designed specifically for industrial plant estates, logistics terminals, and heavy machinery boundaries with non-combustible fire rating.',
     price: '₹ 80.00 - 250.00 / Square Feet',

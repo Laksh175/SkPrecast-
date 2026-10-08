@@ -20,7 +20,8 @@ import {
   Image,
   MessageSquareQuote,
   PhoneCall,
-  ExternalLink
+  ExternalLink,
+  ChevronRight
 } from 'lucide-react';
 import { FaDiamond } from 'react-icons/fa6';
 import { Button, ContactInfoCard, ExploreProductsSection } from '../common';
@@ -75,7 +76,7 @@ const SitemapPage = () => {
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="flex items-center justify-center gap-2.5 text-sm sm:text-base font-semibold text-slate-300 mb-4"
+            className="flex items-center justify-center flex-wrap gap-2 sm:gap-2.5 text-sm sm:text-base font-semibold text-slate-300 mb-4"
           >
             <a 
               href="/" 
@@ -84,7 +85,7 @@ const SitemapPage = () => {
             >
               Home
             </a>
-            <span className="text-slate-500 font-normal">/</span>
+            <ChevronRight size={17} strokeWidth={2.5} className="text-amber-400/90 shrink-0" />
             <span className="text-amber-400 font-bold">Sitemap</span>
           </motion.div>
 
