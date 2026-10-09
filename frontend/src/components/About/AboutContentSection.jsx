@@ -43,7 +43,6 @@ const MissionVisionCard = ({ data, type = 'mission', delay = 0 }) => {
         initial={{ opacity: 0, y: 35 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
         onMouseEnter={handleMouseEnter}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -51,9 +50,10 @@ const MissionVisionCard = ({ data, type = 'mission', delay = 0 }) => {
           y: isHovered ? -10 : 0
         }}
         transition={{
-          type: 'spring',
-          stiffness: 300,
-          damping: 24
+          opacity: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
+          y: isHovered 
+            ? { type: 'spring', stiffness: 300, damping: 24 } 
+            : { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }
         }}
         className="relative rounded-3xl p-[2px] overflow-hidden group cursor-default transition-shadow duration-500"
         style={{
