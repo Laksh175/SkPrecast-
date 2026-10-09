@@ -23,16 +23,19 @@ export const publicCheersSectionData = {
 export const allTestimonialsData = [
   {
     id: 1,
-    name: 'Arjun Kharol',
-    handle: '@arjun_kharol',
-    initials: 'AK',
+    name: 'Flotech Engineering Pvt. Ltd',
+    handle: '@flotech_engineering',
+    initials: 'FE',
     avatarBg: 'from-amber-500 to-orange-600',
-    role: 'Commercial Client',
-    location: 'Delhi NCR',
+    role: 'Farmhouse Owner',
+    location: 'Tigoun, Faridabad',
     rating: 5.0,
-    date: 'Verified Client',
-    projectType: 'Compound Wall Installation',
-    content: 'The owner of SK Precast, Vivek Patel, is exceptional in his dealings–polite, professional, and always ready with the right response. We had compound wall installation done smoothly without any hassle. Highly recommended for heavy-duty boundary wall solutions!'
+    date: '9 months ago',
+    statsText: '1 review · 1 photo',
+    image: '/assets/Reviews/image-1.webp',
+    imageCaption: 'Farmhouse Precast Compound Wall Installation at Tigoun',
+    projectType: 'Precast Farmhouse Compound Wall',
+    content: 'Our farmhouse at Tigoun was secured with a precast compound wall from SK Precast Industries. The wall panels are strong, durable, and weather-resistant. The RCC wall installation was completed on schedule, and the team maintained professionalism throughout. The finished boundary wall looks neat and elegant. I highly recommend SK Precast Industries for anyone in Tigoun who wants a precast readymade boundary wall or precast wall.'
   },
   {
     id: 2,

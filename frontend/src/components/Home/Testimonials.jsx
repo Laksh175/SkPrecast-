@@ -1,39 +1,76 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaStar, FaQuoteLeft } from 'react-icons/fa6';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ZoomIn, CheckCircle2 } from 'lucide-react';
 import { testimonialsHeaderData, testimonialsCol1, testimonialsCol2 } from '../../data/homeData';
 import { Button } from '../../common';
 import { navigateTo } from '../../utils/navigation';
+import ReviewImageModal from '../ReviewImageModal';
 
-const TestimonialCard = ({ item }) => {
+const TestimonialCard = ({ item, onImageClick }) => {
   return (
     <div className="bg-[#111927] hover:bg-[#162238] border border-slate-800 hover:border-amber-400/60 rounded-[15px] p-5 sm:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_12px_30px_rgba(245,158,11,0.2)] transition-all duration-300 select-none group h-full flex flex-col justify-between">
       <div>
-        {/* Top 5 Stars Rating */}
+        {/* Top 5 Stars Rating & Relative Time */}
         <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-1 text-amber-400">
-            {[...Array(5)].map((_, i) => (
-              <FaStar key={i} className="text-amber-400 text-xs sm:text-[13px] drop-shadow-sm" />
-            ))}
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <div className="flex items-center gap-0.5 text-amber-400">
+              {[...Array(5)].map((_, i) => (
+                <FaStar key={i} className="text-amber-400 text-xs sm:text-[13px] drop-shadow-sm" />
+              ))}
+            </div>
+            {item.relativeTime && (
+              <span className="text-[11px] text-slate-400 font-medium">
+                • {item.relativeTime}
+              </span>
+            )}
           </div>
           <FaQuoteLeft className="text-slate-700 group-hover:text-amber-400/40 text-base transition-colors" />
         </div>
 
         {/* Review Content (15px) */}
         <p 
-          className="text-slate-100 font-normal mb-4 tracking-normal"
+          className="text-slate-100 font-normal mb-3.5 tracking-normal text-left"
           style={{ fontSize: '15px', lineHeight: '25px' }}
         >
           "{item.content}"
         </p>
+
+        {/* Attached Customer Site Photo Thumbnail */}
+        {item.image && (
+          <div 
+            onClick={(e) => {
+              e.stopPropagation();
+              if (onImageClick) onImageClick(item);
+            }}
+            className="relative mb-4 rounded-xl overflow-hidden border border-slate-700/90 hover:border-amber-400 shadow-lg group/img cursor-pointer transition-all duration-300"
+            title="Click to view full photo"
+          >
+            <img 
+              src={item.image} 
+              alt={item.imageCaption || `${item.name} project boundary wall`} 
+              className="w-full h-40 sm:h-44 object-cover object-center group-hover/img:scale-105 transition-transform duration-300"
+              loading="lazy"
+            />
+            {/* Overlay Bar */}
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex items-end justify-between p-2.5">
+              <span className="text-[11.5px] font-bold text-amber-300 flex items-center gap-1.5 drop-shadow">
+                <ZoomIn size={13} className="text-amber-400" />
+                Click to view photo
+              </span>
+              <span className="text-[10px] font-semibold bg-slate-900/90 text-slate-200 px-2 py-0.5 rounded border border-amber-400/30">
+                Site Photo
+              </span>
+            </div>
+          </div>
+        )}
       </div>
 
       <div>
         {/* Divider */}
         <div className="h-[1px] w-full bg-slate-800 mb-3.5" />
 
-        {/* User Info with Initials Avatar */}
+        {/* User Info with Initials Avatar & Google Verified Badge */}
         <div className="flex items-center gap-3.5">
           {/* Name Initials Circle */}
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-amber-400 via-yellow-400 to-amber-500 text-slate-950 font-extrabold flex items-center justify-center text-xs sm:text-sm shadow-[0_2px_10px_rgba(245,158,11,0.35)] shrink-0 border border-amber-300/80 group-hover:scale-105 transition-transform">
@@ -41,13 +78,18 @@ const TestimonialCard = ({ item }) => {
           </div>
 
           {/* Name & Role */}
-          <div className="overflow-hidden text-left">
-            <h4 className="text-[14.5px] font-bold text-slate-100 group-hover:text-amber-300 transition-colors truncate">
-              {item.name}
-            </h4>
-            <p className="text-xs text-slate-400 truncate font-medium">
-              {item.role}
-            </p>
+          <div className="overflow-hidden text-left flex-1">
+            <div className="flex items-center justify-between gap-1">
+              <h4 className="text-[14.5px] font-bold text-slate-100 group-hover:text-amber-300 transition-colors truncate">
+                {item.name}
+              </h4>
+            </div>
+            <div className="flex items-center gap-2 text-xs text-slate-400 truncate font-medium">
+              <span className="truncate">{item.role}</span>
+              {item.statsText && (
+                <span className="text-slate-500 hidden sm:inline">• {item.statsText}</span>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -60,8 +102,19 @@ const Testimonials = () => {
   const allTestimonials = [...testimonialsCol1, ...testimonialsCol2];
 
   const [activeSlide, setActiveSlide] = useState(0);
+  const [selectedImage, setSelectedImage] = useState(null);
   const sliderRef = useRef(null);
   const isInteractingRef = useRef(false);
+
+  const handleOpenImage = (item) => {
+    setSelectedImage({
+      image: item.image,
+      caption: item.imageCaption || `Farmhouse Precast Compound Wall at ${item.role}`,
+      name: item.name,
+      initials: item.initials,
+      relativeTime: item.relativeTime
+    });
+  };
 
   const handleScroll = () => {
     if (!sliderRef.current) return;
@@ -111,6 +164,13 @@ const Testimonials = () => {
   return (
     <section id="testimonials" className="relative pt-4 pb-8 sm:py-10 lg:py-12 bg-[#090e1a] text-slate-100 font-sans overflow-hidden">
       
+      {/* Lightbox Image Preview Modal */}
+      <ReviewImageModal
+        isOpen={!!selectedImage}
+        onClose={() => setSelectedImage(null)}
+        imageData={selectedImage}
+      />
+
       {/* Subtle Background Glow */}
       <div className="absolute top-1/4 -left-20 w-96 h-96 bg-amber-500/5 blur-[120px] pointer-events-none rounded-full" />
       <div className="absolute bottom-10 right-0 w-96 h-96 bg-blue-500/5 blur-[100px] pointer-events-none rounded-full" />
@@ -191,7 +251,7 @@ const Testimonials = () => {
                   key={`mobile-${item.id}`}
                   className="w-[86vw] max-w-[330px] shrink-0 snap-center min-h-[200px]"
                 >
-                  <TestimonialCard item={item} />
+                  <TestimonialCard item={item} onImageClick={handleOpenImage} />
                 </div>
               ))}
             </div>
@@ -236,7 +296,7 @@ const Testimonials = () => {
               <div className="overflow-hidden relative group/col1">
                 <div className="flex flex-col gap-5 animate-marquee-vertical group-hover/col1:[animation-play-state:paused]">
                   {[...testimonialsCol1, ...testimonialsCol1, ...testimonialsCol1].map((item, idx) => (
-                    <TestimonialCard key={`col1-${item.id}-${idx}`} item={item} />
+                    <TestimonialCard key={`col1-${item.id}-${idx}`} item={item} onImageClick={handleOpenImage} />
                   ))}
                 </div>
               </div>
@@ -245,7 +305,7 @@ const Testimonials = () => {
               <div className="overflow-hidden relative group/col2">
                 <div className="flex flex-col gap-5 animate-marquee-vertical-reverse group-hover/col2:[animation-play-state:paused]">
                   {[...testimonialsCol2, ...testimonialsCol2, ...testimonialsCol2].map((item, idx) => (
-                    <TestimonialCard key={`col2-${item.id}-${idx}`} item={item} />
+                    <TestimonialCard key={`col2-${item.id}-${idx}`} item={item} onImageClick={handleOpenImage} />
                   ))}
                 </div>
               </div>
