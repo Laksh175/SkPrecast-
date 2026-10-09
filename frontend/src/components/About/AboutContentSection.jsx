@@ -14,7 +14,6 @@ const iconComponentMap = { Building2, Globe, Warehouse, ShieldCheck, Tag, FileCh
 const MissionVisionCard = ({ data, type = 'mission', delay = 0 }) => {
   const cardRef = useRef(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0, opacity: 0 });
-  const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
   const isMission = type === 'mission';
@@ -26,13 +25,6 @@ const MissionVisionCard = ({ data, type = 'mission', delay = 0 }) => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     setMousePos({ x, y, opacity: 1 });
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    // Dynamic responsive 3D pitch/tilt (tilt up/down, left/right)
-    const rotateX = ((y - centerY) / centerY) * -12;
-    const rotateY = ((x - centerX) / centerX) * 12;
-    setRotate({ x: rotateX, y: rotateY });
   };
 
   const handleMouseEnter = () => {
@@ -42,11 +34,10 @@ const MissionVisionCard = ({ data, type = 'mission', delay = 0 }) => {
   const handleMouseLeave = () => {
     setIsHovered(false);
     setMousePos((prev) => ({ ...prev, opacity: 0 }));
-    setRotate({ x: 0, y: 0 });
   };
 
   return (
-    <div className="relative perspective-[1200px] w-full">
+    <div className="relative w-full">
       <motion.div
         ref={cardRef}
         initial={{ opacity: 0, y: 35 }}
@@ -57,21 +48,19 @@ const MissionVisionCard = ({ data, type = 'mission', delay = 0 }) => {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         animate={{
-          rotateX: isHovered ? rotate.x : 0,
-          rotateY: isHovered ? rotate.y : 0,
-          y: isHovered ? -12 : 0,
-          scale: isHovered ? 1.03 : 1
+          y: isHovered ? -10 : 0
         }}
         transition={{
           type: 'spring',
-          stiffness: 280,
-          damping: 22,
-          mass: 0.8
+          stiffness: 300,
+          damping: 24
         }}
-        className="relative rounded-3xl p-[2px] overflow-hidden group cursor-pointer"
+        className="relative rounded-3xl p-[2px] overflow-hidden group cursor-default transition-shadow duration-500"
         style={{
-          transformStyle: 'preserve-3d',
-          willChange: 'transform'
+          transform: 'translateZ(0)',
+          WebkitFontSmoothing: 'antialiased',
+          MozOsxFontSmoothing: 'grayscale',
+          textRendering: 'optimizeLegibility'
         }}
       >
       {/* 1. CONTINUOUS ROTATING PERIMETER NEON GLOW BORDER (Logo Gold / Amber Theme) */}
