@@ -26,6 +26,133 @@ const allVerifiedTestimonials = [
   isGoogleVerified: true
 }));
 
+// Single Reusable Testimonial Card Component
+const TestimonialCard = ({ item, index, onSelectImage }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: '-30px' }}
+    transition={{ duration: 0.45, delay: (index % 4) * 0.05 }}
+    className="w-full h-fit bg-[#111927] backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-slate-800 hover:border-amber-400/80 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 group relative"
+  >
+    {/* Top Subtle Amber Bar Accent on Hover */}
+    <div className="absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl" />
+
+    {/* Card Header: 5 Stars Rating + Quote Icon */}
+    <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center gap-1 text-amber-400">
+        {[...Array(5)].map((_, i) => (
+          <FaStar key={i} className="text-yellow-400 text-xs sm:text-[13px] drop-shadow-sm" />
+        ))}
+      </div>
+      
+      <div className="flex items-center gap-2">
+        <FaQuoteLeft className="text-amber-500/70 text-sm" />
+      </div>
+    </div>
+
+    {/* Testimonial Content (15px) */}
+    <div 
+      className="text-slate-100 font-normal mb-3.5 leading-[25px]"
+      style={{ fontSize: '15px' }}
+    >
+      "{item.content}"
+    </div>
+
+    {/* Attached Customer Site Photo Thumbnail */}
+    {item.image && (
+      <div 
+        onClick={(e) => {
+          e.stopPropagation();
+          onSelectImage({
+            image: item.image,
+            caption: item.imageCaption || `Farmhouse Precast Compound Wall at ${item.role}`,
+            name: item.name,
+            initials: item.initials,
+            relativeTime: item.relativeTime
+          });
+        }}
+        className="relative mb-4 rounded-xl overflow-hidden border border-slate-700/90 hover:border-amber-400 shadow-lg group/img cursor-pointer transition-all duration-300"
+        title="Click to view full photo"
+      >
+        <img 
+          src={item.image} 
+          alt={item.imageCaption || `${item.name} project boundary wall`} 
+          className="w-full h-44 sm:h-48 object-cover object-center group-hover/img:scale-105 transition-transform duration-300"
+          loading="lazy"
+        />
+        {/* Overlay Bar */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex items-end justify-between p-2.5">
+          <span className="text-[11.5px] font-bold text-amber-300 flex items-center gap-1.5 drop-shadow">
+            <ZoomIn size={13} className="text-amber-400" />
+            Click to view full photo
+          </span>
+          <span className="text-[10px] font-semibold bg-slate-900/90 text-slate-200 px-2 py-0.5 rounded border border-amber-400/30">
+            Site Photo
+          </span>
+        </div>
+      </div>
+    )}
+
+    {/* Divider */}
+    <div className="h-[1px] w-full bg-slate-800 mb-3" />
+
+    {/* User Details with Avatar */}
+    <div className="flex items-center gap-3">
+      {item.profilePhoto ? (
+        <img 
+          src={item.profilePhoto} 
+          alt={item.name} 
+          className="w-9 h-9 rounded-full object-cover shrink-0 ring-2 ring-amber-400/60"
+        />
+      ) : (
+        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#fde047] via-[#facc15] to-[#eab308] text-slate-950 font-extrabold flex items-center justify-center text-xs shadow-[0_2px_8px_rgba(250,204,21,0.3)] shrink-0 border border-yellow-300/80 group-hover:scale-105 transition-transform">
+          {item.initials}
+        </div>
+      )}
+      
+      <div className="overflow-hidden text-left">
+        <h3 className="text-[13.5px] font-bold text-white group-hover:text-amber-400 transition-colors leading-tight">
+          {item.name}
+        </h3>
+        <p className="caption-text text-[12px] text-slate-400 mt-0.5 font-medium flex flex-wrap items-center gap-1.5">
+          <span>{item.role}</span>
+          {item.relativeTime && (
+            <>
+              <span className="text-slate-600">•</span>
+              <span className="text-slate-400">{item.relativeTime}</span>
+            </>
+          )}
+        </p>
+      </div>
+    </div>
+  </motion.div>
+);
+
+// Helper function to distribute items into 2 columns with equal visual height
+const getBalancedColumns = (items) => {
+  const col1 = [];
+  const col2 = [];
+  let h1 = 0;
+  let h2 = 0;
+
+  items.forEach((item) => {
+    // Estimate card height: padding + text + image
+    const textLen = (item.content || '').length;
+    const estHeight = 120 + Math.ceil(textLen / 42) * 24 + (item.image ? 230 : 0);
+
+    if (h1 <= h2) {
+      col1.push(item);
+      h1 += estHeight;
+    } else {
+      col2.push(item);
+      h2 += estHeight;
+    }
+  });
+
+  return { col1, col2 };
+};
+
 const TestimonialsPage = () => {
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -129,227 +256,38 @@ const TestimonialsPage = () => {
           {/* ========================================================================= */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-start">
             
-            {/* LEFT SIDE: 2 Columns of Testimonials (Persistent Append-only Columns) */}
+            {/* LEFT SIDE: 2 Balanced Columns of Testimonials */}
             <div className="lg:col-span-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 items-start">
-                {/* Left Column (0, 2, 4, 6, 8...) */}
-                <div className="flex flex-col gap-5">
-                  {allVerifiedTestimonials
-                    .slice(0, visibleCount)
-                    .filter((_, idx) => idx % 2 === 0)
-                    .map((item, index) => (
-                      <motion.div
-                        key={item.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: '-30px' }}
-                        transition={{ duration: 0.45, delay: 0.05 }}
-                        className="w-full h-fit bg-[#111927] backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-slate-800 hover:border-amber-400/80 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 group relative"
-                      >
-                        {/* Top Subtle Amber Bar Accent on Hover */}
-                        <div className="absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl" />
+              {(() => {
+                const { col1, col2 } = getBalancedColumns(allVerifiedTestimonials.slice(0, visibleCount));
+                return (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 items-start">
+                    {/* Left Balanced Column */}
+                    <div className="flex flex-col gap-5">
+                      {col1.map((item, index) => (
+                        <TestimonialCard
+                          key={item.id}
+                          item={item}
+                          index={index * 2}
+                          onSelectImage={setSelectedImage}
+                        />
+                      ))}
+                    </div>
 
-                        {/* Card Header: 5 Stars Rating + Quote Icon */}
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center gap-1 text-amber-400">
-                            {[...Array(5)].map((_, i) => (
-                              <FaStar key={i} className="text-yellow-400 text-xs sm:text-[13px] drop-shadow-sm" />
-                            ))}
-                          </div>
-                          
-                          <div className="flex items-center gap-2">
-                            <FaQuoteLeft className="text-amber-500/70 text-sm" />
-                          </div>
-                        </div>
-
-                        {/* Testimonial Content (15px) */}
-                        <div 
-                          className="text-slate-100 font-normal mb-3.5 leading-[25px]"
-                          style={{ fontSize: '15px' }}
-                        >
-                          "{item.content}"
-                        </div>
-
-                        {/* Attached Customer Site Photo Thumbnail */}
-                        {item.image && (
-                          <div 
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setSelectedImage({
-                                image: item.image,
-                                caption: item.imageCaption || `Farmhouse Precast Compound Wall at ${item.role}`,
-                                name: item.name,
-                                initials: item.initials,
-                                relativeTime: item.relativeTime
-                              });
-                            }}
-                            className="relative mb-4 rounded-xl overflow-hidden border border-slate-700/90 hover:border-amber-400 shadow-lg group/img cursor-pointer transition-all duration-300"
-                            title="Click to view full photo"
-                          >
-                            <img 
-                              src={item.image} 
-                              alt={item.imageCaption || `${item.name} project boundary wall`} 
-                              className="w-full h-44 sm:h-48 object-cover object-center group-hover/img:scale-105 transition-transform duration-300"
-                              loading="lazy"
-                            />
-                            {/* Overlay Bar */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex items-end justify-between p-2.5">
-                              <span className="text-[11.5px] font-bold text-amber-300 flex items-center gap-1.5 drop-shadow">
-                                <ZoomIn size={13} className="text-amber-400" />
-                                Click to view full photo
-                              </span>
-                              <span className="text-[10px] font-semibold bg-slate-900/90 text-slate-200 px-2 py-0.5 rounded border border-amber-400/30">
-                                Site Photo
-                              </span>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Divider */}
-                        <div className="h-[1px] w-full bg-slate-800 mb-3" />
-
-                        {/* User Details with Avatar */}
-                        <div className="flex items-center gap-3">
-                          {item.profilePhoto ? (
-                            <img 
-                              src={item.profilePhoto} 
-                              alt={item.name} 
-                              className="w-9 h-9 rounded-full object-cover shrink-0 ring-2 ring-amber-400/60"
-                            />
-                          ) : (
-                            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#fde047] via-[#facc15] to-[#eab308] text-slate-950 font-extrabold flex items-center justify-center text-xs shadow-[0_2px_8px_rgba(250,204,21,0.3)] shrink-0 border border-yellow-300/80 group-hover:scale-105 transition-transform">
-                              {item.initials}
-                            </div>
-                          )}
-                          
-                          <div className="overflow-hidden text-left">
-                            <h3 className="text-[13.5px] font-bold text-white group-hover:text-amber-400 transition-colors leading-tight">
-                              {item.name}
-                            </h3>
-                            <p className="caption-text text-[12px] text-slate-400 mt-0.5 font-medium flex flex-wrap items-center gap-1.5">
-                              <span>{item.role}</span>
-                              {item.relativeTime && (
-                                <>
-                                  <span className="text-slate-600">•</span>
-                                  <span className="text-slate-400">{item.relativeTime}</span>
-                                </>
-                              )}
-                            </p>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                </div>
-
-                {/* Right Column (1, 3, 5, 7, 9...) */}
-                <div className="flex flex-col gap-5">
-                  {allVerifiedTestimonials
-                    .slice(0, visibleCount)
-                    .filter((_, idx) => idx % 2 === 1)
-                    .map((item, index) => (
-                      <motion.div
-                        key={item.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: '-30px' }}
-                        transition={{ duration: 0.45, delay: 0.08 }}
-                        className="w-full h-fit bg-[#111927] backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-slate-800 hover:border-amber-400/80 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 group relative"
-                      >
-                        {/* Top Subtle Amber Bar Accent on Hover */}
-                        <div className="absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl" />
-
-                        {/* Card Header: 5 Stars Rating + Quote Icon */}
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center gap-1 text-amber-400">
-                            {[...Array(5)].map((_, i) => (
-                              <FaStar key={i} className="text-yellow-400 text-xs sm:text-[13px] drop-shadow-sm" />
-                            ))}
-                          </div>
-                          
-                          <div className="flex items-center gap-2">
-                            <FaQuoteLeft className="text-amber-500/70 text-sm" />
-                          </div>
-                        </div>
-
-                        {/* Testimonial Content (15px) */}
-                        <div 
-                          className="text-slate-100 font-normal mb-3.5 leading-[25px]"
-                          style={{ fontSize: '15px' }}
-                        >
-                          "{item.content}"
-                        </div>
-
-                        {/* Attached Customer Site Photo Thumbnail */}
-                        {item.image && (
-                          <div 
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setSelectedImage({
-                                image: item.image,
-                                caption: item.imageCaption || `Farmhouse Precast Compound Wall at ${item.role}`,
-                                name: item.name,
-                                initials: item.initials,
-                                relativeTime: item.relativeTime
-                              });
-                            }}
-                            className="relative mb-4 rounded-xl overflow-hidden border border-slate-700/90 hover:border-amber-400 shadow-lg group/img cursor-pointer transition-all duration-300"
-                            title="Click to view full photo"
-                          >
-                            <img 
-                              src={item.image} 
-                              alt={item.imageCaption || `${item.name} project boundary wall`} 
-                              className="w-full h-44 sm:h-48 object-cover object-center group-hover/img:scale-105 transition-transform duration-300"
-                              loading="lazy"
-                            />
-                            {/* Overlay Bar */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex items-end justify-between p-2.5">
-                              <span className="text-[11.5px] font-bold text-amber-300 flex items-center gap-1.5 drop-shadow">
-                                <ZoomIn size={13} className="text-amber-400" />
-                                Click to view full photo
-                              </span>
-                              <span className="text-[10px] font-semibold bg-slate-900/90 text-slate-200 px-2 py-0.5 rounded border border-amber-400/30">
-                                Site Photo
-                              </span>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Divider */}
-                        <div className="h-[1px] w-full bg-slate-800 mb-3" />
-
-                        {/* User Details with Avatar */}
-                        <div className="flex items-center gap-3">
-                          {item.profilePhoto ? (
-                            <img 
-                              src={item.profilePhoto} 
-                              alt={item.name} 
-                              className="w-9 h-9 rounded-full object-cover shrink-0 ring-2 ring-amber-400/60"
-                            />
-                          ) : (
-                            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#fde047] via-[#facc15] to-[#eab308] text-slate-950 font-extrabold flex items-center justify-center text-xs shadow-[0_2px_8px_rgba(250,204,21,0.3)] shrink-0 border border-yellow-300/80 group-hover:scale-105 transition-transform">
-                              {item.initials}
-                            </div>
-                          )}
-                          
-                          <div className="overflow-hidden text-left">
-                            <h3 className="text-[13.5px] font-bold text-white group-hover:text-amber-400 transition-colors leading-tight">
-                              {item.name}
-                            </h3>
-                            <p className="caption-text text-[12px] text-slate-400 mt-0.5 font-medium flex flex-wrap items-center gap-1.5">
-                              <span>{item.role}</span>
-                              {item.relativeTime && (
-                                <>
-                                  <span className="text-slate-600">•</span>
-                                  <span className="text-slate-400">{item.relativeTime}</span>
-                                </>
-                              )}
-                            </p>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                </div>
-              </div>
+                    {/* Right Balanced Column */}
+                    <div className="flex flex-col gap-5">
+                      {col2.map((item, index) => (
+                        <TestimonialCard
+                          key={item.id}
+                          item={item}
+                          index={index * 2 + 1}
+                          onSelectImage={setSelectedImage}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
 
               {/* Load More Reviews Button */}
               {visibleCount < allVerifiedTestimonials.length && (
