@@ -1,12 +1,252 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { navigateTo } from '../../utils/navigation';
 import { Button, ContactInfoCard, ManufacturingUnitSlider, ExploreProductsSection } from '../../common';
-import { ArrowRight, ShieldCheck, Award, CheckCircle2, Globe, Warehouse, Building2, Tag, FileCheck, Eye, Target } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Award, CheckCircle2, Globe, Warehouse, Building2, Tag, FileCheck, Eye, Target, Sparkles } from 'lucide-react';
 import { aboutCompanyData, missionVisionData, whyChooseUsFactorsData } from '../../data/aboutUsData';
 
 // Icon Map for dynamic icon lookup
 const iconComponentMap = { Building2, Globe, Warehouse, ShieldCheck, Tag, FileCheck, Award, Eye, Target };
+
+// ============================================================================
+// AWWWARDS & DRIBBBLE INSPIRED CONTINUOUS ANIMATED MISSION/VISION CARD
+// ============================================================================
+const MissionVisionCard = ({ data, type = 'mission', delay = 0 }) => {
+  const cardRef = useRef(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0, opacity: 0 });
+  const [rotate, setRotate] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const isMission = type === 'mission';
+  const Icon = isMission ? Target : Eye;
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setMousePos({ x, y, opacity: 1 });
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    // Dynamic responsive 3D pitch/tilt (tilt up/down, left/right)
+    const rotateX = ((y - centerY) / centerY) * -12;
+    const rotateY = ((x - centerX) / centerX) * 12;
+    setRotate({ x: rotateX, y: rotateY });
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setMousePos((prev) => ({ ...prev, opacity: 0 }));
+    setRotate({ x: 0, y: 0 });
+  };
+
+  return (
+    <div className="relative perspective-[1200px] w-full">
+      <motion.div
+        ref={cardRef}
+        initial={{ opacity: 0, y: 35 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+        onMouseEnter={handleMouseEnter}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        animate={{
+          rotateX: isHovered ? rotate.x : 0,
+          rotateY: isHovered ? rotate.y : 0,
+          y: isHovered ? -12 : 0,
+          scale: isHovered ? 1.03 : 1
+        }}
+        transition={{
+          type: 'spring',
+          stiffness: 280,
+          damping: 22,
+          mass: 0.8
+        }}
+        className="relative rounded-3xl p-[2px] overflow-hidden group cursor-pointer"
+        style={{
+          transformStyle: 'preserve-3d',
+          willChange: 'transform'
+        }}
+      >
+      {/* 1. CONTINUOUS ROTATING PERIMETER NEON GLOW BORDER (Logo Gold / Amber Theme) */}
+      <motion.div
+        animate={{ rotate: [0, 360] }}
+        transition={{
+          duration: isMission ? 7 : 8.5,
+          repeat: Infinity,
+          ease: 'linear'
+        }}
+        className="absolute -inset-[150%] pointer-events-none z-0 opacity-45 group-hover:opacity-100 transition-opacity duration-500"
+        style={{
+          background: isMission 
+            ? 'conic-gradient(from 0deg, transparent 0deg, #f59e0b 80deg, #fbbf24 125deg, #fef08a 150deg, transparent 200deg, #d97706 290deg, transparent 360deg)'
+            : 'conic-gradient(from 0deg, transparent 0deg, #d97706 75deg, #fbbf24 130deg, #fef08a 160deg, transparent 210deg, #f59e0b 300deg, transparent 360deg)'
+        }}
+      />
+
+      {/* 2. INNER GLASS CARD CONTAINER */}
+      <div className="relative z-10 w-full h-full rounded-[22px] bg-gradient-to-br from-[#121926] via-[#0d1422] to-[#070b14] border border-amber-500/20 group-hover:border-amber-500/40 p-7 sm:p-9 pt-9 sm:pt-11 flex flex-col justify-between items-center text-center overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.7)] group-hover:shadow-[0_25px_60px_rgba(245,158,11,0.25)] transition-all duration-500">
+        
+        {/* TOP GOLD LIGHT BEAM ACCENT */}
+        <div className="absolute top-0 inset-x-8 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent shadow-[0_0_15px_rgba(245,158,11,0.9)]" />
+
+        {/* 3. CONTINUOUS RADIAL CORNER AMBIENT GLOW */}
+        <motion.div
+          animate={{
+            scale: [1, 1.25, 1],
+            opacity: [0.35, 0.65, 0.35]
+          }}
+          transition={{
+            duration: isMission ? 5 : 6,
+            repeat: Infinity,
+            ease: 'easeInOut'
+          }}
+          className={`absolute ${isMission ? '-top-10 -right-10' : '-top-10 -left-10'} w-56 h-56 bg-amber-500/15 blur-[60px] pointer-events-none rounded-full`}
+        />
+
+        {/* 4. INTERACTIVE MOUSE SPOTLIGHT (Tracks user's cursor) */}
+        <div
+          className="pointer-events-none absolute inset-0 transition-opacity duration-300 z-10"
+          style={{
+            opacity: mousePos.opacity,
+            background: `radial-gradient(350px circle at ${mousePos.x}px ${mousePos.y}px, rgba(245, 158, 11, 0.12), transparent 70%)`
+          }}
+        />
+
+        {/* 5. CONTINUOUS PERIODIC DIAGONAL LIGHT SWEEP */}
+        <motion.div
+          animate={{ x: ['-220%', '300%'] }}
+          transition={{
+            repeat: Infinity,
+            repeatType: 'loop',
+            duration: 2.2,
+            repeatDelay: isMission ? 3 : 4,
+            delay: isMission ? 0 : 1.5,
+            ease: [0.4, 0, 0.2, 1]
+          }}
+          className="absolute inset-y-0 -left-1/3 w-1/2 -skew-x-25 bg-gradient-to-r from-transparent via-amber-300/20 to-transparent pointer-events-none z-20"
+        />
+
+        {/* 6. CONTENT WRAPPER WITH 3D POP */}
+        <div className="relative z-20 w-full flex flex-col items-center">
+          
+          {/* ICON BADGE WITH CONTINUOUS RADAR WAVES & LEVITATION */}
+          <div className="relative mb-6 w-20 h-20 sm:w-22 sm:h-22 flex items-center justify-center">
+            
+            {/* Radar Ripple Wave 1 (Continuous) */}
+            <motion.div
+              animate={{
+                scale: [1, 1.7, 2.3],
+                opacity: [0.7, 0.3, 0]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: 'easeOut'
+              }}
+              className="absolute inset-0 rounded-2xl border-2 border-amber-400/60 pointer-events-none"
+            />
+
+            {/* Radar Ripple Wave 2 (Continuous Staggered) */}
+            <motion.div
+              animate={{
+                scale: [1, 1.7, 2.3],
+                opacity: [0.7, 0.3, 0]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                delay: 1.5,
+                ease: 'easeOut'
+              }}
+              className="absolute inset-0 rounded-2xl border border-amber-300/50 pointer-events-none"
+            />
+
+            {/* Ambient Background Aura */}
+            <motion.div 
+              animate={{
+                scale: [1, 1.15, 1],
+                opacity: [0.5, 0.8, 0.5]
+              }}
+              transition={{
+                duration: 2.5,
+                repeat: Infinity,
+                ease: 'easeInOut'
+              }}
+              className="absolute inset-0 rounded-2xl bg-amber-400/30 blur-xl group-hover:bg-amber-400/50 transition-all duration-500" 
+            />
+
+            {/* Floating 3D Gold Badge */}
+            <motion.div
+              animate={{
+                y: isMission ? [-4, 4, -4] : [4, -4, 4],
+                rotateZ: isMission ? [-2, 2, -2] : [2, -2, 2]
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: 'easeInOut'
+              }}
+              className="relative w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-gradient-to-br from-[#fde047] via-[#facc15] to-[#d97706] text-slate-950 flex items-center justify-center shadow-[0_10px_28px_rgba(245,158,11,0.65)] ring-4 ring-amber-400/40 group-hover:scale-110 transition-transform duration-300 overflow-hidden"
+            >
+              {/* Internal Glass Reflection Shimmer */}
+              <motion.div
+                animate={{ x: ['-150%', '200%'] }}
+                transition={{
+                  repeat: Infinity,
+                  repeatType: 'loop',
+                  duration: 1.5,
+                  repeatDelay: 2.5,
+                  ease: 'easeInOut'
+                }}
+                className="absolute inset-0 -skew-x-20 bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none"
+              />
+              <Icon className="w-8 h-8 sm:w-9 sm:h-9 text-slate-950 stroke-[2.5] relative z-10 drop-shadow-sm" />
+            </motion.div>
+          </div>
+
+          {/* TITLE WITH HOVER GLOW */}
+          <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2 group-hover:text-amber-300 transition-colors duration-300 flex items-center justify-center gap-2">
+            <span>{data.title}</span>
+          </h3>
+
+          {/* CONTINUOUS SHIMMER GRADIENT TAGLINE */}
+          <div className="mb-4 inline-block px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20">
+            <motion.span
+              animate={{
+                backgroundPosition: ['0% 50%', '200% 50%']
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: 'linear'
+              }}
+              className="text-xs font-black uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-500"
+              style={{
+                backgroundSize: '200% auto'
+              }}
+            >
+              {data.tagline}
+            </motion.span>
+          </div>
+
+          {/* PARAGRAPH DESCRIPTION */}
+          <p className="text-slate-300 text-[14.5px] sm:text-[15.5px] leading-[26px] font-normal max-w-[96%] mx-auto select-none">
+            {data.text}
+          </p>
+
+        </div>
+      </div>
+    </motion.div>
+  </div>
+  );
+};
 
 const AboutContentSection = () => {
 
@@ -76,136 +316,22 @@ const AboutContentSection = () => {
 
         </div>
 
-        {/* 2. Our Mission & Our Vision - Dual Pillars of Excellence (with Automatic Periodic Shining Animation) */}
+        {/* 2. Our Mission & Our Vision - Awwwards & Dribbble Inspired Ultra-Modern Continuous Animated Pillars */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 mb-16 sm:mb-24 pt-2">
           
           {/* Card 1: Our Mission */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="relative rounded-2xl p-7 sm:p-9 pt-9 sm:pt-11 bg-gradient-to-br from-[#121c2e] via-[#0d1627] to-[#080d18] border border-slate-700/80 hover:border-amber-400/90 shadow-[0_15px_40px_rgba(0,0,0,0.6)] hover:shadow-[0_20px_50px_rgba(245,158,11,0.25)] transition-all duration-500 flex flex-col justify-between items-center text-center group overflow-hidden"
-          >
-            {/* Automatic Periodic Diagonal Shining Light Sweep (every 3.5s) */}
-            <motion.div
-              animate={{ x: ['-150%', '250%'] }}
-              transition={{
-                repeat: Infinity,
-                repeatType: 'loop',
-                duration: 1.6,
-                repeatDelay: 2.5,
-                ease: [0.4, 0, 0.2, 1],
-              }}
-              className="absolute inset-y-0 -left-1/3 w-2/3 -skew-x-25 bg-gradient-to-r from-transparent via-amber-300/20 to-transparent pointer-events-none z-20"
-            />
-
-            {/* Top Amber Light Beam Accent */}
-            <div className="absolute top-0 inset-x-0 h-[2.5px] bg-gradient-to-r from-transparent via-amber-400/80 to-transparent shadow-[0_0_15px_rgba(245,158,11,0.9)]" />
-            
-            {/* Ambient Background Corner Glow */}
-            <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 blur-[70px] pointer-events-none rounded-full" />
-
-            <div className="relative z-10 w-full">
-              {/* Centered Luminous Shining 3D Target Icon */}
-              <div className="relative mx-auto mb-5 w-18 h-18 sm:w-20 sm:h-20 flex items-center justify-center">
-                <div className="absolute inset-0 rounded-2xl bg-amber-400/25 blur-lg group-hover:blur-xl group-hover:bg-amber-400/40 animate-pulse transition-all duration-500" />
-                <div className="relative w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-gradient-to-br from-amber-300 via-yellow-400 to-amber-500 text-slate-950 flex items-center justify-center shadow-[0_8px_25px_rgba(245,158,11,0.6)] ring-4 ring-amber-400/30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 overflow-hidden">
-                  {/* Icon Periodic Inner Glimmer */}
-                  <motion.div
-                    animate={{ x: ['-150%', '200%'] }}
-                    transition={{
-                      repeat: Infinity,
-                      repeatType: 'loop',
-                      duration: 1.2,
-                      repeatDelay: 2.5,
-                      ease: 'easeInOut',
-                    }}
-                    className="absolute inset-0 -skew-x-20 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none"
-                  />
-                  <Target className="w-8 h-8 sm:w-9 sm:h-9 text-slate-950 stroke-[2.5] relative z-10" />
-                </div>
-              </div>
-
-              {/* Title & Tagline */}
-              <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-1 group-hover:text-amber-300 transition-colors">
-                {missionVisionData.mission.title}
-              </h3>
-              <p className="text-amber-400/90 text-xs font-bold uppercase tracking-widest mb-4">
-                {missionVisionData.mission.tagline}
-              </p>
-
-              {/* Paragraph Text */}
-              <p className="text-slate-200 text-[15px] sm:text-[16px] leading-[26px] font-normal max-w-[95%] mx-auto">
-                {missionVisionData.mission.text}
-              </p>
-            </div>
-          </motion.div>
+          <MissionVisionCard 
+            data={missionVisionData.mission}
+            type="mission"
+            delay={0}
+          />
 
           {/* Card 2: Our Vision */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6, delay: 0.15, ease: 'easeOut' }}
-            className="relative rounded-2xl p-7 sm:p-9 pt-9 sm:pt-11 bg-gradient-to-br from-[#121c2e] via-[#0d1627] to-[#080d18] border border-slate-700/80 hover:border-amber-400/90 shadow-[0_15px_40px_rgba(0,0,0,0.6)] hover:shadow-[0_20px_50px_rgba(245,158,11,0.25)] transition-all duration-500 flex flex-col justify-center items-center text-center group overflow-hidden"
-          >
-            {/* Automatic Periodic Diagonal Shining Light Sweep (Staggered by 1.2s, every 3.5s) */}
-            <motion.div
-              animate={{ x: ['-150%', '250%'] }}
-              transition={{
-                repeat: Infinity,
-                repeatType: 'loop',
-                duration: 1.6,
-                repeatDelay: 2.5,
-                delay: 1.2,
-                ease: [0.4, 0, 0.2, 1],
-              }}
-              className="absolute inset-y-0 -left-1/3 w-2/3 -skew-x-25 bg-gradient-to-r from-transparent via-amber-300/20 to-transparent pointer-events-none z-20"
-            />
-
-            {/* Top Amber Light Beam Accent */}
-            <div className="absolute top-0 inset-x-0 h-[2.5px] bg-gradient-to-r from-transparent via-amber-400/80 to-transparent shadow-[0_0_15px_rgba(245,158,11,0.9)]" />
-            
-            {/* Ambient Background Corner Glow */}
-            <div className="absolute top-0 left-0 w-48 h-48 bg-blue-500/10 blur-[70px] pointer-events-none rounded-full" />
-
-            <div className="relative z-10 w-full">
-              {/* Centered Luminous Shining 3D Eye Icon */}
-              <div className="relative mx-auto mb-5 w-18 h-18 sm:w-20 sm:h-20 flex items-center justify-center">
-                <div className="absolute inset-0 rounded-2xl bg-amber-400/25 blur-lg group-hover:blur-xl group-hover:bg-amber-400/40 animate-pulse transition-all duration-500" />
-                <div className="relative w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-gradient-to-br from-amber-300 via-yellow-400 to-amber-500 text-slate-950 flex items-center justify-center shadow-[0_8px_25px_rgba(245,158,11,0.6)] ring-4 ring-amber-400/30 group-hover:scale-110 group-hover:-rotate-6 transition-all duration-500 overflow-hidden">
-                  {/* Icon Periodic Inner Glimmer */}
-                  <motion.div
-                    animate={{ x: ['-150%', '200%'] }}
-                    transition={{
-                      repeat: Infinity,
-                      repeatType: 'loop',
-                      duration: 1.2,
-                      repeatDelay: 2.5,
-                      delay: 1.2,
-                      ease: 'easeInOut',
-                    }}
-                    className="absolute inset-0 -skew-x-20 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none"
-                  />
-                  <Eye className="w-8 h-8 sm:w-9 sm:h-9 text-slate-950 stroke-[2.5] relative z-10" />
-                </div>
-              </div>
-
-              {/* Title & Tagline */}
-              <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-1 group-hover:text-amber-300 transition-colors">
-                {missionVisionData.vision.title}
-              </h3>
-              <p className="text-amber-400/90 text-xs font-bold uppercase tracking-widest mb-4">
-                {missionVisionData.vision.tagline}
-              </p>
-
-              {/* Paragraph Text */}
-              <p className="text-slate-200 text-[15px] sm:text-[16px] leading-[26px] font-normal max-w-[95%] mx-auto">
-                {missionVisionData.vision.text}
-              </p>
-            </div>
-          </motion.div>
+          <MissionVisionCard 
+            data={missionVisionData.vision}
+            type="vision"
+            delay={0.15}
+          />
 
         </div>
 
