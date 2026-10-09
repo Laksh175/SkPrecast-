@@ -44,7 +44,7 @@ const TestimonialCard = ({ item, onImageClick }) => {
               if (onImageClick) onImageClick(item);
             }}
             className="relative mb-4 rounded-xl overflow-hidden border border-slate-700/90 hover:border-amber-400 shadow-lg group/img cursor-pointer transition-all duration-300"
-            title="Click to view full photo"
+            title="View photo"
           >
             <img 
               src={item.image} 
@@ -52,13 +52,9 @@ const TestimonialCard = ({ item, onImageClick }) => {
               className="w-full h-40 sm:h-44 object-cover object-center group-hover/img:scale-105 transition-transform duration-300"
               loading="lazy"
             />
-            {/* Overlay Bar */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex items-end justify-between p-2.5">
-              <span className="text-[11.5px] font-bold text-amber-300 flex items-center gap-1.5 drop-shadow">
-                <ZoomIn size={13} className="text-amber-400" />
-                Click to view photo
-              </span>
-              <span className="text-[10px] font-semibold bg-slate-900/90 text-slate-200 px-2 py-0.5 rounded border border-amber-400/30">
+            {/* Site Photo Badge */}
+            <div className="absolute top-2.5 right-2.5">
+              <span className="text-[10.5px] font-semibold bg-slate-900/85 text-amber-300 px-2.5 py-0.5 rounded-md border border-amber-400/40 backdrop-blur-md shadow-md">
                 Site Photo
               </span>
             </div>
