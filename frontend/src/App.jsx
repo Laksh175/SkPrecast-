@@ -3,7 +3,7 @@ import { Header, Footer } from './components';
 import Home from './pages/Home';
 import { getProductBySlug } from './data/productsData';
 import { getBlogPostBySlug } from './data/blogData';
-import { TopProgressBar, BrandPreloader } from './common';
+import { TopProgressBar, BrandPreloader, CustomCursor } from './common';
 
 // Route-based dynamic lazy loading for subpages (Reduces initial load to < 100KB for lightning speed)
 const About = lazy(() => import('./pages/About'));
@@ -333,6 +333,9 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8fafc]">
+      {/* 0. Modern Custom Circle & Dot Cursor (Desktop Only) */}
+      <CustomCursor />
+
       {/* 1. Initial Luxury Brand Splash Preloader */}
       <BrandPreloader />
 

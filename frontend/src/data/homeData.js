@@ -408,7 +408,7 @@ const rawPopularProducts = [
     id: 11,
     name: 'Solar Plant Boundary Wall',
     slug: 'solar-plant-boundary-wall',
-    image: '/assets/images/precast-wall.jpg',
+    image: '/assets/images/concrete-folding-compound-wall.jpg',
     description: 'Specialized heavy-duty security walls engineered for large-scale solar power plants.',
     price: '₹ 80.00 - 250.00 / feet',
     moq: '1000 Square Feet',

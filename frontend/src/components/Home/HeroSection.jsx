@@ -4,6 +4,78 @@ import { Sparkles } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
 import { heroSectionData } from '../../data/homeData';
 
+// Helper component for Letter-by-Letter Multi-Directional Entrance Animation
+const AnimatedLetters = ({ text, baseDelay = 0, isGradient = false }) => {
+  // Diverse scattered coordinates & rotations for each letter
+  const vectors = [
+    { x: -75, y: -55, rotate: -22 },
+    { x: 65, y: -65, rotate: 20 },
+    { x: -85, y: 50, rotate: -18 },
+    { x: 80, y: 60, rotate: 24 },
+    { x: -50, y: -75, rotate: -20 },
+    { x: 90, y: -45, rotate: 22 },
+    { x: -70, y: 70, rotate: -25 },
+    { x: 55, y: -60, rotate: 18 },
+    { x: -80, y: -50, rotate: -20 },
+    { x: 70, y: 75, rotate: 26 },
+    { x: -45, y: 55, rotate: -16 },
+    { x: 85, y: -70, rotate: 22 }
+  ];
+
+  const words = text.split(' ');
+  let charCounter = 0;
+
+  return (
+    <span className="inline-flex flex-wrap justify-center items-center gap-x-[0.28em]">
+      {words.map((word, wIdx) => {
+        const chars = Array.from(word);
+        return (
+          <span key={wIdx} className="inline-block whitespace-nowrap">
+            {chars.map((char, cIdx) => {
+              const i = charCounter++;
+              const v = vectors[i % vectors.length];
+
+              return (
+                <motion.span
+                  key={cIdx}
+                  initial={{
+                    opacity: 0,
+                    x: v.x,
+                    y: v.y,
+                    rotate: v.rotate,
+                    scale: 0.4,
+                    filter: 'blur(10px)'
+                  }}
+                  animate={{
+                    opacity: 1,
+                    x: 0,
+                    y: 0,
+                    rotate: 0,
+                    scale: 1,
+                    filter: 'blur(0px)'
+                  }}
+                  transition={{
+                    duration: 0.75,
+                    delay: baseDelay + i * 0.024,
+                    ease: [0.16, 1, 0.3, 1]
+                  }}
+                  className={`inline-block will-change-transform ${
+                    isGradient
+                      ? 'text-amber-400 drop-shadow-[0_2px_12px_rgba(245,158,11,0.6)]'
+                      : 'text-white'
+                  }`}
+                >
+                  {char}
+                </motion.span>
+              );
+            })}
+          </span>
+        );
+      })}
+    </span>
+  );
+};
+
 const HeroSection = () => {
   const { 
     badge, 
@@ -92,7 +164,7 @@ const HeroSection = () => {
           <motion.div 
             initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
+            transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
             className="relative inline-flex items-center gap-2 px-3.5 sm:px-6 py-1.5 sm:py-[5px] rounded-[10px] sm:rounded-[12px] bg-[#111927]/90 backdrop-blur-md text-amber-300 shadow-[0_10px_30px_rgba(0,0,0,0.5)] border border-amber-400/50 mb-3 sm:mb-4 overflow-hidden group cursor-default max-w-[95%] sm:max-w-none"
           >
             {/* Animated Light Beam Shimmer Sweep */}
@@ -111,32 +183,32 @@ const HeroSection = () => {
             </span>
           </motion.div>
 
-          {/* SEO-Optimized Primary H1 Heading */}
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
-            style={{ lineHeight: 1.08, letterSpacing: '-0.025em' }}
-            className="text-[28px] sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-[3.65rem] font-extrabold text-white leading-[1.08] tracking-tight mb-4 max-w-5xl xl:max-w-6xl drop-shadow-[0_3px_12px_rgba(0,0,0,0.85)] text-center flex flex-col gap-0.5 sm:gap-1"
+          {/* SEO-Optimized Primary H1 Heading with Letter-by-Letter Multi-Directional Entrance */}
+          <h1 
+            style={{ lineHeight: 1.12, letterSpacing: '-0.025em' }}
+            className="text-[28px] sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-[3.65rem] font-extrabold text-white leading-[1.12] tracking-tight mb-4 max-w-5xl xl:max-w-6xl drop-shadow-[0_3px_12px_rgba(0,0,0,0.85)] text-center flex flex-col gap-1 sm:gap-2 py-1"
           >
-            <span className="block" style={{ lineHeight: 1.08 }}>
-              {heading.line1}
+            {/* Line 1: Low Cost, High Strength (Starts at 0.75s after preloader) */}
+            <span className="block" style={{ lineHeight: 1.12 }}>
+              <AnimatedLetters text={heading.line1} baseDelay={0.75} />
             </span>
-            <span className="block" style={{ lineHeight: 1.08 }}>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500">
-                {heading.line2}
-              </span>
+
+            {/* Line 2: Precast Walls — (Golden Amber, Starts at 1.25s) */}
+            <span className="block" style={{ lineHeight: 1.12 }}>
+              <AnimatedLetters text={heading.line2} baseDelay={1.25} isGradient={true} />
             </span>
-            <span className="block text-white/95" style={{ lineHeight: 1.08 }}>
-              {heading.line3}
+
+            {/* Line 3: Get The Best Quality Today! (Starts at 1.75s) */}
+            <span className="block text-white/95" style={{ lineHeight: 1.12 }}>
+              <AnimatedLetters text={heading.line3} baseDelay={1.75} />
             </span>
-          </motion.h1>
+          </h1>
 
           {/* Clean Continuous Paragraph */}
           <motion.p 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
+            transition={{ duration: 0.75, delay: 2.3, ease: 'easeOut' }}
             className="text-slate-200 text-[15px] sm:text-base md:text-[16.5px] lg:text-[17.5px] xl:text-[18px] leading-relaxed md:leading-[1.65] mb-4 sm:mb-6 max-w-3xl font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] px-1 sm:px-0 text-center"
           >
             {description}
@@ -144,9 +216,9 @@ const HeroSection = () => {
 
           {/* Dual-Tone Pill WhatsApp CTA Button */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
+            transition={{ duration: 0.75, delay: 2.5, ease: 'easeOut' }}
             className="flex justify-center w-full mb-6 sm:mb-8"
           >
             <a 

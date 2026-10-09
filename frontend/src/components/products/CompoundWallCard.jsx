@@ -69,16 +69,12 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
   }, [lensWidth, lensHeight]);
 
   const handleMouseMove = useCallback((e) => {
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) return;
     updatePosition(e.clientX, e.clientY);
   }, [updatePosition]);
 
-  const handleTouchMove = useCallback((e) => {
-    if (e.touches && e.touches[0]) {
-      updatePosition(e.touches[0].clientX, e.touches[0].clientY);
-    }
-  }, [updatePosition]);
-
   const handleMouseEnter = () => {
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) return;
     if (containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
       setContainerSize({ width: rect.width, height: rect.height });
@@ -86,17 +82,7 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
     setIsHovered(true);
   };
 
-  const handleTouchStart = (e) => {
-    if (containerRef.current && e.touches && e.touches[0]) {
-      const rect = containerRef.current.getBoundingClientRect();
-      setContainerSize({ width: rect.width, height: rect.height });
-      updatePosition(e.touches[0].clientX, e.touches[0].clientY);
-    }
-    setIsHovered(true);
-  };
-
   const handleMouseLeave = () => setIsHovered(false);
-  const handleTouchEnd = () => setIsHovered(false);
 
   // Extract exactly the first 5 product details / specifications from inside
   const getSpecsRows = () => {
@@ -183,12 +169,8 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
           onMouseMove={handleMouseMove}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-          onTouchCancel={handleTouchEnd}
           onClick={() => onViewDetails(product)}
-          className="w-full h-[250px] sm:h-[290px] lg:h-[310px] rounded-[15px] overflow-hidden bg-slate-900 relative group border border-slate-800 shadow-inner cursor-crosshair select-none touch-none"
+          className="w-full h-[250px] sm:h-[290px] lg:h-[310px] rounded-[15px] overflow-hidden bg-slate-900 relative group border border-slate-800 shadow-inner lg:cursor-crosshair cursor-pointer select-none"
         >
           <AnimatePresence mode="wait">
             <motion.img
@@ -199,26 +181,23 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0.4, scale: 0.98 }}
               transition={{ duration: 0.25, ease: 'easeOut' }}
-              className={`w-full h-full object-cover pointer-events-none transition-[filter] duration-300 ${isHovered ? 'grayscale contrast-105' : ''}`}
+              className={`w-full h-full object-cover pointer-events-none transition-[filter] duration-300 ${isHovered ? 'lg:grayscale lg:contrast-105' : ''}`}
               draggable={false}
               loading="lazy"
             />
           </AnimatePresence>
 
-          {/* Bottom Hint Pill */}
-          <div className="absolute bottom-3.5 left-1/2 -translate-x-1/2 z-10 pointer-events-none transition-opacity duration-300">
+          {/* Bottom Hint Pill - Only visible on large desktop screens */}
+          <div className="hidden lg:block absolute bottom-3.5 left-1/2 -translate-x-1/2 z-10 pointer-events-none transition-opacity duration-300">
             <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold bg-slate-950/90 text-amber-300 shadow-lg backdrop-blur-md border border-amber-400/30 whitespace-nowrap">
               <ZoomIn size={12} className="text-amber-400" />
-              <span className="sm:hidden">
-                {isHovered ? 'Drag finger to explore details' : 'Touch & Drag to zoom'}
-              </span>
-              <span className="hidden sm:inline">
+              <span>
                 {isHovered ? 'Move mouse to explore details' : 'Hover to zoom'}
               </span>
             </span>
           </div>
 
-          {/* Interactive Magnifier Lens Box with HD Spotlight Magnification */}
+          {/* Interactive Magnifier Lens Box with HD Spotlight Magnification (Desktop Large Screen Only) */}
           <AnimatePresence>
             {isHovered && (
               <motion.div
@@ -232,7 +211,7 @@ const CompoundWallCard = ({ product, index, onOpenQuoteModal, onViewDetails }) =
                   width: `${lensWidth}px`,
                   height: `${lensHeight}px`
                 }}
-                className="absolute pointer-events-none z-20 rounded-xl border-2 border-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.6)] flex flex-col justify-between p-1.5 overflow-hidden"
+                className="hidden lg:flex absolute pointer-events-none z-20 rounded-xl border-2 border-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.6)] flex-col justify-between p-1.5 overflow-hidden"
               >
                 {/* Full-Color HD Zoom Cutout Inside Lens */}
                 {containerSize.width > 0 && (

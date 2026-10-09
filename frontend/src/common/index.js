@@ -6,6 +6,7 @@ export { default as BrandPreloader } from './BrandPreloader';
 export { default as ManufacturingUnitSlider } from './ManufacturingUnitSlider';
 export { default as ContactInfoCard } from './ContactInfoCard';
 export { default as ExploreProductsSection } from './ExploreProductsSection';
+export { default as CustomCursor } from './CustomCursor';
 export {
   FormFieldWrapper,
   ProductSelectField,

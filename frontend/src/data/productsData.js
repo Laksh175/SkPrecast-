@@ -934,11 +934,11 @@ We understand the importance of combining functionality with design, which is wh
     categoryName: 'Boundary Wall',
     name: 'Solar Plant Boundary Wall',
     slug: 'solar-plant-boundary-wall',
-    image: '/assets/images/precast-wall.jpg',
+    image: '/assets/images/concrete-folding-compound-wall.jpg',
     galleryImages: [
-      '/assets/images/precast-wall.jpg',
+      '/assets/images/concrete-folding-compound-wall.jpg',
       '/assets/images/wall-image-second.jpeg',
-      '/assets/images/solar-plant-boundary-wall-3.jpg'
+      '/assets/images/industrial-compound-wall-square.jpg'
     ],
     description: 'Specially engineered boundary walls for mega solar parks and industrial enclosures, providing robust anti-theft and all-weather perimeter protection.',
     price: '₹ 80.00 - 250.00 / Feet',

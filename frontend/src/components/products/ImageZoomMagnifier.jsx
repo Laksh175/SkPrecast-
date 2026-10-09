@@ -47,16 +47,12 @@ const ImageZoomMagnifier = ({
   }, [lensWidth, lensHeight]);
 
   const handleMouseMove = useCallback((e) => {
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) return;
     updatePosition(e.clientX, e.clientY);
   }, [updatePosition]);
 
-  const handleTouchMove = useCallback((e) => {
-    if (e.touches && e.touches[0]) {
-      updatePosition(e.touches[0].clientX, e.touches[0].clientY);
-    }
-  }, [updatePosition]);
-
   const handleMouseEnter = () => {
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) return;
     if (containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
       setContainerSize({ width: rect.width, height: rect.height });
@@ -64,17 +60,7 @@ const ImageZoomMagnifier = ({
     setIsHovered(true);
   };
 
-  const handleTouchStart = (e) => {
-    if (containerRef.current && e.touches && e.touches[0]) {
-      const rect = containerRef.current.getBoundingClientRect();
-      setContainerSize({ width: rect.width, height: rect.height });
-      updatePosition(e.touches[0].clientX, e.touches[0].clientY);
-    }
-    setIsHovered(true);
-  };
-
   const handleMouseLeave = () => setIsHovered(false);
-  const handleTouchEnd = () => setIsHovered(false);
 
   return (
     <div className={`relative ${className}`}>
@@ -84,34 +70,27 @@ const ImageZoomMagnifier = ({
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        onTouchCancel={handleTouchEnd}
-        className="relative w-full h-[360px] sm:h-[420px] md:h-[460px] lg:h-[480px] bg-[#162238] rounded-[15px] overflow-hidden border border-slate-700/80 shadow-xl cursor-crosshair group select-none touch-none"
+        className="relative w-full h-[360px] sm:h-[420px] md:h-[460px] lg:h-[480px] bg-[#162238] rounded-[15px] overflow-hidden border border-slate-700/80 shadow-xl lg:cursor-crosshair group select-none"
       >
-        {/* Main Base Image (Turns Grayscale on Hover) */}
+        {/* Main Base Image (Turns Grayscale on Hover on Desktop) */}
         <img
           src={src}
           alt={alt}
-          className={`w-full h-full object-cover object-center pointer-events-none transition-[filter] duration-300 ${isHovered ? 'grayscale contrast-105' : ''}`}
+          className={`w-full h-full object-cover object-center pointer-events-none transition-[filter] duration-300 ${isHovered ? 'lg:grayscale lg:contrast-105' : ''}`}
           draggable={false}
         />
 
-        {/* Bottom Hint Pill */}
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 pointer-events-none transition-opacity duration-300">
+        {/* Bottom Hint Pill - Only visible on desktop/large screens */}
+        <div className="hidden lg:block absolute bottom-3 left-1/2 -translate-x-1/2 z-10 pointer-events-none transition-opacity duration-300">
           <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-semibold bg-slate-900/90 backdrop-blur-md text-slate-200 shadow-md border border-slate-700 whitespace-nowrap">
             <ZoomIn size={13} className="text-amber-400" />
-            <span className="sm:hidden">
-              {isHovered ? 'Drag finger to explore details' : 'Touch & Drag to zoom'}
-            </span>
-            <span className="hidden sm:inline">
+            <span>
               {isHovered ? 'Move mouse to explore details' : 'Hover over image to zoom'}
             </span>
           </span>
         </div>
 
-        {/* Interactive Magnifier Lens Box with HD Spotlight Magnification */}
+        {/* Interactive Magnifier Lens Box with HD Spotlight Magnification (Desktop Only) */}
         <AnimatePresence>
           {isHovered && (
             <motion.div
@@ -125,7 +104,7 @@ const ImageZoomMagnifier = ({
                 width: `${lensWidth}px`,
                 height: `${lensHeight}px`
               }}
-              className="absolute pointer-events-none z-20 rounded-xl border-2 border-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.6)] flex flex-col justify-between p-1.5 overflow-hidden"
+              className="hidden lg:flex absolute pointer-events-none z-20 rounded-xl border-2 border-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.6)] flex-col justify-between p-1.5 overflow-hidden"
             >
               {/* Full-Color HD Zoom Cutout Inside Lens */}
               {containerSize.width > 0 && (
