@@ -291,7 +291,7 @@ const Testimonials = () => {
               {/* Column 1: Vertical Infinite Scroll (Upward) */}
               <div className="overflow-hidden relative group/col1">
                 <div className="flex flex-col gap-5 animate-marquee-vertical group-hover/col1:[animation-play-state:paused]">
-                  {[...testimonialsCol1, ...testimonialsCol1, ...testimonialsCol1].map((item, idx) => (
+                  {[...testimonialsCol1, ...testimonialsCol1].map((item, idx) => (
                     <TestimonialCard key={`col1-${item.id}-${idx}`} item={item} onImageClick={handleOpenImage} />
                   ))}
                 </div>
@@ -300,7 +300,7 @@ const Testimonials = () => {
               {/* Column 2: Vertical Infinite Scroll (Downward) */}
               <div className="overflow-hidden relative group/col2">
                 <div className="flex flex-col gap-5 animate-marquee-vertical-reverse group-hover/col2:[animation-play-state:paused]">
-                  {[...testimonialsCol2, ...testimonialsCol2, ...testimonialsCol2].map((item, idx) => (
+                  {[...testimonialsCol2, ...testimonialsCol2].map((item, idx) => (
                     <TestimonialCard key={`col2-${item.id}-${idx}`} item={item} onImageClick={handleOpenImage} />
                   ))}
                 </div>
