@@ -73,7 +73,7 @@ const CustomCursor = () => {
   return (
     <div
       ref={cursorContainerRef}
-      className={`fixed top-0 left-0 pointer-events-none z-[999999] will-change-transform transition-opacity duration-200 -ml-[13px] -mt-[13px] ${
+      className={`fixed top-0 left-0 pointer-events-none z-[999999] will-change-transform transition-opacity duration-200 ${
         isVisible ? 'opacity-100' : 'opacity-0'
       }`}
       style={{
@@ -81,21 +81,27 @@ const CustomCursor = () => {
       }}
       aria-hidden="true"
     >
-      {/* Golden Glowing Squircle Shape (Directly locked with arrow cursor) */}
+      {/* Modern Circular Ring with Center White Dot (Pointer.js Style) */}
       <div
-        className="relative w-[26px] h-[26px] rounded-[8px] bg-[#090e1a] border-[2.5px] border-[#020617] flex items-center justify-center transition-all duration-150"
+        className="relative flex items-center justify-center rounded-full transition-all duration-150 ease-out"
         style={{
+          width: '32px',
+          height: '32px',
+          border: '2px solid #fbbf24',
+          backgroundColor: isHovered ? 'rgba(251, 191, 36, 0.12)' : 'transparent',
           boxShadow: isHovered
-            ? '0 0 28px 6px rgba(245, 158, 11, 0.8), 0 0 45px 10px rgba(245, 158, 11, 0.4), inset 0 0 6px rgba(251, 191, 36, 0.7)'
-            : '0 0 18px 3px rgba(245, 158, 11, 0.55), 0 0 32px 6px rgba(245, 158, 11, 0.25)',
-          transform: `scale(${isClicked ? 0.75 : isHovered ? 1.3 : 1})`
+            ? '0 0 16px rgba(251, 191, 36, 0.65), inset 0 0 8px rgba(251, 191, 36, 0.25)'
+            : '0 0 10px rgba(251, 191, 36, 0.45)',
+          transform: `translate(-50%, -50%) scale(${isClicked ? 0.75 : isHovered ? 1.35 : 1})`
         }}
       >
-        {/* Inner Vibrant Golden Amber Core */}
+        {/* Crisp Center White Dot */}
         <div
-          className="w-[14px] h-[14px] rounded-[4.5px] transition-all duration-150 bg-gradient-to-br from-[#fde047] via-[#fbbf24] to-[#f59e0b] shadow-[0_0_8px_rgba(251,191,36,0.9)]"
+          className="rounded-full bg-white transition-all duration-150"
           style={{
-            transform: `scale(${isHovered ? 1.15 : 1})`
+            width: isHovered ? '6px' : '5px',
+            height: isHovered ? '6px' : '5px',
+            boxShadow: '0 0 6px rgba(255, 255, 255, 0.95)'
           }}
         />
       </div>
