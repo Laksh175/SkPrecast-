@@ -1036,11 +1036,8 @@ const CurrentJobsPage = () => {
                             <FaWhatsapp size={22} className="text-emerald-400" />
                           </div>
                           <div className="flex-1 text-left">
-                            <span className="text-[13px] font-bold text-white flex items-center gap-2">
-                              <span>Attach in WhatsApp Chat</span>
-                              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-semibold border border-emerald-500/30 uppercase tracking-wider">
-                                Direct & Permanent
-                              </span>
+                            <span className="text-[13px] font-bold text-white block">
+                              Attach in WhatsApp Chat
                             </span>
                             <span className="text-[12px] text-slate-300 leading-snug block mt-1">
                               Attach your Resume (PDF/DOC) in WhatsApp chat using the paperclip (<strong className="text-white">📎</strong>) icon upon submitting.
