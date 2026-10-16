@@ -168,10 +168,8 @@ export const dispatchJobApplicationForm = (formData, resumeUrl = null) => {
     salaryDisplay = `${lakhsPart}${thousandsPart} / Year`;
   }
 
-  const resumeFileName = formData.resumeFile?.name || formData.fileName || 'Resume Document';
   const resumeSection = `📎 *Resume Attachment:*
-📄 *File Name:* ${resumeFileName}
-📌 _(Note: Candidate will attach "${resumeFileName}" directly in this WhatsApp chat)_`;
+📌 _(Candidate will attach resume PDF/document directly in this chat)_`;
 
   const text =
     `💼 *NEW JOB APPLICATION - SK PRECAST*

@@ -103,10 +103,6 @@ const CurrentJobsPage = () => {
       if (!(value || '').trim()) return 'Please enter your key skills / areas of expertise.';
       return '';
     }
-    if (name === 'resumeFile') {
-      if (!value) return 'Please attach your resume document (.doc, .docx, .rtf, .pdf)';
-      return '';
-    }
     return '';
   };
 
@@ -204,7 +200,7 @@ const CurrentJobsPage = () => {
     const fieldsToValidate = [
       'name', 'email', 'mobile', 'city', 'locality',
       'qualification', 'functionalArea', 'expYears',
-      'salaryLakhs', 'noticePeriod', 'keySkills', 'resumeFile'
+      'salaryLakhs', 'noticePeriod', 'keySkills'
     ];
 
     const newTouched = {};
@@ -422,7 +418,7 @@ const CurrentJobsPage = () => {
                         <span>Next Step in WhatsApp:</span>
                       </div>
                       <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
-                        Please open the WhatsApp chat and use the <strong className="text-white">Paperclip (📎) / Document</strong> icon to attach your resume file <strong className="text-amber-300">({fileName || 'Resume Document'})</strong> before hitting send. This ensures your file is directly saved in HR chat and never expires!
+                        Please open the WhatsApp chat and use the <strong className="text-white">Paperclip (📎) / Document</strong> icon to attach your Resume document (PDF/DOC) before hitting send. This ensures your file is directly saved in HR chat and never expires!
                       </p>
 
                       <div className="flex flex-wrap gap-2.5">
@@ -1029,75 +1025,27 @@ const CurrentJobsPage = () => {
                       </div>
                     </div>
 
-                    {/* 14. Attach Resume */}
-                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start">
-                      <label className="sm:col-span-4 text-sm font-bold text-slate-200 sm:text-right pt-2">
-                        <span className="text-red-400 font-bold mr-1">*</span>Attach Resume :
+                    {/* 14. Resume Attachment via WhatsApp */}
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-center">
+                      <label className="sm:col-span-4 text-sm font-bold text-slate-200 sm:text-right">
+                        Attach Resume :
                       </label>
                       <div className="sm:col-span-8">
-                        <div className="flex flex-col gap-1.5">
-                          <div className="flex flex-wrap items-center gap-2.5">
-                            <label className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[12px] cursor-pointer transition-all duration-200 shadow-md">
-                              <Upload size={14} className="text-slate-950" />
-                              <span>Choose file</span>
-                              <input
-                                type="file"
-                                accept=".pdf,.doc,.docx,.rtf"
-                                onChange={handleFileChange}
-                                className="hidden"
-                              />
-                            </label>
-
-                            <div className={`flex items-center gap-2 px-3 py-1.5 bg-[#162238] rounded-xl border flex-1 min-w-[180px] max-w-full ${
-                              touched.resumeFile && errors.resumeFile ? 'border-red-500 ring-2 ring-red-500/40' : 'border-slate-700/80'
-                            }`}>
-                              {fileName ? (
-                                <div className="flex items-center justify-between w-full gap-2">
-                                  <span className="text-[12px] text-emerald-400 font-bold flex items-center gap-1.5 truncate">
-                                    <CheckCircle size={13} className="text-emerald-400 shrink-0" />
-                                    <span className="truncate">{fileName}</span>
-                                  </span>
-                                  <button
-                                    type="button"
-                                    onClick={() => {
-                                      setFormData(prev => ({ ...prev, resumeFile: null }));
-                                      setFileName('');
-                                      if (touched.resumeFile) {
-                                        setErrors(prev => ({ ...prev, resumeFile: 'Please attach your resume document.' }));
-                                      }
-                                    }}
-                                    className="p-0.5 text-slate-400 hover:text-red-400 transition-colors shrink-0 cursor-pointer"
-                                    title="Remove attached file"
-                                  >
-                                    <X size={14} />
-                                  </button>
-                                </div>
-                              ) : (
-                                <span className="text-[12px] text-slate-400 font-medium">
-                                  No file chosen
-                                </span>
-                              )}
-                            </div>
+                        <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-gradient-to-r from-[#111927] to-[#162238] border border-amber-400/40 shadow-md">
+                          <div className="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/30 shadow-inner">
+                            <FaWhatsapp size={22} className="text-emerald-400" />
                           </div>
-
-                          <p className="caption-text text-[11.5px] font-semibold text-amber-400/90 tracking-normal mt-0.5">
-                            Allowed File Type : .doc, .docx, .rtf, .pdf (Upto 5 MB)
-                          </p>
-
-                          {/* Clear Notice about Permanent WhatsApp Upload */}
-                          <div className="mt-1.5 p-2.5 rounded-xl bg-[#0e1726] border border-amber-500/30 flex items-start gap-2 text-[11.5px] text-amber-200/95 leading-relaxed">
-                            <Paperclip size={13} className="text-amber-400 shrink-0 mt-0.5" />
-                            <span>
-                              <strong>Permanent Document Note:</strong> Resume file WhatsApp chat me direct attach hogi (📎 icon se). Isse candidate ka resume hamesha HR ke paas safe rahega aur kabhi expire nahi hoga.
+                          <div className="flex-1 text-left">
+                            <span className="text-[13px] font-bold text-white flex items-center gap-2">
+                              <span>Attach in WhatsApp Chat</span>
+                              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-semibold border border-emerald-500/30 uppercase tracking-wider">
+                                Direct & Permanent
+                              </span>
+                            </span>
+                            <span className="text-[12px] text-slate-300 leading-snug block mt-1">
+                              Form submit hone par WhatsApp open hoga, jahan aap paperclip (<strong className="text-white">📎</strong>) icon se seedha apna Resume document (PDF/DOC) attach karke bhej sakte hain.
                             </span>
                           </div>
-
-                          {touched.resumeFile && errors.resumeFile && (
-                            <p style={{ fontSize: '13px' }} className="text-[13px] leading-snug text-red-400 font-medium mt-1 flex items-center gap-1.5">
-                              <AlertCircle size={15} className="shrink-0 text-red-400" />
-                              <span>{errors.resumeFile}</span>
-                            </p>
-                          )}
                         </div>
                       </div>
                     </div>
