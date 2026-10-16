@@ -418,7 +418,7 @@ const CurrentJobsPage = () => {
                         <span>Next Step in WhatsApp:</span>
                       </div>
                       <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
-                        Please open the WhatsApp chat and use the <strong className="text-white">Paperclip (📎) / Document</strong> icon to attach your Resume document (PDF/DOC) before hitting send. This ensures your file is directly saved in HR chat and never expires!
+                        Please attach your Resume document (PDF/DOC) in the WhatsApp chat using the <strong className="text-white">paperclip (📎) icon</strong> before sending.
                       </p>
 
                       <div className="flex flex-wrap gap-2.5">
@@ -1043,7 +1043,7 @@ const CurrentJobsPage = () => {
                               </span>
                             </span>
                             <span className="text-[12px] text-slate-300 leading-snug block mt-1">
-                              Form submit hone par WhatsApp open hoga, jahan aap paperclip (<strong className="text-white">📎</strong>) icon se seedha apna Resume document (PDF/DOC) attach karke bhej sakte hain.
+                              Attach your Resume (PDF/DOC) in WhatsApp chat using the paperclip (<strong className="text-white">📎</strong>) icon upon submitting.
                             </span>
                           </div>
                         </div>
