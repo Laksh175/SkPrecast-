@@ -293,7 +293,7 @@ const HeroSection = () => {
       </section>
 
       {/* Spacing spacer below hero to accommodate the bottom overlap of the floating card without colliding with next section */}
-      <div className="w-full h-10 sm:h-12 md:h-12 lg:h-16 bg-[#090e1a]" />
+      <div className="w-full h-20 sm:h-16 md:h-14 lg:h-16 bg-[#090e1a]" />
     </div>
   );
 };

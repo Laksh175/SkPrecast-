@@ -37,7 +37,7 @@ const ProductRange = () => {
   const { title, subtitle } = productRangeHeaderData;
 
   return (
-    <section className="relative pt-2 pb-8 sm:py-10 lg:py-12 bg-[#090e1a] font-sans overflow-hidden">
+    <section className="relative pt-6 sm:pt-8 pb-8 sm:py-10 lg:py-12 bg-[#090e1a] font-sans overflow-hidden">
       <div className="max-w-[1260px] mx-auto px-5 sm:px-6 lg:px-8">
         
         {/* Section Title with Smooth Entrance */}
