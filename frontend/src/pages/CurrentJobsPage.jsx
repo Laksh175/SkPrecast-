@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Building2, MapPin, Phone, Mail, ArrowRight, ShieldCheck, FileCheck, Briefcase, Upload, CheckCircle, AlertCircle, FileText, User, Clock, Search, ChevronDown, Check, Sparkles, X, Loader2, ChevronRight } from 'lucide-react';
+import { Building2, MapPin, Phone, Mail, ArrowRight, ShieldCheck, FileCheck, Briefcase, Upload, CheckCircle, AlertCircle, FileText, User, Clock, Search, ChevronDown, Check, Sparkles, X, Loader2, ChevronRight, Paperclip } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa6';
 import { Button, SearchableSelect, CountryCodePicker, ContactInfoCard, ExploreProductsSection } from '../common';
 import { navigateTo } from '../utils/navigation';
 import { aboutCompanyData } from '../data/aboutUsData';
 import { countriesList, countryCodes } from '../data/homeData';
 import { qualificationsGrouped, functionalAreasList, noticePeriodsList, salaryThousandsList, currentJobsHeroData } from '../data/currentJobsData';
 import { getMaxPhoneDigits, validateName, validateEmail, validatePhone, validateCity, validateField } from '../utils/validation';
-import { dispatchJobApplicationForm, uploadResumeToCloud } from '../utils/whatsappDispatch';
+import { dispatchJobApplicationForm } from '../utils/whatsappDispatch';
 
 const CurrentJobsPage = () => {
   const [formData, setFormData] = useState({
@@ -224,18 +225,10 @@ const CurrentJobsPage = () => {
       return;
     }
 
-    setIsUploading(true);
-
-    let resumeUrl = null;
-    if (formData.resumeFile) {
-      resumeUrl = await uploadResumeToCloud(formData.resumeFile);
-    }
-
-    setIsUploading(false);
     setIsSubmitted(true);
 
-    // Dispatch structured WhatsApp message with application details & direct clickable PDF link to Admin
-    dispatchJobApplicationForm(formData, resumeUrl);
+    // Dispatch structured WhatsApp message with application details directly to Admin
+    dispatchJobApplicationForm(formData);
   };
 
   return (
@@ -417,10 +410,33 @@ const CurrentJobsPage = () => {
                     <div className="w-16 h-16 rounded-full bg-emerald-950/50 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto mb-4 shadow-md">
                       <CheckCircle size={36} />
                     </div>
-                    <h3 className="text-2xl font-black text-white mb-2">Resume Submitted Successfully!</h3>
-                    <p className="text-slate-300 max-w-md mx-auto mb-6 text-sm sm:text-base">
-                      Thank you, <span className="font-bold text-white">{formData.name}</span>. Your resume has been recorded in our talent database. Our HR department will contact you at <span className="font-semibold text-amber-300">{formData.email}</span> if your profile matches our requirements.
+                    <h3 className="text-2xl font-black text-white mb-2">Application Prepared Successfully!</h3>
+                    <p className="text-slate-300 max-w-lg mx-auto mb-5 text-sm sm:text-base leading-relaxed">
+                      Thank you, <span className="font-bold text-white">{formData.name}</span>. Your details have been formatted and WhatsApp has been opened for instant HR submission.
                     </p>
+
+                    {/* Step-by-Step WhatsApp Attachment Guidance Card */}
+                    <div className="p-4 sm:p-5 rounded-2xl bg-[#0d1627] border border-amber-400/40 max-w-lg mx-auto mb-6 text-left shadow-lg">
+                      <div className="flex items-center gap-2 text-amber-300 font-bold text-sm mb-2">
+                        <Paperclip size={16} className="text-amber-400" />
+                        <span>Next Step in WhatsApp:</span>
+                      </div>
+                      <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
+                        Please open the WhatsApp chat and use the <strong className="text-white">Paperclip (📎) / Document</strong> icon to attach your resume file <strong className="text-amber-300">({fileName || 'Resume Document'})</strong> before hitting send. This ensures your file is directly saved in HR chat and never expires!
+                      </p>
+
+                      <div className="flex flex-wrap gap-2.5">
+                        <button
+                          type="button"
+                          onClick={() => dispatchJobApplicationForm(formData)}
+                          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm transition-all shadow-md cursor-pointer"
+                        >
+                          <FaWhatsapp size={16} />
+                          <span>Re-open WhatsApp Chat</span>
+                        </button>
+                      </div>
+                    </div>
+
                     <button
                       type="button"
                       onClick={() => {
@@ -450,7 +466,7 @@ const CurrentJobsPage = () => {
                         setIsCountryCodeOpen(false);
                         setCountryCodeSearch('');
                       }}
-                      className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm transition-all shadow-md cursor-pointer"
+                      className="px-6 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white font-bold text-xs sm:text-sm transition-all border border-slate-700 shadow-md cursor-pointer"
                     >
                       Submit Another Resume
                     </button>
@@ -1067,6 +1083,15 @@ const CurrentJobsPage = () => {
                           <p className="caption-text text-[11.5px] font-semibold text-amber-400/90 tracking-normal mt-0.5">
                             Allowed File Type : .doc, .docx, .rtf, .pdf (Upto 5 MB)
                           </p>
+
+                          {/* Clear Notice about Permanent WhatsApp Upload */}
+                          <div className="mt-1.5 p-2.5 rounded-xl bg-[#0e1726] border border-amber-500/30 flex items-start gap-2 text-[11.5px] text-amber-200/95 leading-relaxed">
+                            <Paperclip size={13} className="text-amber-400 shrink-0 mt-0.5" />
+                            <span>
+                              <strong>Permanent Document Note:</strong> Resume file WhatsApp chat me direct attach hogi (📎 icon se). Isse candidate ka resume hamesha HR ke paas safe rahega aur kabhi expire nahi hoga.
+                            </span>
+                          </div>
+
                           {touched.resumeFile && errors.resumeFile && (
                             <p style={{ fontSize: '13px' }} className="text-[13px] leading-snug text-red-400 font-medium mt-1 flex items-center gap-1.5">
                               <AlertCircle size={15} className="shrink-0 text-red-400" />
@@ -1084,17 +1109,12 @@ const CurrentJobsPage = () => {
                           variant="gold-to-dark"
                           size="md"
                           type="submit"
-                          disabled={isUploading}
-                          className={isUploading ? 'opacity-80 cursor-not-allowed font-bold' : 'font-bold'}
+                          className="font-bold cursor-pointer"
                         >
-                          {isUploading ? (
-                            <span className="flex items-center gap-2">
-                              <Loader2 size={16} className="animate-spin" />
-                              <span>Uploading & Opening WhatsApp...</span>
-                            </span>
-                          ) : (
-                            <span>Submit</span>
-                          )}
+                          <div className="flex items-center gap-2">
+                            <FaWhatsapp size={16} />
+                            <span>Submit via WhatsApp</span>
+                          </div>
                         </Button>
                         <Button
                           variant="dark-to-gold"
