@@ -283,8 +283,8 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
                     />
                   </div>
 
-                  {/* Row 2: Phone / Mobile (left) | ESTIMATED QUANTITY (right) */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {/* Row 2: Phone / Mobile (Full Width) */}
+                  <div>
                     <PhoneField
                       label="Phone / Mobile"
                       required={true}
@@ -309,13 +309,16 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
                       touched={touched.mobile}
                       placeholder={selectedCountry.code === 'IN' ? 'Enter 10-digit mobile number' : 'Enter mobile number'}
                     />
+                  </div>
 
+                  {/* Row 3: ESTIMATED QUANTITY (left) & PURPOSE OF REQUIREMENT (right) in 1 Row */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-start">
                     {/* ESTIMATED QUANTITY & UNIT */}
                     <div>
                       <label className="block text-[11px] sm:text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
                         Estimated Quantity <span className="text-amber-400 font-bold">*</span>
                       </label>
-                      <div className={`flex rounded-xl border overflow-hidden focus-within:ring-2 focus-within:ring-amber-500/20 bg-[#162238] transition-all shadow-2xs ${
+                      <div className={`flex rounded-xl border overflow-hidden focus-within:ring-2 focus-within:ring-amber-500/20 bg-[#162238] transition-all shadow-2xs h-[42px] ${
                         touched.quantity && errors.quantity
                           ? 'border-red-500 ring-2 ring-red-500/30'
                           : 'border-slate-700/80 focus-within:border-amber-500 hover:border-slate-600'
@@ -350,61 +353,61 @@ const QuickQuoteModal = ({ isOpen, onClose, product }) => {
                         </p>
                       )}
                     </div>
-                  </div>
 
-                  {/* Row 3: PURPOSE OF REQUIREMENT (Tactile Choice Cards) */}
-                  <div>
-                    <label className="block text-[11px] sm:text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-                      Purpose of Requirement <span className="text-amber-400 font-bold">*</span>
-                    </label>
-                    <div className="grid grid-cols-2 gap-2.5">
-                      <label 
-                        className={`flex items-center justify-between p-2.5 rounded-xl border text-xs font-bold cursor-pointer transition-all ${
-                          formData.purpose === 'Reselling' 
-                            ? 'bg-amber-500/15 border-amber-500 text-amber-300 ring-2 ring-amber-500/20 shadow-xs' 
-                            : 'bg-[#162238] border-slate-700/80 text-slate-300 hover:border-slate-600'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="radio"
-                            name="purpose"
-                            value="Reselling"
-                            checked={formData.purpose === 'Reselling'}
-                            onChange={handleChange}
-                            className="sr-only"
-                          />
-                          <Building2 size={15} className={formData.purpose === 'Reselling' ? 'text-amber-400' : 'text-slate-400'} />
-                          <span>Reselling</span>
-                        </div>
-                        <span className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${formData.purpose === 'Reselling' ? 'border-amber-500 bg-amber-500' : 'border-slate-600'}`}>
-                          {formData.purpose === 'Reselling' && <span className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
-                        </span>
+                    {/* PURPOSE OF REQUIREMENT (Tactile Choice Cards) */}
+                    <div>
+                      <label className="block text-[11px] sm:text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                        Purpose of Requirement <span className="text-amber-400 font-bold">*</span>
                       </label>
+                      <div className="grid grid-cols-2 gap-2 h-[42px]">
+                        <label 
+                          className={`flex items-center justify-between px-2.5 py-1.5 rounded-xl border text-xs font-bold cursor-pointer transition-all h-full ${
+                            formData.purpose === 'Reselling' 
+                              ? 'bg-amber-500/15 border-amber-500 text-amber-300 ring-2 ring-amber-500/20 shadow-xs' 
+                              : 'bg-[#162238] border-slate-700/80 text-slate-300 hover:border-slate-600'
+                          }`}
+                        >
+                          <div className="flex items-center gap-1.5 min-w-0">
+                            <input
+                              type="radio"
+                              name="purpose"
+                              value="Reselling"
+                              checked={formData.purpose === 'Reselling'}
+                              onChange={handleChange}
+                              className="sr-only"
+                            />
+                            <Building2 size={14} className={`shrink-0 ${formData.purpose === 'Reselling' ? 'text-amber-400' : 'text-slate-400'}`} />
+                            <span className="truncate">Reselling</span>
+                          </div>
+                          <span className={`w-3.5 h-3.5 rounded-full border shrink-0 flex items-center justify-center ${formData.purpose === 'Reselling' ? 'border-amber-500 bg-amber-500' : 'border-slate-600'}`}>
+                            {formData.purpose === 'Reselling' && <span className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
+                          </span>
+                        </label>
 
-                      <label 
-                        className={`flex items-center justify-between p-2.5 rounded-xl border text-xs font-bold cursor-pointer transition-all ${
-                          formData.purpose === 'End Use' 
-                            ? 'bg-amber-500/15 border-amber-500 text-amber-300 ring-2 ring-amber-500/20 shadow-xs' 
-                            : 'bg-[#162238] border-slate-700/80 text-slate-300 hover:border-slate-600'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="radio"
-                            name="purpose"
-                            value="End Use"
-                            checked={formData.purpose === 'End Use'}
-                            onChange={handleChange}
-                            className="sr-only"
-                          />
-                          <Factory size={15} className={formData.purpose === 'End Use' ? 'text-amber-400' : 'text-slate-400'} />
-                          <span>End Use</span>
-                        </div>
-                        <span className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${formData.purpose === 'End Use' ? 'border-amber-500 bg-amber-500' : 'border-slate-600'}`}>
-                          {formData.purpose === 'End Use' && <span className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
-                        </span>
-                      </label>
+                        <label 
+                          className={`flex items-center justify-between px-2.5 py-1.5 rounded-xl border text-xs font-bold cursor-pointer transition-all h-full ${
+                            formData.purpose === 'End Use' 
+                              ? 'bg-amber-500/15 border-amber-500 text-amber-300 ring-2 ring-amber-500/20 shadow-xs' 
+                              : 'bg-[#162238] border-slate-700/80 text-slate-300 hover:border-slate-600'
+                          }`}
+                        >
+                          <div className="flex items-center gap-1.5 min-w-0">
+                            <input
+                              type="radio"
+                              name="purpose"
+                              value="End Use"
+                              checked={formData.purpose === 'End Use'}
+                              onChange={handleChange}
+                              className="sr-only"
+                            />
+                            <Factory size={14} className={`shrink-0 ${formData.purpose === 'End Use' ? 'text-amber-400' : 'text-slate-400'}`} />
+                            <span className="truncate">End Use</span>
+                          </div>
+                          <span className={`w-3.5 h-3.5 rounded-full border shrink-0 flex items-center justify-center ${formData.purpose === 'End Use' ? 'border-amber-500 bg-amber-500' : 'border-slate-600'}`}>
+                            {formData.purpose === 'End Use' && <span className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
+                          </span>
+                        </label>
+                      </div>
                     </div>
                   </div>
 

@@ -646,7 +646,8 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
                   />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Phone / Mobile (Full Width) */}
+                <div>
                   <PhoneField
                     label="Phone / Mobile"
                     required={true}
@@ -671,14 +672,16 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
                     touched={inlineTouched.mobile}
                     placeholder={selectedCountry.code === 'IN' ? 'Enter 10-digit mobile number' : `Enter phone number`}
                   />
+                </div>
 
-
+                {/* ESTIMATED QUANTITY (left) & PURPOSE OF REQUIREMENT (right) in 1 Row */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
                   {/* ESTIMATED QUANTITY & UNIT */}
                   <div>
                     <label className="block text-[11px] sm:text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
                       Estimated Quantity <span className="text-amber-400 font-bold">*</span>
                     </label>
-                    <div className={`flex rounded-xl border overflow-hidden focus-within:ring-3 focus-within:ring-amber-500/15 bg-[#162238] transition-all shadow-2xs ${
+                    <div className={`flex rounded-xl border overflow-hidden focus-within:ring-3 focus-within:ring-amber-500/15 bg-[#162238] transition-all shadow-2xs h-[46px] ${
                       inlineTouched.quantity && inlineErrors.quantity
                         ? 'border-red-500 ring-2 ring-red-500/30'
                         : 'border-slate-700/80 focus-within:border-amber-500 hover:border-slate-600'
@@ -714,61 +717,60 @@ const ProductDetailPage = ({ slug: propSlug, productData: propProductData }) => 
                     )}
                   </div>
 
-                </div>
-
-                {/* PURPOSE OF REQUIREMENT (Tactile Cards) */}
-                <div>
-                  <label className="block text-[11px] sm:text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-                    Purpose of Requirement <span className="text-amber-400 font-bold">*</span>
-                  </label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <label 
-                      className={`flex items-center justify-between p-3 rounded-xl border text-xs sm:text-sm font-bold cursor-pointer transition-all ${
-                        inlineFormState.purpose === 'Reselling' 
-                          ? 'bg-amber-500/15 border-amber-500 text-amber-300 ring-2 ring-amber-500/20 shadow-xs' 
-                          : 'bg-[#162238] border-slate-700/80 text-slate-300 hover:border-slate-600'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        <input
-                          type="radio"
-                          name="purpose"
-                          value="Reselling"
-                          checked={inlineFormState.purpose === 'Reselling'}
-                          onChange={handleInlineFormChange}
-                          className="sr-only"
-                        />
-                        <Building2 size={16} className={inlineFormState.purpose === 'Reselling' ? 'text-amber-400' : 'text-slate-400'} />
-                        <span>Reselling</span>
-                      </div>
-                      <span className={`w-4 h-4 rounded-full border flex items-center justify-center ${inlineFormState.purpose === 'Reselling' ? 'border-amber-500 bg-amber-500' : 'border-slate-600'}`}>
-                        {inlineFormState.purpose === 'Reselling' && <span className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
-                      </span>
+                  {/* PURPOSE OF REQUIREMENT (Tactile Cards) */}
+                  <div>
+                    <label className="block text-[11px] sm:text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                      Purpose of Requirement <span className="text-amber-400 font-bold">*</span>
                     </label>
+                    <div className="grid grid-cols-2 gap-2.5 h-[46px]">
+                      <label 
+                        className={`flex items-center justify-between px-3 py-2 rounded-xl border text-xs sm:text-sm font-bold cursor-pointer transition-all h-full ${
+                          inlineFormState.purpose === 'Reselling' 
+                            ? 'bg-amber-500/15 border-amber-500 text-amber-300 ring-2 ring-amber-500/20 shadow-xs' 
+                            : 'bg-[#162238] border-slate-700/80 text-slate-300 hover:border-slate-600'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2 min-w-0">
+                          <input
+                            type="radio"
+                            name="purpose"
+                            value="Reselling"
+                            checked={inlineFormState.purpose === 'Reselling'}
+                            onChange={handleInlineFormChange}
+                            className="sr-only"
+                          />
+                          <Building2 size={16} className={`shrink-0 ${inlineFormState.purpose === 'Reselling' ? 'text-amber-400' : 'text-slate-400'}`} />
+                          <span className="truncate">Reselling</span>
+                        </div>
+                        <span className={`w-4 h-4 rounded-full border shrink-0 flex items-center justify-center ${inlineFormState.purpose === 'Reselling' ? 'border-amber-500 bg-amber-500' : 'border-slate-600'}`}>
+                          {inlineFormState.purpose === 'Reselling' && <span className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
+                        </span>
+                      </label>
 
-                    <label 
-                      className={`flex items-center justify-between p-3 rounded-xl border text-xs sm:text-sm font-bold cursor-pointer transition-all ${
-                        inlineFormState.purpose === 'End Use' 
-                          ? 'bg-amber-500/15 border-amber-500 text-amber-300 ring-2 ring-amber-500/20 shadow-xs' 
-                          : 'bg-[#162238] border-slate-700/80 text-slate-300 hover:border-slate-600'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        <input
-                          type="radio"
-                          name="purpose"
-                          value="End Use"
-                          checked={inlineFormState.purpose === 'End Use'}
-                          onChange={handleInlineFormChange}
-                          className="sr-only"
-                        />
-                        <Factory size={16} className={inlineFormState.purpose === 'End Use' ? 'text-amber-400' : 'text-slate-400'} />
-                        <span>End Use</span>
-                      </div>
-                      <span className={`w-4 h-4 rounded-full border flex items-center justify-center ${inlineFormState.purpose === 'End Use' ? 'border-amber-500 bg-amber-500' : 'border-slate-600'}`}>
-                        {inlineFormState.purpose === 'End Use' && <span className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
-                      </span>
-                    </label>
+                      <label 
+                        className={`flex items-center justify-between px-3 py-2 rounded-xl border text-xs sm:text-sm font-bold cursor-pointer transition-all h-full ${
+                          inlineFormState.purpose === 'End Use' 
+                            ? 'bg-amber-500/15 border-amber-500 text-amber-300 ring-2 ring-amber-500/20 shadow-xs' 
+                            : 'bg-[#162238] border-slate-700/80 text-slate-300 hover:border-slate-600'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2 min-w-0">
+                          <input
+                            type="radio"
+                            name="purpose"
+                            value="End Use"
+                            checked={inlineFormState.purpose === 'End Use'}
+                            onChange={handleInlineFormChange}
+                            className="sr-only"
+                          />
+                          <Factory size={16} className={`shrink-0 ${inlineFormState.purpose === 'End Use' ? 'text-amber-400' : 'text-slate-400'}`} />
+                          <span className="truncate">End Use</span>
+                        </div>
+                        <span className={`w-4 h-4 rounded-full border shrink-0 flex items-center justify-center ${inlineFormState.purpose === 'End Use' ? 'border-amber-500 bg-amber-500' : 'border-slate-600'}`}>
+                          {inlineFormState.purpose === 'End Use' && <span className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
+                        </span>
+                      </label>
+                    </div>
                   </div>
                 </div>
 
