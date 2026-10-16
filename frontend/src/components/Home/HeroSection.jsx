@@ -118,7 +118,7 @@ const HeroSection = () => {
             <motion.img 
               key={imgSrc}
               src={imgSrc} 
-              alt={`Precast Concrete Compound and Boundary Wall by SK Precast Industries Slide ${idx + 1}`} 
+              alt={idx === 0 ? "Heavy-duty precast compound wall at an industrial site" : `Heavy-duty precast compound wall at an industrial site - View ${idx + 1}`} 
               className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
               initial={false}
               animate={{ 

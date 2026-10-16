@@ -4,16 +4,16 @@ import { allProductsData } from './productsData';
 // 1. HERO SECTION DATA
 // ----------------------------------------------------------------------------
 export const heroSectionData = {
-  badge: "India's Trusted Precast Concrete Manufacturer",
+  badge: "Precast Compound Wall Manufacturer in Delhi NCR",
   heading: {
-    line1: "Low Cost, High Strength",
-    line2: "Precast Walls —",
-    line3: "Get The Best Quality Today!"
+    line1: "Heavy-Duty Precast",
+    line2: "Compound Walls —",
+    line3: "For Industrial Projects"
   },
-  description: "High-strength, weather-resistant precast compound & boundary walls built for industrial, commercial, and residential boundaries. Our fast modular on-site installation saves up to 60% construction time and delivers certified ISO-grade high-tensile RCC durability with zero maintenance.",
+  description: "Explore precast compound and boundary wall solutions from SK Precast Industries for projects across Delhi NCR and Haryana. Engineered with machine-vibrated high-tensile RCC for maximum perimeter security and fast on-site installation.",
   whatsappButton: {
-    text: "Connect on WhatsApp",
-    link: "https://api.whatsapp.com/send?phone=918238902687&text=Hello%20SK%20Precast%20Industries,%20I%20am%20interested%20in%20Precast%20Concrete%20Boundary%20Wall%20%26%20RCC%20Folding%20Compound%20Wall%20solutions%20from%20your%20Palwal%20manufacturing%20plant.%20Please%20share%20factory%20price%20list%20and%20catalogue."
+    text: "Get a Precast Wall Quote",
+    link: "https://api.whatsapp.com/send?phone=918238902687&text=Hello%20SK%20Precast%20Industries,%20I%20want%20to%20get%20a%20quote%20for%20Heavy-Duty%20Precast%20Compound%20Walls%20for%20my%20project%20in%20Delhi%20NCR%20/%20Haryana.%20Please%20share%20pricing%20and%20catalogue."
   },
   bgImage: "/assets/images/hero-page-banner.jpeg",
   bgImages: [

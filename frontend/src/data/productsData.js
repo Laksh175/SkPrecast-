@@ -179,7 +179,7 @@ export const allProductsData = [
     galleryImages: [
       '/assets/images/compound-wall.jpeg'
     ],
-    description: 'We are a leading Industrial Compound Wall Exporter, providing high-quality, durable, and robust boundary wall solutions for industrial facilities worldwide. Our walls are designed to offer maximum strength, security, and long-lasting performance, ensuring reliable protection for factories, warehouses, and commercial complexes.',
+    description: 'We are a leading Industrial Compound Wall Manufacturer, providing high-quality, durable, and robust boundary wall solutions for industrial facilities and factories across Delhi NCR and India. Our walls offer maximum strength, security, and long-lasting perimeter protection.',
     price: '₹ 80.00 - 250.00 / Square Feet',
     moq: '1000 Square Feet',
     unit: 'Square Feet',
@@ -195,7 +195,7 @@ export const allProductsData = [
       { label: 'Appearance', value: 'Contemporary' },
       { label: 'Country of Origin', value: 'India' }
     ],
-    commercialPitch: 'We are a leading Industrial Compound Wall Exporter, providing high-quality, durable, and robust boundary wall solutions for industrial facilities worldwide. Our walls are designed to offer maximum strength, security, and long-lasting performance, ensuring reliable protection for factories, warehouses, and commercial complexes. Manufactured using premium-grade materials and advanced precast techniques, our industrial compound walls are quick to install, low-maintenance, and built to withstand harsh environmental conditions. As a trusted Industrial Compound Wall Exporter, we prioritize quality, precision, and timely delivery, making our solutions the preferred choice for clients seeking strong, cost-effective, and visually appealing compound walls for industrial applications.',
+    commercialPitch: 'We are a leading Industrial Compound Wall Manufacturer and Supplier, providing high-quality, durable, and robust boundary wall solutions for industrial facilities across Delhi NCR and India. Our walls are designed to offer maximum strength, security, and long-lasting performance, ensuring reliable protection for factories, warehouses, and commercial complexes. Manufactured using premium-grade materials and advanced precast techniques, our industrial compound walls are quick to install, low-maintenance, and built to withstand harsh environmental conditions.',
     specs: {
       businessType: 'Manufacturer, Supplier',
       material: 'Cement',
@@ -372,7 +372,7 @@ export const allProductsData = [
     id: 'precast-heavy-duty-compound-wall',
     category: 'compound-wall',
     categoryName: 'Compound Wall',
-    name: 'Precast Heavy Duty Compound Wall',
+    name: 'Heavy-Duty Precast Compound Wall',
     slug: 'precast-heavy-duty-compound-wall',
     image: '/assets/images/form-image.jpeg',
     galleryImages: [
@@ -453,7 +453,7 @@ export const allProductsData = [
     name: 'RCC Compound Wall',
     slug: 'rcc-compound-wall',
     image: '/assets/images/rcc-compound-wall.jpg',
-    description: 'High-strength RCC compound walls with smooth polished finish, manufactured using reinforced concrete for superior perimeter fencing and construction boundaries.',
+    description: 'High-strength RCC Precast Compound Wall with smooth polished finish, manufactured using reinforced concrete for superior perimeter fencing and construction boundaries.',
     price: '₹ 80.00 - 250.00 / Square Feet',
     moq: '1000 Square Feet',
     unit: 'Square Feet',
@@ -471,7 +471,7 @@ export const allProductsData = [
       { label: 'Number Of Flower', value: 'Precast' },
       { label: 'Appearance', value: 'Contemporary' }
     ],
-    commercialPitch: 'We are a leading Manufacturer of RCC Compound Walls based in Palwal, Haryana. Precision-engineered with high-strength reinforced cement concrete, polished surface finish, and contemporary aesthetics, our RCC compound walls provide superior perimeter security and rapid installation for residential, commercial, and construction plots.',
+    commercialPitch: 'We are a leading Manufacturer of RCC Precast Compound Walls based in Palwal, Haryana. Precision-engineered with high-strength reinforced cement concrete, polished surface finish, and contemporary aesthetics, our RCC precast compound walls provide superior perimeter security and rapid installation for residential, commercial, and construction plots across Delhi NCR & India.',
     specs: {
       businessType: 'Manufacturer',
       material: 'Rcc',
@@ -823,7 +823,7 @@ export const allProductsData = [
       { label: 'Length of the Column', value: "Depends On the Customer's Requirement" },
       { label: 'Benefits', value: 'Cost Effective, Save Time, Reusable, Supreme Strength' }
     ],
-    commercialPitch: `We are a trusted Precast Boundary Wall Manufacturer specializing in high-quality, durable, and aesthetically appealing boundary wall solutions for residential, commercial, and industrial projects. With years of experience in the construction industry, we have established ourselves as a reliable Precast Boundary Wall Supplier, catering to clients who demand strong, long-lasting, and low-maintenance boundary solutions.
+    commercialPitch: `We are a leading Precast Boundary Wall Manufacturer in Delhi NCR specializing in high-quality, durable, and aesthetically appealing boundary wall solutions for residential, commercial, and industrial projects. Sourced directly from our state-of-the-art Palwal casting yard, we have established ourselves as a reliable Precast Boundary Wall Supplier across Delhi NCR & Haryana, catering to clients who demand strong, long-lasting, and low-maintenance boundary solutions.
 
 Our range includes innovative Single Piece Precast Boundary Walls, designed for easy installation and enhanced structural integrity. These walls are engineered to withstand harsh weather conditions, heavy loads, and external pressures, providing superior security and durability. The single-piece design minimizes on-site assembly time, reduces labor costs, and ensures a seamless, uniform appearance for every project.
 
@@ -958,7 +958,7 @@ We understand the importance of combining functionality with design, which is wh
       { label: 'Length of the Column', value: "Depends On the Customer's Requirement" },
       { label: 'Benefits', value: 'Cost Effective, Save Time, Reusable, Supreme Strength' }
     ],
-    commercialPitch: 'We are a premier Manufacturer and Supplier of specialized Solar Plant Boundary Walls engineered for large-scale solar power plants, open fields, and industrial enclosures. Built from durable cement concrete panels (300mm x 2100mm) with anti-theft and anti-climb reinforcement, our solar plant boundary walls ensure maximum security, rapid perimeter fencing, and zero recurring maintenance.',
+    commercialPitch: 'We are a premier Solar Plant Boundary Wall Manufacturer & Supplier engineered for large-scale solar power plants, open fields, and industrial enclosures. Built from durable cement concrete panels (300mm x 2100mm) with anti-theft and anti-climb reinforcement, our solar plant boundary walls ensure maximum security, rapid perimeter fencing, and zero recurring maintenance across Delhi NCR & India.',
     specs: {
       businessType: 'Manufacturer, Supplier',
       material: 'Cement, Concrete',
@@ -1270,7 +1270,7 @@ We understand the importance of combining functionality with design, which is wh
       { label: 'Fire Rating', value: '2 Hours' },
       { label: 'Installation Method', value: 'Crane Lift' }
     ],
-    commercialPitch: 'SK Precast Industries is a prominent Manufacturer and Supplier of heavy-duty Precast Wall Panels in Palwal. Engineered with reinforced concrete, 2-hour fire rating, and smooth/textured finishes, our precast panels offer superior acoustic insulation, structural stability, and crane-lift installation efficiency for industrial buildings and sound barriers.',
+    commercialPitch: 'SK Precast Industries is a prominent Manufacturer and Supplier of heavy-duty Precast Wall Panels and RCC Columns based in Palwal & Delhi NCR. Engineered with reinforced concrete, 2-hour fire rating, and smooth/textured finishes, our precast panels offer superior acoustic insulation, structural stability, and crane-lift installation efficiency for industrial buildings and sound barriers.',
     specs: {
       businessType: 'Manufacturer, Supplier',
       material: 'Reinforced Concrete',
