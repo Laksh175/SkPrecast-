@@ -195,6 +195,38 @@ const SitemapPage = () => {
 
           </div>
 
+          {/* REGIONAL SERVICE AREAS & SEO SEARCH INDEX */}
+          <div className="mt-12 pt-10 border-t border-slate-800/90 text-left">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-4 flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_8px_#f59e0b]" />
+              Popular Searches & Regional Service Areas
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {[
+                { name: 'Precast Compound Wall Manufacturer in Delhi NCR', path: '/' },
+                { name: 'Precast Boundary Wall Manufacturer in Delhi NCR', path: '/precast-boundary-wall' },
+                { name: 'Heavy Duty Precast Compound Wall', path: '/precast-heavy-duty-compound-wall' },
+                { name: 'Readymade Compound Wall Manufacturer', path: '/readymade-compound-wall' },
+                { name: 'RCC Precast Compound Wall', path: '/rcc-compound-wall' },
+                { name: 'Precast Wall Manufacturer in Haryana', path: '/wall-manufacturing-unit.htm' },
+                { name: 'Precast Compound Wall Manufacturer in Palwal', path: '/contact-us.htm' },
+                { name: 'Industrial Compound Wall Manufacturer', path: '/industrial-compound-wall' },
+                { name: 'Solar Plant Boundary Wall Manufacturer', path: '/solar-plant-boundary-wall' },
+                { name: 'Precast Wall Panels and RCC Columns', path: '/precast-wall-panels' }
+              ].map((item, idx) => (
+                <a
+                  key={idx}
+                  href={item.path}
+                  onClick={(e) => navigateTo(item.path, e)}
+                  className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-amber-400/50 hover:bg-slate-800/80 transition-all text-slate-300 hover:text-amber-300 flex items-center justify-between group"
+                >
+                  <span className="font-medium text-xs sm:text-sm">{item.name}</span>
+                  <ChevronRight size={14} className="text-slate-500 group-hover:text-amber-400 group-hover:translate-x-1 transition-transform shrink-0" />
+                </a>
+              ))}
+            </div>
+          </div>
+
         </div>
       </section>
 

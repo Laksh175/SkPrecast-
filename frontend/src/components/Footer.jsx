@@ -723,61 +723,6 @@ const Footer = () => {
         </div>
 
         {/* ========================================================================= */}
-        {/* POPULAR SEARCHES & SERVICE AREAS (Target SEO Keywords) */}
-        {/* ========================================================================= */}
-        <div className="mt-5 pt-4 border-t border-slate-800/80">
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_6px_#f59e0b]" />
-              <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-amber-300/90">
-                Popular Searches & Regional Service Areas:
-              </span>
-            </div>
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[11px] sm:text-xs text-slate-400 leading-relaxed">
-              <a href="/" onClick={(e) => navigateTo('/', e)} className="hover:text-amber-300 hover:underline transition-colors">
-                Precast Compound Wall Manufacturer in Delhi NCR
-              </a>
-              <span className="text-slate-600">|</span>
-              <a href="/precast-boundary-wall" onClick={(e) => navigateTo('/precast-boundary-wall', e)} className="hover:text-amber-300 hover:underline transition-colors">
-                Precast Boundary Wall Manufacturer in Delhi NCR
-              </a>
-              <span className="text-slate-600">|</span>
-              <a href="/precast-heavy-duty-compound-wall" onClick={(e) => navigateTo('/precast-heavy-duty-compound-wall', e)} className="hover:text-amber-300 hover:underline transition-colors">
-                Heavy Duty Precast Compound Wall
-              </a>
-              <span className="text-slate-600">|</span>
-              <a href="/readymade-compound-wall" onClick={(e) => navigateTo('/readymade-compound-wall', e)} className="hover:text-amber-300 hover:underline transition-colors">
-                Readymade Compound Wall Manufacturer
-              </a>
-              <span className="text-slate-600">|</span>
-              <a href="/rcc-compound-wall" onClick={(e) => navigateTo('/rcc-compound-wall', e)} className="hover:text-amber-300 hover:underline transition-colors">
-                RCC Precast Compound Wall
-              </a>
-              <span className="text-slate-600">|</span>
-              <a href="/wall-manufacturing-unit.htm" onClick={(e) => navigateTo('/wall-manufacturing-unit.htm', e)} className="hover:text-amber-300 hover:underline transition-colors">
-                Precast Wall Manufacturer in Haryana
-              </a>
-              <span className="text-slate-600">|</span>
-              <a href="/contact-us" onClick={(e) => navigateTo('/contact-us', e)} className="hover:text-amber-300 hover:underline transition-colors">
-                Precast Compound Wall Manufacturer in Palwal
-              </a>
-              <span className="text-slate-600">|</span>
-              <a href="/industrial-compound-wall" onClick={(e) => navigateTo('/industrial-compound-wall', e)} className="hover:text-amber-300 hover:underline transition-colors">
-                Industrial Compound Wall Manufacturer
-              </a>
-              <span className="text-slate-600">|</span>
-              <a href="/solar-plant-boundary-wall" onClick={(e) => navigateTo('/solar-plant-boundary-wall', e)} className="hover:text-amber-300 hover:underline transition-colors">
-                Solar Plant Boundary Wall Manufacturer
-              </a>
-              <span className="text-slate-600">|</span>
-              <a href="/precast-wall-panels" onClick={(e) => navigateTo('/precast-wall-panels', e)} className="hover:text-amber-300 hover:underline transition-colors">
-                Precast Wall Panels and RCC Columns
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* ========================================================================= */}
         {/* 3. COPYRIGHT & MEMBER BADGE (All screen sizes) */}
         {/* ========================================================================= */}
         <div className="mt-4 sm:mt-5 pt-3.5 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left pb-1">
