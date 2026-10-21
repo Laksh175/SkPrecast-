@@ -66,7 +66,7 @@ export const productRangeData = [
   {
     id: 'compound-wall',
     title: 'Compound Wall',
-    image: '/assets/images/product-range-1.jpeg',
+    image: '/assets/images/wall-01.jpeg',
     items: [
       'Concrete Folding Compound Wall',
       'Concrete Precast Single Panel Wall',
