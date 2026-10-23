@@ -118,9 +118,9 @@ const AboutSection = () => {
                         <span className="text-[14px] sm:text-base font-bold uppercase tracking-wider text-slate-400 block leading-snug">
                           {stat.label}
                         </span>
-                        <h4 className="text-[14px] sm:text-base font-bold text-slate-100 group-hover:text-amber-300 transition-colors leading-snug">
+                        <h3 className="text-[14px] sm:text-base font-bold text-slate-100 group-hover:text-amber-300 transition-colors leading-snug">
                           {stat.title}
-                        </h4>
+                        </h3>
                       </div>
                     </div>
                     <div className="pt-2 border-t border-slate-800 text-left">

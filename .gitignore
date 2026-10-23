@@ -19,8 +19,6 @@ frontend/dist-ssr/
 
 # Local env files
 *.local
-.env
-.env.local
 .env.*.local
 
 # Logs
@@ -32,10 +30,10 @@ yarn-error.log*
 pnpm-debug.log*
 
 # Editor & IDE configs
-.vscode/
 .idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+config.bat

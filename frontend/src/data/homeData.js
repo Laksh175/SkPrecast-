@@ -15,9 +15,9 @@ export const heroSectionData = {
     text: "Get a Precast Wall Quote",
     link: "https://api.whatsapp.com/send?phone=918238902687&text=Hello%20SK%20Precast%20Industries,%20I%20want%20to%20get%20a%20quote%20for%20Heavy-Duty%20Precast%20Compound%20Walls%20for%20my%20project%20in%20Delhi%20NCR%20/%20Haryana.%20Please%20share%20pricing%20and%20catalogue."
   },
-  bgImage: "/assets/images/hero-page-banner.jpeg",
+  bgImage: "/assets/images/hero-page-banner.webp",
   bgImages: [
-    "/assets/images/hero-page-banner.jpeg",
+    "/assets/images/hero-page-banner.webp",
     "/assets/images/hero-section-image2.jpeg",
     "/assets/images/hero-banner-image3.jpeg",
     "/assets/images/home-banner-image4.jpeg"

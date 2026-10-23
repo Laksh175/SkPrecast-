@@ -3,7 +3,7 @@ import { FaWhatsapp, FaPhone, FaEnvelope, FaLocationDot, FaRss, FaChevronUp, FaC
 import { GB, FR, DE, IN } from 'country-flag-icons/react/3x2';
 import { navigateTo } from '../utils/navigation';
 import { allLanguages } from '../data/navigationData';
-import { SearchableSelect } from '../common';
+import SearchableSelect from '../common/SearchableSelect';
 
 const Footer = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -46,7 +46,10 @@ const Footer = () => {
       document.cookie = `googtrans=/en/${langCode}; domain=.${host}; path=/;`;
     }
 
-    // 2. Trigger Google Translate dropdown change
+    // 2. Ensure Google Translate script is loaded & trigger dropdown change
+    if (window.loadGoogleTranslate) {
+      window.loadGoogleTranslate();
+    }
     const combo = document.querySelector('.goog-te-combo');
     if (combo) {
       combo.value = langCode;
@@ -162,10 +165,10 @@ const Footer = () => {
 
           {/* Col 2: General Links */}
           <div className="w-full flex flex-col pl-4 xl:pl-8">
-            <h4 className="text-[0.95rem] font-bold text-white mb-4 tracking-wide relative inline-flex items-center">
+            <h3 className="text-[0.95rem] font-bold text-white mb-4 tracking-wide relative inline-flex items-center">
               <span>General Links</span>
               <span className="ml-2 w-8 h-[2px] bg-gradient-to-r from-amber-400 to-transparent rounded-full" />
-            </h4>
+            </h3>
 
             <div className="grid grid-cols-2 gap-6 xl:gap-8">
               {/* Sub-column 1 */}
@@ -272,10 +275,10 @@ const Footer = () => {
 
           {/* Col 3: Products */}
           <div className="w-full flex flex-col">
-            <h4 className="text-[0.95rem] font-bold text-white mb-4 tracking-wide relative inline-flex items-center">
+            <h3 className="text-[0.95rem] font-bold text-white mb-4 tracking-wide relative inline-flex items-center">
               <span>Products</span>
               <span className="ml-2 w-8 h-[2px] bg-gradient-to-r from-amber-400 to-transparent rounded-full" />
-            </h4>
+            </h3>
 
             <ul className="list-none flex flex-col gap-2.5">
               <li>
@@ -323,10 +326,10 @@ const Footer = () => {
 
           {/* Col 4: Select Language */}
           <div className="w-full flex flex-col items-start text-left">
-            <h4 className="text-[0.95rem] font-bold text-white mb-4 tracking-wide relative inline-flex items-center">
+            <h3 className="text-[0.95rem] font-bold text-white mb-4 tracking-wide relative inline-flex items-center">
               <span>Select Language</span>
               <span className="ml-2 w-8 h-[2px] bg-gradient-to-r from-amber-400 to-transparent rounded-full" />
-            </h4>
+            </h3>
             
             {/* Flags and Dropdown side by side */}
             <div className="flex items-center justify-start gap-2 sm:gap-2.5 flex-nowrap relative">
@@ -424,6 +427,8 @@ const Footer = () => {
               <img 
                 src="/assets/images/sk-logo.png" 
                 alt="SK Precast Industries" 
+                width="329"
+                height="79"
                 className="h-14 sm:h-16 w-auto object-contain block drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)] mx-auto"
               />
             </a>
@@ -442,10 +447,10 @@ const Footer = () => {
                 onClick={() => setIsGeneralLinksOpen(!isGeneralLinksOpen)}
                 className="w-full flex items-center justify-between text-left cursor-pointer py-1 group select-none"
               >
-                <h4 className="text-[0.925rem] sm:text-[0.95rem] font-bold text-white tracking-wide relative inline-flex items-center">
+                <span className="text-[0.925rem] sm:text-[0.95rem] font-bold text-white tracking-wide relative inline-flex items-center">
                   <span>General Links</span>
                   <span className="ml-2 w-8 h-[2px] bg-gradient-to-r from-amber-400 to-transparent rounded-full" />
-                </h4>
+                </span>
                 <span className="text-amber-400 p-1 group-hover:scale-110 transition-transform">
                   <FaChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isGeneralLinksOpen ? 'rotate-180' : ''}`} />
                 </span>
@@ -563,10 +568,10 @@ const Footer = () => {
                 onClick={() => setIsProductsOpen(!isProductsOpen)}
                 className="w-full flex items-center justify-between text-left cursor-pointer py-1 group select-none"
               >
-                <h4 className="text-[0.925rem] sm:text-[0.95rem] font-bold text-white tracking-wide relative inline-flex items-center">
+                <span className="text-[0.925rem] sm:text-[0.95rem] font-bold text-white tracking-wide relative inline-flex items-center">
                   <span>Products</span>
                   <span className="ml-2 w-8 h-[2px] bg-gradient-to-r from-amber-400 to-transparent rounded-full" />
-                </h4>
+                </span>
                 <span className="text-amber-400 p-1 group-hover:scale-110 transition-transform">
                   <FaChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isProductsOpen ? 'rotate-180' : ''}`} />
                 </span>
@@ -624,9 +629,9 @@ const Footer = () => {
           <div className="mt-1 sm:mt-1.5 pt-1.5 sm:pt-2 flex flex-col items-center justify-center gap-3 sm:gap-3.5 w-full max-w-[1100px] mx-auto">
             {/* 1. Center: Select Language */}
             <div className="flex flex-row items-center justify-center gap-2.5 sm:gap-3.5 flex-wrap shrink-0">
-              <h4 className="text-[0.875rem] sm:text-[0.925rem] font-bold text-white tracking-wide relative inline-flex items-center gap-2 whitespace-nowrap">
+              <span className="text-[0.875rem] sm:text-[0.925rem] font-bold text-white tracking-wide relative inline-flex items-center gap-2 whitespace-nowrap">
                 <span>Select Language :</span>
-              </h4>
+              </span>
               
               {/* Flags and Dropdown side by side */}
               <div className="flex items-center gap-2 sm:gap-2.5 flex-nowrap relative">
@@ -753,6 +758,8 @@ const Footer = () => {
               <img 
                 src="/assets/images/footer-image-member.webp" 
                 alt="Member ExportersIndia" 
+                width="133"
+                height="44"
                 className="h-8 sm:h-9 w-auto object-contain rounded drop-shadow-md" 
               />
             </a>

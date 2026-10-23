@@ -1,9 +1,12 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
-import { Header, Footer } from './components';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import { getProductBySlug } from './data/productsData';
 import { getBlogPostBySlug } from './data/blogData';
-import { TopProgressBar, BrandPreloader, CustomCursor } from './common';
+import TopProgressBar from './common/TopProgressBar';
+import BrandPreloader from './common/BrandPreloader';
+import CustomCursor from './common/CustomCursor';
 
 // Route-based dynamic lazy loading for subpages (Reduces initial load to < 100KB for lightning speed)
 const About = lazy(() => import('./pages/About'));
