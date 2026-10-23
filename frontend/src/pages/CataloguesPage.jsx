@@ -13,6 +13,30 @@ const CataloguesPage = () => {
     document.title = 'Product Catalogues | SK Precast Industries Palwal';
   }, []);
 
+  // Lock background scrolling when PDF viewer modal is open
+  useEffect(() => {
+    if (activePdfModal) {
+      const prevBodyOverflow = document.body.style.overflow;
+      const prevHtmlOverflow = document.documentElement.style.overflow;
+
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+
+      const handleKeyDown = (e) => {
+        if (e.key === 'Escape') {
+          setActivePdfModal(null);
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+
+      return () => {
+        document.body.style.overflow = prevBodyOverflow;
+        document.documentElement.style.overflow = prevHtmlOverflow;
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [activePdfModal]);
+
   return (
     <div className="w-full min-h-[70vh] bg-[#090e1a] font-sans overflow-hidden">
       
@@ -189,14 +213,14 @@ const CataloguesPage = () => {
       {/* Interactive In-Website PDF Viewer Modal */}
       <AnimatePresence>
         {activePdfModal && (
-          <div className="fixed inset-0 z-[999] flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+          <div className="fixed inset-0 z-[999] flex items-center justify-center p-3 sm:p-6 overflow-hidden overscroll-none">
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setActivePdfModal(null)}
-              className="fixed inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity cursor-pointer"
+              className="fixed inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity cursor-pointer touch-none"
             />
 
             {/* Modal Box */}
