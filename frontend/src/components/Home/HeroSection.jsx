@@ -1,80 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
 import { heroSectionData } from '../../data/homeData';
-
-// Helper component for Letter-by-Letter Multi-Directional Entrance Animation
-const AnimatedLetters = ({ text, baseDelay = 0, isGradient = false }) => {
-  // Diverse scattered coordinates & rotations for each letter
-  const vectors = [
-    { x: -75, y: -55, rotate: -22 },
-    { x: 65, y: -65, rotate: 20 },
-    { x: -85, y: 50, rotate: -18 },
-    { x: 80, y: 60, rotate: 24 },
-    { x: -50, y: -75, rotate: -20 },
-    { x: 90, y: -45, rotate: 22 },
-    { x: -70, y: 70, rotate: -25 },
-    { x: 55, y: -60, rotate: 18 },
-    { x: -80, y: -50, rotate: -20 },
-    { x: 70, y: 75, rotate: 26 },
-    { x: -45, y: 55, rotate: -16 },
-    { x: 85, y: -70, rotate: 22 }
-  ];
-
-  const words = text.split(' ');
-  let charCounter = 0;
-
-  return (
-    <span className="inline-flex flex-wrap justify-center items-center gap-x-[0.28em]">
-      {words.map((word, wIdx) => {
-        const chars = Array.from(word);
-        return (
-          <span key={wIdx} className="inline-block whitespace-nowrap">
-            {chars.map((char, cIdx) => {
-              const i = charCounter++;
-              const v = vectors[i % vectors.length];
-
-              return (
-                <motion.span
-                  key={cIdx}
-                  initial={{
-                    opacity: 0,
-                    x: v.x,
-                    y: v.y,
-                    rotate: v.rotate,
-                    scale: 0.4,
-                    filter: 'blur(10px)'
-                  }}
-                  animate={{
-                    opacity: 1,
-                    x: 0,
-                    y: 0,
-                    rotate: 0,
-                    scale: 1,
-                    filter: 'blur(0px)'
-                  }}
-                  transition={{
-                    duration: 0.75,
-                    delay: baseDelay + i * 0.024,
-                    ease: [0.16, 1, 0.3, 1]
-                  }}
-                  className={`inline-block will-change-transform ${
-                    isGradient
-                      ? 'text-amber-400 drop-shadow-[0_2px_12px_rgba(245,158,11,0.6)]'
-                      : 'text-white'
-                  }`}
-                >
-                  {char}
-                </motion.span>
-              );
-            })}
-          </span>
-        );
-      })}
-    </span>
-  );
-};
 
 const HeroSection = () => {
   const { 
@@ -83,26 +10,36 @@ const HeroSection = () => {
     description, 
     whatsappButton, 
     bgImage, 
-    bgImages: customBgImages,
+    bgImages: customBgImages, 
     highlights 
   } = heroSectionData;
 
   const imagesList = customBgImages || [
-    bgImage || "/assets/images/hero-page-banner.jpeg",
+    bgImage || "/assets/images/hero-page-banner.webp",
     "/assets/images/hero-section-image2.jpeg",
     "/assets/images/hero-banner-image3.jpeg",
     "/assets/images/home-banner-image4.jpeg"
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [loadSecondaryImages, setLoadSecondaryImages] = useState(false);
 
   useEffect(() => {
-    if (imagesList.length <= 1) return;
-    const timer = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % imagesList.length);
-    }, 5000);
+    // Silently pre-cache secondary images after initial 2.5s so they are 100% ready in memory
+    const preloadTimer = setTimeout(() => {
+      setLoadSecondaryImages(true);
+    }, 2500);
 
-    return () => clearInterval(timer);
+    if (imagesList.length <= 1) return () => clearTimeout(preloadTimer);
+
+    const intervalTimer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % imagesList.length);
+    }, 6000);
+
+    return () => {
+      clearTimeout(preloadTimer);
+      clearInterval(intervalTimer);
+    };
   }, [imagesList.length]);
 
   return (
@@ -114,25 +51,23 @@ const HeroSection = () => {
       >
         {/* Background Layer: High Quality Image Slideshow + Architectural Lighting Design */}
         <div className="absolute inset-0 z-0 overflow-hidden bg-[#090e1a]">
-          {imagesList.map((imgSrc, idx) => (
-            <motion.img 
-              key={imgSrc}
-              src={imgSrc} 
-              alt={idx === 0 ? "Heavy-duty precast compound wall at an industrial site" : `Heavy-duty precast compound wall at an industrial site - View ${idx + 1}`} 
-              className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
-              initial={false}
-              animate={{ 
-                opacity: currentImageIndex === idx ? 1 : 0,
-                scale: currentImageIndex === idx ? 1.05 : 1
-              }}
-              transition={{ 
-                opacity: { duration: 1.4, ease: "easeInOut" },
-                scale: { duration: 6, ease: "easeOut" }
-              }}
-              loading={idx === 0 ? "eager" : "lazy"}
-              fetchPriority={idx === 0 ? "high" : "auto"}
-            />
-          ))}
+          {imagesList.map((imgSrc, idx) => {
+            if (idx > 0 && !loadSecondaryImages) return null;
+            const isActive = currentImageIndex === idx;
+            return (
+              <img 
+                key={imgSrc}
+                src={imgSrc} 
+                alt={idx === 0 ? "Heavy-duty precast compound wall at an industrial site" : `Heavy-duty precast compound wall at an industrial site - View ${idx + 1}`} 
+                className={`absolute inset-0 w-full h-full object-cover object-center pointer-events-none transition-all duration-1000 ease-in-out will-change-[opacity,transform] ${
+                  isActive ? 'opacity-100 scale-105 z-10' : 'opacity-0 scale-100 z-0'
+                }`}
+                loading={idx === 0 ? "eager" : "lazy"}
+                fetchPriority={idx === 0 ? "high" : "low"}
+                decoding="async"
+              />
+            );
+          })}
           
           {/* Dynamic Architectural Gradient Lighting */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#33353b]/70 via-[#33353b]/30 to-[#2a2e38] z-10 pointer-events-none" />
@@ -161,11 +96,8 @@ const HeroSection = () => {
         <div className="max-w-[1100px] w-full mx-auto px-4 sm:px-6 lg:px-8 relative z-20 flex flex-col items-center text-center">
           
           {/* Top Badge */}
-          <motion.div 
-            initial={{ opacity: 0, y: -15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
-            className="relative inline-flex items-center gap-2 px-3.5 sm:px-6 py-1.5 sm:py-[5px] rounded-[10px] sm:rounded-[12px] bg-[#111927]/90 backdrop-blur-md text-amber-300 shadow-[0_10px_30px_rgba(0,0,0,0.5)] border border-amber-400/50 mb-3 sm:mb-4 overflow-hidden group cursor-default max-w-[95%] sm:max-w-none"
+          <div 
+            className="relative inline-flex items-center gap-2 px-3.5 sm:px-6 py-1.5 sm:py-[5px] rounded-[10px] sm:rounded-[12px] bg-[#111927]/90 backdrop-blur-md text-amber-300 shadow-[0_10px_30px_rgba(0,0,0,0.5)] border border-amber-400/50 mb-3 sm:mb-4 overflow-hidden group cursor-default max-w-[95%] sm:max-w-none animate-hero-fade"
           >
             {/* Animated Light Beam Shimmer Sweep */}
             <div className="absolute inset-0 -top-1 -bottom-1 pointer-events-none overflow-hidden">
@@ -181,45 +113,47 @@ const HeroSection = () => {
             <span className="text-[12px] sm:text-[15px] sm:text-[16px] font-bold text-amber-200 tracking-tight relative z-10 leading-tight">
               {badge}
             </span>
-          </motion.div>
+          </div>
 
-          {/* SEO-Optimized Primary H1 Heading with Letter-by-Letter Multi-Directional Entrance */}
+          {/* SEO-Optimized Primary H1 Heading with Staggered Kinetic Masked Reveal */}
           <h1 
-            style={{ lineHeight: 1.12, letterSpacing: '-0.025em' }}
-            className="text-[28px] sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-[3.65rem] font-extrabold text-white leading-[1.12] tracking-tight mb-4 max-w-5xl xl:max-w-6xl drop-shadow-[0_3px_12px_rgba(0,0,0,0.85)] text-center flex flex-col gap-1 sm:gap-2 py-1"
+            style={{ lineHeight: 1.15, letterSpacing: '-0.025em' }}
+            className="text-[28px] sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-[3.65rem] font-extrabold text-white leading-[1.15] tracking-tight mb-4 max-w-5xl xl:max-w-6xl drop-shadow-[0_3px_12px_rgba(0,0,0,0.85)] text-center flex flex-col gap-1 sm:gap-2 py-1"
           >
-            {/* Line 1: Low Cost, High Strength (Starts at 0.75s after preloader) */}
-            <span className="block" style={{ lineHeight: 1.12 }}>
-              <AnimatedLetters text={heading.line1} baseDelay={0.75} />
+            {/* Line 1: Heavy-Duty Precast */}
+            <span className="hero-line-mask" style={{ lineHeight: 1.15 }}>
+              <span className="hero-text-anim-1 text-white">
+                {heading.line1}
+              </span>
             </span>
 
-            {/* Line 2: Precast Walls — (Golden Amber, Starts at 1.25s) */}
-            <span className="block" style={{ lineHeight: 1.12 }}>
-              <AnimatedLetters text={heading.line2} baseDelay={1.25} isGradient={true} />
+            {/* Line 2: Compound Walls — (Liquid Metallic Gold Shimmer) */}
+            <span className="hero-line-mask" style={{ lineHeight: 1.15 }}>
+              <span className="hero-text-anim-2">
+                <span className="hero-gold-gradient-text">
+                  {heading.line2}
+                </span>
+              </span>
             </span>
 
-            {/* Line 3: Get The Best Quality Today! (Starts at 1.75s) */}
-            <span className="block text-white/95" style={{ lineHeight: 1.12 }}>
-              <AnimatedLetters text={heading.line3} baseDelay={1.75} />
+            {/* Line 3: For Industrial Projects */}
+            <span className="hero-line-mask" style={{ lineHeight: 1.15 }}>
+              <span className="hero-text-anim-3 text-white/95">
+                {heading.line3}
+              </span>
             </span>
           </h1>
 
           {/* Clean Continuous Paragraph */}
-          <motion.p 
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, delay: 2.3, ease: 'easeOut' }}
-            className="text-slate-200 text-[15px] sm:text-base md:text-[16.5px] lg:text-[17.5px] xl:text-[18px] leading-relaxed md:leading-[1.65] mb-4 sm:mb-6 max-w-3xl font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] px-1 sm:px-0 text-center"
+          <p 
+            className="text-slate-200 text-[15px] sm:text-base md:text-[16.5px] lg:text-[17.5px] xl:text-[18px] leading-relaxed md:leading-[1.65] mb-4 sm:mb-6 max-w-3xl font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] px-1 sm:px-0 text-center animate-hero-fade-sub"
           >
             {description}
-          </motion.p>
+          </p>
 
           {/* Dual-Tone Pill WhatsApp CTA Button */}
-          <motion.div 
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, delay: 2.5, ease: 'easeOut' }}
-            className="flex justify-center w-full mb-6 sm:mb-8"
+          <div 
+            className="flex justify-center w-full mb-6 sm:mb-8 animate-hero-fade-btn"
           >
             <a 
               href={whatsappButton.link}
@@ -240,18 +174,15 @@ const HeroSection = () => {
                 <span>{whatsappButton.text}</span>
               </div>
             </a>
-          </motion.div>
+          </div>
 
         </div>
 
         {/* 4-Column Floating Stats Card */}
         <div className="absolute -bottom-14 sm:-bottom-12 md:-bottom-12 lg:-bottom-16 left-0 right-0 z-30 px-3.5 sm:px-6 pointer-events-auto">
           <div className="max-w-[1080px] mx-auto">
-            <motion.div 
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.35, ease: 'easeOut' }}
-              className="bg-[#111927] rounded-[15px] shadow-[0_20px_50px_rgba(0,0,0,0.7)] border border-slate-800 p-3.5 sm:p-5 md:p-6 lg:p-8"
+            <div 
+              className="bg-[#111927] rounded-[15px] shadow-[0_20px_50px_rgba(0,0,0,0.7)] border border-slate-800 p-3.5 sm:p-5 md:p-6 lg:p-8 animate-hero-fade"
             >
               <div className="grid grid-cols-2 md:grid-cols-4 items-center">
                 {highlights.map((item, index) => (
@@ -286,7 +217,7 @@ const HeroSection = () => {
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
 

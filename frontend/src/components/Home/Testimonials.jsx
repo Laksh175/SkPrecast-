@@ -76,9 +76,9 @@ const TestimonialCard = ({ item, onImageClick }) => {
           {/* Name & Role */}
           <div className="overflow-hidden text-left flex-1">
             <div className="flex items-center justify-between gap-1">
-              <h4 className="text-[14.5px] font-bold text-slate-100 group-hover:text-amber-300 transition-colors truncate">
+              <h3 className="text-[14.5px] font-bold text-slate-100 group-hover:text-amber-300 transition-colors truncate">
                 {item.name}
-              </h4>
+              </h3>
             </div>
             <div className="flex items-center gap-2 text-xs text-slate-400 truncate font-medium">
               <span className="truncate">{item.role}</span>
@@ -253,18 +253,22 @@ const Testimonials = () => {
             </div>
 
             {/* Pagination Dots for Mobile */}
-            <div className="flex items-center justify-center gap-1.5 mt-3">
+            <div className="flex items-center justify-center gap-1 mt-3">
               {allTestimonials.map((_, dotIdx) => (
                 <button
                   key={dotIdx}
                   onClick={() => scrollToSlide(dotIdx)}
-                  aria-label={`Testimonial ${dotIdx + 1}`}
-                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                    activeSlide === dotIdx 
-                      ? 'w-6 bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.6)]' 
-                      : 'w-2 bg-slate-700 hover:bg-slate-600'
-                  }`}
-                />
+                  aria-label={`Go to testimonial ${dotIdx + 1}`}
+                  className="min-w-[28px] min-h-[28px] p-2 flex items-center justify-center cursor-pointer"
+                >
+                  <span
+                    className={`h-2 rounded-full transition-all duration-300 block ${
+                      activeSlide === dotIdx 
+                        ? 'w-6 bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.6)]' 
+                        : 'w-2 bg-slate-700 hover:bg-slate-600'
+                    }`}
+                  />
+                </button>
               ))}
             </div>
           </div>

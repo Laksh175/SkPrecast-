@@ -202,6 +202,8 @@ const Header = ({ currentRoute = 'home' }) => {
             <img 
               src="/assets/images/sk-logo.png" 
               alt="SK Precast Industries" 
+              width="329"
+              height="79"
               className="h-[46px] sm:h-[58px] lg:h-[70px] max-h-[70px] w-auto object-contain block brightness-110"/>
           </a>
 

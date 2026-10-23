@@ -1,5 +1,4 @@
 import React, { useState, useRef, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Search, ChevronDown, Check } from 'lucide-react';
 import { useClickOutside } from '../hooks';
 
@@ -161,6 +160,7 @@ export const SearchableSelect = ({
         {/* Right Chevron Toggle Button */}
         <button
           type="button"
+          aria-label="Toggle dropdown options"
           disabled={disabled}
           onClick={(e) => {
             e.stopPropagation();
@@ -176,15 +176,10 @@ export const SearchableSelect = ({
       </div>
 
       {/* Dropdown Popover */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: placement === 'top' ? -5 : 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: placement === 'top' ? -5 : 5 }}
-            transition={{ duration: 0.15 }}
-            className={`absolute ${placement === 'top' ? 'bottom-full mb-1.5' : 'top-full mt-1.5'} left-0 right-0 bg-[#0d1527] border border-slate-700 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-[150] overflow-hidden ${popoverClassName}`}
-          >
+      {isOpen && (
+        <div
+          className={`absolute ${placement === 'top' ? 'bottom-full mb-1.5' : 'top-full mt-1.5'} left-0 right-0 bg-[#0d1527] border border-slate-700 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-[150] overflow-hidden transition-all duration-150 ${popoverClassName}`}
+        >
             {/* Search Filter Header */}
             {showSearch && allFlattenedOptions.length > 5 && (
               <div className="p-2.5 border-b border-slate-800 bg-[#111927] flex items-center gap-2">
@@ -267,9 +262,8 @@ export const SearchableSelect = ({
                 )
               )}
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
     </div>
   );
 };

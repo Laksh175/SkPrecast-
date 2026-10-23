@@ -29,6 +29,11 @@ export default defineConfig({
               return;
             }
           }
+          if (url.startsWith('/.well-known/')) {
+            res.statusCode = 404;
+            res.end('Not Found');
+            return;
+          }
           next();
         });
       },
@@ -45,6 +50,11 @@ export default defineConfig({
               return;
             }
           }
+          if (url.startsWith('/.well-known/')) {
+            res.statusCode = 404;
+            res.end('Not Found');
+            return;
+          }
           next();
         });
       }
@@ -59,9 +69,6 @@ export default defineConfig({
         manualChunks(id) {
           if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
             return 'vendor-react';
-          }
-          if (id.includes('node_modules/framer-motion/')) {
-            return 'vendor-framer';
           }
           if (id.includes('node_modules/lucide-react/') || id.includes('node_modules/react-icons/')) {
             return 'vendor-icons';

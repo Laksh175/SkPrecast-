@@ -1,0 +1,16 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "SK Precast Industries",
+    "documentationUrl": "https://www.skprecast-industries.com/about-us",
+    "logoUrl": "https://www.skprecast-industries.com/assets/images/sk-logo.png"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:skprecast:catalog:products",
+      "displayName": "SK Precast Products & Boundary Walls Catalogue",
+      "type": "text/markdown",
+      "url": "https://www.skprecast-industries.com/llms.txt"
+    }
+  ]
+}
