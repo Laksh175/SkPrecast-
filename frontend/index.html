@@ -121,10 +121,13 @@
       }
       window.loadGoogleTranslate = loadGoogleTranslate;
 
-      if (document.cookie.indexOf('googtrans=') !== -1) {
-        window.addEventListener('load', function() {
-          setTimeout(loadGoogleTranslate, 2000);
-        });
+      var cookieMatch = document.cookie.match(/(^|;\s*)googtrans=([^;]*)/);
+      if (cookieMatch && cookieMatch[2] && cookieMatch[2] !== '/en/en' && cookieMatch[2] !== '') {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', loadGoogleTranslate);
+        } else {
+          loadGoogleTranslate();
+        }
       }
 
       // 2. Google Tag Manager: Load on user interaction

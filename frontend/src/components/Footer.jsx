@@ -22,42 +22,78 @@ const Footer = () => {
   // Detect active language from Google Translate cookie on mount
   useEffect(() => {
     const getCookie = (name) => {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(';').shift();
-      return null;
+      const match = document.cookie.match(new RegExp('(^|;\\s*)' + name + '=([^;]*)'));
+      return match ? decodeURIComponent(match[2]) : null;
     };
     
     const googTrans = getCookie('googtrans');
     if (googTrans) {
       const lang = googTrans.split('/').filter(Boolean).pop();
-      if (lang) setSelectedLang(lang);
+      if (lang && lang !== 'en') {
+        setSelectedLang(lang);
+      } else {
+        setSelectedLang('en');
+      }
     }
   }, []);
+
+  // Clear all variants of Google Translate cookies across root and subdomains
+  const clearGoogleTranslateCookies = () => {
+    const host = window.location.hostname;
+    const domainParts = host.split('.');
+    const rootDomain = domainParts.length > 1 ? domainParts.slice(-2).join('.') : host;
+
+    const domainsToClear = [
+      '',
+      host,
+      `.${host}`,
+      rootDomain,
+      `.${rootDomain}`
+    ];
+
+    domainsToClear.forEach((domain) => {
+      const domainAttr = domain ? `domain=${domain};` : '';
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; ${domainAttr} path=/;`;
+      document.cookie = `googtrans=; max-age=0; ${domainAttr} path=/;`;
+    });
+  };
 
   // Handle live translation when a language is selected
   const handleLanguageChange = (langCode) => {
     setSelectedLang(langCode);
 
-    // 1. Set Google Translate cookie for current host & domain
-    const host = window.location.hostname;
-    document.cookie = `googtrans=/en/${langCode}; path=/;`;
-    if (host !== 'localhost' && !host.match(/^\d+\.\d+\.\d+\.\d+$/)) {
-      document.cookie = `googtrans=/en/${langCode}; domain=.${host}; path=/;`;
+    // First, clear all existing duplicate/conflicting cookies
+    clearGoogleTranslateCookies();
+
+    // If English (native language), reload without any googtrans cookie
+    if (langCode === 'en') {
+      window.location.reload();
+      return;
     }
 
-    // 2. Ensure Google Translate script is loaded & trigger dropdown change
+    // Set fresh cookie on host and domain
+    const host = window.location.hostname;
+    const domainParts = host.split('.');
+    const rootDomain = domainParts.length > 1 ? domainParts.slice(-2).join('.') : host;
+    const cookieVal = `/en/${langCode}`;
+
+    // 1. Host-only cookie
+    document.cookie = `googtrans=${cookieVal}; path=/;`;
+
+    // 2. Domain-wide cookie (for live production domains)
+    if (host !== 'localhost' && !host.match(/^\d+\.\d+\.\d+\.\d+$/)) {
+      document.cookie = `googtrans=${cookieVal}; domain=.${rootDomain}; path=/;`;
+      document.cookie = `googtrans=${cookieVal}; domain=${rootDomain}; path=/;`;
+      if (host !== rootDomain) {
+        document.cookie = `googtrans=${cookieVal}; domain=.${host}; path=/;`;
+      }
+    }
+
+    // Ensure Google Translate is loaded & reload page for clean translation
     if (window.loadGoogleTranslate) {
       window.loadGoogleTranslate();
     }
-    const combo = document.querySelector('.goog-te-combo');
-    if (combo) {
-      combo.value = langCode;
-      combo.dispatchEvent(new Event('change'));
-    } else {
-      // If combo not ready, trigger a reload so the cookie translates the page
-      window.location.reload();
-    }
+    window.location.reload();
   };
 
   useEffect(() => {
